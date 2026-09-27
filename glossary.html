@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Al Hayat International School — MYP 2 Biology, unit: Energy in photosynthesis. An interactive four-session resource on what green plants need and how photosynthesis is investigated. Works fully offline.">
+<meta name="author" content="Al Hayat International School — MYP Sciences">
+<title>Glossary and sources — Fed by Light | MYP 2 Biology</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M6 26C6 14 14 6 26 6c0 12-8 20-20 20z' fill='%231F7A4C'/%3E%3Cpath d='M8 24C12 16 18 11 24 9' stroke='%23EFF3EC' stroke-width='1.6' fill='none'/%3E%3C/svg%3E">
+<style>
+/* ============================================================
+   FED BY LIGHT — design tokens
+   Colour is information here: every one of the four plant
+   factors owns a hue, and that hue follows the factor through
+   every diagram, chip, slider, table column and quiz question.
+   ============================================================ */
+:root{
+  --paper:#EFF3EC;        /* herbarium board */
+  --panel:#FFFFFF;
+  --panel-2:#F6F9F4;
+  --ink:#12312A;          /* botanical ink */
+  --ink-2:#3E5C52;
+  --ink-3:#6B857B;
+  --line:#CFDCD2;
+  --line-2:#E3EBE2;
+  --leaf:#1F7A4C;
+  --leaf-deep:#14532F;
+  --leaf-soft:#E4F2E7;
+
+  --w:#0E7C86;  --w-soft:#DFF1F2;   /* water     */
+  --s:#B8811A;  --s-soft:#FBEED4;   /* sunlight  */
+  --c:#6A5AD0;  --c-soft:#E8E5FA;   /* carbon dioxide */
+  --m:#8C4E2A;  --m-soft:#F5E5DA;   /* minerals  */
+
+  --good:#177245; --good-soft:#DDF0E4;
+  --warn:#A8480F; --warn-soft:#FBE6DA;
+
+  --sans:"Segoe UI",Roboto,system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --serif:"Iowan Old Style","Charter","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --mono:"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace;
+
+  --r-lab:18px; --r-card:12px; --r-chip:6px;
+  --shadow:0 1px 0 rgba(18,49,42,.05), 0 10px 30px -18px rgba(18,49,42,.35);
+  --rail-w:236px;
+  --maxread:74ch;
+}
+html[data-theme="dark"]{
+  --paper:#0E1613; --panel:#152220; --panel-2:#192925;
+  --ink:#E6EFE8; --ink-2:#B4C8BC; --ink-3:#8AA396;
+  --line:#2A3D37; --line-2:#223330;
+  --leaf:#4FBF83; --leaf-deep:#8FE0B2; --leaf-soft:#173023;
+  --w:#3FB6BF; --w-soft:#102C2F;
+  --s:#E3AE41; --s-soft:#332711;
+  --c:#9E90F0; --c-soft:#211D3B;
+  --m:#D08856; --m-soft:#301C11;
+  --good:#5BC98A; --good-soft:#13291D;
+  --warn:#EF9260; --warn-soft:#2E1710;
+  --shadow:0 1px 0 rgba(0,0,0,.3), 0 12px 34px -20px rgba(0,0,0,.9);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:96px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font:400 16px/1.62 var(--sans);
+  background-image:linear-gradient(var(--line-2) 1px,transparent 1px),linear-gradient(90deg,var(--line-2) 1px,transparent 1px);
+  background-size:34px 34px;background-position:-1px -1px;
+}
+img{max-width:100%;display:block;height:auto}
+a{color:var(--leaf-deep)}
+html[data-theme="dark"] a{color:var(--leaf-deep)}
+:focus-visible{outline:3px solid var(--leaf);outline-offset:2px;border-radius:3px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--leaf);color:#fff;padding:10px 16px;z-index:200;border-radius:0 0 8px 0}
+.skip:focus{left:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- typography ---------- */
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.18;letter-spacing:-.01em;margin:0 0 .5em}
+h1{font-size:clamp(2.1rem,5.4vw,3.05rem);letter-spacing:-.022em}
+h2{font-size:clamp(1.55rem,3.4vw,1.95rem);margin-top:0}
+h3{font-size:1.25rem}
+h4{font-size:1.06rem;font-family:var(--sans);font-weight:700;letter-spacing:0}
+p{margin:0 0 1em;max-width:var(--maxread)}
+ul,ol{max-width:var(--maxread);padding-left:1.15em}
+li{margin:.34em 0}
+strong{font-weight:650}
+.lede{font-size:1.12rem;color:var(--ink-2);max-width:66ch}
+.small{font-size:.86rem;color:var(--ink-3)}
+code,kbd{font-family:var(--mono);font-size:.9em;background:var(--panel-2);border:1px solid var(--line-2);padding:.08em .38em;border-radius:4px}
+
+/* ---------- shell ---------- */
+.topbar{
+  position:sticky;top:0;z-index:80;background:color-mix(in srgb,var(--paper) 86%,transparent);
+  backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-in{display:flex;align-items:center;gap:14px;padding:9px 18px;max-width:1500px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand svg{flex:none}
+.brand b{font-family:var(--serif);font-size:1.02rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand span{font-size:.76rem;color:var(--ink-3);display:block;line-height:1.2}
+.tools{margin-left:auto;display:flex;align-items:center;gap:8px}
+.ring{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--ink-2)}
+.ring svg{transform:rotate(-90deg)}
+.iconbtn{
+  border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:9px;
+  height:36px;min-width:36px;padding:0 10px;display:inline-flex;align-items:center;gap:7px;
+  font:600 .82rem/1 var(--sans);cursor:pointer;transition:background .16s,border-color .16s;
+}
+.iconbtn:hover{background:var(--leaf-soft);border-color:var(--leaf)}
+.layout{display:grid;grid-template-columns:var(--rail-w) minmax(0,1fr);gap:0;max-width:1500px;margin:0 auto}
+.rail{
+  position:sticky;top:56px;align-self:start;height:calc(100dvh - 56px);overflow-y:auto;
+  padding:22px 14px 60px;border-right:1px solid var(--line);
+}
+.rail h5{font:600 .78rem/1 var(--sans);color:var(--ink-3);margin:18px 8px 8px;letter-spacing:.02em}
+.rail h5:first-child{margin-top:0}
+.rail a{
+  display:flex;gap:9px;align-items:baseline;text-decoration:none;color:var(--ink-2);
+  padding:7px 9px;border-radius:8px;font-size:.875rem;line-height:1.35;border-left:3px solid transparent;
+}
+.rail a:hover{background:var(--panel);color:var(--ink)}
+.rail a.on{background:var(--panel);color:var(--ink);font-weight:600;border-left-color:var(--leaf);box-shadow:var(--shadow)}
+.rail a i{font-style:normal;font-family:var(--mono);font-size:.72rem;color:var(--ink-3);flex:none;width:1.5em}
+.rail a.on i{color:var(--leaf)}
+.rail .dot{width:9px;height:9px;border-radius:50%;flex:none;align-self:center}
+main{min-width:0;padding:0 clamp(16px,3.4vw,46px) 120px}
+section{padding:52px 0 8px;scroll-margin-top:80px}
+section+section{border-top:1px solid var(--line)}
+.eyebrow{font:600 .82rem/1.3 var(--sans);color:var(--ink-3);margin:0 0 .35em}
+.hr{height:1px;background:var(--line);border:0;margin:34px 0}
+
+/* ---------- containers ---------- */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-card);padding:20px 22px;box-shadow:var(--shadow);margin:0 0 18px}
+.card>:last-child{margin-bottom:0}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.breakout{max-width:1080px}
+.stack>*+*{margin-top:14px}
+
+/* specimen plate — photographs are presented as museum plates, not cards */
+.plate{margin:22px 0;background:var(--panel);border:1px solid var(--ink-3);padding:10px;box-shadow:var(--shadow);max-width:1000px}
+.plate .frame{border:1px solid var(--line);overflow:hidden;position:relative;background:#fff}
+.plate img{width:100%}
+.plate figcaption{display:flex;gap:12px;align-items:baseline;padding:10px 4px 2px;font-size:.85rem;color:var(--ink-2);border-top:1px solid var(--line-2);margin-top:10px}
+.plate figcaption b{font-family:var(--mono);font-size:.76rem;color:var(--ink-3);flex:none}
+
+/* ---------- factor colour coding ---------- */
+[data-f]{--f:var(--leaf);--f-soft:var(--leaf-soft)}
+[data-f="w"]{--f:var(--w);--f-soft:var(--w-soft)}
+[data-f="s"]{--f:var(--s);--f-soft:var(--s-soft)}
+[data-f="c"]{--f:var(--c);--f-soft:var(--c-soft)}
+[data-f="m"]{--f:var(--m);--f-soft:var(--m-soft)}
+.tint{border-left:4px solid var(--f)}
+.badge{display:inline-flex;align-items:center;gap:7px;background:var(--f-soft);color:var(--f);border:1px solid color-mix(in srgb,var(--f) 34%,transparent);
+  border-radius:999px;padding:3px 11px;font:650 .78rem/1.5 var(--sans)}
+.badge b{font-family:var(--mono);font-weight:700}
+
+/* ---------- buttons ---------- */
+.btn{
+  border:1px solid var(--leaf);background:var(--leaf);color:#fff;border-radius:9px;padding:9px 15px;
+  font:650 .9rem/1.2 var(--sans);cursor:pointer;transition:filter .16s,transform .06s;
+}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{background:var(--panel);color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--leaf);background:var(--leaf-soft)}
+.btn.f{background:var(--f);border-color:var(--f)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btnrow{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-chip);background:var(--panel);margin:0 0 16px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:460px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+thead th{background:var(--panel-2);font-weight:650;color:var(--ink-2);border-bottom:1px solid var(--line);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td.num,th.num{font-family:var(--mono);text-align:right}
+
+/* ---------- callouts ---------- */
+.note{border-left:4px solid var(--leaf);background:var(--leaf-soft);padding:14px 16px;border-radius:0 var(--r-chip) var(--r-chip) 0;margin:0 0 16px}
+.note.safety{border-left-color:var(--warn);background:var(--warn-soft)}
+.note.tip{border-left-color:var(--s);background:var(--s-soft)}
+.note h4{margin:0 0 .3em}
+.note>:last-child{margin-bottom:0}
+.note p{max-width:66ch}
+
+/* ---------- chips / drag and drop ---------- */
+.chip{
+  display:inline-flex;align-items:center;gap:7px;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--r-chip);padding:7px 12px;font:600 .86rem/1.25 var(--sans);color:var(--ink);
+  cursor:grab;user-select:none;touch-action:manipulation;transition:box-shadow .15s,border-color .15s,transform .1s
+}
+.chip:hover{border-color:var(--leaf)}
+.chip.sel{border-color:var(--leaf);box-shadow:0 0 0 3px var(--leaf-soft);transform:translateY(-1px)}
+.chip.placed{cursor:pointer}
+.chip.ok{border-color:var(--good);background:var(--good-soft)}
+.chip.no{border-color:var(--warn);background:var(--warn-soft)}
+.pool{display:flex;flex-wrap:wrap;gap:9px;padding:14px;background:var(--panel-2);border:1px dashed var(--line);border-radius:var(--r-card);min-height:64px}
+.zone{background:var(--panel);border:2px dashed var(--line);border-radius:var(--r-card);padding:13px;min-height:112px}
+.zone.over{border-color:var(--leaf);background:var(--leaf-soft)}
+.zone h4{margin:0 0 4px;font-size:.92rem}
+.zone .hint{font-size:.78rem;color:var(--ink-3);margin:0 0 9px}
+.zone .drop{display:flex;flex-wrap:wrap;gap:8px}
+
+/* ---------- predict / observe / explain ---------- */
+.poe{border:1px solid var(--line);border-radius:var(--r-card);background:var(--panel);overflow:hidden;margin:0 0 18px}
+.poe>header{padding:13px 17px;background:var(--f-soft);border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.poe>header h4{margin:0;color:var(--f)}
+.poe .body{padding:17px}
+.opts{display:grid;gap:9px;margin:0 0 14px}
+.opt{display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);background:var(--panel);border-radius:var(--r-chip);padding:11px 13px;cursor:pointer;text-align:left;font:inherit;color:inherit;width:100%;transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--f)}
+.opt .k{font-family:var(--mono);font-size:.78rem;color:var(--ink-3);flex:none;width:1.3em;padding-top:2px}
+.opt.picked{border-color:var(--f);background:var(--f-soft)}
+.opt.correct{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--warn);background:var(--warn-soft)}
+.feedback{display:none;border-top:1px dashed var(--line);padding-top:13px;margin-top:4px}
+.feedback.show{display:block;animation:drop .32s ease}
+@keyframes drop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+/* ---------- stepper ---------- */
+.steps{counter-reset:st;display:grid;gap:10px;margin:0 0 18px}
+.step{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-card);padding:14px 16px}
+.step .n{counter-increment:st;width:34px;height:34px;border-radius:50%;background:var(--f-soft);color:var(--f);
+  display:grid;place-items:center;font:700 .95rem/1 var(--mono);border:1px solid color-mix(in srgb,var(--f) 40%,transparent)}
+.step .n::before{content:counter(st)}
+.step h4{margin:.15em 0 .25em}
+.step p{margin:0;font-size:.93rem;color:var(--ink-2)}
+.step .why{margin-top:7px;font-size:.84rem;color:var(--f);font-weight:600}
+
+/* ---------- lab instrument ---------- */
+.lab{background:linear-gradient(180deg,var(--panel),var(--panel-2));border:1px solid var(--line);border-radius:var(--r-lab);box-shadow:var(--shadow);overflow:hidden;margin:0 0 20px}
+.lab>header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--panel)}
+.lab>header h3{margin:0;font-size:1.1rem}
+.lab .pad{padding:20px}
+.dials{display:grid;gap:16px}
+.dial{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+.dial label{font:650 .87rem/1.3 var(--sans);color:var(--ink);display:flex;gap:8px;align-items:center}
+.dial .val{font-family:var(--mono);font-size:.86rem;color:var(--f);font-weight:700;white-space:nowrap}
+.dial input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--f);height:26px}
+.dial .lim{grid-column:1/-1;font-size:.76rem;color:var(--warn);font-weight:650;min-height:1.1em}
+.toggle{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:999px;padding:6px 13px;background:var(--panel);cursor:pointer;font:650 .85rem/1 var(--sans)}
+.toggle input{accent-color:var(--f);width:16px;height:16px}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}
+.meter{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-card);padding:12px 14px}
+.meter .lab-k{font-size:.76rem;color:var(--ink-3);margin:0 0 3px}
+.meter .lab-v{font-family:var(--mono);font-size:1.5rem;font-weight:700;line-height:1.1;color:var(--ink)}
+.meter .lab-u{font-size:.74rem;color:var(--ink-3)}
+canvas{display:block;max-width:100%}
+
+/* ---------- quiz ---------- */
+.quiz{border:1px solid var(--line);border-radius:var(--r-card);background:var(--panel);padding:18px 20px;margin:0 0 18px}
+.qmeta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:.8rem;color:var(--ink-3);margin-bottom:10px}
+.qbar{height:6px;background:var(--line-2);border-radius:99px;overflow:hidden;flex:1;min-width:110px}
+.qbar i{display:block;height:100%;background:var(--leaf);width:0;transition:width .3s}
+.score{font-family:var(--mono);font-weight:700;color:var(--leaf)}
+
+/* ---------- rubric ---------- */
+.rub{border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden;margin:0 0 16px;background:var(--panel)}
+.rub>header{padding:13px 17px;background:var(--panel-2);border-bottom:1px solid var(--line)}
+.rub>header h4{margin:0}
+.bands{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:0}
+.band{padding:14px 16px;border-right:1px solid var(--line-2);border-bottom:1px solid var(--line-2);cursor:pointer;background:var(--panel);transition:background .15s}
+.band:hover{background:var(--panel-2)}
+.band.on{background:var(--good-soft);box-shadow:inset 0 0 0 2px var(--good)}
+.band .lv{font:700 .8rem/1 var(--mono);color:var(--ink-3);margin-bottom:6px}
+.band p{font-size:.85rem;margin:0;color:var(--ink-2)}
+.band.on .lv{color:var(--good)}
+
+/* ---------- glossary ---------- */
+.term{border-bottom:1.5px dotted var(--leaf);cursor:help;font-weight:600}
+.gloss{display:grid;gap:0;border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden;background:var(--panel)}
+.gterm{display:grid;grid-template-columns:minmax(140px,1fr) 2.4fr;gap:14px;padding:11px 16px;border-bottom:1px solid var(--line-2);font-size:.9rem}
+.gterm:last-child{border-bottom:0}
+.gterm dt{font-weight:700}
+.gterm dd{margin:0;color:var(--ink-2)}
+.gterm.hide{display:none}
+input[type=search],input[type=text],textarea,select{
+  font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 12px;width:100%
+}
+textarea{min-height:96px;resize:vertical;line-height:1.55}
+label.fld{display:block;margin:0 0 14px}
+label.fld>span{display:block;font:650 .86rem/1.4 var(--sans);margin-bottom:5px}
+
+/* ---------- misc ---------- */
+.pill{display:inline-block;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:.8rem;color:var(--ink-2);margin:0 6px 6px 0}
+.checkline{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line-2)}
+.checkline:last-child{border-bottom:0}
+.checkline input{margin-top:4px;width:17px;height:17px;accent-color:var(--leaf);flex:none}
+.tag{font:700 .7rem/1 var(--mono);color:var(--f);background:var(--f-soft);border-radius:4px;padding:4px 6px;letter-spacing:.02em}
+.flag{position:absolute;inset:auto auto 12px 12px;background:rgba(255,255,255,.94);color:#12312A;border-radius:8px;padding:7px 11px;font:650 .8rem/1.3 var(--sans);max-width:70%;box-shadow:0 6px 18px -8px rgba(0,0,0,.5)}
+
+/* hotspots on images / svg */
+.hs{position:absolute;width:30px;height:30px;border-radius:50%;border:2px solid #fff;background:var(--leaf);color:#fff;
+  font:700 .82rem/1 var(--mono);display:grid;place-items:center;cursor:pointer;transform:translate(-50%,-50%);
+  box-shadow:0 3px 10px rgba(0,0,0,.35);padding:0}
+.hs:hover,.hs.on{background:#fff;color:var(--leaf-deep);border-color:var(--leaf)}
+.hs.w{background:var(--w)}.hs.s{background:var(--s)}.hs.c{background:var(--c)}.hs.m{background:var(--m)}
+.hsbox{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-chip);padding:12px 14px;margin-top:12px;font-size:.9rem;min-height:74px}
+.hsbox h4{margin:0 0 .25em}
+.hsbox p{margin:0;color:var(--ink-2)}
+
+/* reveal slider for the iodine test */
+.reveal{position:relative;overflow:hidden;border:1px solid var(--line);background:#fff;touch-action:none}
+.reveal img{width:100%;display:block}
+.reveal .after{position:absolute;inset:0;width:50%;overflow:hidden;border-right:3px solid var(--s)}
+.reveal .after img{width:auto;height:100%;max-width:none;position:absolute;left:0;top:0}
+.reveal .handle{position:absolute;top:0;bottom:0;left:50%;width:44px;transform:translateX(-50%);cursor:ew-resize;display:grid;place-items:center}
+.reveal .knob{width:40px;height:40px;border-radius:50%;background:var(--s);border:3px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.4);display:grid;place-items:center;color:#fff;font:700 .8rem/1 var(--mono)}
+.reveal .lbl{position:absolute;top:10px;background:rgba(255,255,255,.94);color:#12312A;border-radius:6px;padding:5px 9px;font:650 .78rem/1 var(--sans)}
+
+.sunbeam{animation:sweep 5.5s ease-in-out infinite}
+@keyframes sweep{0%,100%{opacity:.35}50%{opacity:.95}}
+.bub{animation:rise 3.4s linear infinite}
+@keyframes rise{0%{transform:translateY(0);opacity:0}12%{opacity:.95}100%{transform:translateY(-118px);opacity:0}}
+.paused .sunbeam,.paused .bub{animation-play-state:paused}
+
+.footer{border-top:1px solid var(--line);margin-top:60px;padding:26px 0 0;color:var(--ink-3);font-size:.85rem}
+
+/* ---------- responsive ---------- */
+@media (max-width:1000px){
+  .layout{grid-template-columns:1fr}
+  .rail{position:sticky;top:55px;height:auto;display:flex;gap:6px;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);
+    padding:9px 12px;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(8px);z-index:70}
+  .rail h5{display:none}
+  .rail a{white-space:nowrap;border-left:0;border-bottom:3px solid transparent;border-radius:8px 8px 0 0;padding:7px 11px}
+  .rail a.on{border-left:0;border-bottom-color:var(--leaf);box-shadow:none}
+  main{padding:0 16px 90px}
+  section{padding-top:38px}
+  .brand span{display:none}
+}
+@media (max-width:560px){
+  .topbar-in{padding:8px 12px;gap:9px}
+  .card{padding:16px}
+  .lab .pad{padding:15px}
+  .bands{grid-template-columns:1fr}
+}
+
+/* ---------- print: the page becomes a real worksheet ---------- */
+@media print{
+  @page{margin:15mm}
+  body{background:#fff!important;background-image:none!important;color:#000;font-size:10.5pt}
+  .topbar,.rail,.noprint,.btnrow,.iconbtn{display:none!important}
+  .layout{display:block}
+  main{padding:0}
+  section{page-break-inside:auto;border-top:1px solid #999;padding:14pt 0}
+  .card,.lab,.poe,.quiz,.rub,.plate{break-inside:avoid;box-shadow:none;border:1px solid #999}
+  .printonly{display:block!important}
+  a[href^="#"]::after{content:""}
+  .feedback{display:block!important}
+  textarea{min-height:70pt;border:1px solid #999}
+}
+.printonly{display:none}
+</style>
+
+<style>
+/* ---- tab strip added when the unit is split across files ---- */
+html{scroll-padding-top:calc(var(--tb,54px) + var(--tbs,47px) + 16px)}
+.tabs{position:sticky;top:var(--tb,54px);z-index:76;background:color-mix(in srgb,var(--paper) 90%,transparent);
+  backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);
+  border-bottom:1px solid var(--line);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs-in{display:flex;gap:5px;max-width:1500px;margin:0 auto;padding:7px 18px}
+.tab{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;text-decoration:none;
+  font:650 .85rem/1 var(--sans);color:var(--ink-2);background:var(--panel);border:1px solid var(--line);
+  border-radius:9px;padding:9px 13px;transition:background .15s,border-color .15s,color .15s}
+.tab:hover{border-color:var(--leaf);background:var(--leaf-soft);color:var(--ink)}
+.tab.on{background:var(--leaf);border-color:var(--leaf);color:#fff}
+.tab.on:hover{background:var(--leaf);color:#fff}
+.tab.lock{opacity:.4;cursor:not-allowed;background:transparent;border-style:dashed}
+.tab.lock:hover{border-color:var(--line);background:transparent;color:var(--ink-2)}
+.tab .n{font-family:var(--mono);font-size:.76rem;opacity:.75}
+.rail{top:calc(var(--tb,54px) + var(--tbs,47px));height:calc(100dvh - var(--tb,54px) - var(--tbs,47px))}
+@media (max-width:1000px){
+  .tabs-in{padding:6px 12px}
+  .rail{height:auto}
+}
+@media print{.tabs{display:none!important}}
+
+/* ---- hub ---- */
+.hub{max-width:1180px;margin:0 auto;padding:30px clamp(16px,3.4vw,46px) 90px}
+.parts{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));margin:22px 0}
+.part{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--r-card);box-shadow:var(--shadow);padding:18px 20px;border-top:4px solid var(--f,var(--leaf))}
+.part h3{margin:0 0 .15em;font-size:1.14rem}
+.part .meta{font:600 .78rem/1.4 var(--sans);color:var(--ink-3);margin:0 0 .6em}
+.part ul{margin:0 0 14px;padding-left:1.1em;font-size:.88rem;color:var(--ink-2)}
+.part li{margin:.2em 0}
+.part .foot{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.copied{font:650 .78rem/1 var(--sans);color:var(--good)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 27C5 14.3 13.3 5 27 5c0 12.7-8.3 22-22 22z" fill="var(--leaf)"/><path d="M8 24C12.5 15.5 18.5 10.5 24.5 8.5" stroke="var(--paper)" stroke-width="1.7" fill="none" stroke-linecap="round"/></svg>
+      <div>
+        <b>Fed by Light &nbsp;&middot;&nbsp; Glossary</b>
+        <span>Al Hayat International School &nbsp;|&nbsp; MYP 2 Biology</span>
+      </div>
+    </div>
+    <div class="tools">
+      <div class="ring" title="How much of this part you have completed">
+        <svg width="30" height="30" viewBox="0 0 36 36" aria-hidden="true">
+          <circle cx="18" cy="18" r="15" fill="none" stroke="var(--line)" stroke-width="4"></circle>
+          <circle id="ringArc" cx="18" cy="18" r="15" fill="none" stroke="var(--leaf)" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.25" stroke-dashoffset="94.25"></circle>
+        </svg>
+        <span id="ringTxt" aria-live="polite">0%</span>
+      </div>
+      <button class="iconbtn" id="themeBtn" aria-label="Switch between light and dark">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M19.1 4.9l-1.5 1.5M6.4 17.6l-1.5 1.5"/></svg>
+        <span class="hide-sm">Theme</span>
+      </button>
+      <button class="iconbtn" id="printBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M8 14h8v7H8z"/></svg>
+        <span class="hide-sm">Print</span>
+      </button>
+    </div>
+  </div>
+</header>
+<nav class="tabs" aria-label="Parts of this unit"><div class="tabs-in">
+<a class="tab" href="overview.html">Overview</a>
+<span class="tab lock" role="link" aria-disabled="true" title="Your teacher has not released this part yet"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span class="n">1</span>Plant needs</span>
+<span class="tab lock" role="link" aria-disabled="true" title="Your teacher has not released this part yet"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span class="n">2</span>Light &amp; starch</span>
+<span class="tab lock" role="link" aria-disabled="true" title="Your teacher has not released this part yet"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span class="n">3</span>Gases &amp; minerals</span>
+<span class="tab lock" role="link" aria-disabled="true" title="Your teacher has not released this part yet"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span class="n">4</span>Outputs &amp; impact</span>
+<span class="tab lock" role="link" aria-disabled="true" title="Your teacher has not released this part yet"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Check &amp; reflect</span>
+<a class="tab on" href="glossary.html" aria-current="page">Glossary</a>
+</div></nav>
+<script>(function(){var r=document.documentElement;function m(){var t=document.querySelector(".topbar"),n=document.querySelector(".tabs");if(t)r.style.setProperty("--tb",Math.round(t.getBoundingClientRect().height)+"px");if(n)r.style.setProperty("--tbs",Math.round(n.getBoundingClientRect().height)+"px");}m();addEventListener("resize",m);addEventListener("load",m);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(m);})();</script>
+<div class="layout">
+<nav class="rail" aria-label="On this page"><h5>Glossary and sources</h5>
+<a href="#top"><i>&#9650;</i><span>Top of page</span></a>
+<a href="#gloss"><i>&middot;</i><span>Glossary &amp; sources</span></a>
+</nav>
+<main id="main">
+<section id="top" style="padding-top:30px;border-top:0">
+  <p class="eyebrow">Reference</p>
+  <h1>Glossary and sources</h1>
+  <p class="lede">Every term underlined anywhere in this unit, the command terms an examiner uses, and where the unit comes from. Keep this one open alongside the others.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 22px"><span class="pill">26 terms</span><span class="pill">Command terms</span><span class="pill">Sources</span></div>
+</section>
+<section id="gloss">
+  <p class="eyebrow">D &nbsp;— &nbsp;Reference</p>
+  <h2>Glossary</h2>
+  <p>Every term underlined in the text appears here. Using this vocabulary accurately is Criterion D strand iii, and it is also just how you get taken seriously.</p>
+  <label class="fld" style="max-width:420px"><span>Search the glossary</span><input type="search" id="glossSearch" placeholder="Type a word, for example: stoma" autocomplete="off"></label>
+  <dl class="gloss breakout" id="glossList"></dl>
+
+  <h3 style="margin-top:32px">Command terms in this unit</h3>
+  <p class="small">In an MYP examination the command term tells you exactly how much to write. Confusing <em>state</em> with <em>explain</em> costs marks that have nothing to do with how well you understand plants.</p>
+  <div class="tw breakout">
+    <table>
+      <thead><tr><th>Term</th><th>What the examiner wants</th></tr></thead>
+      <tbody>
+        <tr><td><strong>State</strong></td><td>A short, precise answer. No reasoning, no sentence needed.</td></tr>
+        <tr><td><strong>Outline</strong></td><td>A brief summary of the main points.</td></tr>
+        <tr><td><strong>Describe</strong></td><td>A detailed account of what happens, without saying why.</td></tr>
+        <tr><td><strong>Explain</strong></td><td>Reasons and causes. Every &ldquo;explain&rdquo; answer should contain the word <em>because</em> or its equivalent.</td></tr>
+        <tr><td><strong>Analyse</strong></td><td>Break it into parts and show how they relate.</td></tr>
+        <tr><td><strong>Evaluate</strong></td><td>Weigh strengths against limitations and reach a supported judgement.</td></tr>
+        <tr><td><strong>Design</strong></td><td>Produce a plan complete enough for someone else to carry out.</td></tr>
+        <tr><td><strong>Discuss</strong></td><td>Present more than one side, with evidence, before concluding.</td></tr>
+        <tr><td><strong>Deduce</strong></td><td>Reach a conclusion from the information given, showing the reasoning.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="margin-top:32px">Where this unit comes from</h3>
+  <div class="card breakout">
+    <h4>Programme documents</h4>
+    <ul style="font-size:.92rem">
+      <li>International Baccalaureate Organization. <em>Middle Years Programme Sciences guide</em>. Available to teachers on the IB programme resource centre — the source for the objectives, strands and published assessment criteria referred to throughout this page.</li>
+      <li>International Baccalaureate Organization. <em>MYP: From principles into practice</em> — key and related concepts, global contexts, statements of inquiry and approaches to learning.</li>
+      <li>International Baccalaureate Organization. <em>MYP command terms</em>, as listed in the Sciences guide.</li>
+    </ul>
+    <h4 style="margin-top:16px">A note on the criterion wording used here</h4>
+    <p style="font-size:.92rem">The band descriptions in the self-assessment above are written by the school as task-specific clarifications for MYP 2, matched to the objectives and strands of the Sciences guide. They are a teaching aid, not a replacement for the official published descriptors, which teachers should read directly from the guide when awarding final levels.</p>
+    <h4 style="margin-top:16px">Practical procedures</h4>
+    <p style="font-size:.92rem;margin-bottom:0">The starch test, the destarching protocol, the bell jar and potassium hydroxide demonstration and the water culture method are standard school science procedures. Follow your school's own risk assessment and the guidance of your science technician, which takes precedence over anything written here.</p>
+  </div>
+</section>
+
+
+<div class="footer">
+  <p class="small" style="margin-bottom:.8em">This is one part of a four-session unit. Sections you cannot open yet are released by your teacher.</p>
+  <p><strong>Fed by light</strong> — MYP 2 Biology, Al Hayat International School. Built as a single self-contained file: no internet connection, no external libraries and no tracking. Copy it anywhere and it still runs.</p>
+  <p class="small">Diagrams and photographic plates supplied by the teacher for this unit. Interactive models are simplified for MYP 2 and are teaching tools rather than research simulations. Version 1.0.</p>
+</div>
+
+
+</main>
+</div>
+<script>
+(function(){
+"use strict";
+
+/* ---------- safe storage: falls back to memory if the browser blocks it ---------- */
+var mem={};
+var store={
+  get:function(k){try{var v=localStorage.getItem(k);return v===null?(k in mem?mem[k]:null):v;}catch(e){return (k in mem)?mem[k]:null;}},
+  set:function(k,v){try{localStorage.setItem(k,v);}catch(e){}mem[k]=v;},
+  del:function(k){try{localStorage.removeItem(k);}catch(e){}delete mem[k];}
+};
+var NS="fbl.";
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- progress ---------- */
+var MILESTONES=["needs","vars","poe.water","pct","weak","starch","poe.light","poe.lightwhy","co2","poe.co2","min","poe.min","fate","eq","poe.eq","lab","poe.lab1","poe.lab2","quiz","rubric"];
+var done={};
+(function(){try{done=JSON.parse(store.get(NS+"done")||"{}");}catch(e){done={};}})();
+function mark(k){ if(done[k])return; done[k]=1; store.set(NS+"done",JSON.stringify(done)); paintRing(); }
+var MSEL={"needs":"#poolNeeds","vars":"#poolVars","poe.water":'[data-poe="water"]',"pct":"#pctBtn",
+"weak":"#wkOpts","starch":"#starchSteps","poe.light":'[data-poe="light"]',"poe.lightwhy":'[data-poe="lightwhy"]',
+"co2":"#co2Run","poe.co2":'[data-poe="co2"]',"min":"#minBtns","poe.min":'[data-poe="min"]',"fate":"#fateBtns",
+"eq":"#eqRow","poe.eq":'[data-poe="eq"]',"lab":"#labRun","poe.lab1":'[data-poe="lab1"]',"poe.lab2":'[data-poe="lab2"]',
+"quiz":"#qBody","rubric":"#rubrics"};
+var ACTIVE=null;
+function activeMs(){
+  if(!ACTIVE){ ACTIVE=MILESTONES.filter(function(k){return !MSEL[k]||document.querySelector(MSEL[k]);});
+    if(!ACTIVE.length) ACTIVE=MILESTONES.slice(); }
+  return ACTIVE;
+}
+function paintRing(){
+  var A=activeMs(), n=0; A.forEach(function(k){if(done[k])n++;});
+  var pct=Math.round(n/A.length*100);
+  var arc=$("#ringArc"); if(arc){var C=94.25; arc.setAttribute("stroke-dashoffset",String(C-C*pct/100));}
+  var t=$("#ringTxt"); if(t)t.textContent=pct+"%";
+}
+
+/* ---------- theme ---------- */
+(function(){
+  var saved=store.get(NS+"theme");
+  if(saved) document.documentElement.setAttribute("data-theme",saved);
+  else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches) document.documentElement.setAttribute("data-theme","dark");
+  var b=$("#themeBtn"); if(b) b.addEventListener("click",function(){
+    var cur=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+    document.documentElement.setAttribute("data-theme",cur); store.set(NS+"theme",cur);
+    if(window.__redrawChart) window.__redrawChart();
+  });
+})();
+$$("#printBtn,#printBtn2").forEach(function(b){b.addEventListener("click",function(){window.print();});});
+
+/* ---------- scroll spy ---------- */
+(function(){
+  var links=$$(".rail a"), map={};
+  links.forEach(function(a){var id=a.getAttribute("href").slice(1);var s=document.getElementById(id);if(s)map[id]=a;});
+  var secs=Object.keys(map).map(function(id){return document.getElementById(id);});
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove("on");});
+        var a=map[e.target.id]; if(a){a.classList.add("on");
+          if(window.innerWidth<=1000){var r=$(".rail"); var box=a.getBoundingClientRect(), rb=r.getBoundingClientRect();
+            if(box.left<rb.left||box.right>rb.right) r.scrollLeft+=box.left-rb.left-16;}
+        }
+      }
+    });
+  },{rootMargin:"-90px 0px -70% 0px",threshold:0});
+  secs.forEach(function(s){io.observe(s);});
+})();
+
+/* ---------- leaf explorer ---------- */
+var LEAF=[
+ {t:"Sunlight arrives",d:"Only part of the light that hits a leaf is useful. Chlorophyll absorbs red and blue light strongly and reflects green — which is the only reason leaves look green to you at all."},
+ {t:"Waxy cuticle and upper epidermis",d:"A transparent waterproof layer. It lets light straight through to the cells below but stops the leaf drying out. It has no chloroplasts, because its job is protection, not production."},
+ {t:"Palisade mesophyll",d:"Tall cells packed tightly at the top of the leaf, each stuffed with chloroplasts. This is where most photosynthesis happens. Their shape and position are no accident: they are first in line for the light."},
+ {t:"Spongy mesophyll and air spaces",d:"Loosely packed cells with large gaps between them. The gaps are a gas motorway — carbon dioxide diffuses in through them to reach every cell, and oxygen diffuses back out."},
+ {t:"Stoma and guard cells",d:"A pore in the lower surface, opened and closed by two guard cells. Carbon dioxide enters here and oxygen and water vapour leave. Open it too wide on a hot day and the plant dries out, so the guard cells are constantly negotiating."},
+ {t:"The vein: xylem and phloem",d:"Xylem brings water and dissolved minerals up from the roots. Phloem carries the sugar the leaf has just made away to the rest of the plant. Two pipes, opposite directions, side by side."},
+ {t:"Minerals dissolved in the water",d:"Nitrogen, phosphorus, potassium, magnesium and calcium arrive dissolved in the same water stream. They are not raw materials of photosynthesis, but without them the leaf cannot build the chlorophyll or the enzymes that make it work."}
+];
+$$(".hs").forEach(function(b){
+  b.addEventListener("click",function(){
+    $$(".hs").forEach(function(x){x.classList.remove("on");});
+    b.classList.add("on");
+    var d=LEAF[+b.dataset.hs];
+    $("#leafInfo").innerHTML="<h4>"+d.t+"</h4><p>"+d.d+"</p>";
+  });
+});
+
+/* ---------- inquiry tabs ---------- */
+$$(".qtab").forEach(function(t){
+  t.addEventListener("click",function(){
+    $$(".qtab").forEach(function(x){x.classList.remove("on");x.setAttribute("aria-selected","false");x.style.color="var(--ink-3)";x.style.borderBottomColor="transparent";});
+    t.classList.add("on");t.setAttribute("aria-selected","true");t.style.color="var(--ink)";t.style.borderBottomColor="var(--leaf)";
+    ["f","c","d"].forEach(function(k){$("#qt"+k.toUpperCase()).hidden=(k!==t.dataset.qt);});
+  });
+});
+
+/* ---------- criteria cards ---------- */
+var CRIT={
+A:{n:"Criterion A — Knowing and understanding",s:["<strong>i</strong> Recall and describe the four factors, the raw materials, the products and the starch test.","<strong>ii</strong> Apply that knowledge to a situation you have not seen before, such as diagnosing a farmer's crop.","<strong>iii</strong> Analyse information — a photograph, a table, a graph — and reach a judgement you can support."],w:"Assessed by the eighteen-question test in this page and by the end-of-unit written paper."},
+B:{n:"Criterion B — Inquiring and designing",s:["<strong>i</strong> Write a research question that can actually be tested.","<strong>ii</strong> Make a prediction and justify it with science, not with a guess.","<strong>iii</strong> State the independent, dependent and controlled variables, and how you will collect enough data.","<strong>iv</strong> Write a method that is logical, safe, and complete enough for a stranger to follow."],w:"Assessed by your mineral-deficiency design task in Session 3."},
+C:{n:"Criterion C — Processing and evaluating",s:["<strong>i</strong> Put your results in a clear table and draw a correct graph.","<strong>ii</strong> Say what your results show, and why.","<strong>iii</strong> Say whether your prediction was right, using your own numbers.","<strong>iv</strong> Say what went wrong with the method.","<strong>v</strong> Say what you would change next time."],w:"Assessed by the data you collect in the virtual lab and the short conclusion you write beneath it."},
+D:{n:"Criterion D — Reflecting on the impacts of science",s:["<strong>i</strong> Describe how this science is used to solve a real problem.","<strong>ii</strong> Discuss the implications — for people, money, the environment or ethics.","<strong>iii</strong> Use scientific language correctly and consistently.","<strong>iv</strong> Document every source you used, in one style."],w:"Assessed by the food-or-fuel position task in Session 4."}
+};
+$$(".critc").forEach(function(c){
+  c.addEventListener("click",function(){
+    $$(".critc").forEach(function(x){x.style.background="var(--panel)";});
+    c.style.background="var(--panel-2)";
+    var d=CRIT[c.dataset.crit];
+    $("#critBox").innerHTML="<h4>"+d.n+"</h4><ul style='margin:.6em 0'>"+d.s.map(function(x){return "<li>"+x+"</li>";}).join("")+"</ul><p class='small' style='margin:0'>"+d.w+"</p>";
+  });
+});
+
+/* ---------- session accordion ---------- */
+var SESS=[
+ {n:"Session 1",t:"What a plant asks for",m:"55 min",b:["Hook: van Helmont's willow tree and the missing 74 kilograms.","Direct teaching: the four environmental factors and why fertiliser is not food.","Sorting activity: inputs, outputs and myths.","Fair testing: independent, dependent, controlled — and the difference between a controlled variable and a control setup.","Experiment 1 walkthrough: water. Predict, read the data, calculate a percentage change, evaluate the limitations.","Exit ticket: one sentence on why a control setup is needed."],c:"Criterion A and B introduced"},
+ {n:"Session 2",t:"Light writes on leaves",m:"60 min",b:["Recap: why starch, and not glucose, is the thing we test for.","Practical or simulation: the six-stage starch test, run in order, with the safety rules stated before anything is heated.","Experiment 2: the stencil on the leaf. Predict, then reveal.","Reading the result: same leaf, same everything, one difference.","Extension: the variegated leaf and the role of chlorophyll.","Exit ticket: why the plant must be destarched first."],c:"Criterion A, plus practical skills"},
+ {n:"Session 3",t:"The invisible ingredients",m:"60 min",b:["Teacher demonstration: the sealed bell jar and potassium hydroxide, with the safety brief.","Experiment 3: interpreting the two jars, and why the control jar carries the argument.","Water culture: growing plants with no soil at all.","Experiment 4: the five ions, what each builds and what its absence looks like.","Diagnosis practice on an unfamiliar case.","Assessed task begins: design your own mineral investigation."],c:"Criterion B assessed"},
+ {n:"Session 4",t:"Outputs and impact",m:"60 min",b:["What the plant makes, and the six fates of a glucose molecule.","Balancing the equation, atom by atom.","Virtual lab: rate of photosynthesis against light, carbon dioxide and temperature. Three repeats, a mean, a graph.","Limiting factors, discovered rather than told.","Criterion D: food or fuel — take a position, then argue the opposite.","Self-assessment against all four criteria, reflection, export."],c:"Criterion C and D assessed"}
+];
+(function(){
+  var w=$("#sessionAcc"); if(!w)return;
+  SESS.forEach(function(s,i){
+    var d=document.createElement("details");
+    d.className="card"; d.style.margin="0"; d.style.padding="0"; if(i===0)d.open=true;
+    d.innerHTML="<summary style='cursor:pointer;padding:15px 20px;list-style:none;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap'>"+
+      "<span style='font:700 .8rem var(--mono);color:var(--ink-3)'>"+s.n+"</span>"+
+      "<strong style='font-family:var(--serif);font-size:1.16rem'>"+s.t+"</strong>"+
+      "<span class='small' style='margin-left:auto'>"+s.m+" &nbsp;&middot;&nbsp; "+s.c+"</span></summary>"+
+      "<div style='padding:0 20px 18px'><ul style='margin:0'>"+s.b.map(function(x){return "<li>"+x+"</li>";}).join("")+"</ul></div>";
+    w.appendChild(d);
+  });
+})();
+
+/* ---------- generic sorter ---------- */
+function sorter(cfg){
+  var pool=$(cfg.pool); if(!pool)return;
+  var zones=$$(cfg.zones);
+  var sel=null;
+  function chip(it){
+    var b=document.createElement("button");
+    b.type="button"; b.className="chip"; b.draggable=true; b.textContent=it.label; b.dataset.id=it.id;
+    b.addEventListener("click",function(e){
+      e.stopPropagation();
+      if(sel===b){b.classList.remove("sel");sel=null;return;}
+      if(sel)sel.classList.remove("sel");
+      sel=b; b.classList.add("sel");
+    });
+    b.addEventListener("dragstart",function(e){e.dataTransfer.setData("text/plain",it.id);e.dataTransfer.effectAllowed="move";sel=b;});
+    return b;
+  }
+  function place(target){
+    if(!sel)return;
+    sel.classList.remove("sel","ok","no");
+    target.appendChild(sel); sel=null;
+  }
+  function wire(el,dropEl){
+    el.addEventListener("click",function(){place(dropEl);});
+    el.setAttribute("tabindex","0");
+    el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();place(dropEl);}});
+    el.addEventListener("dragover",function(e){e.preventDefault();el.classList.add("over");});
+    el.addEventListener("dragleave",function(){el.classList.remove("over");});
+    el.addEventListener("drop",function(e){
+      e.preventDefault(); el.classList.remove("over");
+      var id=e.dataTransfer.getData("text/plain");
+      var c=pool.parentNode.querySelector('.chip[data-id="'+id+'"]');
+      if(c){c.classList.remove("sel","ok","no");dropEl.appendChild(c);sel=null;}
+    });
+  }
+  function fill(){
+    pool.innerHTML="";
+    zones.forEach(function(z){$(".drop",z).innerHTML="";});
+    cfg.items.slice().sort(function(){return Math.random()-0.5;}).forEach(function(it){pool.appendChild(chip(it));});
+    $(cfg.msg).textContent=""; $(cfg.fb).classList.remove("show"); $(cfg.fb).innerHTML="";
+  }
+  wire(pool,pool);
+  zones.forEach(function(z){wire(z,$(".drop",z));});
+  $(cfg.check).addEventListener("click",function(){
+    var right=0,total=cfg.items.length,left=0;
+    cfg.items.forEach(function(it){
+      var c=pool.parentNode.querySelector('.chip[data-id="'+it.id+'"]');
+      if(!c)return;
+      var z=c.closest(".zone");
+      if(!z){left++;c.classList.remove("ok","no");return;}
+      var ok=z.dataset.zone===it.zone;
+      c.classList.toggle("ok",ok); c.classList.toggle("no",!ok);
+      if(ok)right++;
+    });
+    $(cfg.msg).textContent = left? (left+" still unsorted — place them all, then check.") : (right+" of "+total+" correct.");
+    if(!left){
+      var fb=$(cfg.fb);
+      fb.innerHTML="<h4>"+(right===total?"All correct.":"Here is the reasoning for each one.")+"</h4><ul style='margin:.4em 0 0'>"+
+        cfg.items.map(function(it){return "<li><strong>"+it.label+"</strong> — "+it.why+"</li>";}).join("")+"</ul>";
+      fb.classList.add("show");
+      if(right===total) mark(cfg.key);
+    }
+  });
+  $(cfg.reset).addEventListener("click",fill);
+  fill();
+}
+
+sorter({pool:"#poolNeeds",zones:"#s1-needs .zone",check:"#needsCheck",reset:"#needsReset",msg:"#needsMsg",fb:"#needsFb",key:"needs",items:[
+ {id:"n1",label:"Water from the soil",zone:"in",why:"A raw material of photosynthesis, and the carrier for every mineral the roots absorb."},
+ {id:"n2",label:"Carbon dioxide from the air",zone:"in",why:"Diffuses in through the stomata. It supplies every carbon atom the plant will ever contain."},
+ {id:"n3",label:"Light energy from the Sun",zone:"in",why:"Not matter, but energy — and without it the reaction simply does not start."},
+ {id:"n4",label:"Nitrate ions from the soil",zone:"in",why:"Absorbed by the roots and used to turn glucose into amino acids and proteins."},
+ {id:"n5",label:"Magnesium ions from the soil",zone:"in",why:"Absorbed by the roots. Every chlorophyll molecule has a magnesium atom at its centre."},
+ {id:"n6",label:"Glucose",zone:"out",why:"The sugar the plant makes. This is the plant's real food, and it is made, not absorbed."},
+ {id:"n7",label:"Oxygen",zone:"out",why:"Released through the stomata as a waste product of photosynthesis."},
+ {id:"n8",label:"Starch stored in the leaf",zone:"out",why:"Made by the plant from surplus glucose, because starch is insoluble and stays put."},
+ {id:"n9",label:"Plants absorb ready-made food from the soil",zone:"myth",why:"They make their own. Van Helmont's willow gained 74 kg while the soil lost 60 g."},
+ {id:"n10",label:"Fertiliser is plant food",zone:"myth",why:"Fertiliser supplies mineral ions — building materials, not energy. The name has misled generations."},
+ {id:"n11",label:"Most of a tree's mass came from the soil",zone:"myth",why:"Most of it came from carbon dioxide in the air, one invisible molecule at a time."},
+ {id:"n12",label:"Plants only need light; the rest is optional",zone:"myth",why:"Remove any one of the four factors and the system stops. That is what all four experiments show."}
+]});
+
+sorter({pool:"#poolVars",zones:"#s1-fair .zone",check:"#varsCheck",reset:"#varsReset",msg:"#varsMsg",fb:"#varsFb",key:"vars",items:[
+ {id:"v1",label:"Whether the plant is watered",zone:"iv",why:"The one thing deliberately changed. An investigation has exactly one independent variable."},
+ {id:"v2",label:"Height of the plant in cm",zone:"dv",why:"The measured outcome. Note the unit — a dependent variable without units loses marks."},
+ {id:"v3",label:"Species and starting height of the plant",zone:"cv",why:"Different species grow at different rates, so this must be identical in both setups."},
+ {id:"v4",label:"Volume and type of soil in each pot",zone:"cv",why:"Soil holds water and minerals. Different soil would give you a second variable."},
+ {id:"v5",label:"Position on the windowsill",zone:"cv",why:"One plant in brighter light would confound the whole result."},
+ {id:"v6",label:"Room temperature",zone:"cv",why:"Warmth affects evaporation and the rate of every reaction in the plant."},
+ {id:"v7",label:"Number of days the experiment runs",zone:"cv",why:"Both plants must be measured over the same period for the comparison to mean anything."},
+ {id:"v8",label:"Size and material of the pot",zone:"cv",why:"A larger or more porous pot changes how fast the soil dries out."}
+]});
+
+/* ---------- predict, observe, explain ---------- */
+var POE={
+water:{ex:"Water keeps cells firm through turgor pressure and carries dissolved minerals up from the roots. Remove it and the plant loses its support first, then its ability to transport anything at all.",o:[
+ {t:"It will grow taller than Plant A, because it has to stretch to search for water.",c:0,f:"Plants do grow towards light, but they cannot search for water by getting taller, and growth needs water in the first place."},
+ {t:"It will wilt and yellow, because without water its cells lose the internal pressure that holds them firm and it can no longer carry minerals from the soil.",c:1,f:"This is the prediction with real reasoning behind it — it names the mechanism, not just the outcome."},
+ {t:"It will look exactly the same, because plants store years of water inside their stems.",c:0,f:"Some desert plants store water for months. A bean plant on a windowsill has days at most."},
+ {t:"It will die completely within twenty-four hours.",c:0,f:"Right direction, wrong timescale. Watch the data table: the decline is gradual and starts around day six."}
+]},
+light:{ex:"The boundary between blue-black and orange-brown follows the exact outline of the paper. Same leaf, same water, same air, same chlorophyll — one difference, one result.",o:[
+ {t:"The whole leaf turns blue-black.",c:0,f:"That would mean the covered part made starch without any light, or that the plant was never destarched."},
+ {t:"The whole leaf stays orange-brown.",c:0,f:"That would mean no part of the leaf photosynthesised, even in six hours of full sunlight."},
+ {t:"The covered star stays orange-brown; everywhere the light reached turns blue-black.",c:1,f:"Correct — and notice that the shape of the result is the shape of the paper, which is what makes the evidence so hard to dispute."},
+ {t:"The covered star turns blue-black and the rest stays orange-brown.",c:0,f:"Reversed. Starch is made where light arrives, not where it is blocked."}
+]},
+lightwhy:{ex:"Destarching is not a fussy extra step. Without it the experiment has no control condition at all, because both regions start with starch already in them.",o:[
+ {t:"Nothing changes — the result comes out the same.",c:0,f:"It comes out looking similar in places, which is exactly why this mistake is so dangerous."},
+ {t:"The whole leaf, including the covered star, turns blue-black, because starch made on previous days is still stored there. The experiment now proves nothing.",c:1,f:"Exactly. The result is not just wrong, it is uninterpretable — you cannot tell old starch from new."},
+ {t:"The leaf turns bright green.",c:0,f:"Iodine does not turn anything green, and the ethanol stage has already removed the chlorophyll."},
+ {t:"The star region goes darker than the rest of the leaf.",c:0,f:"There is no mechanism that would make a shaded region accumulate more starch than a lit one."}
+]},
+co2:{ex:"A single sealed jar changes many things at once: humidity rises, temperature rises, the glass reduces the light. The control jar experiences all of those too — so whatever is left over is the effect of the carbon dioxide alone.",o:[
+ {t:"Because two plants always look more convincing than one.",c:0,f:"Persuasiveness is not the point. A control exists to eliminate alternative explanations."},
+ {t:"Because without a comparison you cannot tell whether the missing starch was caused by removing carbon dioxide or simply by being sealed inside a warm, humid glass jar.",c:1,f:"That is the whole argument. The control jar suffers every effect of being sealed except the missing gas."},
+ {t:"Because potassium hydroxide only works when a second jar is present.",c:0,f:"The chemistry in Jar B happens regardless of what is standing next to it."},
+ {t:"Because the control jar supplies carbon dioxide to the test jar.",c:0,f:"Both jars are sealed and completely independent of one another."}
+]},
+min:{ex:"Yellowing between the veins while the veins stay green is the classic signature of magnesium deficiency, and it appears in older leaves first because the plant moves its scarce magnesium to the new growth.",o:[
+ {t:"Nitrate",c:0,f:"Nitrate deficiency yellows the whole of the older leaf fairly evenly, and stunts the plant. It does not leave the veins green."},
+ {t:"Magnesium",c:1,f:"Correct. Magnesium sits at the centre of chlorophyll, so without it the leaf tissue cannot stay green — and the plant strips it out of old leaves to feed the new ones."},
+ {t:"Calcium",c:0,f:"Calcium deficiency attacks the growing tips and new leaves, not the oldest ones."},
+ {t:"Phosphate",c:0,f:"Phosphate deficiency gives small, unusually dark leaves with a purple tinge, and poor roots."}
+]},
+eq:{ex:"Plants respire twenty-four hours a day, exactly as you do. In daylight photosynthesis usually runs faster than respiration, so the net movement of oxygen is outwards — but respiration never stopped.",o:[
+ {t:"Plants only respire at night, when photosynthesis has stopped.",c:0,f:"This is the single most common misconception in the topic. Respiration in a plant never stops; it is simply hidden during the day by the faster process happening alongside it."},
+ {t:"Plants respire all the time. During the day photosynthesis is usually faster, so there is a net release of oxygen.",c:1,f:"Correct, and precisely worded. At dawn and dusk the two rates can be equal — the compensation point — and no gas moves either way overall."},
+ {t:"Plants photosynthesise and animals respire; that is the difference between them.",c:0,f:"Plants do both. Every living cell in a plant respires, including the ones in the roots that never see light."},
+ {t:"Photosynthesis releases energy and respiration stores it.",c:0,f:"The other way around. Photosynthesis stores light energy in glucose; respiration releases it again."}
+]},
+lab1:{ex:"Light intensity is proportional to 1 ÷ distance², so halving the distance quadruples the intensity. Plotting rate against intensity rather than distance turns the curve into something much closer to a straight line.",o:[
+ {t:"A straight line sloping downwards.",c:0,f:"Check your own numbers: the drop between 10 and 20 cm is far bigger than between 60 and 100 cm."},
+ {t:"A curve that climbs steeply as the lamp comes closer, because intensity rises with the inverse square of distance.",c:1,f:"Correct — and this is why the light intensity meter is more useful than the distance for plotting."},
+ {t:"A flat horizontal line.",c:0,f:"That would only happen if something other than light were limiting the rate at every distance."},
+ {t:"A curve that rises as the lamp is moved further away.",c:0,f:"Backwards — less light reaches the plant at greater distances."}
+]},
+lab2:{ex:"When a process needs several things at once, its speed is set by whichever is in shortest supply. Adding more of anything else changes nothing. That factor is the limiting factor.",o:[
+ {t:"The pondweed has become tired and needs a rest.",c:0,f:"Plants do not tire. Look for a factor in short supply instead."},
+ {t:"Carbon dioxide has become the limiting factor: more light cannot speed up a reaction that has run short of a raw material.",c:1,f:"Correct. Raise the carbon dioxide to 0.20% and the same lamp position suddenly produces far more bubbles — try it."},
+ {t:"The bright light has destroyed the chlorophyll.",c:0,f:"A desk lamp at 10 cm is nowhere near intense enough to damage a leaf."},
+ {t:"The water has become too cold.",c:0,f:"Temperature is held at 25°C here, comfortably in the working range."}
+]}
+};
+$$(".poe").forEach(function(p){
+  var key=p.dataset.poe, d=POE[key]; if(!d)return;
+  var box=$(".opts",p), fb=$(".feedback",p);
+  d.o.forEach(function(o,i){
+    var b=document.createElement("button");
+    b.type="button"; b.className="opt";
+    b.innerHTML="<span class='k'>"+"ABCD"[i]+"</span><span>"+o.t+"</span>";
+    b.addEventListener("click",function(){
+      if(p.dataset.locked)return; p.dataset.locked="1";
+      $$(".opt",box).forEach(function(x,j){
+        x.disabled=true;
+        if(d.o[j].c)x.classList.add("correct");
+      });
+      if(!o.c)b.classList.add("wrong");
+      fb.innerHTML="<p style='margin:0 0 .5em'><strong>"+(o.c?"Correct.":"Not this one.")+"</strong> "+o.f+"</p><p class='small' style='margin:0'>"+d.ex+"</p>";
+      fb.classList.add("show");
+      mark("poe."+key);
+    });
+    box.appendChild(b);
+  });
+});
+
+/* ---------- percentage check ---------- */
+(function(){
+  var b=$("#pctBtn"); if(!b)return;
+  b.addEventListener("click",function(){
+    var v=parseFloat(($("#pctIn").value||"").replace("%","").trim());
+    var m=$("#pctMsg");
+    if(isNaN(v)){m.textContent="Enter a number first.";m.style.color="var(--warn)";return;}
+    if(Math.abs(v-52.1)<0.6){m.textContent="Correct. (21.3 − 14.0) ÷ 14.0 × 100 = 52.1%";m.style.color="var(--good)";mark("pct");}
+    else if(Math.abs(v-7.3)<0.3){m.textContent="That is the increase in centimetres, not the percentage. Now divide by the starting height and multiply by 100.";m.style.color="var(--warn)";}
+    else if(Math.abs(v-152.1)<0.6){m.textContent="Close — that is the final height as a percentage of the start. The increase is that minus 100.";m.style.color="var(--warn)";}
+    else{m.textContent="Not yet. Percentage change = (change ÷ original) × 100.";m.style.color="var(--warn)";}
+  });
+})();
+
+/* ---------- weaknesses multi-select ---------- */
+(function(){
+  var W=[
+   {t:"Only one plant was used in each condition, so a single unusually weak plant could have produced the whole result.",c:1,f:"A genuine weakness. Repeats — five plants per condition — would let you take a mean and spot an anomaly."},
+   {t:"Height was measured to the nearest 0.1 cm, which is far too precise to be useful.",c:0,f:"Not a weakness. More precise measurement is better, as long as the instrument can really deliver it."},
+   {t:"Leaf colour was judged by eye, which is subjective and hard for another student to repeat.",c:1,f:"A genuine weakness. A colour chart with numbered shades, or a measurement of leaf mass, would be reproducible."},
+   {t:"The two plants sat in slightly different positions on the windowsill, so the light may not have been identical.",c:1,f:"A genuine weakness — an uncontrolled variable that could partly explain the difference in growth."},
+   {t:"Fourteen days is much too long for any school experiment.",c:0,f:"Not a weakness. Growth is slow; a short run would have shown no difference at all."},
+   {t:"Both plants were the same species, which makes the comparison unfair.",c:0,f:"The opposite — using the same species is exactly what makes it fair."}
+  ];
+  var box=$("#wkOpts"); if(!box)return;
+  var picked={};
+  W.forEach(function(o,i){
+    var b=document.createElement("button");
+    b.type="button"; b.className="opt";
+    b.innerHTML="<span class='k'>"+(i+1)+"</span><span>"+o.t+"</span>";
+    b.addEventListener("click",function(){
+      if(box.dataset.locked)return;
+      picked[i]=!picked[i]; b.classList.toggle("picked",!!picked[i]);
+    });
+    box.appendChild(b);
+  });
+  $("#wkCheck").addEventListener("click",function(){
+    box.dataset.locked="1";
+    var right=0;
+    $$(".opt",box).forEach(function(b,i){
+      b.disabled=true;
+      if(W[i].c){b.classList.add("correct");if(picked[i])right++;}
+      else if(picked[i])b.classList.add("wrong");
+    });
+    $("#wkMsg").textContent="You found "+right+" of the 3 genuine weaknesses.";
+    $("#wkFb").innerHTML="<ul style='margin:0'>"+W.map(function(o){return "<li><strong>"+(o.c?"Genuine weakness":"Not a weakness")+"</strong> — "+o.f+"</li>";}).join("")+"</ul>";
+    $("#wkFb").classList.add("show");
+    mark("weak");
+  });
+})();
+
+/* ---------- virtual starch test ---------- */
+(function(){
+  var STEPS=[
+   {t:"Destarch the plant",d:"Stand the whole potted plant in a dark cupboard for 48 hours before you start.",w:"Any starch already in the leaves gets used up, so anything you find later must have been made today."},
+   {t:"Clip on the stencil and return it to the light",d:"Attach the opaque paper star to one leaf, then put the plant back in bright light for six hours.",w:"The covered patch becomes the control. Every other condition is identical because it is the same leaf."},
+   {t:"Boil the leaf in water for thirty seconds",d:"Take the leaf, peel off the stencil, and dip it into near-boiling water with forceps.",w:"Kills the cells, stops every reaction at once and breaks down the membranes so liquids can get in and out."},
+   {t:"Decolourise in hot ethanol",d:"Move the leaf into a tube of ethanol standing in a hot water bath, all flames off, until the colour drains away.",w:"Chlorophyll dissolves into the ethanol, which turns green. Without this the leaf is too green to read."},
+   {t:"Rinse in warm water",d:"Dip the pale, brittle leaf back into warm water for a few seconds.",w:"Softens it so it can be spread flat on a tile without crumbling into pieces."},
+   {t:"Add iodine solution",d:"Lay the leaf on a white tile and cover it with iodine solution.",w:"Blue-black means starch is present. Orange-brown means there is none."}
+  ];
+  var VIS=[
+   {leaf:"#4E9E45",star:"#2B2B2B",starOn:1,clip:1,cap:"A healthy leaf on the plant, with an opaque paper star clipped over the middle."},
+   {leaf:"#4A8F43",star:"#2B2B2B",starOn:1,clip:1,cap:"Forty-eight hours in the dark. The leaf still looks green, but its starch stores are now empty."},
+   {leaf:"#4E9E45",star:"#2B2B2B",starOn:1,clip:1,cap:"Six hours in the light. Starch is building up everywhere except under the paper."},
+   {leaf:"#6E8E52",star:"#2B2B2B",starOn:0,clip:0,cap:"Boiled. The leaf is limp and dull; the cells are dead and the membranes have broken down."},
+   {leaf:"#EFE7CF",star:"#2B2B2B",starOn:0,clip:0,cap:"Decolourised. The chlorophyll has gone into the ethanol and the leaf is pale and brittle."},
+   {leaf:"#F2EEDC",star:"#2B2B2B",starOn:0,clip:0,cap:"Rinsed and softened, spread flat on a white tile, ready for iodine."},
+   {leaf:"#1B2340",star:"#D8A052",starOn:1,clip:0,cap:"Blue-black everywhere the light reached. Orange-brown exactly where the paper was. Light is required to make starch."}
+  ];
+  var stage=0;
+  var list=$("#starchSteps"); if(!list)return;
+  STEPS.forEach(function(s,i){
+    var li=document.createElement("li");
+    li.className="step";
+    li.innerHTML="<span class='n'></span><div><h4>"+s.t+"</h4><p>"+s.d+"</p><p class='why' hidden>Why: "+s.w+"</p>"+
+      "<div class='btnrow' style='margin-top:9px'><button class='btn f' type='button'>Do this stage</button><span class='small warn' style='color:var(--warn);font-weight:600'></span></div></div>";
+    var btn=$("button",li), warn=$(".warn",li);
+    btn.addEventListener("click",function(){
+      if(i<stage){warn.textContent="Already done.";return;}
+      if(i>stage){
+        var msgs=["Start at the beginning: the leaf is still full of starch from yesterday.",
+                  "The plant has not had its time in the light yet, so there is nothing new to find.",
+                  "The leaf is still alive and its cells are sealed — nothing can get in or out.",
+                  "The leaf is still green. Even if iodine worked, you could not see the colour change through the chlorophyll.",
+                  "The leaf is brittle and would crumble. Soften it first.",
+                  "The leaf is not ready for iodine yet."];
+        warn.textContent=msgs[stage]||"Work through the stages in order.";
+        return;
+      }
+      warn.textContent=""; $(".why",li).hidden=false; btn.disabled=true; btn.textContent="Done";
+      li.style.borderColor="var(--good)"; $(".n",li).style.background="var(--good-soft)"; $(".n",li).style.color="var(--good)";
+      stage=i+1; paint();
+      if(stage===6) mark("starch");
+    });
+    list.appendChild(li);
+  });
+  function paint(){
+    var v=VIS[stage];
+    $("#vLeaf").setAttribute("fill",v.leaf);
+    $("#vStar").setAttribute("fill",v.star);
+    $("#vStar").style.opacity=v.starOn?1:0;
+    $("#vClip").style.opacity=v.clip?1:0;
+    $("#vVeins").style.opacity=stage>=4?0.25:0.55;
+    $("#vLeafCap").textContent=v.cap;
+    var b=$("#stageBadge");
+    b.innerHTML="<b>Stage "+stage+"</b> "+(stage===6?"result":(stage===0?"leaf on the plant":"in progress"));
+    if(stage===6){b.style.background="var(--good-soft)";b.style.color="var(--good)";}
+  }
+  $("#starchReset").addEventListener("click",function(){
+    stage=0;
+    $$("#starchSteps .step").forEach(function(li){
+      li.style.borderColor=""; $(".n",li).style.background=""; $(".n",li).style.color="";
+      $(".why",li).hidden=true; var b=$("button",li); b.disabled=false; b.textContent="Do this stage"; $(".warn",li).textContent="";
+    });
+    var b=$("#stageBadge"); b.style.background=""; b.style.color="";
+    paint();
+  });
+  paint();
+})();
+
+/* ---------- before/after reveal ---------- */
+(function(){
+  var wrap=$("#reveal1"); if(!wrap)return;
+  var after=$("#revAfter"), handle=$("#revHandle"), img=$("img",after);
+  function size(){ img.style.width=wrap.clientWidth+"px"; }
+  function setPct(p){
+    p=Math.max(0,Math.min(100,p));
+    after.style.width=p+"%"; handle.style.left=p+"%"; handle.setAttribute("aria-valuenow",Math.round(p));
+  }
+  function fromEvent(e){
+    var r=wrap.getBoundingClientRect();
+    var x=(e.touches?e.touches[0].clientX:e.clientX)-r.left;
+    setPct(x/r.width*100);
+  }
+  var drag=false;
+  wrap.addEventListener("pointerdown",function(e){drag=true;wrap.setPointerCapture&&wrap.setPointerCapture(e.pointerId);fromEvent(e);});
+  wrap.addEventListener("pointermove",function(e){if(drag)fromEvent(e);});
+  window.addEventListener("pointerup",function(){drag=false;});
+  handle.addEventListener("keydown",function(e){
+    var cur=parseFloat(handle.getAttribute("aria-valuenow"))||50;
+    if(e.key==="ArrowLeft"){setPct(cur-5);e.preventDefault();}
+    if(e.key==="ArrowRight"){setPct(cur+5);e.preventDefault();}
+  });
+  window.addEventListener("resize",size);
+  if(img.complete)size(); else img.addEventListener("load",size);
+  setPct(50);
+})();
+
+/* ---------- bell jar ---------- */
+(function(){
+  var run=$("#co2Run"); if(!run)return;
+  var mols=$$("#jarBCO2 circle");
+  function reset(){
+    mols.forEach(function(c){c.style.transition="none";c.style.opacity=".85";c.style.transform="none";});
+    $$("#jarACO2 circle").forEach(function(c){c.style.opacity=".85";});
+    $("#co2Badge").innerHTML="<b>Hour 0</b> both jars sealed";
+    $("#jarADisc").setAttribute("r","0"); $("#jarBDisc").setAttribute("r","0");
+    $$(".jarLbl").forEach(function(n){n.remove();});
+    $("#co2Test").disabled=true; run.disabled=false;
+    $("#co2Say").innerHTML="<h4>Both plants were destarched for 48 hours first</h4><p>Both jars now go into the same light for six hours. Watch what happens to the carbon dioxide in each one.</p>";
+  }
+  run.addEventListener("click",function(){
+    run.disabled=true;
+    mols.forEach(function(c,i){
+      c.style.transition="opacity .7s ease "+(i*0.14)+"s, transform .7s ease "+(i*0.14)+"s";
+      c.style.transformOrigin="center";
+      c.style.opacity="0"; c.style.transform="translate(0,42px) scale(.4)";
+    });
+    setTimeout(function(){
+      $("#co2Badge").innerHTML="<b>Hour 6</b> KOH has absorbed the CO₂";
+      $("#co2Test").disabled=false;
+      $("#co2Say").innerHTML="<h4>Six hours later</h4><p>Jar A still holds normal air. In Jar B the potassium hydroxide has absorbed every carbon dioxide molecule, while the oxygen, nitrogen and water vapour are untouched. Both plants had the same light, the same warmth and the same water. Now test a leaf from each.</p>";
+    },reduce?60:1500);
+  });
+  $("#co2Test").addEventListener("click",function(){
+    $("#co2Test").disabled=true;
+    ["A","B"].forEach(function(j){
+      var d=$("#jar"+j+"Disc"); d.setAttribute("cy","252"); d.setAttribute("r","15"); d.setAttribute("stroke","#3E5C52"); d.setAttribute("stroke-width","1.5");
+      var t=document.createElementNS("http://www.w3.org/2000/svg","text");
+      t.setAttribute("x","86"); t.setAttribute("y","288"); t.setAttribute("font-size","11"); t.setAttribute("text-anchor","middle");
+      t.setAttribute("fill","#3E5C52"); t.setAttribute("font-weight","700"); t.setAttribute("class","jarLbl");
+      t.textContent=(j==="A"?"starch":"no starch");
+      d.parentNode.appendChild(t);
+    });
+    $("#co2Say").innerHTML="<h4>The result</h4><p>The leaf from Jar A turned <strong>blue-black</strong>: starch was made. The leaf from Jar B stayed <strong>orange-brown</strong>: no starch at all, despite six hours of light, plenty of water, healthy green chlorophyll and a comfortable temperature. The only thing it lacked was carbon dioxide.</p>";
+    mark("co2");
+  });
+  $("#co2Reset").addEventListener("click",reset);
+})();
+
+/* ---------- mineral deficiencies ---------- */
+(function(){
+  var M={
+   complete:{n:"Complete solution",lv:["#4E9E45","#4E9E45","#4E9E45","#4E9E45","#57A857","#57A857"],tip:"#69B96F",root:{o:1,w:3},sol:"#CFE6D6",stem:7,
+     cap:"Complete nutrient solution: strong stem, deep green leaves at every level, dense white roots. This is the control.",
+     h:"The control setup",b:"Every ion present in the right proportion. Any other tube is compared against this one, and every difference you see has exactly one cause."},
+   n:{n:"No nitrate",lv:["#D9D77A","#D9D77A","#C6CE72","#C6CE72","#8DBB66","#8DBB66"],tip:"#9CC46E",root:{o:.75,w:2.4},sol:"#E9F0E6",stem:5,
+     cap:"Severely stunted. The oldest leaves at the bottom have turned pale yellow all over; the newest growth is still greenish.",
+     h:"Nitrate — the growth ion",b:"Nitrate supplies the nitrogen in amino acids, so without it the plant cannot build proteins or enzymes, and growth stops. It also cannot build chlorophyll properly. The plant strips nitrogen out of its oldest leaves to keep the new ones going, which is why yellowing starts at the bottom."},
+   p:{n:"No phosphate",lv:["#2F6B4A","#2F6B4A","#33604E","#33604E","#3D5F63","#3D5F63"],tip:"#4A6A66",root:{o:.35,w:1.6},sol:"#E8E4F0",stem:6,
+     cap:"Small, unusually dark leaves with a dull purple tinge, and a noticeably thin, sparse root system.",
+     h:"Phosphate — the energy and DNA ion",b:"Phosphate is needed for DNA, for cell membranes and for ATP, the molecule that moves energy around a cell. Root growth suffers first and hardest, and the leaves often develop a purple tint. A plant with poor roots then absorbs everything else badly, so the problem compounds."},
+   k:{n:"No potassium",lv:["#4E9E45","#4E9E45","#57A857","#57A857","#63AE5E","#63AE5E"],edge:"#8C5A22",tip:"#69B96F",root:{o:.8,w:2.6},sol:"#F1EBDF",stem:4,
+     cap:"Leaf edges look burnt and brown while the centres stay green. Stems are noticeably weak and floppy.",
+     h:"Potassium — the regulator",b:"Potassium does not become part of a structure; it keeps enzymes working and controls the guard cells that open and close the stomata. Without it, water balance fails at the leaf margins first, which is why the edges look scorched."},
+   mg:{n:"No magnesium",lv:["#C9D46A","#C9D46A","#CBD97A","#CBD97A","#7FBA63","#7FBA63"],edge:"#3E8F4E",tip:"#69B96F",root:{o:.95,w:2.9},sol:"#EFF0E2",stem:6,
+     cap:"The oldest leaves are yellow between the veins while the veins themselves stay green. Younger leaves at the top are still healthy.",
+     h:"Magnesium — the heart of chlorophyll",b:"Every chlorophyll molecule has a single magnesium atom at its centre. Without magnesium the leaf cannot build the pigment, so the tissue yellows — but the veins keep their supply longest, which produces the distinctive striped pattern. This is why a plant can be short of magnesium and yet fail Experiment 2 as if it were short of light."},
+   ca:{n:"No calcium",lv:["#4E9E45","#4E9E45","#57A857","#57A857","#A8B77C","#A8B77C"],tip:"#8C7B5A",root:{o:.6,w:2.2},sol:"#EDE8DE",stem:6,
+     cap:"The older leaves are fine, but the growing tip has died back and the newest leaves are small and deformed.",
+     h:"Calcium — the cement",b:"Calcium binds plant cell walls to one another. New cells cannot be built without it, so damage appears at the growing points — the tip of the shoot and the youngest leaves — while established leaves stay green. Calcium cannot be moved around the plant once it has been used, which is why the oldest leaves are unaffected."}
+  };
+  var order=["complete","n","p","k","mg","ca"];
+  var wrap=$("#minBtns"); if(!wrap)return;
+  order.forEach(function(k){
+    var b=document.createElement("button");
+    b.type="button"; b.className="btn ghost"; b.textContent=M[k].n; b.dataset.k=k;
+    b.addEventListener("click",function(){show(k);});
+    wrap.appendChild(b);
+  });
+  var ids=["mL1a","mL1b","mL2a","mL2b","mL3a","mL3b"];
+  function show(k){
+    var d=M[k];
+    $$("#minBtns .btn").forEach(function(b){b.classList.toggle("ghost",b.dataset.k!==k);});
+    ids.forEach(function(id,i){
+      var el=$("#"+id);
+      el.setAttribute("fill",d.lv[i]);
+      if(d.edge){el.setAttribute("stroke",d.edge);el.setAttribute("stroke-width","4");}
+      else{el.removeAttribute("stroke");el.removeAttribute("stroke-width");}
+    });
+    $("#minTip").setAttribute("fill",d.tip);
+    $("#minSol").setAttribute("fill",d.sol);
+    $("#minStem").setAttribute("stroke-width",String(d.stem));
+    $("#minRoots").style.opacity=d.root.o;
+    $("#minRoots").setAttribute("stroke-width",String(d.root.w));
+    $("#minCap").textContent=d.cap;
+    $("#minInfo").innerHTML="<h4>"+d.h+"</h4><p>"+d.b+"</p>";
+    $("#minBadge").innerHTML="<b>"+d.n+"</b>"+(k==="complete"?" all ions present":" one ion removed");
+    if(k!=="complete") mark("min");
+  }
+  show("complete");
+})();
+
+/* ---------- glucose fates ---------- */
+(function(){
+  var F=[
+   {n:"Respiration",d:"Broken down again inside every living cell of the plant, releasing the stored energy for growth, absorbing minerals and everything else the plant does. Roots respire all day and never photosynthesise at all."},
+   {n:"Stored as starch",d:"Surplus glucose is joined into long insoluble chains. Insoluble matters: starch stays where it is put and does not upset the water balance of the cell. This is the store you detect with iodine."},
+   {n:"Built into cellulose",d:"Glucose molecules linked into tough fibres that make cell walls. Every plant you have ever leaned on was holding you up with rearranged sugar."},
+   {n:"Converted to sucrose",d:"Turned into a different, transportable sugar and moved through the phloem to roots, flowers and fruit — anywhere that cannot make its own food."},
+   {n:"Made into proteins",d:"Combined with nitrate ions from the soil to build amino acids and then proteins and enzymes. This is where photosynthesis and mineral nutrition finally meet."},
+   {n:"Stored as oils",d:"Converted into lipids and packed into seeds, because oil stores more energy per gram than starch and a seed has to travel light."}
+  ];
+  var w=$("#fateBtns"); if(!w)return;
+  F.forEach(function(f,i){
+    var b=document.createElement("button");
+    b.type="button"; b.className="btn ghost"; b.textContent=f.n;
+    b.addEventListener("click",function(){
+      $$("#fateBtns .btn").forEach(function(x){x.classList.add("ghost");});
+      b.classList.remove("ghost");
+      $("#fateBox").innerHTML="<h4>"+f.n+"</h4><p>"+f.d+"</p>";
+      mark("fate");
+    });
+    w.appendChild(b);
+  });
+  $("#fateBox").innerHTML="<h4>Six destinations</h4><p>Glucose is a starting point, not an end product. Select one to follow.</p>";
+})();
+
+/* ---------- equation balancer ---------- */
+(function(){
+  var row=$("#eqRow"); if(!row)return;
+  var species=[
+   {f:"CO<sub>2</sub>",k:"a",C:1,H:0,O:2,side:-1},
+   {f:"H<sub>2</sub>O",k:"b",C:0,H:2,O:1,side:-1},
+   {f:"C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>",k:"c",C:6,H:12,O:6,side:1},
+   {f:"O<sub>2</sub>",k:"d",C:0,H:0,O:2,side:1}
+  ];
+  var v={a:1,b:1,c:1,d:1};
+  function stepper(s){
+    var d=document.createElement("div");
+    d.style.cssText="display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 12px";
+    d.innerHTML="<button type='button' class='iconbtn' aria-label='fewer' style='height:30px;min-width:30px;padding:0'>&minus;</button>"+
+      "<span style='font-family:var(--mono);font-weight:700;font-size:1.15rem;min-width:1.4em;text-align:center' class='co'>1</span>"+
+      "<span>"+s.f+"</span>"+
+      "<button type='button' class='iconbtn' aria-label='more' style='height:30px;min-width:30px;padding:0'>+</button>";
+    var bs=$$("button",d), co=$(".co",d);
+    bs[0].addEventListener("click",function(){v[s.k]=Math.max(0,v[s.k]-1);co.textContent=v[s.k];calc();});
+    bs[1].addEventListener("click",function(){v[s.k]=Math.min(14,v[s.k]+1);co.textContent=v[s.k];calc();});
+    d.__set=function(){co.textContent=v[s.k];};
+    return d;
+  }
+  var steps=[];
+  species.forEach(function(s,i){
+    var st=stepper(s); steps.push(st); row.appendChild(st);
+    if(i===0||i===2){var p=document.createElement("span");p.textContent="+";p.style.opacity=".6";row.appendChild(p);}
+    if(i===1){
+      var ar=document.createElement("div");
+      ar.style.cssText="text-align:center;padding:0 6px";
+      ar.innerHTML="<div style='font-size:.72rem;color:var(--s);font-family:var(--sans);font-weight:700'>light energy</div><div style='font-size:1.6rem;line-height:1'>&#10230;</div><div style='font-size:.72rem;color:var(--leaf);font-family:var(--sans);font-weight:700'>chlorophyll</div>";
+      row.appendChild(ar);
+    }
+  });
+  function calc(){
+    var L={C:0,H:0,O:0},R={C:0,H:0,O:0};
+    species.forEach(function(s){
+      var t=s.side<0?L:R, n=v[s.k];
+      t.C+=s.C*n; t.H+=s.H*n; t.O+=s.O*n;
+    });
+    var rows="",ok=true;
+    ["C","H","O"].forEach(function(a){
+      var same=L[a]===R[a]; if(!same)ok=false;
+      rows+="<tr><td><strong>"+a+"</strong></td><td class='num'>"+L[a]+"</td><td class='num'>"+R[a]+"</td><td style='color:"+(same?"var(--good)":"var(--warn)")+";font-weight:700'>"+(same?"yes":"no")+"</td></tr>";
+    });
+    $("#eqTable").innerHTML=rows;
+    var empty=(v.a===0||v.b===0||v.c===0||v.d===0);
+    var b=$("#eqBadge"), h=$("#eqHint");
+    if(ok&&!empty){
+      var simplest=(v.a===6&&v.b===6&&v.c===1&&v.d===6);
+      b.innerHTML="<b>Balanced</b>"+(simplest?" simplest ratio":" but not simplest");
+      b.style.background="var(--good-soft)"; b.style.color="var(--good)";
+      h.innerHTML=simplest
+        ? "That is the equation exactly as it is written in every textbook: <strong>6CO₂ + 6H₂O &rarr; C₆H₁₂O₆ + 6O₂</strong>. Six carbon atoms went in and six came out inside one glucose molecule; the twelve hydrogen atoms from six waters all ended up in the sugar; and of the eighteen oxygen atoms that went in, six stayed in the glucose and twelve left as six molecules of O₂."
+        : "Every atom balances, but the numbers share a common factor. Divide all four coefficients by the same number to reach the simplest whole-number ratio.";
+      if(simplest) mark("eq");
+    } else {
+      b.innerHTML="<b>Not balanced</b> keep going";
+      b.style.background=""; b.style.color="";
+      h.textContent = empty ? "Every species needs at least one molecule." :
+        (L.C!==R.C ? "Carbon first: all the carbon in the glucose has to arrive as carbon dioxide." :
+        (L.H!==R.H ? "Now hydrogen: glucose holds twelve hydrogen atoms, and each water molecule brings two." :
+        "Oxygen last. Count how many oxygen atoms are locked inside the glucose, and how many are left over to leave as O₂."));
+    }
+  }
+  $("#eqReset").addEventListener("click",function(){v={a:1,b:1,c:1,d:1};steps.forEach(function(s){s.__set();});calc();});
+  calc();
+})();
+
+/* ---------- worked example for the design task ---------- */
+(function(){
+  var b=$("#bHelp"), box=$("#bHelpBox"); if(!b||!box)return;
+  b.addEventListener("click",function(){
+    var open=box.classList.toggle("show");
+    b.textContent=open?"Hide the worked example":"Show me a worked example of question 1";
+    if(open&&!box.innerHTML){
+      box.innerHTML="<h4>A weak question and a strong one</h4>"+
+        "<p><strong>Weak:</strong> Do plants need magnesium? &mdash; it can only be answered yes or no, and nothing in it can be measured.</p>"+
+        "<p><strong>Strong:</strong> How does removing magnesium ions from the nutrient solution affect the number of green leaves on a maize seedling after 21 days?</p>"+
+        "<p class='small' style='margin:0'>It names the one thing you change (magnesium present or absent), the thing you count (green leaves), the organism and the time. Someone else could start planning from that sentence alone.</p>";
+    }
+  });
+})();
+
+window.__mark=mark; window.__store=store; window.__NS=NS; window.__done=function(){return done;};
+window.__paintRing=paintRing;
+paintRing();
+})();
+</script>
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s);};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+var mark=window.__mark, store=window.__store, NS=window.__NS;
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var css=function(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();};
+
+/* =========================================================
+   VIRTUAL LAB
+   ========================================================= */
+(function(){
+  var dL=$("#dLight"), dC=$("#dCO2"), dT=$("#dTemp"); if(!dL)return;
+  var running=false, rows=[];
+  try{rows=JSON.parse(store.get(NS+"lab")||"[]");}catch(e){rows=[];}
+
+  function intensity(d){return 10000/(d*d);}
+  function factors(){
+    var d=+dL.value, c=(+dC.value)/100, T=+dT.value;
+    var I=intensity(d);
+    var fL=I/(I+18);
+    var fC=c/(c+0.035);
+    var fT=Math.exp(-Math.pow(T-30,2)/200);
+    if(T>38) fT*=Math.max(0,1-(T-38)/7);
+    return {d:d,c:c,T:T,I:I,fL:fL,fC:fC,fT:fT,rate:72*Math.min(fL,fC)*fT};
+  }
+  function limitMsg(f){
+    if(f.c<=0) return "Carbon dioxide: there is none in the water, so nothing can be built and the rate is zero.";
+    if(f.T>=39) return "Temperature: the enzymes are starting to denature. Above about 40°C the rate collapses whatever else you do.";
+    if(f.fT<0.55) return "Temperature: the water is too cold for the enzymes to work quickly. Light and carbon dioxide cannot help.";
+    if(f.fL<f.fC-0.04) return "Light: the lamp is the factor holding the rate back. Move it closer and the rate should climb.";
+    if(f.fC<f.fL-0.04) return "Carbon dioxide: the supply of raw material is the limit. Adding light will change almost nothing.";
+    return "Light and carbon dioxide are almost equally limiting — raise either one and you will see a small gain.";
+  }
+  function paintDials(){
+    var f=factors();
+    $("#vLight").textContent=f.d+" cm";
+    $("#vCO2").textContent=(f.c).toFixed(2)+" %";
+    $("#vTemp").textContent=f.T+" °C";
+    // lamp position
+    var px=30+(f.d-10)*(230/90), lx=330-px;
+    $("#labLamp").setAttribute("transform","translate("+lx+",0)");
+    $("#labRuler").firstElementChild.setAttribute("x1",lx+16);
+    $("#labDistTxt").setAttribute("x",(lx+16+330)/2);
+    $("#labDistTxt").textContent=f.d+" cm";
+    // thermometer
+    var h=Math.max(6,(f.T-5)/40*100);
+    $("#labMerc").setAttribute("y",String(252-h)); $("#labMerc").setAttribute("height",String(h));
+    $("#labTempTxt").textContent=f.T+"°C";
+    $("#labWater").setAttribute("fill", f.c>0.12?"#C6E4E0":(f.c<=0?"#DCE8EC":"#CFE7EF"));
+    $("#mLight").textContent=Math.round(f.I);
+    if(running){
+      $("#mRate").textContent=Math.round(f.rate);
+      $("#rateBadge").innerHTML="<b>"+Math.round(f.rate)+"</b> bubbles per minute";
+      $("#mLim").textContent=limitMsg(f);
+      $("#limLight").textContent=(f.fL<f.fC-0.04)?"limiting":"";
+      $("#limCO2").textContent=(f.fC<f.fL-0.04)?"limiting":"";
+      $("#limTemp").textContent=(f.fT<0.55||f.T>=39)?"limiting":"";
+    }
+  }
+  [dL,dC,dT].forEach(function(el){el.addEventListener("input",paintDials);});
+
+  /* bubbles */
+  var bubbles=[], last=0, acc=0, layer=$("#labBubbles");
+  function frame(t){
+    if(!running){requestAnimationFrame(frame);return;}
+    var dt=last?Math.min(64,t-last):16; last=t;
+    var f=factors();
+    if(f.rate>0.5){
+      acc+=dt;
+      var gap=60000/(f.rate*7);
+      if(acc>gap){acc=0;
+        var c=document.createElementNS("http://www.w3.org/2000/svg","circle");
+        c.setAttribute("cx",String(409+Math.random()*12));
+        c.setAttribute("cy","256"); c.setAttribute("r",String(2.4+Math.random()*2.2));
+        layer.appendChild(c); bubbles.push({el:c,y:256,v:0.055+Math.random()*0.03});
+      }
+    }
+    for(var i=bubbles.length-1;i>=0;i--){
+      var b=bubbles[i]; b.y-=b.v*dt*1.6;
+      if(b.y<152){b.el.remove();bubbles.splice(i,1);continue;}
+      b.el.setAttribute("cy",String(b.y));
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  $("#labRun").addEventListener("click",function(){
+    running=!running;
+    this.textContent=running?"Pause the lamp":"Start the lamp";
+    $("#labRec").disabled=!running;
+    $("#labRays").setAttribute("opacity",running?"1":"0");
+    $("#labBulb").setAttribute("fill",running?"#FFE9A8":"#EDEDE4");
+    if(!running){$("#mRate").textContent="0";$("#rateBadge").innerHTML="<b>paused</b>";}
+    paintDials();
+  });
+
+  /* recording */
+  function measure(f){var n=f.rate*(1+(Math.random()-0.5)*0.12);return Math.max(0,Math.round(n));}
+  function renderRows(){
+    var tb=$("#labRows");
+    if(!rows.length){tb.innerHTML="<tr id='labEmpty'><td colspan='9' style='color:var(--ink-3)'>No readings yet. Set the conditions, start the lamp, then select <strong>Record this reading</strong>.</td></tr>";}
+    else{
+      tb.innerHTML=rows.map(function(r,i){
+        return "<tr><td class='num'>"+(i+1)+"</td><td class='num'>"+r.d+"</td><td class='num'>"+r.c.toFixed(2)+"</td><td class='num'>"+r.T+"</td>"+
+          "<td class='num'>"+r.t1+"</td><td class='num'>"+r.t2+"</td><td class='num'>"+r.t3+"</td><td class='num'><strong>"+r.mean.toFixed(1)+"</strong></td>"+
+          "<td><button class='iconbtn' type='button' data-del='"+i+"' aria-label='Delete reading "+(i+1)+"' style='height:28px;min-width:28px;padding:0'>&times;</button></td></tr>";
+      }).join("");
+      $$("[data-del]",tb).forEach(function(b){b.addEventListener("click",function(){rows.splice(+b.dataset.del,1);save();});});
+    }
+    draw();
+  }
+  function save(){store.set(NS+"lab",JSON.stringify(rows));renderRows();if(rows.length>=5)mark("lab");}
+  $("#labRec").addEventListener("click",function(){
+    var f=factors();
+    var a=measure(f),b=measure(f),c=measure(f);
+    rows.push({d:f.d,c:f.c,T:f.T,I:Math.round(f.I),t1:a,t2:b,t3:c,mean:(a+b+c)/3});
+    save();
+  });
+  $("#labClear").addEventListener("click",function(){rows=[];save();});
+  $("#labX").addEventListener("change",draw);
+  $("#labCsv").addEventListener("click",function(){
+    if(!rows.length)return;
+    var csv="reading,distance_cm,co2_percent,temperature_C,light_intensity_au,trial1_bubbles_per_min,trial2,trial3,mean\n"+
+      rows.map(function(r,i){return [i+1,r.d,r.c.toFixed(2),r.T,r.I,r.t1,r.t2,r.t3,r.mean.toFixed(1)].join(",");}).join("\n");
+    dl(csv,"photosynthesis-data.csv","text/csv");
+  });
+
+  /* chart */
+  var cv=$("#labChart"), ctx=cv.getContext("2d");
+  function draw(){
+    var W=cv.width, H=cv.height, dpr=Math.min(2,window.devicePixelRatio||1);
+    if(cv.dataset.dpr!==String(dpr)){
+      cv.dataset.dpr=String(dpr);
+      cv.style.width="100%"; cv.width=880*dpr; cv.height=420*dpr;
+      W=880;H=420; ctx.setTransform(dpr,0,0,dpr,0,0);
+    } else {W=880;H=420;}
+    ctx.clearRect(0,0,W,H);
+    var ink=css("--ink")||"#12312A", line=css("--line")||"#CFDCD2", sub=css("--ink-3")||"#6B857B", leaf=css("--leaf")||"#1F7A4C";
+    var key=$("#labX").value;
+    var xLab={dist:"Distance of lamp / cm",inten:"Light intensity / arbitrary units",co2:"Carbon dioxide / %",temp:"Temperature / °C"}[key];
+    var L=76,R=W-26,T=48,B=H-58;
+    ctx.font="13px system-ui,sans-serif"; ctx.textBaseline="middle";
+    // title
+    ctx.fillStyle=ink; ctx.font="600 15px Georgia,serif"; ctx.textAlign="left";
+    ctx.fillText("Mean rate of photosynthesis against "+xLab.split(" / ")[0].toLowerCase(),L-40,20);
+    if(!rows.length){
+      ctx.fillStyle=sub; ctx.font="13px system-ui,sans-serif"; ctx.textAlign="center";
+      ctx.fillText("Record some readings and they will be plotted here.",W/2,H/2);
+      return;
+    }
+    var pts=rows.map(function(r){
+      var x = key==="dist"?r.d : key==="inten"?r.I : key==="co2"?r.c : r.T;
+      return {x:x,y:r.mean};
+    }).sort(function(a,b){return a.x-b.x;});
+    var xs=pts.map(function(p){return p.x;}), ys=pts.map(function(p){return p.y;});
+    var x0=Math.min.apply(null,xs), x1=Math.max.apply(null,xs);
+    if(x0===x1){x0=x0-1;x1=x1+1;}
+    var y1=Math.max(10,Math.ceil(Math.max.apply(null,ys)/10)*10);
+    var X=function(v){return L+(v-x0)/(x1-x0)*(R-L);};
+    var Y=function(v){return B-(v/y1)*(B-T);};
+    // grid
+    ctx.strokeStyle=line; ctx.lineWidth=1; ctx.font="12px system-ui,sans-serif";
+    for(var i=0;i<=5;i++){
+      var yv=y1*i/5, y=Y(yv);
+      ctx.beginPath();ctx.moveTo(L,y);ctx.lineTo(R,y);ctx.stroke();
+      ctx.fillStyle=sub;ctx.textAlign="right";ctx.fillText(String(Math.round(yv)),L-10,y);
+    }
+    for(var j=0;j<=5;j++){
+      var xv=x0+(x1-x0)*j/5, x=X(xv);
+      ctx.beginPath();ctx.moveTo(x,T);ctx.lineTo(x,B);ctx.globalAlpha=.45;ctx.stroke();ctx.globalAlpha=1;
+      ctx.fillStyle=sub;ctx.textAlign="center";
+      ctx.fillText(key==="co2"?xv.toFixed(2):String(Math.round(xv)),x,B+18);
+    }
+    // axes
+    ctx.strokeStyle=ink;ctx.lineWidth=1.6;
+    ctx.beginPath();ctx.moveTo(L,T);ctx.lineTo(L,B);ctx.lineTo(R,B);ctx.stroke();
+    ctx.fillStyle=ink;ctx.font="600 13px system-ui,sans-serif";
+    ctx.textAlign="center";ctx.fillText(xLab,(L+R)/2,B+42);
+    ctx.save();ctx.translate(20,(T+B)/2);ctx.rotate(-Math.PI/2);
+    ctx.fillText("Mean bubbles per minute",0,0);ctx.restore();
+    // line
+    ctx.strokeStyle=leaf;ctx.lineWidth=2.4;ctx.beginPath();
+    pts.forEach(function(p,i){var x=X(p.x),y=Y(p.y);i?ctx.lineTo(x,y):ctx.moveTo(x,y);});
+    ctx.stroke();
+    // points
+    pts.forEach(function(p){
+      var x=X(p.x),y=Y(p.y);
+      ctx.beginPath();ctx.arc(x,y,5,0,6.284);
+      ctx.fillStyle=css("--panel")||"#fff";ctx.fill();
+      ctx.strokeStyle=leaf;ctx.lineWidth=2.4;ctx.stroke();
+    });
+  }
+  window.__redrawChart=draw;
+  window.__labRows=function(){return rows;};
+  paintDials(); renderRows();
+})();
+
+function dl(text,name,type){
+  var b=new Blob([text],{type:type+";charset=utf-8"});
+  var u=URL.createObjectURL(b), a=document.createElement("a");
+  a.href=u; a.download=name; document.body.appendChild(a); a.click();
+  setTimeout(function(){URL.revokeObjectURL(u);a.remove();},400);
+}
+
+/* =========================================================
+   QUIZ
+   ========================================================= */
+var QS=[
+{q:"Which set lists the four environmental factors a green plant must have?",o:["Water, oxygen, soil and warmth","Water, light, carbon dioxide and mineral ions","Glucose, oxygen, water and light","Nitrogen, oxygen, sunlight and starch"],a:1,e:"Oxygen is a product, not a requirement for photosynthesis, and glucose is made by the plant rather than taken in."},
+{q:"What is the role of light in photosynthesis?",o:["It is a raw material that becomes part of the glucose","It supplies the energy that drives the reaction","It warms the leaf so the water evaporates","It is absorbed by the roots"],a:1,e:"Light is energy, not matter. No atom of the glucose came from the light — the atoms came from carbon dioxide and water."},
+{q:"Carbon dioxide enters a leaf mainly through:",o:["The waxy cuticle","The xylem vessels","The stomata on the lower surface","The roots"],a:2,e:"Stomata are pores controlled by guard cells. The cuticle is waterproof and the xylem carries water, not gas."},
+{q:"Why must a plant be kept in darkness for 48 hours before the light experiment?",o:["So the leaves become softer and easier to test","To use up the starch already stored, so any starch found afterwards must be new","To make the chlorophyll dissolve more easily","To stop the plant respiring during the test"],a:1,e:"Without destarching, both the covered and uncovered regions would already contain starch and the result would prove nothing."},
+{q:"A leaf turns blue-black when iodine is added. This shows that:",o:["Chlorophyll is present","Starch is present","The leaf is still alive","Oxygen is being produced"],a:1,e:"Iodine is a starch indicator. Orange-brown means no starch; blue-black means starch is there."},
+{q:"Why is the boiled leaf then heated in ethanol?",o:["To kill the cells","To dissolve out the chlorophyll so the colour change can be seen","To add starch to the leaf","To make the iodine work faster"],a:1,e:"Killing the cells is the job of the boiling water. The ethanol removes the green pigment that would otherwise hide the result."},
+{q:"Ethanol must never be heated with a naked flame because it is:",o:["Corrosive","Highly flammable","Radioactive","Poisonous to touch"],a:1,e:"Ethanol vapour catches fire very easily. It is heated in a beaker of hot water with all flames turned off."},
+{q:"In the bell jar experiment, the potassium hydroxide is there to:",o:["Feed the plant extra minerals","Absorb the carbon dioxide from the sealed air","Keep the air inside dry","Produce oxygen for the plant"],a:1,e:"KOH removes one gas and leaves the rest of the air unchanged, which is exactly what a fair test needs."},
+{q:"Why is the rim of the bell jar sealed with grease?",o:["To hold the glass plate steady","To stop air from the room leaking in and replacing the carbon dioxide","To reflect light onto the plant","To stop the plant losing water"],a:1,e:"A leaky seal quietly ruins the experiment: fresh carbon dioxide seeps in and the test leaf makes starch after all."},
+{q:"Which of these is a controlled variable, rather than a control setup?",o:["The watered plant used for comparison","Keeping both pots at the same room temperature","The plant that receives no water","The jar containing potassium hydroxide"],a:1,e:"A controlled variable is a condition held constant. A control setup is a whole comparison plant that receives everything it needs."},
+{q:"Which mineral ion sits at the centre of every chlorophyll molecule?",o:["Nitrate","Phosphate","Magnesium","Calcium"],a:2,e:"This is why magnesium deficiency yellows the leaf even in perfect light — the plant cannot build the pigment that absorbs it."},
+{q:"A plant is stunted and its oldest leaves are evenly pale yellow. Which ion is most likely to be short?",o:["Nitrate","Calcium","Potassium","Phosphate"],a:0,e:"Nitrate is needed for amino acids, proteins and chlorophyll, so growth stalls and the plant strips nitrogen out of its oldest leaves first."},
+{q:"The two products of photosynthesis are:",o:["Carbon dioxide and water","Glucose and oxygen","Starch and carbon dioxide","Oxygen and minerals"],a:1,e:"Starch is made afterwards, from surplus glucose. The immediate products are glucose and oxygen."},
+{q:"Which equation is correctly balanced?",o:["CO₂ + H₂O → C₆H₁₂O₆ + O₂","6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂","6CO₂ + 12H₂O → C₆H₁₂O₆ + 12O₂","C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O"],a:1,e:"Six carbon, twelve hydrogen and eighteen oxygen atoms on each side. The fourth option is balanced too, but it is respiration written backwards."},
+{q:"The oxygen released during photosynthesis comes from:",o:["The carbon dioxide","The water","The glucose","The minerals in the soil"],a:1,e:"Experiments using a heavier isotope of oxygen in the water showed that the oxygen released carries the label from the water molecules."},
+{q:"With plenty of light but very little carbon dioxide, moving the lamp closer barely changes the rate. Why?",o:["The plant has stopped respiring","Carbon dioxide has become the limiting factor","The chlorophyll has been destroyed","The water has run out"],a:1,e:"A process needing several things at once runs at the speed set by whichever is in shortest supply."},
+{q:"Why take three readings at each condition and calculate a mean?",o:["It makes the table look fuller","It reduces the effect of random error and makes an anomaly visible","It changes the independent variable","It is required to draw a graph"],a:1,e:"Repeats do not remove a systematic problem with the method, but they do make the result far more trustworthy."},
+{q:"Which statement about respiration in plants is true?",o:["Plants respire only at night","Plants never respire; they only photosynthesise","Plants respire constantly, but in daylight photosynthesis usually runs faster","Only the leaves respire"],a:2,e:"Every living plant cell respires all the time, including root cells that never see light."}
+];
+(function(){
+  var i=0, ans=[], box=$("#qBody"); if(!box)return;
+  function render(){
+    var q=QS[i];
+    $("#qCount").textContent="Question "+(i+1)+" of "+QS.length;
+    $("#qBar").style.width=((i)/QS.length*100)+"%";
+    var got=ans.filter(function(a){return a&&a.ok;}).length;
+    $("#qScore").textContent=got+" correct";
+    var h="<p style='font-size:1.06rem;font-weight:600;max-width:66ch'>"+q.q+"</p><div class='opts' id='qOpts'></div><div class='feedback' id='qFb'></div>";
+    box.innerHTML=h;
+    var op=$("#qOpts");
+    q.o.forEach(function(t,j){
+      var b=document.createElement("button");
+      b.type="button"; b.className="opt";
+      b.innerHTML="<span class='k'>"+"ABCD"[j]+"</span><span>"+t+"</span>";
+      b.addEventListener("click",function(){pick(j);});
+      op.appendChild(b);
+    });
+    if(ans[i]) show();
+    $("#qPrev").disabled=(i===0);
+    $("#qNext").textContent=(i===QS.length-1)?"See my result":"Next question";
+  }
+  function pick(j){
+    if(ans[i])return;
+    ans[i]={j:j,ok:j===QS[i].a};
+    show();
+  }
+  function show(){
+    var q=QS[i], a=ans[i];
+    $$("#qOpts .opt").forEach(function(b,j){
+      b.disabled=true;
+      if(j===q.a)b.classList.add("correct");
+      else if(j===a.j)b.classList.add("wrong");
+    });
+    var fb=$("#qFb");
+    fb.innerHTML="<p style='margin:0'><strong>"+(a.ok?"Correct.":"The answer is "+"ABCD"[q.a]+".")+"</strong> "+q.e+"</p>";
+    fb.classList.add("show");
+    var got=ans.filter(function(x){return x&&x.ok;}).length;
+    $("#qScore").textContent=got+" correct";
+    store.set(NS+"quiz",JSON.stringify(ans));
+  }
+  function finish(){
+    var got=ans.filter(function(x){return x&&x.ok;}).length;
+    var pct=Math.round(got/QS.length*100);
+    var band= pct>=88?"You are working comfortably in the top band for Criterion A." :
+              pct>=72?"Solid. Reread the explanations for the ones you missed and you are close to the top band." :
+              pct>=50?"A reasonable base. The gaps are worth a second pass through Sessions 2 and 3." :
+                      "Work back through the sessions before you retake this — the explanations are where the learning is.";
+    var wrong=[];
+    ans.forEach(function(a,k){if(a&&!a.ok)wrong.push(QS[k].q);});
+    var r=$("#qResult"); r.hidden=false;
+    r.innerHTML="<h3 style='margin-top:0'>"+got+" out of "+QS.length+" &nbsp;&middot;&nbsp; "+pct+"%</h3><p>"+band+"</p>"+
+      (wrong.length?"<h4>Worth revisiting</h4><ul>"+wrong.map(function(w){return "<li>"+w+"</li>";}).join("")+"</ul>":"<p>Every question correct.</p>");
+    r.scrollIntoView({behavior:reduce?"auto":"smooth",block:"nearest"});
+    $("#qBar").style.width="100%";
+    mark("quiz");
+    store.set(NS+"quizscore",got+"/"+QS.length);
+  }
+  $("#qNext").addEventListener("click",function(){ if(i<QS.length-1){i++;render();} else finish(); });
+  $("#qPrev").addEventListener("click",function(){ if(i>0){i--;render();} });
+  $("#qRestart").addEventListener("click",function(){ ans=[];i=0;$("#qResult").hidden=true;store.del(NS+"quiz");render(); });
+  try{var s=JSON.parse(store.get(NS+"quiz")||"[]"); if(s.length)ans=s;}catch(e){}
+  render();
+})();
+
+/* =========================================================
+   RUBRICS
+   ========================================================= */
+var RUB=[
+{c:"A",n:"Knowing and understanding",b:[
+ {l:"1–2",t:"You can state some facts about what plants need, but they are listed rather than connected, and scientific words are used loosely or wrongly."},
+ {l:"3–4",t:"You describe the four factors and the starch test correctly and can apply them to a situation you have already seen, though your explanations stop at what rather than why."},
+ {l:"5–6",t:"You explain the science accurately, apply it to a new situation such as diagnosing a deficiency, and interpret a table or graph to reach a supported conclusion."},
+ {l:"7–8",t:"You explain the science precisely and use it in unfamiliar problems, analyse evidence critically — including what a result does not prove — and consistently use correct scientific terminology."}]},
+{c:"B",n:"Inquiring and designing",b:[
+ {l:"1–2",t:"You state a question and give a prediction, but the variables are unclear and the method has gaps that would stop someone else from following it."},
+ {l:"3–4",t:"You write a testable question, a prediction, and name the independent and dependent variables. The method is workable but misses controls, quantities or safety."},
+ {l:"5–6",t:"Your question is measurable and your prediction is justified with science. Variables are fully identified and the method is complete, safe and repeatable."},
+ {l:"7–8",t:"Your prediction is justified with a clear mechanism, you explain how each controlled variable is held constant and why it matters, and your method includes repeats and a control setup so that enough reliable data is collected."}]},
+{c:"C",n:"Processing and evaluating",b:[
+ {l:"1–2",t:"You wrote your results down, but the table or graph is missing parts, and your conclusion just repeats the numbers."},
+ {l:"3–4",t:"Your table and graph are correct and you describe the pattern. You say the method could be better, but not what was wrong with it."},
+ {l:"5–6",t:"Your table and graph have headings and units. You explain the pattern using science, say whether your prediction was right, and name one real weakness."},
+ {l:"7–8",t:"You work out means correctly, explain the pattern using limiting factors, use your own numbers to judge both the prediction and the method, and suggest changes that would really fix the weaknesses you named."}]},
+{c:"D",n:"Reflecting on the impacts of science",b:[
+ {l:"1–2",t:"You mention an application of the science and list one or two sources, with everyday rather than scientific language."},
+ {l:"3–4",t:"You describe an application and outline one implication. Scientific vocabulary is present but inconsistent, and sources are listed incompletely."},
+ {l:"5–6",t:"You describe how the science is used to address a real problem and discuss implications for people or the environment, using scientific language correctly and documenting sources consistently."},
+ {l:"7–8",t:"You discuss implications from more than one perspective, including the strongest argument against your own position, apply scientific language accurately throughout, and document every source completely in a consistent style."}]}
+];
+(function(){
+  var w=$("#rubrics"); if(!w)return;
+  var sel={};
+  try{sel=JSON.parse(store.get(NS+"rub")||"{}");}catch(e){sel={};}
+  RUB.forEach(function(r){
+    var d=document.createElement("div");
+    d.className="rub breakout";
+    d.innerHTML="<header><h4>Criterion "+r.c+" &nbsp;&mdash;&nbsp; "+r.n+"</h4></header><div class='bands'>"+
+      r.b.map(function(b,i){return "<button type='button' class='band"+(sel[r.c]===i?" on":"")+"' data-c='"+r.c+"' data-i='"+i+"'><div class='lv'>Level "+b.l+"</div><p>"+b.t+"</p></button>";}).join("")+"</div>";
+    w.appendChild(d);
+  });
+  function summary(){
+    var rowsHtml=RUB.map(function(r){
+      var i=sel[r.c];
+      return "<tr><td><strong>"+r.c+"</strong> "+r.n+"</td><td class='num'>"+(i===undefined?"—":r.b[i].l)+"</td><td>"+(i===undefined?"not yet judged":(i<3?"Next target: level "+r.b[i+1].l:"Top band"))+"</td></tr>";
+    }).join("");
+    $("#rubSummary").innerHTML="<table><thead><tr><th>Criterion</th><th class='num'>Your judgement</th><th>Next step</th></tr></thead><tbody>"+rowsHtml+"</tbody></table>";
+  }
+  $$(".band",w).forEach(function(b){
+    b.addEventListener("click",function(){
+      var c=b.dataset.c;
+      $$('.band[data-c="'+c+'"]',w).forEach(function(x){x.classList.remove("on");});
+      b.classList.add("on"); sel[c]=+b.dataset.i;
+      store.set(NS+"rub",JSON.stringify(sel)); summary();
+      if(Object.keys(sel).length>=4) mark("rubric");
+    });
+  });
+  summary();
+  window.__rubSel=function(){return sel;};
+})();
+
+/* =========================================================
+   GLOSSARY + TOOLTIPS
+   ========================================================= */
+var GLOSS=[
+["autotroph","An organism that makes its own food from simple raw materials instead of eating other living things. Green plants, algae and some bacteria are autotrophs."],
+["photosynthesis","The process in which a green plant uses light energy, captured by chlorophyll, to turn carbon dioxide and water into glucose and oxygen."],
+["chlorophyll","The green pigment inside chloroplasts that absorbs light energy. It contains magnesium at its centre."],
+["chloroplast","The organelle in a plant cell where photosynthesis happens. Palisade cells are packed with them."],
+["stoma","A pore in the leaf surface, opened and closed by two guard cells, through which carbon dioxide enters and oxygen and water vapour leave. Plural: stomata."],
+["palisade mesophyll","The layer of tall, tightly packed cells near the top of a leaf where most photosynthesis takes place."],
+["spongy mesophyll","Loosely packed cells with large air spaces between them, allowing gases to diffuse to every cell."],
+["xylem","Vessels that carry water and dissolved mineral ions upwards from the roots."],
+["phloem","Tubes that carry dissolved sugar from the leaves to the rest of the plant."],
+["starch","An insoluble store of glucose. Because it does not dissolve or move, it stays in the leaf and can be tested for."],
+["iodine","A solution used to test for starch. It stays orange-brown when there is no starch and turns blue-black when there is."],
+["destarching","Keeping a plant in darkness for one to two days before an experiment so that its stored starch is used up."],
+["turgor","The pressure of water inside plant cells that keeps them firm. Losing it is what makes a plant wilt."],
+["fair test","An investigation in which only one variable is changed and every other condition is deliberately kept the same."],
+["control setup","An extra setup that receives everything the plant needs, used as an honest comparison for the test setup."],
+["controlled variable","A condition deliberately kept constant so it cannot affect the result."],
+["independent variable","The single condition the investigator chooses to change."],
+["dependent variable","The quantity measured to find out what effect the change had. It always has units."],
+["limiting factor","When a process needs several things at once, the one in shortest supply sets the speed. Supplying more of anything else changes nothing."],
+["water culture","Growing plants with their roots in a solution of known mineral ions instead of soil, so that one ion can be left out. The basis of hydroponics."],
+["chlorosis","Yellowing of leaf tissue caused by a lack of chlorophyll, often from magnesium or nitrate deficiency."],
+["mineral ion","A dissolved nutrient such as nitrate, phosphate, potassium, magnesium or calcium, absorbed from the soil by the roots."],
+["diffusion","The movement of particles from where they are more concentrated to where they are less concentrated. How carbon dioxide reaches the cells inside a leaf."],
+["respiration","The release of energy from glucose in every living cell, in plants as well as animals, twenty-four hours a day."],
+["glucose","The simple sugar made in photosynthesis, and the chemical store of the light energy the plant captured."],
+["cellulose","A tough fibre built from long chains of glucose. It makes plant cell walls, and therefore wood, paper and cotton."],
+["potassium hydroxide","A corrosive alkali that absorbs carbon dioxide from air. Used, by a teacher only, to remove carbon dioxide from a sealed bell jar."]
+];
+(function(){
+  var list=$("#glossList");
+  if(list){
+  GLOSS.slice().sort(function(a,b){return a[0].localeCompare(b[0]);}).forEach(function(g){
+    var d=document.createElement("div"); d.className="gterm";
+    d.innerHTML="<dt>"+g[0].charAt(0).toUpperCase()+g[0].slice(1)+"</dt><dd>"+g[1]+"</dd>";
+    list.appendChild(d);
+  });
+  var s=$("#glossSearch");
+  if(s) s.addEventListener("input",function(){
+    var q=s.value.toLowerCase().trim();
+    $$(".gterm",list).forEach(function(t){
+      t.classList.toggle("hide", q && t.textContent.toLowerCase().indexOf(q)<0);
+    });
+  });
+  }
+  // tooltips
+  var map={};
+  GLOSS.forEach(function(g){map[g[0].replace(/\s/g,"")]=g;});
+  var tip=document.createElement("div");
+  tip.style.cssText="position:absolute;z-index:150;max-width:290px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:11px 13px;font:400 .85rem/1.5 var(--sans);box-shadow:0 12px 30px -14px rgba(0,0,0,.5);display:none";
+  document.body.appendChild(tip);
+  function open(el){
+    var k=(el.dataset.t||el.textContent).toLowerCase().replace(/\s/g,"");
+    var g=map[k]||map[k.replace(/s$/,"")]; if(!g)return;
+    tip.innerHTML="<strong>"+g[0].charAt(0).toUpperCase()+g[0].slice(1)+"</strong><br>"+g[1];
+    tip.style.display="block";
+    var r=el.getBoundingClientRect();
+    var top=r.bottom+window.scrollY+8;
+    var left=Math.min(Math.max(8,r.left+window.scrollX-10), window.innerWidth-tip.offsetWidth-14);
+    tip.style.top=top+"px"; tip.style.left=left+"px";
+  }
+  function close(){tip.style.display="none";}
+  $$(".term").forEach(function(el){
+    el.setAttribute("tabindex","0"); el.setAttribute("role","button");
+    el.addEventListener("mouseenter",function(){open(el);});
+    el.addEventListener("mouseleave",close);
+    el.addEventListener("focus",function(){open(el);});
+    el.addEventListener("blur",close);
+    el.addEventListener("click",function(){open(el);});
+    el.addEventListener("keydown",function(e){if(e.key==="Escape")close();});
+  });
+  window.addEventListener("scroll",close,{passive:true});
+})();
+
+/* =========================================================
+   SAVE, RESTORE, EXPORT
+   ========================================================= */
+(function(){
+  var fields=$$("[data-save]");
+  fields.forEach(function(el){
+    var k=NS+"f."+el.dataset.save;
+    var v=store.get(k);
+    if(v!==null) el.value=v;
+    var ev=(el.type==="range")?"input":"input";
+    el.addEventListener(ev,function(){store.set(k,el.value);});
+  });
+  var st=$("#stance");
+  if(st){
+    var words=["Strongly disagree","Disagree","Lean against","Undecided","Lean towards","Agree","Strongly agree"];
+    var paint=function(){$("#stanceVal").textContent=words[+st.value];};
+    st.addEventListener("input",paint); paint();
+  }
+  function esc(s){return String(s||"").replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+  function val(k){return store.get(NS+"f."+k)||"";}
+  function on(sel,ev,fn){var e=$(sel); if(e) e.addEventListener(ev,fn);}
+  on("#expBtn","click",function(){
+    var name=val("name")||"Unnamed student";
+    var rows=(window.__labRows?window.__labRows():[])||[];
+    var sel=(window.__rubSel?window.__rubSel():{})||{};
+    var q=store.get(NS+"quizscore")||"not attempted";
+    var blocks=[
+      ["Criterion B — design task",[["Research question","b1"],["Hypothesis and reasoning","b2"],["Variables","b3"],["Method","b4"],["Safety and fairness","b5"]]],
+      ["Criterion C — conclusion",[["What my results show","c1"],["Was my prediction right","c2"],["A problem with counting bubbles","c3"],["What I would change next time","c4"]]],
+      ["Criterion D — impacts",[["Position and justification","d1"],["The strongest opposing argument","d2"],["Sources","d3"]]],
+      ["Reflection",[["Statement of inquiry in my own words","rf1"],["Most convincing experiment","rf2"],["A prediction I got wrong","rf3"],["A question still unanswered","rf4"],["Hardest band to reach","r1"]]]
+    ];
+    var body=blocks.map(function(b){
+      return "<h2>"+b[0]+"</h2>"+b[1].map(function(f){
+        return "<h3>"+f[0]+"</h3><p>"+(esc(val(f[1])).replace(/\n/g,"<br>")||"<em>Not answered</em>")+"</p>";
+      }).join("");
+    }).join("");
+    var labTable = rows.length ? "<h2>Virtual lab data</h2><table><tr><th>#</th><th>Distance / cm</th><th>CO2 / %</th><th>Temp / C</th><th>Trial 1</th><th>Trial 2</th><th>Trial 3</th><th>Mean</th></tr>"+
+      rows.map(function(r,i){return "<tr><td>"+(i+1)+"</td><td>"+r.d+"</td><td>"+r.c.toFixed(2)+"</td><td>"+r.T+"</td><td>"+r.t1+"</td><td>"+r.t2+"</td><td>"+r.t3+"</td><td>"+r.mean.toFixed(1)+"</td></tr>";}).join("")+"</table>" : "";
+    var rubTable="<h2>Self-assessment</h2><table><tr><th>Criterion</th><th>Level judged</th></tr>"+
+      RUB.map(function(r){var i=sel[r.c];return "<tr><td>"+r.c+" — "+r.n+"</td><td>"+(i===undefined?"—":r.b[i].l)+"</td></tr>";}).join("")+"</table>";
+    var stanceTxt=$("#stanceVal")?$("#stanceVal").textContent:"";
+    var html="<!DOCTYPE html><html><head><meta charset='utf-8'><title>"+esc(name)+" — Fed by Light</title>"+
+      "<style>body{font:16px/1.6 Georgia,serif;max-width:820px;margin:34px auto;padding:0 20px;color:#12312A}"+
+      "h1{border-bottom:2px solid #1F7A4C;padding-bottom:8px}h2{margin-top:30px;color:#14532F;border-bottom:1px solid #CFDCD2;padding-bottom:4px}"+
+      "h3{font-size:1rem;margin-bottom:.2em;font-family:system-ui,sans-serif}p{margin-top:.2em}"+
+      "table{border-collapse:collapse;width:100%;font-size:.9rem;font-family:system-ui,sans-serif}td,th{border:1px solid #CFDCD2;padding:6px 9px;text-align:left}"+
+      "@media print{body{margin:0}}</style></head><body>"+
+      "<h1>Fed by Light — MYP 2 Biology</h1><p><strong>"+esc(name)+"</strong><br>Al Hayat International School &middot; exported "+new Date().toLocaleString()+"</p>"+
+      "<p>End-of-unit knowledge check: <strong>"+esc(q)+"</strong>. Position on the food-or-fuel question: <strong>"+esc(stanceTxt)+"</strong>.</p>"+
+      body+labTable+rubTable+"</body></html>";
+    dl(html,"fed-by-light-"+name.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")+".html","text/html");
+    $("#expMsg").textContent="Exported. Open the downloaded file in any browser, then print it or attach it to your portfolio.";
+  });
+  on("#wipeBtn","click",function(){
+    if(!confirm("This erases every answer, reflection and lab reading you have saved on this device. It cannot be undone. Continue?"))return;
+    try{Object.keys(localStorage).forEach(function(k){if(k.indexOf(NS)===0)localStorage.removeItem(k);});}catch(e){}
+    location.reload();
+  });
+})();
+})();
+</script>
+</body>
+</html>
