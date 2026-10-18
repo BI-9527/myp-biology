@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sustainability Interview — Live Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='5' y='16' width='5' height='11' rx='1' fill='%232f6b3a'/><rect x='13' y='9' width='5' height='18' rx='1' fill='%232f6b3a'/><rect x='21' y='4' width='5' height='23' rx='1' fill='%232f6b3a'/></svg>">
+<style>
+:root{
+  --bg:#f6f4ee; --surface:#fffdf8; --surface-2:#efece3; --ink:#1d2a20; --ink-2:#4d5a4f; --muted:#7b857b; --line:#dcd8cc; --grid:#e8e5dc;
+  --accent:#2f6b3a; --accent-ink:#fff; --accent-soft:#e3eedd; --focus:#2a78d6;
+  --s1:#2a78d6; --s2:#eb6834;
+  --pos2:#256abf; --pos1:#86b6ef; --neu:#d6d4cd; --neg1:#ef9a92; --neg2:#c23a39; --dkc:#bcb9b0;
+  --good:#0ca30c; --warn:#fab219; --serious:#ec835a; --crit:#d03b3b;
+  --radius:14px; --shadow:0 1px 2px rgba(30,40,30,.06),0 6px 24px rgba(30,40,30,.05);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141a15; --surface:#1b231d; --surface-2:#232d25; --ink:#eef1ea; --ink-2:#c3cbc0; --muted:#8d998c; --line:#2f3b31; --grid:#273129;
+  --accent:#7fbf7a; --accent-ink:#0f1a10; --accent-soft:#25382a; --focus:#6da7ec; --s1:#3987e5; --s2:#d95926;
+  --pos2:#5598e7; --pos1:#1c5cab; --neu:#4a4a46; --neg1:#8e3a36; --neg2:#e66767; --dkc:#5c5a54; --shadow:none}}
+:root[data-theme="dark"]{--bg:#141a15; --surface:#1b231d; --surface-2:#232d25; --ink:#eef1ea; --ink-2:#c3cbc0; --muted:#8d998c; --line:#2f3b31; --grid:#273129;
+  --accent:#7fbf7a; --accent-ink:#0f1a10; --accent-soft:#25382a; --focus:#6da7ec; --s1:#3987e5; --s2:#d95926;
+  --pos2:#5598e7; --pos1:#1c5cab; --neu:#4a4a46; --neg1:#8e3a36; --neg2:#e66767; --dkc:#5c5a54; --shadow:none}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:Fraunces,Georgia,serif;font-weight:650;letter-spacing:-.01em;margin:0}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header.top{background:var(--surface);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:14px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+.logo{width:44px;height:44px;object-fit:contain}
+.brand b{font-family:Fraunces,serif;font-size:17px;display:block}
+.brand small{color:var(--muted);font-size:13px}
+.status{margin-left:auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.live{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-2);background:var(--surface-2);border-radius:99px;padding:5px 12px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--good)}
+.live.demo{background:#fbe7c6;color:#6b4300}.live.demo .dot{background:var(--warn)}
+.live.err .dot{background:var(--crit)}
+.btn{appearance:none;border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:8px 14px;font-weight:600;cursor:pointer;font-size:14px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+select{border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:8px 10px;font-size:14px}
+nav.tabs{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;align-items:center}
+nav.tabs button{border:none;background:none;padding:13px 14px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected=true]{color:var(--ink);border-color:var(--accent)}
+nav.tabs .filter{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);padding-left:12px;white-space:nowrap}
+main{padding:24px 0 80px}
+.grid{display:grid;gap:16px}
+.g-kpi{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.g-2{grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+.card h3{font-size:18px;margin-bottom:2px}
+.card .sub{color:var(--muted);font-size:13px;margin-bottom:14px}
+.kpi .v{font-family:Fraunces,serif;font-size:34px;font-weight:650;line-height:1.1;margin-top:4px}
+.kpi .v small{font-size:16px;color:var(--muted);font-family:Inter,sans-serif;font-weight:500}
+.kpi .l{color:var(--ink-2);font-size:13px;font-weight:600}
+.kpi .h{color:var(--muted);font-size:12.5px;margin-top:4px}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--surface-2);color:var(--ink-2)}
+.tag i{width:7px;height:7px;border-radius:50%;display:inline-block}
+/* bar charts (HTML) */
+.bars{display:grid;grid-template-columns:minmax(110px,38%) 1fr auto;gap:8px 12px;align-items:center}
+.bars .bl{font-size:13.5px;color:var(--ink-2);line-height:1.3}
+.bars .track{position:relative;height:14px;background:linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/25% 100%;border-left:1px solid var(--line)}
+.bars .fill{position:absolute;left:0;top:2px;bottom:2px;background:var(--s1);border-radius:0 4px 4px 0;min-width:2px}
+.bars .fill.alt{background:var(--s2)}
+.bars .whisk{position:absolute;top:50%;height:1.5px;background:var(--ink-2);opacity:.6}
+.bars .whisk::before,.bars .whisk::after{content:"";position:absolute;top:-4px;width:1.5px;height:9px;background:var(--ink-2)}
+.bars .whisk::after{right:0}
+.bars .bv{font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink);min-width:58px;text-align:right}
+.bars .bv small{color:var(--muted)}
+.bars .hit{cursor:default}
+.axis{display:grid;grid-template-columns:minmax(110px,38%) 1fr auto;gap:12px;font-size:11.5px;color:var(--muted);margin-top:4px}
+.axis div:nth-child(2){display:flex;justify-content:space-between}
+.axis div:nth-child(3){min-width:58px}
+.stack{display:flex;height:16px;gap:2px;border-radius:4px;overflow:hidden}
+.stack span{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--ink-2);margin-bottom:12px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.cols{display:flex;align-items:flex-end;gap:4px;height:120px;border-bottom:1px solid var(--line);padding-top:8px}
+.cols div{flex:1;background:var(--s1);border-radius:4px 4px 0 0;min-height:1px;position:relative}
+.cols-l{display:flex;gap:4px;font-size:11.5px;color:var(--muted);margin-top:4px}.cols-l span{flex:1;text-align:center}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;color:var(--ink-2);font-size:12.5px;background:var(--surface-2);position:sticky;top:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.tablewrap{overflow:auto;max-height:620px;border:1px solid var(--line);border-radius:10px}
+.qcard h4{font-family:Inter,sans-serif;font-size:15px;font-weight:600;line-height:1.4}
+.qcard .meta{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+.sec-title{font-size:22px;margin:30px 0 12px;display:flex;align-items:center;gap:10px}
+.sec-title:first-child{margin-top:0}
+.quote{border-left:3px solid var(--accent);background:var(--surface-2);padding:10px 14px;border-radius:0 8px 8px 0;margin:8px 0;font-size:14px}
+.quote small{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
+.chip{font-size:12px;background:var(--accent-soft);color:var(--ink);border-radius:99px;padding:2px 9px}
+#tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12.5px;padding:7px 10px;border-radius:8px;max-width:280px;opacity:0;transition:opacity .1s;z-index:20;line-height:1.4}
+.connect{max-width:560px;margin:40px auto}
+.connect input{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:var(--surface);margin:10px 0}
+.empty{color:var(--muted);text-align:center;padding:40px}
+/* report */
+.report{max-width:820px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:44px 48px;box-shadow:var(--shadow)}
+.report h1{font-size:30px;line-height:1.2;margin:6px 0 4px}
+.report h2{font-size:21px;margin:30px 0 10px;padding-top:14px;border-top:1px solid var(--line)}
+.report h3{font-size:16px;margin:18px 0 6px}
+.report p,.report li{font-size:14.5px}
+.report .eyebrow{color:var(--accent);font-weight:600;font-size:12px;letter-spacing:.07em;text-transform:uppercase}
+.report .cover-meta{color:var(--muted);font-size:13.5px}
+.report table{margin:10px 0}
+.pr{font-weight:700;font-size:11.5px;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.pr.High{background:#fde2df;color:#8f1f1d}.pr.Medium{background:#fdf0d2;color:#6b4a00}
+.toolbar{display:flex;gap:8px;justify-content:flex-end;max-width:820px;margin:0 auto 12px;flex-wrap:wrap}
+.note{font-size:13px;color:var(--muted)}
+@media (max-width:640px){.report{padding:24px 18px}.bars{grid-template-columns:1fr auto}.bars .bl{grid-column:1/-1;margin-bottom:-4px}.axis{display:none}}
+@media print{
+  @page{size:A4;margin:16mm 14mm}
+  body{background:#fff;color:#111;font-size:12px}
+  header.top,nav.tabs,.toolbar,#tip,.noprint{display:none!important}
+  main{padding:0}.wrap{max-width:none;padding:0}
+  [data-panel]{display:none!important}[data-panel="report"]{display:block!important}
+  .report{border:none;box-shadow:none;padding:0;max-width:none}
+  .report h2{break-after:avoid}.card,.bars,table,tr{break-inside:avoid}
+  .card{box-shadow:none;border:1px solid #ddd}
+  :root{--surface:#fff;--surface-2:#f3f2ee;--ink:#111;--ink-2:#333;--muted:#666;--line:#ddd;--grid:#eee}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <img class="logo" src="logo.png" alt="" onerror="this.style.display='none'">
+  <div class="brand"><b>Sustainability Interview · Live Analysis</b><small>Al Hayat International School — Aramoun</small></div>
+  <div class="status noprint">
+    <span class="live" id="live"><span class="dot"></span><span id="livetxt">Not connected</span></span>
+    <button class="btn" id="refresh" hidden>Refresh</button>
+    <button class="btn" id="signout" hidden title="Forget the dashboard key on this device">Disconnect</button>
+  </div>
+</div></header>
+
+<nav class="tabs" id="tabs" hidden><div class="wrap" role="tablist">
+  <button role="tab" data-tab="overview" aria-selected="true">Overview</button>
+  <button role="tab" data-tab="questions">Question by question</button>
+  <button role="tab" data-tab="open">Open answers</button>
+  <button role="tab" data-tab="report">Final report</button>
+  <button role="tab" data-tab="data">Raw data</button>
+  <span class="filter"><label for="role">Role</label><select id="role"><option value="">All staff</option></select></span>
+</div></nav>
+
+<main><div class="wrap">
+  <section id="connect" class="connect card" hidden>
+    <h3>Connect to the live responses</h3>
+    <p class="sub" style="margin-top:6px">Enter the dashboard key you set in the Apps Script backend (<code>DASHBOARD_KEY</code>). It is stored only in this browser.</p>
+    <form id="keyform"><input id="key" type="password" placeholder="Dashboard key" autocomplete="current-password" required><button class="btn primary">Connect</button></form>
+    <p class="note" id="connerr" style="color:var(--crit)"></p>
+    <hr style="border:none;border-top:1px solid var(--line);margin:18px 0">
+    <p class="note">No responses yet, or just exploring? <button class="btn" id="demo">Preview with demo data</button></p>
+    <p class="note" id="noscript" hidden>⚠ <b>config.js</b> has no <code>SCRIPT_URL</code> yet — see README step 3. Only the demo is available.</p>
+  </section>
+  <section data-panel="overview" hidden></section>
+  <section data-panel="questions" hidden></section>
+  <section data-panel="open" hidden></section>
+  <section data-panel="report" hidden></section>
+  <section data-panel="data" hidden></section>
+</div></main>
+<div id="tip" role="tooltip"></div>
+
+<script src="config.js"></script>
+<script src="questions.js"></script>
+<script src="analysis.js"></script>
+<script src="demo.js"></script>
+<script>
+(() => {
+const CFG = window.CONFIG || {}, S = window.SURVEY, AN = window.Analysis;
+const KEYSTORE = 'ahis-biodeg-dashkey';
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const { pct, f0, f1, band } = AN;
+let RAW = [], MODE = null, ROLE = '', TAB = 'overview', fetchedAt = null, timer = null;
+
+/* ---------------------------------------------------------- data loading */
+const getKey = () => { try { return localStorage.getItem(KEYSTORE) || ''; } catch(e){ return ''; } };
+const setKey = k => { try { k ? localStorage.setItem(KEYSTORE, k) : localStorage.removeItem(KEYSTORE); } catch(e){} };
+function setLive(cls, txt){ const l = $('#live'); l.className = 'live ' + cls; $('#livetxt').textContent = txt; }
+
+async function fetchLive(key){
+  const res = await fetch(`${CFG.SCRIPT_URL}?key=${encodeURIComponent(key)}&t=${Date.now()}`);
+  const out = await res.json(); if (!out.ok) throw new Error(out.error || 'Server error'); return out.rows || [];
+}
+async function refresh(){
+  if (MODE !== 'live') return;
+  try { RAW = await fetchLive(getKey()); fetchedAt = new Date(); setLive('', `Live · ${RAW.length} response${RAW.length===1?'':'s'} · ${fetchedAt.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`); draw(); }
+  catch(e){ setLive('err', 'Connection problem — ' + e.message); }
+}
+async function connect(key){
+  $('#connerr').textContent = '';
+  try { RAW = await fetchLive(key); setKey(key); MODE = 'live'; fetchedAt = new Date(); start(); refresh(); clearInterval(timer); timer = setInterval(refresh, 60000); }
+  catch(e){ $('#connerr').textContent = 'Could not connect: ' + e.message; $('#connect').hidden = false; }
+}
+function startDemo(){ MODE = 'demo'; RAW = demoRows(12); setLive('demo', 'DEMO DATA — not real responses'); start(); }
+function start(){ $('#connect').hidden = true; $('#tabs').hidden = false; $('#refresh').hidden = MODE !== 'live'; $('#signout').hidden = false; fillRoles(); draw(); }
+function fillRoles(){ const roles = [...new Set(RAW.map(r => r.A2).filter(Boolean))].sort(); const sel = $('#role');
+  sel.innerHTML = '<option value="">All staff</option>' + roles.map(r => `<option ${r===ROLE?'selected':''}>${esc(r)}</option>`).join(''); }
+
+/* ---------------------------------------------------------- chart helpers */
+function hbars(rows, { max = 100, fmt = v => f0(v), alt = false, whisker = false, axis = true } = {}){
+  const body = rows.map(r => {
+    const w = r.value === null ? 0 : Math.max(0, Math.min(100, r.value / max * 100));
+    const wh = whisker && r.min !== null && r.max !== null ? `<span class="whisk" style="left:${r.min/max*100}%;width:${Math.max(0,(r.max-r.min)/max*100)}%"></span>` : '';
+    return `<div class="bl">${esc(r.label)}</div><div class="track hit" data-tip="${esc(r.tip || '')}"><span class="fill ${alt?'alt':''}" style="width:${w}%;${w?'':'min-width:0'}"></span>${wh}</div><div class="bv">${r.value === null ? '<small>no data</small>' : (r.display ?? fmt(r.value))}</div>`;
+  }).join('');
+  const ax = axis ? `<div class="axis"><div></div><div><span>0</span><span>${max/4}</span><span>${max/2}</span><span>${max*3/4}</span><span>${max}</span></div><div></div></div>` : '';
+  return `<div class="bars">${body}</div>${ax}`;
+}
+function countBars(it){
+  const n = it.n || 0, mx = Math.max(1, ...it.counts.map(c => c.count));
+  return hbars(it.counts.map(c => ({ label: c.label, value: c.count, display: `${c.count} <small>${n ? pct(c.count/n) : ''}</small>`, tip: `${c.label}: ${c.count} of ${n} (${n?pct(c.count/n,1):'—'})` })), { max: niceMax(mx), axis: false });
+}
+const niceMax = m => m <= 4 ? 4 : m <= 8 ? 8 : m <= 12 ? 12 : Math.ceil(m / 4) * 4;
+function stackRows(it, colors){
+  const cols = it.q.cols.map(c => c[0]);
+  const legend = `<div class="legend">${cols.map((c,i) => `<span><i style="background:${colors[i]}"></i>${esc(c)}</span>`).join('')}</div>`;
+  const body = it.rows.map(r => {
+    const segs = r.counts.map((c,i) => c.count ? `<span style="flex:${c.count};background:${colors[i]}" data-tip="${esc(`${r.label} — ${c.label}: ${c.count} of ${r.n} (${pct(c.count/r.n)})`)}"></span>` : '').join('');
+    const mv = r.mean === null ? '—' : f0(r.mean*100);
+    return `<div class="bl">${esc(r.label)}</div><div><div class="stack">${segs || '<span style="flex:1;background:var(--grid)"></span>'}</div></div><div class="bv" data-tip="Score 0–100 (Don't know excluded)">${mv}<small>/100</small></div>`;
+  }).join('');
+  return legend + `<div class="bars">${body}</div>`;
+}
+const GRID_COLORS = ['var(--pos2)','var(--pos1)','var(--neg2)','var(--dkc)'];
+const LIKERT_COLORS = ['var(--neg2)','var(--neg1)','var(--neu)','var(--pos1)','var(--pos2)'];
+function scaleCols(it){
+  const mx = Math.max(1, ...it.counts.map(c => c.count));
+  return `<div class="cols">${it.counts.map(c => `<div style="height:${c.count/mx*100}%" data-tip="${c.label}/10: ${c.count} staff"></div>`).join('')}</div><div class="cols-l">${it.counts.map(c => `<span>${c.label}</span>`).join('')}</div>`;
+}
+function bandTag(v){ if (v === null || v === undefined) return '<span class="tag">no data</span>'; const c = v >= 70 ? 'var(--good)' : v >= 40 ? 'var(--warn)' : 'var(--crit)'; return `<span class="tag"><i style="background:${c}"></i>${band(v)}</span>`; }
+const originTag = o => !o ? '' : o === 'ADD' ? '<span class="tag">Added item</span>' : `<span class="tag">Students' ${o[1]==='W'?'written':'form'} Q${o.slice(2)}</span>`;
+
+/* ---------------------------------------------------------- panels */
+function draw(){
+  const A = AN.analyse(RAW, { role: ROLE });
+  document.querySelectorAll('[data-panel]').forEach(p => p.hidden = p.dataset.panel !== TAB);
+  if (!RAW.length) { document.querySelector(`[data-panel="${TAB}"]`).innerHTML = `<div class="card empty">No responses yet. Share the interview link with staff — answers will appear here automatically (refreshes every minute).</div>`; return; }
+  ({ overview, questions, open, report, data })[TAB](A);
+}
+function panel(name, html){ document.querySelector(`[data-panel="${name}"]`).innerHTML = html; }
+
+function overview(A){
+  const sup = A.domains.find(d => d.key === 'support'), practice = A.domains.filter(d => d.key !== 'support');
+  const roleN = A.roles.length;
+  panel('overview', `
+  ${ROLE ? `<p class="note">Filtered to <b>${esc(ROLE)}</b> (${A.n} of ${A.total} responses).</p>` : ''}
+  <div class="grid g-kpi">
+    <div class="card kpi"><div class="l">Responses</div><div class="v">${A.n}</div><div class="h">${roleN} role${roleN===1?'':'s'} represented${A.minutes?` · median ${Math.round(A.minutes)} min`:''}</div></div>
+    <div class="card kpi"><div class="l">Sustainability Practice Index</div><div class="v">${f0(A.overall.mean)}<small>/100</small></div><div class="h">${bandTag(A.overall.mean)} ${A.overall.sd!==null?` SD ${f0(A.overall.sd)}`:''}</div></div>
+    <div class="card kpi"><div class="l">Readiness for change</div><div class="v">${f0(sup.mean)}<small>/100</small></div><div class="h">Support for biodegradables, composting, lab change</div></div>
+    <div class="card kpi"><div class="l">Awareness gap</div><div class="v">${pct(A.dkRate)}</div><div class="h">of factual answers were “Don't know”</div></div>
+    <div class="card kpi"><div class="l">Staff self-rating</div><div class="v">${f1(A.selfRating.mean)}<small>/10</small></div><div class="h">Median ${f1(A.selfRating.median)} · n=${A.selfRating.n}</div></div>
+  </div>
+  <div class="grid g-2" style="margin-top:16px">
+    <div class="card"><h3>Practice index by area</h3><div class="sub">Mean score 0–100 across staff; whisker shows lowest–highest individual score. 70+ strong · 40–69 developing · below 40 urgent.</div>
+      ${hbars(practice.map(d => ({ label: d.label, value: d.mean, min: d.min, max: d.max, tip: `${d.label}: mean ${f1(d.mean)}, median ${f1(d.median)}, SD ${f1(d.sd)}, range ${f0(d.min)}–${f0(d.max)}, n=${d.n} — ${band(d.mean)}` })), { whisker: true })}</div>
+    <div class="card"><h3>Awareness gap by area</h3><div class="sub">Share of “Don't know” answers on factual questions. High values mean practices exist (or not) without staff knowing.</div>
+      ${hbars(practice.map(d => ({ label: d.label, value: d.dkRate === null ? null : d.dkRate*100, display: pct(d.dkRate), tip: `${d.label}: ${pct(d.dkRate,1)} “Don't know”` })), { alt: true })}</div>
+    <div class="card"><h3>Do staff agree on the facts?</h3><div class="sub">For factual questions, the share of staff (excluding “Don't know”) giving the most common answer. Below 60% = conflicting answers.</div>
+      ${A.consensus.length ? `<div class="tablewrap" style="max-height:340px"><table><thead><tr><th>Item</th><th>Most common answer</th><th class="num">Agreement</th></tr></thead><tbody>${A.consensus.map(c => `<tr><td>${esc(c.label)}</td><td>${esc(c.modal)}</td><td class="num">${c.agreement<0.6?'<span class="tag"><i style="background:var(--crit)"></i>':''}${pct(c.agreement)}${c.agreement<0.6?'</span>':''} <small class="note">(${c.knownN})</small></td></tr>`).join('')}</tbody></table></div>` : '<p class="note">Needs at least 3 informed answers per item.</p>'}</div>
+    <div class="card"><h3>Staff priorities for next year</h3><div class="sub">Each person chose up to three.</div>${countBars(A.priorities)}</div>
+    <div class="card"><h3>Who answered</h3><div class="sub">Responses by role.</div>${hbars(A.roles.map(r => ({ label: r.value, value: r.count, display: String(r.count), tip: `${r.value}: ${r.count}` })), { max: niceMax(Math.max(...A.roles.map(r=>r.count))), axis:false })}</div>
+    <div class="card"><h3>Index by role</h3><div class="sub">Do departments see the school differently? (small groups — read as indicative)</div>
+      <table><thead><tr><th>Role</th><th class="num">n</th><th class="num">Practice index</th><th class="num">Readiness</th></tr></thead><tbody>${A.roleIdx.map(r => `<tr><td>${esc(r.role)}</td><td class="num">${r.n}</td><td class="num">${f0(r.overall)}</td><td class="num">${f0(r.support)}</td></tr>`).join('')}</tbody></table>
+      <p class="note" style="margin-top:10px">Self-rating vs. practice index: Spearman ρ = ${A.corr.rho===null?'—':A.corr.rho.toFixed(2)}${A.corr.p!=null?`, p = ${A.corr.p.toFixed(3)}`:''} (n=${A.corr.n}). Attitude scale reliability (Cronbach's α, 7 items) = ${A.alpha.alpha===null?'— (needs 3+ complete answers)':A.alpha.alpha.toFixed(2)}.</p></div>
+  </div>`);
+}
+
+function questions(A){
+  let html = '';
+  for (const s of S.sections) {
+    const its = A.items.filter(i => i.q.sectionId === s.id && i.q.type !== 'textarea');
+    if (!its.length) continue;
+    html += `<h2 class="sec-title">${esc(s.id)}. ${esc(s.title)}</h2><div class="grid g-2">`;
+    for (const it of its) {
+      const q = it.q, scored = it.mean !== null && it.mean !== undefined && q.type !== 'scale';
+      let chart;
+      if (q.type === 'grid') chart = stackRows(it, GRID_COLORS);
+      else if (q.type === 'likert') chart = stackRows(it, LIKERT_COLORS);
+      else if (q.type === 'scale') chart = scaleCols(it);
+      else chart = countBars(it);
+      const meta = [originTag(q.origin), `<span class="tag">n = ${it.n ?? it.rows?.[0]?.n ?? 0}</span>`,
+        scored ? `<span class="tag" data-tip="Average item score, Don't know excluded">Score ${f0(it.mean*100)}/100</span>` : '',
+        q.type === 'scale' ? `<span class="tag">Mean ${f1(it.mean)} · SD ${f1(it.sd)} · median ${f1(it.median)}</span>` : '',
+        it.dk ? `<span class="tag"><i style="background:var(--dkc)"></i>${it.dk} don't know</span>` : '',
+        q.factual && it.agreement != null ? `<span class="tag">Agreement ${pct(it.agreement)}</span>` : '',
+        q.type === 'multi' ? '<span class="tag">Multiple answers allowed</span>' : ''].join('');
+      html += `<div class="card qcard ${q.type==='grid'||q.type==='likert'?'wide':''}" style="${q.type==='grid'||q.type==='likert'?'grid-column:1/-1':''}"><h4>${esc(q.id)} · ${esc(q.text)}</h4><div class="meta">${meta}</div>${chart}</div>`;
+    }
+    html += '</div>';
+  }
+  panel('questions', html);
+}
+
+const STOP = new Set('the a an and or of to in on at for is are was were be by with from as it its this that these those we our us they their them there has have had not no do does did but if so than then also all any each more most some such into out up about over only very can will would should could may one two which who whom what when where how per via i my me you your he she his her school schools students student staff'.split(' '));
+function keywords(texts, k = 8){ const c = {}; texts.join(' ').toLowerCase().replace(/[^a-zÀ-ɏ؀-ۿ\s-]/g,' ').split(/\s+/).forEach(w => { if (w.length > 3 && !STOP.has(w)) c[w] = (c[w]||0)+1; }); return Object.entries(c).filter(e => e[1] > 1).sort((a,b) => b[1]-a[1]).slice(0,k); }
+function open(A){
+  const its = A.items.filter(i => i.q.type === 'textarea');
+  panel('open', `<p class="note">Written answers, grouped by question. Keywords show words used by 2+ answers — use them to spot themes. ${MODE==='live'?'Claude can also read the Google Sheet and write a full thematic analysis for the final report.':''}</p>` +
+    its.map(it => { const kw = keywords(it.answers.map(a => a.text));
+      return `<div class="card" style="margin-top:14px"><h4 style="font-family:Inter;font-size:15px">${esc(it.q.id)} · ${esc(it.q.text)}</h4><div class="meta" style="margin:6px 0">${originTag(it.q.origin)} <span class="tag">${it.answers.length} answer${it.answers.length===1?'':'s'}</span></div>
+      ${kw.length ? `<div class="chips">${kw.map(([w,n]) => `<span class="chip">${esc(w)} · ${n}</span>`).join('')}</div>` : ''}
+      ${it.answers.length ? it.answers.map(a => `<div class="quote">${esc(a.text)}<small>${esc(a.role || 'Role not stated')}</small></div>`).join('') : '<p class="note">No answers yet.</p>'}</div>`; }).join(''));
+}
+
+function report(A){
+  const recs = AN.recommendations(A), concl = AN.conclusions(A), I = A.byId;
+  const practice = A.domains.filter(d => d.key !== 'support'), sup = A.domains.find(d => d.key === 'support');
+  const today = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+  const sum = s => S.sections.find(x => x.id === s);
+  const itemLine = id => { const it = I[id]; if (!it || !it.n) return ''; const t = AN.topOf(it, 2); if (!t.length) return '';
+    return `<li><b>${esc(it.q.short)}:</b> ${t.map(x => `“${esc(x.label)}” (${x.count}/${it.n}, ${pct(x.count/it.n)})`).join('; ')}${it.dk?` — ${it.dk} “Don't know”`:''}${it.mean!=null&&it.q.domain?` · score ${f0(it.mean*100)}/100`:''}.</li>`; };
+  const gridLine = id => { const it = I[id]; if (!it) return ''; return it.rows.map(r => `<li><b>${esc(r.label)}:</b> most common “${esc(r.modal || '—')}” ${r.knownN?`(${pct(r.agreement)} agreement)`:''} · score ${r.mean===null?'—':f0(r.mean*100)}/100${r.dk?` · ${r.dk} don't know`:''}</li>`).join(''); };
+  const quotes = id => { const it = I[id]; if (!it || !it.answers.length) return ''; return it.answers.slice(0, 3).map(a => `<div class="quote">${esc(a.text)}<small>${esc(a.role)}</small></div>`).join(''); };
+  const dom = k => A.domains.find(d => d.key === k);
+  const domHead = (k) => { const d = dom(k); return `<p><b>Area index: ${f0(d.mean)}/100</b> ${bandTag(d.mean)} · SD ${f0(d.sd)} · “Don't know” rate ${pct(d.dkRate)}</p>`; };
+  const origins = S.sections.flatMap(s => s.questions).filter(q => q.origin && q.origin !== 'ADD');
+  const addN = S.sections.flatMap(s => s.questions).filter(q => q.origin === 'ADD').length;
+  const totalQ = S.sections.flatMap(s => s.questions).length;
+  const lik = I.H5;
+
+  panel('report', `
+  <div class="toolbar"><span class="note" style="margin-right:auto">${MODE==='demo'?'⚠ Built from DEMO data — connect real data before sharing.':'Generated from live data'+(fetchedAt?` at ${fetchedAt.toLocaleString()}`:'')+(ROLE?` · filtered to ${esc(ROLE)}`:'')+'.'}</span>
+    <button class="btn" id="copyrep">Copy text</button><button class="btn primary" onclick="window.print()">Print / Save as PDF</button></div>
+  <article class="report" id="reportdoc">
+    <div class="eyebrow">Student research report${MODE==='demo'?' · DEMO DATA':''}</div>
+    <h1>Biodegradation & Sustainable Development at Al Hayat International School</h1>
+    <p class="cover-meta">Findings from a staff interview · Aramoun, Lebanon · ${today} · ${A.n} respondents${ROLE?` (${esc(ROLE)})`:''}</p>
+
+    <h2>1. Executive summary</h2>
+    <ul>${concl.map(c => `<li>${esc(c)}</li>`).join('')}</ul>
+    ${hbars(practice.map(d => ({ label: d.label, value: d.mean, min: d.min, max: d.max, tip: '' })), { whisker: true })}
+
+    <h2>2. Purpose and method</h2>
+    <p>The study assessed how the school manages waste and uses biodegradable materials, and how aware staff are of sustainable-development practices. To avoid scheduling face-to-face interviews, a structured self-administered interview was sent online to staff in different roles; answers were collected live into a Google Sheet.</p>
+    <p><b>Instrument.</b> ${totalQ} questions in ${S.sections.length} parts. All ${new Set(origins.map(q => q.origin)).size} questions proposed by students (6 written, 8 from the online brainstorm) were kept, reworded for staff and expanded into ${origins.length} interview items; ${addN} items were added to measure policy, monitoring, training and attitudes. Closed questions were mixed with open questions to capture explanations.</p>
+    <p><b>Scoring.</b> Each closed answer was converted to a 0–1 score (e.g. “Yes, in all areas” = 1, “Yes, in some areas” = 0.5, “No” = 0). “Don't know” was never scored; instead it was counted as an <i>awareness gap</i>. Area indices (0–100) are the mean of item scores per person, then averaged across staff. Bands: 70+ strong, 40–69 developing, below 40 needs urgent attention.</p>
+    <p><b>Analysis.</b> Frequencies and percentages for every question; mean, median and standard deviation for indices; agreement (share giving the most common answer) on factual items to detect conflicting information; Spearman correlation between staff self-rating and measured index; Cronbach's α for the 7-item attitude scale.</p>
+
+    <h2>3. Respondents</h2>
+    <table><thead><tr><th>Role</th><th class="num">n</th><th class="num">Practice index</th><th class="num">Readiness</th></tr></thead><tbody>${A.roleIdx.map(r => `<tr><td>${esc(r.role)}</td><td class="num">${r.n}</td><td class="num">${f0(r.overall)}</td><td class="num">${f0(r.support)}</td></tr>`).join('')}</tbody></table>
+    ${itemLine('A3') ? `<ul>${itemLine('A3')}</ul>` : ''}
+
+    <h2>4. Findings by area</h2>
+    <h3>4.1 ${esc(sum('B').title)}</h3>${domHead('waste')}<ul>${['B2','B3','B4','B5','B6'].map(itemLine).join('')}</ul>${quotes('B1')}
+    <h3>4.2 ${esc(sum('C').title)}</h3>${domHead('materials')}<ul>${['C1','C2','C4','C5'].map(itemLine).join('')}</ul>${quotes('C3')}
+    <h3>4.3 ${esc(sum('D').title)}</h3>${domHead('labs')}<ul>${['D1','D2','D3','D4'].map(itemLine).join('')}</ul>
+    <h3>4.4 ${esc(sum('E').title)}</h3>${domHead('recycling')}<ul>${gridLine('E1')}${['E2','E3','E4'].map(itemLine).join('')}</ul>${quotes('E5')}
+    <h3>4.5 ${esc(sum('F').title)}</h3>${domHead('energy')}<ul>${gridLine('F1')}${['F2','F3'].map(itemLine).join('')}</ul>${quotes('F4')}
+    <h3>4.6 ${esc(sum('G').title)}</h3>${domHead('green')}<ul>${['G2','G3','G4','G5'].map(itemLine).join('')}</ul>${quotes('G1')}
+    <h3>4.7 ${esc(sum('H').title)}</h3>${domHead('culture')}<ul>${['H1','H2','H4'].map(itemLine).join('')}</ul>
+    <p><b>Attitudes (1 = strongly disagree … 5 = strongly agree):</b></p>
+    <table><thead><tr><th>Statement</th><th class="num">Mean (1–5)</th><th class="num">% agree</th><th class="num">n</th></tr></thead><tbody>${lik.rows.map(r => { const ag = r.n ? (r.counts[3].count + r.counts[4].count) / r.n : null; return `<tr><td>${esc(r.label)}</td><td class="num">${r.mean===null?'—':(1+r.mean*4).toFixed(2)}</td><td class="num">${pct(ag)}</td><td class="num">${r.n}</td></tr>`; }).join('')}</tbody></table>
+    ${quotes('H3')}
+    <h3>4.8 Readiness for change</h3><p><b>Readiness index: ${f0(sup.mean)}/100.</b></p><ul>${['C4','D3','D4','G5'].map(itemLine).join('')}</ul>
+    <h3>4.9 Overall view & priorities</h3><ul>${itemLine('I2')}<li><b>Self-rating:</b> mean ${f1(I.I1.mean)}/10 (SD ${f1(I.I1.sd)}, median ${f1(I.I1.median)}).</li></ul>${quotes('I3')}
+
+    <h2>5. Statistical notes</h2>
+    <ul>
+      <li><b>Overall practice index:</b> ${f1(A.overall.mean)}/100 (SD ${f1(A.overall.sd)}).</li>
+      <li><b>Self-rating vs measured index:</b> Spearman ρ = ${A.corr.rho===null?'not computable':A.corr.rho.toFixed(2)}${A.corr.p!=null?`, p = ${A.corr.p.toFixed(3)}`:''} (n = ${A.corr.n}). ${A.corr.p!=null?(A.corr.p<0.05?'Staff who rate the school higher also report better practices (significant at 5%).':'No significant relationship — perception and reported practice do not move together.'):''}</li>
+      <li><b>Attitude scale reliability:</b> Cronbach's α = ${A.alpha.alpha===null?'not computable':A.alpha.alpha.toFixed(2)} ${A.alpha.alpha!==null?(A.alpha.alpha>=0.7?'(acceptable internal consistency).':'(low — the statements measure different things and are best read individually).'):''}</li>
+      <li><b>Conflicting facts:</b> ${A.consensus.filter(c=>c.agreement<0.6).length} factual items with less than 60% agreement${A.consensus.filter(c=>c.agreement<0.6).length?': '+A.consensus.filter(c=>c.agreement<0.6).map(c=>esc(c.label)).join('; '):''}.</li>
+    </ul>
+
+    <h2>6. Conclusions</h2>
+    <ol>${concl.map(c => `<li>${esc(c)}</li>`).join('')}</ol>
+
+    <h2>7. Recommendations</h2>
+    <table><thead><tr><th>Priority</th><th>Area</th><th>Action</th><th>Evidence</th><th>Timeframe</th></tr></thead><tbody>${recs.map(r => `<tr><td><span class="pr ${r.priority}">${r.priority}</span></td><td>${esc(r.area)}</td><td>${esc(r.action)}</td><td class="note">${esc(r.why)}</td><td>${esc(r.horizon)}</td></tr>`).join('')}</tbody></table>
+
+    <h2>8. Limitations</h2>
+    <ul><li>Small sample (${A.n} staff, one school): percentages move a lot with one answer; statistics are descriptive and indicative, not generalisable to other schools.</li>
+    <li>Self-reported answers may be more positive than reality; on-site observation (e.g. a one-week waste audit) is recommended to confirm key findings.</li>
+    <li>Scores reflect the weighting chosen by the research team and should be read together with the open answers.</li></ul>
+
+    <h2>Appendix — Students' questions and where they appear</h2>
+    <table><thead><tr><th>Source</th><th>Interview item</th></tr></thead><tbody>${origins.map(q => `<tr><td>${q.origin[1]==='W'?'Written':'Online form'} Q${q.origin.slice(2)}</td><td>${esc(q.id)} · ${esc(q.text)}</td></tr>`).join('')}</tbody></table>
+  </article>`);
+  $('#copyrep').onclick = () => { navigator.clipboard?.writeText($('#reportdoc').innerText).then(() => $('#copyrep').textContent = 'Copied ✓'); };
+}
+
+function data(A){
+  const keys = window.surveyKeys();
+  const head = ['Timestamp','Response ID', ...keys.map(k => k.key)];
+  const rows = RAW.filter(r => !ROLE || r.A2 === ROLE);
+  panel('data', `<div class="toolbar" style="max-width:none"><span class="note" style="margin-right:auto">${rows.length} rows${MODE==='live'?' · the master copy lives in your Google Sheet':''}</span><button class="btn primary" id="csv">Download CSV</button></div>
+  <div class="tablewrap"><table><thead><tr>${head.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${head.map(h => `<td>${esc(Array.isArray(r[h])?r[h].join('; '):r[h])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`);
+  $('#csv').onclick = () => {
+    const label = Object.fromEntries(keys.map(k => [k.key, k.row ? `${k.q.short}: ${k.row}` : k.q.short]));
+    const cell = v => `"${String(v ?? '').replace(/"/g,'""')}"`;
+    const csv = [head.map(h => cell(label[h] ? `${h} ${label[h]}` : h)).join(','), ...rows.map(r => head.map(h => cell(r[h])).join(','))].join('\r\n');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type:'text/csv' })); a.download = `sustainability-interview-${MODE}-${new Date().toISOString().slice(0,10)}.csv`; a.click();
+  };
+}
+
+/* ---------------------------------------------------------- events */
+document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { TAB = b.dataset.tab; document.querySelectorAll('[data-tab]').forEach(x => x.setAttribute('aria-selected', x === b)); draw(); window.scrollTo(0,0); });
+$('#role').onchange = e => { ROLE = e.target.value; draw(); };
+$('#refresh').onclick = refresh;
+$('#signout').onclick = () => { setKey(''); location.href = location.pathname; };
+$('#keyform').onsubmit = e => { e.preventDefault(); connect($('#key').value.trim()); };
+$('#demo').onclick = startDemo;
+const tip = $('#tip');
+document.addEventListener('mousemove', e => { const t = e.target.closest('[data-tip]'); const s = t && t.dataset.tip;
+  if (!s) { tip.style.opacity = 0; return; } tip.textContent = s; tip.style.opacity = 1;
+  const x = Math.min(e.clientX + 14, innerWidth - tip.offsetWidth - 8), y = e.clientY + 16 + tip.offsetHeight > innerHeight ? e.clientY - tip.offsetHeight - 10 : e.clientY + 16;
+  tip.style.left = x + 'px'; tip.style.top = y + 'px'; });
+
+/* ---------------------------------------------------------- boot */
+const params = new URLSearchParams(location.search);
+if (params.has('demo')) startDemo();
+else if (!CFG.SCRIPT_URL) { $('#connect').hidden = false; $('#noscript').hidden = false; $('#keyform').hidden = true; }
+else if (getKey()) { setLive('', 'Connecting…'); connect(getKey()); }
+else $('#connect').hidden = false;
+})();
+</script>
+</body>
+</html>

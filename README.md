@@ -115,3 +115,12 @@ It is not part of the MYP 2 tabs or locks, so it can be shared on its own.
 | `grade-11-ap/photosynthesis/his-logo.png` | School logo used by the PDF. |
 
 The teacher hub (`index.html`) has a card for it with a *Copy student link* button.
+
+---
+
+## Student research: Biodegradation & Sustainable Development staff interview
+
+A stand-alone online interview for staff, with a live Google Sheets backend and an analysis dashboard. Folder: `sustainability-interview/` (not part of the MYP 2 tabs or locks). Full setup guide: `sustainability-interview/README.md`.
+
+**Interview link (for staff):** https://bi-9527.github.io/myp-biology/sustainability-interview/
+**Dashboard (protected by a secret word):** https://bi-9527.github.io/myp-biology/sustainability-interview/dashboard.html
