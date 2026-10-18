@@ -97,3 +97,21 @@ Criterion wording on these pages is a school-written task-specific
 clarification for MYP 2, matched to the objectives and strands of the MYP
 Sciences guide. Read it alongside the official published descriptors from the
 IB programme resource centre.
+
+---
+
+## Grade 11 American Program: Photosynthesis
+
+A separate, stand-alone lesson in the folder `grade-11-ap/photosynthesis/`.
+It is not part of the MYP 2 tabs or locks, so it can be shared on its own.
+
+**Student link:** https://bi-9527.github.io/myp-biology/grade-11-ap/photosynthesis/
+
+| File | What it is |
+|---|---|
+| `grade-11-ap/photosynthesis/index.html` | Interactive board page: light reaction (thylakoids, grana) and dark reaction (stroma), animations, simulators, drag-and-drop, answers revealed by the teacher. Self-contained, works offline. |
+| `grade-11-ap/photosynthesis/photosynthesis-11AP.pdf` | The 7-page student sheet to print. Question numbers match the board page. |
+| `grade-11-ap/photosynthesis/photosynthesis-11AP.tex` | LaTeX source of the PDF (compile with XeLaTeX twice; needs `his-logo.png` beside it and the Inter font). |
+| `grade-11-ap/photosynthesis/his-logo.png` | School logo used by the PDF. |
+
+The teacher hub (`index.html`) has a card for it with a *Copy student link* button.
