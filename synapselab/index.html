@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SynapseLab — The Synapse | Ahmad Ghozlan | Biology</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06040f;--bg2:#0a0718;--bg3:#0e0a20;
+  --panel:#110e24;--panel2:#181430;
+  --border:rgba(140,100,255,.08);--border2:rgba(140,100,255,.18);
+  --text:#ece8ff;--muted:#5a5070;--muted2:#9a90c0;
+  --violet:#8b5cf6;--violet2:#6d28d9;
+  --green:#00ff88;--green2:#00cc66;
+  --pink:#f472b6;--pink2:#db2777;
+  --cyan:#22d3ee;--cyan2:#0891b2;
+  --yellow:#fbbf24;
+  --red:#f87171;
+  --fh:'Outfit',sans-serif;--fm:'DM Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--fh);overflow-x:hidden;line-height:1.6;}
+
+/* LAYOUT */
+.app{display:flex;min-height:100vh;}
+aside{width:240px;background:var(--bg2);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;display:flex;flex-direction:column;flex-shrink:0;z-index:100;}
+main{flex:1;min-width:0;}
+@media(max-width:860px){aside{display:none;}section{padding:40px 18px!important;}}
+
+/* SIDEBAR */
+.sb-logo{padding:24px 20px 16px;border-bottom:1px solid var(--border);}
+.sb-logo h1{font-size:1.4rem;font-weight:800;letter-spacing:-1px;color:var(--green);}
+.sb-logo p{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-top:2px;}
+.sb-nav{flex:1;padding:12px 0;overflow-y:auto;}
+.sn{display:flex;align-items:center;gap:10px;padding:9px 20px;text-decoration:none;font-size:.82rem;font-weight:500;color:var(--muted);border-left:3px solid transparent;transition:all .2s;cursor:pointer;background:none;border-right:none;border-top:none;border-bottom:none;width:100%;font-family:var(--fh);}
+.sn:hover,.sn.active{color:var(--text);background:rgba(0,255,136,.05);border-left-color:var(--violet);}
+.sn .badge{font-size:.6rem;font-family:var(--fm);background:var(--panel2);padding:2px 6px;border-radius:3px;color:var(--violet);margin-left:auto;}
+.sb-foot{padding:16px 20px;border-top:1px solid var(--border);}
+.sb-foot .name{font-weight:700;font-size:.9rem;}
+.sb-foot .role{font-size:.6rem;color:var(--green);text-transform:uppercase;letter-spacing:2px;}
+.sb-foot .school{font-size:.65rem;color:var(--muted);margin-top:2px;}
+
+/* SECTIONS */
+section{padding:72px 56px;border-bottom:1px solid var(--border);}
+.e-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--fm);font-size:.65rem;text-transform:uppercase;letter-spacing:2px;padding:4px 12px;border-radius:3px;margin-bottom:20px;}
+.e-tag.engage{background:rgba(251,191,36,.1);color:var(--yellow);border:1px solid rgba(251,191,36,.25);}
+.e-tag.explore{background:rgba(0,255,136,.1);color:var(--green);border:1px solid rgba(0,255,136,.25);}
+.e-tag.explain{background:rgba(139,92,246,.1);color:var(--violet);border:1px solid rgba(139,92,246,.25);}
+.e-tag.elaborate{background:rgba(244,114,182,.1);color:var(--pink);border:1px solid rgba(244,114,182,.25);}
+.e-tag.evaluate{background:rgba(34,211,238,.1);color:var(--cyan);border:1px solid rgba(34,211,238,.25);}
+.sec-title{font-size:2rem;font-weight:800;letter-spacing:-1px;color:#fff;margin-bottom:10px;}
+.sec-desc{color:var(--muted2);font-size:.95rem;max-width:600px;line-height:1.7;margin-bottom:32px;}
+
+/* CARDS */
+.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:24px;}
+.card2{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:16px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+@media(max-width:700px){.g2,.g3{grid-template-columns:1fr;}}
+
+/* INPUTS */
+input[type=range]{-webkit-appearance:none;width:100%;height:4px;background:var(--panel2);border-radius:2px;outline:none;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--violet);cursor:pointer;}
+input[type=text],textarea{background:var(--panel2);border:1px solid var(--border2);border-radius:6px;padding:10px 14px;color:var(--text);font-family:var(--fh);font-size:.9rem;outline:none;transition:border-color .2s;width:100%;}
+input[type=text]:focus,textarea:focus{border-color:var(--violet);}
+textarea{resize:vertical;min-height:90px;}
+
+/* BUTTONS */
+.btn{padding:11px 24px;border-radius:7px;font-family:var(--fh);font-weight:600;font-size:.88rem;cursor:pointer;border:none;transition:all .2s;}
+.btn-violet{background:var(--violet);color:#fff;}
+.btn-violet:hover{background:var(--violet2);}
+.btn-green{background:var(--green);color:#000;}
+.btn-green:hover{background:var(--green2);}
+.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--text);}
+.btn-ghost:hover{border-color:var(--violet);color:var(--violet);}
+.btn-pink{background:var(--pink);color:#fff;}
+.btn-pink:hover{background:var(--pink2);}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+
+/* FORMULA / STRUCTURE CARDS */
+.sc{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px 20px;transition:border-color .2s;}
+.sc:hover{border-color:var(--violet);}
+.sc-name{font-size:.6rem;text-transform:uppercase;letter-spacing:2px;color:var(--violet);margin-bottom:8px;}
+.sc-title{font-family:var(--fm);font-size:1.1rem;color:var(--green);margin-bottom:8px;font-weight:500;}
+.sc-body{font-size:.82rem;color:var(--muted2);line-height:1.8;}
+.sc-body span{color:var(--text);}
+
+/* HERO */
+#hero{position:relative;min-height:88vh;display:flex;align-items:center;background:radial-gradient(ellipse at 20% 50%,rgba(139,92,246,.08) 0%,transparent 55%),radial-gradient(ellipse at 80% 30%,rgba(0,255,136,.05) 0%,transparent 55%);}
+.hero-tag{font-family:var(--fm);font-size:.65rem;color:var(--green);text-transform:uppercase;letter-spacing:3px;border:1px solid rgba(0,255,136,.3);padding:4px 12px;border-radius:2px;display:inline-block;margin-bottom:20px;}
+.hero-title{font-size:clamp(3rem,5.5vw,5.5rem);font-weight:800;letter-spacing:-2px;line-height:.9;color:#fff;margin-bottom:16px;}
+.hero-title span{color:var(--green);}
+.hero-q{background:rgba(0,255,136,.04);border:1px solid rgba(0,255,136,.15);border-radius:10px;padding:20px 24px;margin-bottom:28px;max-width:600px;}
+.hero-q .q{font-size:1.05rem;color:var(--green);font-weight:500;line-height:1.6;}
+.hero-q .hint{font-size:.85rem;color:var(--muted2);margin-top:8px;line-height:1.6;}
+
+/* EXPLORE — interactive diagram */
+.synapse-diagram{position:relative;width:100%;height:320px;background:var(--panel2);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:crosshair;}
+.struct-tooltip{position:absolute;background:var(--panel);border:1px solid var(--violet);border-radius:8px;padding:10px 14px;font-size:.8rem;color:var(--text);pointer-events:none;z-index:10;max-width:200px;line-height:1.5;display:none;box-shadow:0 8px 32px rgba(0,0,0,.5);}
+.struct-btn{position:absolute;width:14px;height:14px;border-radius:50%;border:2px solid;cursor:pointer;transition:all .2s;animation:structPulse 2s infinite;}
+@keyframes structPulse{0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,.5);}50%{box-shadow:0 0 0 6px rgba(0,255,136,0);}}
+
+/* TRANSMISSION STEPPER */
+.stepper{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.step-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.step-dots{display:flex;gap:8px;}
+.step-dot{width:10px;height:10px;border-radius:50%;background:var(--panel2);border:1px solid var(--border2);transition:all .3s;}
+.step-dot.active{background:var(--green);border-color:var(--green);}
+.step-dot.done{background:var(--violet);border-color:var(--violet);}
+.step-body{padding:24px;min-height:200px;}
+.step-canvas{width:100%;height:160px;border-radius:8px;display:block;background:var(--panel2);border:1px solid var(--border);margin-bottom:16px;}
+.step-title{font-weight:700;font-size:1rem;color:#fff;margin-bottom:6px;}
+.step-text{font-size:.88rem;color:var(--muted2);line-height:1.7;}
+.step-text strong{color:var(--green);}
+.step-nav{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:12px;align-items:center;justify-content:space-between;}
+.step-counter{font-family:var(--fm);font-size:.75rem;color:var(--muted);}
+
+/* NEUROTRANSMITTER CARDS */
+.nt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+.nt-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;transition:border-color .2s;}
+.nt-card:hover{border-color:var(--pink);}
+.nt-name{font-family:var(--fm);font-size:.85rem;color:var(--pink);margin-bottom:6px;font-weight:500;}
+.nt-role{font-size:.7rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:10px;}
+.nt-body{font-size:.82rem;color:var(--muted2);line-height:1.75;}
+.nt-body span{color:var(--text);}
+.nt-tag{display:inline-block;font-size:.6rem;font-family:var(--fm);padding:2px 8px;border-radius:3px;margin-top:8px;}
+
+/* QUIZ */
+.q-block{margin-bottom:24px;padding:24px;background:var(--panel);border:1px solid var(--border);border-radius:12px;position:relative;overflow:hidden;}
+.q-block::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--violet);}
+.q-num{font-family:var(--fm);font-size:.65rem;color:var(--violet);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;}
+.q-text{font-size:1rem;color:var(--text);margin-bottom:16px;line-height:1.7;}
+.q-text strong{color:var(--green);}
+.mcq-options{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.mcq-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--panel2);border:1px solid var(--border);border-radius:7px;cursor:pointer;transition:all .2s;font-size:.9rem;}
+.mcq-opt:hover{border-color:var(--violet);}
+.mcq-opt.selected{border-color:var(--violet);background:rgba(139,92,246,.08);}
+.mcq-opt.correct{border-color:var(--green);background:rgba(0,255,136,.08);color:var(--green);}
+.mcq-opt.wrong{border-color:var(--red);background:rgba(248,113,113,.08);color:var(--red);}
+.mcq-letter{font-family:var(--fm);font-size:.75rem;color:var(--violet);background:var(--panel);padding:2px 7px;border-radius:3px;flex-shrink:0;}
+.check-btn{padding:10px 18px;background:var(--panel2);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:var(--fh);font-weight:600;font-size:.82rem;cursor:pointer;transition:all .2s;}
+.check-btn:hover{border-color:var(--violet);color:var(--violet);}
+.fb{margin-top:12px;padding:10px 16px;border-radius:6px;font-family:var(--fm);font-size:.82rem;display:none;line-height:1.6;}
+.fb.ok{background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.25);color:var(--green);}
+.fb.bad{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25);color:var(--red);}
+.fb.info{background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.25);color:var(--violet);}
+.trap-tag{display:inline-block;font-size:.6rem;font-family:var(--fm);text-transform:uppercase;letter-spacing:1.5px;padding:2px 8px;border-radius:3px;background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2);margin-bottom:8px;}
+
+/* AI TUTOR */
+.ai-box{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:24px;}
+.ai-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.ai-pulse{width:8px;height:8px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+.ai-thinking{display:flex;gap:5px;padding:10px 0;}
+.ai-dot{width:6px;height:6px;border-radius:50%;background:var(--violet);animation:dots .8s infinite;}
+.ai-dot:nth-child(2){animation-delay:.15s;}
+.ai-dot:nth-child(3){animation-delay:.3s;}
+@keyframes dots{0%,80%,100%{transform:scale(.6);opacity:.4;}40%{transform:scale(1);opacity:1;}}
+.ai-resp{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:16px;font-size:.9rem;line-height:1.75;color:var(--text);margin-top:14px;display:none;}
+
+/* SUBMIT */
+.submit-card{background:linear-gradient(135deg,var(--panel),var(--panel2));border:1px solid var(--border2);border-radius:16px;padding:32px;text-align:center;}
+.name-row{display:flex;gap:12px;margin-bottom:16px;}
+.prog-bar{height:6px;background:var(--panel2);border-radius:3px;overflow:hidden;margin:16px 0;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--violet),var(--green));border-radius:3px;transition:width .5s;}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--panel);border:1px solid var(--green);color:var(--green);padding:12px 24px;border-radius:8px;font-family:var(--fm);font-size:.82rem;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;}
+#toast.show{opacity:1;}
+hr{border:none;border-top:1px solid var(--border);margin:20px 0;}
+footer{padding:40px 56px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid var(--border);background:var(--bg2);}
+.ft-link{font-size:.72rem;color:var(--green);text-decoration:none;border:1px solid rgba(0,255,136,.2);padding:5px 12px;border-radius:4px;transition:all .2s;cursor:pointer;background:none;font-family:var(--fh);}
+.ft-link:hover{background:rgba(0,255,136,.06);}
+
+/* Deep Thinking section */
+.tab-btn{padding:10px 22px;border-radius:8px;font-family:var(--fm);font-size:.8rem;font-weight:600;
+  cursor:pointer;border:1.5px solid var(--border);background:var(--panel);color:var(--muted2);
+  transition:all .2s;min-height:42px;}
+.tab-btn.active{background:linear-gradient(135deg,#8b5cf6,#06b6d4);color:#fff;border-color:transparent;
+  box-shadow:0 3px 14px rgba(139,92,246,.35);}
+.tab-btn:hover:not(.active){border-color:var(--violet);color:var(--violet);}
+
+.dt-qblock{background:var(--panel);border:1px solid var(--border);border-radius:12px;
+  margin-bottom:14px;overflow:hidden;transition:border-color .2s;}
+.dt-qblock:hover{border-color:rgba(139,92,246,.3);}
+.dt-header{padding:14px 18px;cursor:pointer;display:flex;align-items:flex-start;
+  gap:12px;user-select:none;}
+.dt-num{min-width:28px;height:28px;border-radius:50%;font-family:var(--fm);font-size:.7rem;
+  font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.dt-qtext{font-size:.88rem;color:var(--text);line-height:1.7;flex:1;}
+.dt-chevron{margin-left:auto;color:var(--muted);font-size:.8rem;flex-shrink:0;transition:transform .2s;}
+.dt-body{display:none;padding:0 18px 16px 58px;border-top:1px solid var(--border);}
+.dt-body.open{display:block;}
+.dt-chevron.open{transform:rotate(180deg);}
+
+.chat-history{display:flex;flex-direction:column;gap:8px;margin-bottom:10px;
+  max-height:320px;overflow-y:auto;padding:2px;}
+.chat-msg{padding:10px 14px;border-radius:10px;font-size:.84rem;line-height:1.7;max-width:92%;}
+.chat-msg.user{background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);
+  color:var(--text);align-self:flex-end;border-radius:10px 10px 2px 10px;}
+.chat-msg.ai{background:var(--panel2);border:1px solid var(--border);
+  color:var(--muted2);align-self:flex-start;border-radius:10px 10px 10px 2px;}
+.chat-msg.ai strong{color:var(--green);}
+.chat-typing{display:flex;gap:4px;align-items:center;padding:10px 14px;}
+.chat-dot{width:6px;height:6px;border-radius:50%;background:var(--violet);animation:dots .8s infinite;}
+.chat-dot:nth-child(2){animation-delay:.15s;}
+.chat-dot:nth-child(3){animation-delay:.3s;}
+.dt-input{width:100%;background:var(--panel2);border:1.5px solid var(--border);border-radius:8px;
+  padding:10px 14px;color:var(--text);font-family:var(--fm);font-size:.84rem;
+  outline:none;resize:vertical;min-height:80px;transition:border-color .2s;margin-bottom:8px;}
+.dt-input:focus{border-color:var(--violet);}
+.dt-send{padding:9px 22px;border-radius:8px;font-family:var(--fm);font-size:.8rem;font-weight:700;
+  cursor:pointer;border:none;background:linear-gradient(135deg,#8b5cf6,#06b6d4);color:#fff;
+  transition:all .2s;min-height:38px;}
+.dt-send:hover{opacity:.85;}
+.dt-send:disabled{opacity:.4;cursor:not-allowed;}
+</style>
+</head>
+<body>
+<div id="toast"></div>
+<input type="text" id="copyInput" style="position:fixed;top:-100px;opacity:0;pointer-events:none;">
+
+<div class="app">
+<aside>
+  <div class="sb-logo"><h1>SynapseLab</h1><p>5E Biology</p></div>
+  <nav class="sb-nav">
+    <button class="sn" onclick="goTo('hero')">⚡ Engage <span class="badge">E1</span></button>
+    <button class="sn" onclick="goTo('explore')">🔬 Explore <span class="badge">E2</span></button>
+    <button class="sn" onclick="goTo('explain')">🧬 Structure <span class="badge">E3</span></button>
+    <button class="sn" onclick="goTo('transmission')">📡 Transmission <span class="badge">E3</span></button>
+    <button class="sn" onclick="goTo('nt')">💊 Neurotransmitters <span class="badge">E3</span></button>
+    <button class="sn" onclick="goTo('elaborate')">🎯 Elaborate <span class="badge">E4</span></button>
+    <button class="sn" onclick="goTo('deepthink')">🧠 Deep Thinking <span class="badge">E4</span></button>
+    <button class="sn" onclick="goTo('evaluate')">📊 Evaluate <span class="badge">E5</span></button>
+  </nav>
+  <div class="sb-foot">
+    <div class="name">Ahmad Ghozlan</div>
+    <div class="role">AI in Education</div>
+    <div class="school">Biology · Lebanon</div>
+    <button class="btn btn-ghost" style="margin-top:12px;width:100%;font-size:.75rem;" onclick="shareModule()">🔗 Share Lesson</button>
+  </div>
+</aside>
+
+<main>
+
+<!-- ═══ E1: ENGAGE ═══ -->
+<section id="hero">
+  <div style="position:relative;z-index:2;max-width:700px;">
+    <div class="hero-tag">Biology · Nervous System · The Synapse</div>
+    <h1 class="hero-title">A gap<br><span>20 nm wide.</span></h1>
+    <div class="hero-q">
+      <div class="q">⚡ Your brain just sent a message to your finger to scroll this page. That signal crossed a gap 20 nanometres wide — 5,000 times thinner than a human hair. How?</div>
+      <div class="hint">The electrical signal cannot jump the gap. Something else must carry the message across. What could it be? Think before scrolling.</div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <a href="https://bi-9527.github.io/myp-biology/synapselab/3d/" target="_blank" style="text-decoration:none;">
+        <button class="btn btn-green" style="background:linear-gradient(135deg,#8b5cf6,#06b6d4);box-shadow:0 4px 20px rgba(139,92,246,.4);">🌐 Launch 3D Synapse Model</button>
+      </a>
+      <button class="btn btn-ghost" onclick="goTo('explore')">Start Exploring →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ E2: EXPLORE ═══ -->
+<section id="explore" style="background:var(--bg2);">
+  <div class="e-tag explore">E2 · Explore</div>
+  <h2 class="sec-title">What Crosses the Gap?</h2>
+  <p class="sec-desc">Before reading the science — explore the 3D model and think. Tap each structure in the simulation, then answer the discovery questions below.</p>
+
+  <div style="background:rgba(139,92,246,.06);border:1.5px solid rgba(139,92,246,.25);border-radius:14px;padding:24px 28px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+    <div>
+      <div style="font-size:1rem;font-weight:800;color:#fff;margin-bottom:6px;">🌐 Interactive 3D Synapse Model</div>
+      <p style="font-size:.84rem;color:var(--muted2);line-height:1.7;max-width:480px;">Explore every structure in 3D — rotate, zoom, click. Identify the presynaptic knob, vesicles, cleft, receptors and more before reading on.</p>
+    </div>
+    <a href="https://bi-9527.github.io/myp-biology/synapselab/3d/" target="_blank" style="text-decoration:none;flex-shrink:0;">
+      <button class="btn btn-violet" style="background:linear-gradient(135deg,#8b5cf6,#06b6d4);font-size:.95rem;padding:12px 28px;box-shadow:0 4px 20px rgba(139,92,246,.35);">Launch 3D Model →</button>
+    </a>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div class="card" style="border-left:3px solid var(--green);">
+      <div style="font-size:.62rem;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Discovery Question A</div>
+      <div style="font-size:.9rem;color:var(--muted2);line-height:1.75;">The electrical signal <strong style="color:#fff;">cannot</strong> jump the 20nm gap. What type of signal takes over? What structures are involved?</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--cyan);">
+      <div style="font-size:.62rem;color:var(--cyan);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Discovery Question B</div>
+      <div style="font-size:.9rem;color:var(--muted2);line-height:1.75;">Why do synaptic knobs contain so many mitochondria? What energy-demanding processes happen there?</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--pink);">
+      <div style="font-size:.62rem;color:var(--pink);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Discovery Question C</div>
+      <div style="font-size:.9rem;color:var(--muted2);line-height:1.75;">Receptor proteins on the postsynaptic membrane are <strong style="color:#fff;">specific</strong>. What does this mean, and why does it matter for signal accuracy?</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--yellow);">
+      <div style="font-size:.62rem;color:var(--yellow);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Discovery Question D</div>
+      <div style="font-size:.9rem;color:var(--muted2);line-height:1.75;">If neurotransmitters were never removed from the synaptic cleft — what problem would this cause? Think before scrolling.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ E3: STRUCTURE ═══ -->
+<section id="explain">
+  <div class="e-tag explain">E3 · Structure</div>
+  <h2 class="sec-title">Anatomy of a Synapse</h2>
+  <p class="sec-desc">A synapse is a junction between two neurones. It is not a physical connection — it is a precisely engineered chemical relay station.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:28px;">
+    <div class="sc"><div class="sc-name">Structure 01</div><div class="sc-title" style="color:var(--violet);">Presynaptic Neurone</div><div class="sc-body">The neurone <span>sending</span> the message. Contains the synaptic knob at its terminal end. Carries the electrical action potential toward the synapse.</div></div>
+    <div class="sc"><div class="sc-name">Structure 02</div><div class="sc-title" style="color:var(--green);">Synaptic Knob</div><div class="sc-body">Swollen terminal of the presynaptic neurone. Contains <span>mitochondria</span> (for energy) and <span>synaptic vesicles</span> packed with neurotransmitters.</div></div>
+    <div class="sc"><div class="sc-name">Structure 03</div><div class="sc-title" style="color:var(--pink);">Synaptic Vesicles</div><div class="sc-body">Tiny membrane-bound sacs inside the synaptic knob. Each vesicle stores thousands of <span>neurotransmitter molecules</span> ready for release.</div></div>
+    <div class="sc"><div class="sc-name">Structure 04</div><div class="sc-title" style="color:var(--cyan);">Synaptic Cleft</div><div class="sc-body">The <span>20 nanometre gap</span> between the two neurones. Too wide for an electrical signal to cross — neurotransmitters must diffuse across it.</div></div>
+    <div class="sc"><div class="sc-name">Structure 05</div><div class="sc-title" style="color:var(--yellow);">Postsynaptic Membrane</div><div class="sc-body">The membrane of the <span>receiving neurone</span>. Contains specific receptor proteins that bind neurotransmitters — like a lock waiting for its key.</div></div>
+    <div class="sc"><div class="sc-name">Structure 06</div><div class="sc-title" style="color:var(--red);">Receptor Proteins</div><div class="sc-body">Complementary-shaped proteins on the postsynaptic membrane. Only the <span>correct neurotransmitter</span> fits — ensuring signal specificity (lock and key).</div></div>
+    <div class="sc"><div class="sc-name">Structure 07</div><div class="sc-title">Mitochondria</div><div class="sc-body">Present in large numbers in the synaptic knob. Provide <span>ATP energy</span> for moving vesicles to the membrane and for active reuptake of neurotransmitters.</div></div>
+    <div class="sc"><div class="sc-name">Key Fact</div><div class="sc-title" style="color:var(--green);">One-way only</div><div class="sc-body">Synapses are <span>unidirectional</span> — signals can only travel from pre → post synaptic neurone. Receptors exist only on the postsynaptic side.</div></div>
+  </div>
+
+  <div style="background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.15);border-radius:10px;padding:20px 24px;max-width:680px;">
+    <strong style="color:var(--violet);">💡 Answer to the opening question:</strong>
+    <p style="color:var(--muted2);font-size:.9rem;margin-top:6px;line-height:1.7;">The electrical impulse cannot cross the synaptic cleft. Instead, it triggers the release of <strong style="color:var(--green);">neurotransmitters</strong> from synaptic vesicles. These chemical molecules diffuse across the 20nm gap and bind to receptor proteins on the postsynaptic membrane, generating a new electrical impulse in the next neurone.</p>
+  </div>
+</section>
+
+<!-- ═══ E3b: TRANSMISSION STEPS ═══ -->
+<section id="transmission" style="background:var(--bg2);">
+  <div class="e-tag explain">E3 · Transmission</div>
+  <h2 class="sec-title">How the Signal Crosses</h2>
+  <p class="sec-desc">Seven steps convert an electrical impulse into a chemical signal and back again. Open the 3D model alongside this page to see each step in full detail.</p>
+
+  <div style="background:rgba(139,92,246,.06);border:1.5px solid rgba(139,92,246,.2);border-radius:12px;padding:16px 20px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <span style="font-size:.88rem;color:var(--muted2);">🌐 Watch each step animate in real-time</span>
+    <a href="https://bi-9527.github.io/myp-biology/synapselab/3d/" target="_blank" style="text-decoration:none;">
+      <button class="btn btn-violet" style="background:linear-gradient(135deg,#8b5cf6,#06b6d4);font-size:.82rem;padding:9px 22px;">Open 3D Animation →</button>
+    </a>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:10px;">
+    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--panel);border:1px solid var(--border);border-radius:10px;border-left:4px solid var(--violet);">
+      <div style="min-width:32px;height:32px;border-radius:50%;background:var(--violet);color:#fff;font-weight:800;font-size:.84rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
+      <div><strong style="color:#fff;">Action Potential Arrives</strong><br><span style="font-size:.84rem;color:var(--muted2);">An electrical action potential travels along the presynaptic neurone and reaches the synaptic knob. The electrical signal <em>cannot</em> cross the cleft on its own.</span></div>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--panel);border:1px solid var(--border);border-radius:10px;border-left:4px solid var(--cyan);">
+      <div style="min-width:32px;height:32px;border-radius:50%;background:var(--cyan);color:#000;font-weight:800;font-size:.84rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
+      <div><strong style="color:#fff;">Ca²⁺ Channels Open</strong><br><span style="font-size:.84rem;color:var(--muted2);">The action potential causes <strong style="color:var(--cyan);">calcium ion channels</strong> to open. Ca²⁺ floods into the synaptic knob — this is the essential trigger for vesicle release.</span></div>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--panel);border:1px solid var(--border);border-radius:10px;border-left:4px solid var(--pink);">
+      <div style="min-width:32px;height:32px;border-radius:50%;background:var(--pink);color:#fff;font-weight:800;font-size:.84rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
+      <div><strong style="color:#fff;">Vesicles Fuse (Exocytosis)</strong><br><span style="font-size:.84rem;color:var(--muted2);">Ca²⁺ causes synaptic vesicles to move to and fuse with the presynaptic membrane — a process called <strong style="color:var(--pink);">exocytosis</strong>.</span></div>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--panel);border:1px solid var(--border);border-radius:10px;border-left:4px solid var(--green);">
+      <div style="min-width:32px;height:32px;border-radius:50%;background:var(--green);color:#000;font-weight:800;font-size:.84rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</div>
+      <div><strong style="color:#fff;">Neurotransmitters Released</strong><br><span style="font-size:.84rem;color:var(--muted2);">Thousands of <strong style="color:var(--green);">neurotransmitter molecules</strong> pour into the 20nm synaptic cleft and diffuse toward the postsynaptic membrane.</span></div>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--panel);border:1px solid var(--border);border-radius:10px;border-left:4px solid var(--yellow);">
+      <div style="min-width:32px;height:32px;border-radius:50%;background:var(--yellow);color:#000;font-weight:800;font-size:.84rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">5</div>
+      <div><strong style="color:#fff;">Neurotransmitters Diffuse</strong><br><span style="font-size:.84rem;color:var(--muted2);">Molecules diffuse across the cleft by <strong style="color:var(--yellow);">concentration gradient</strong> — from high concentration (cleft) to low (postsynaptic membrane).</span></div>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--panel);border:1px solid var(--border);border-radius:10px;border-left:4px solid var(--red);">
+      <div style="min-width:32px;height:32px;border-radius:50%;background:var(--red);color:#fff;font-weight:800;font-size:.84rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">6</div>
+      <div><strong style="color:#fff;">Receptor Binding → New Impulse</strong><br><span style="font-size:.84rem;color:var(--muted2);">Neurotransmitters bind to complementary <strong style="color:var(--red);">receptor proteins</strong> on the postsynaptic membrane, opening ion channels and generating a <strong>new action potential</strong>.</span></div>
+    </div>
+    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--panel);border:1px solid var(--border);border-radius:10px;border-left:4px solid var(--muted2);">
+      <div style="min-width:32px;height:32px;border-radius:50%;background:var(--panel2);color:var(--muted2);font-weight:800;font-size:.84rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--border);">7</div>
+      <div><strong style="color:#fff;">Neurotransmitter Removal</strong><br><span style="font-size:.84rem;color:var(--muted2);">Neurotransmitters are either <strong>broken down by enzymes</strong> (e.g. acetylcholinesterase) or <strong>reabsorbed by reuptake</strong> into the presynaptic neurone. This resets the synapse for the next signal.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ E3c: NEUROTRANSMITTERS ═══ -->
+<section id="nt">
+  <div class="e-tag explain">E3 · Neurotransmitters</div>
+  <h2 class="sec-title">The Chemical Messengers</h2>
+  <p class="sec-desc">Neurotransmitters are the chemical molecules that carry signals across the synaptic cleft. Different neurotransmitters have different effects — some excite the next neurone, some inhibit it.</p>
+
+  <div class="nt-grid" style="margin-bottom:28px;">
+    <div class="nt-card">
+      <div class="nt-name">Acetylcholine (ACh)</div>
+      <div class="nt-role">Case Study · Most studied</div>
+      <div class="nt-body">Released at <span>neuromuscular junctions</span> — where nerves meet muscles. Causes muscle contraction. Also active in memory and attention.<br><br>After binding, it is broken down by the enzyme <span>acetylcholinesterase</span> to stop the signal.</div>
+      <span class="nt-tag" style="background:rgba(0,255,136,.1);color:var(--green);border:1px solid rgba(0,255,136,.2);">Excitatory</span>
+    </div>
+    <div class="nt-card">
+      <div class="nt-name">Dopamine</div>
+      <div class="nt-role">Reward & Motivation</div>
+      <div class="nt-body">Released in the brain's <span>reward pathway</span>. Associated with pleasure, motivation, and movement coordination.<br><br>Low dopamine is linked to <span>Parkinson's disease</span>. Some drugs hijack this pathway.</div>
+      <span class="nt-tag" style="background:rgba(244,114,182,.1);color:var(--pink);border:1px solid rgba(244,114,182,.2);">Excitatory/Inhibitory</span>
+    </div>
+    <div class="nt-card">
+      <div class="nt-name">Serotonin</div>
+      <div class="nt-role">Mood & Wellbeing</div>
+      <div class="nt-body">Regulates <span>mood, sleep, and appetite</span>. Low serotonin is associated with depression.<br><br>Antidepressants called <span>SSRIs</span> work by blocking serotonin reuptake — keeping more in the cleft longer.</div>
+      <span class="nt-tag" style="background:rgba(251,191,36,.1);color:var(--yellow);border:1px solid rgba(251,191,36,.2);">Mostly inhibitory</span>
+    </div>
+    <div class="nt-card">
+      <div class="nt-name">Adrenaline</div>
+      <div class="nt-role">Fight or Flight</div>
+      <div class="nt-body">Released during <span>stress or danger</span>. Increases heart rate, dilates pupils, redirects blood to muscles.<br><br>Prepares the body for immediate action — the classic <span>fight-or-flight response</span>.</div>
+      <span class="nt-tag" style="background:rgba(248,113,113,.1);color:var(--red);border:1px solid rgba(248,113,113,.2);">Excitatory</span>
+    </div>
+    <div class="nt-card">
+      <div class="nt-name">GABA</div>
+      <div class="nt-role">The Brain's Brake</div>
+      <div class="nt-body">The main <span>inhibitory</span> neurotransmitter in the brain. Reduces neuronal excitability — calms the nervous system.<br><br>Anti-anxiety medications work by <span>enhancing GABA activity</span>.</div>
+      <span class="nt-tag" style="background:rgba(34,211,238,.1);color:var(--cyan);border:1px solid rgba(34,211,238,.2);">Inhibitory</span>
+    </div>
+    <div class="nt-card">
+      <div class="nt-name">Reuptake</div>
+      <div class="nt-role">Switching off the signal</div>
+      <div class="nt-body">After binding receptors, neurotransmitters must be <span>removed</span> to end the signal. Two methods: <span>enzymatic breakdown</span> (ACh → acetylcholinesterase) or <span>reuptake</span> (pumped back into the presynaptic neurone for reuse).</div>
+      <span class="nt-tag" style="background:rgba(139,92,246,.1);color:var(--violet);border:1px solid rgba(139,92,246,.2);">Signal termination</span>
+    </div>
+  </div>
+
+  <div style="background:rgba(244,114,182,.05);border:1px solid rgba(244,114,182,.15);border-radius:10px;padding:20px 24px;max-width:680px;">
+    <strong style="color:var(--pink);">🔬 ACh Case Study — Why It Matters:</strong>
+    <p style="color:var(--muted2);font-size:.9rem;margin-top:6px;line-height:1.7;">Acetylcholine is the neurotransmitter at every <strong style="color:var(--text);">neuromuscular junction</strong> in your body. The poison curare (used on arrow tips) blocks ACh receptors → muscles cannot contract → paralysis. The nerve agent sarin blocks acetylcholinesterase → ACh stays in the cleft → muscles in constant contraction. Understanding synapses saves lives.</p>
+  </div>
+</section>
+
+<!-- ═══ E4: ELABORATE ═══ -->
+<section id="elaborate" style="background:var(--bg2);">
+  <div class="e-tag elaborate">E4 · Elaborate</div>
+  <h2 class="sec-title">Apply & Think Critically</h2>
+  <p class="sec-desc">Apply your knowledge. One question is a misconception trap. The open questions require genuine biological reasoning.</p>
+
+  <!-- Q1 MCQ -->
+  <div class="q-block">
+    <div class="q-num">Question 01 · Multiple Choice</div>
+    <div class="q-text">Why do synaptic knobs contain large numbers of <strong>mitochondria</strong>?</div>
+    <div class="mcq-options" id="q1opts">
+      <div class="mcq-opt" onclick="selMCQ(1,'A')"><span class="mcq-letter">A</span>To produce neurotransmitter molecules</div>
+      <div class="mcq-opt" onclick="selMCQ(1,'B')"><span class="mcq-letter">B</span>To provide ATP energy for moving vesicles and active reuptake of neurotransmitters</div>
+      <div class="mcq-opt" onclick="selMCQ(1,'C')"><span class="mcq-letter">C</span>To store neurotransmitters safely</div>
+      <div class="mcq-opt" onclick="selMCQ(1,'D')"><span class="mcq-letter">D</span>To generate the electrical action potential</div>
+    </div>
+    <button class="check-btn" onclick="chkMCQ(1,'B')">Check Answer</button>
+    <div class="fb" id="q1fb"></div>
+  </div>
+
+  <!-- Q2 MCQ -->
+  <div class="q-block">
+    <div class="q-num">Question 02 · Multiple Choice</div>
+    <div class="q-text">A nerve impulse travels along a neurone as an <strong>electrical signal</strong>. How does the signal continue after reaching the synaptic cleft?</div>
+    <div class="mcq-options" id="q2opts">
+      <div class="mcq-opt" onclick="selMCQ(2,'A')"><span class="mcq-letter">A</span>The electrical signal jumps across the gap</div>
+      <div class="mcq-opt" onclick="selMCQ(2,'B')"><span class="mcq-letter">B</span>Neurotransmitters diffuse across and bind receptors, generating a new electrical impulse</div>
+      <div class="mcq-opt" onclick="selMCQ(2,'C')"><span class="mcq-letter">C</span>The synaptic vesicles physically cross the gap</div>
+      <div class="mcq-opt" onclick="selMCQ(2,'D')"><span class="mcq-letter">D</span>The postsynaptic neurone detects the electrical field</div>
+    </div>
+    <button class="check-btn" onclick="chkMCQ(2,'B')">Check Answer</button>
+    <div class="fb" id="q2fb"></div>
+  </div>
+
+  <!-- Q3 TRAP -->
+  <div class="q-block">
+    <div class="trap-tag">⚠ Misconception Trap</div>
+    <div class="q-num">Question 03 · True or False</div>
+    <div class="q-text">A student says: <strong>"A nerve impulse can travel in both directions across a synapse."</strong> Is this correct?</div>
+    <div class="mcq-options" id="q3opts">
+      <div class="mcq-opt" onclick="selMCQ(3,'A')"><span class="mcq-letter">A</span>True — electrical signals can travel both ways</div>
+      <div class="mcq-opt" onclick="selMCQ(3,'B')"><span class="mcq-letter">B</span>False — synapses are unidirectional: pre → post only</div>
+    </div>
+    <button class="check-btn" onclick="chkMCQ(3,'B')">Check Answer</button>
+    <div class="fb" id="q3fb"></div>
+  </div>
+
+  <!-- Q4 MCQ -->
+  <div class="q-block">
+    <div class="q-num">Question 04 · Application</div>
+    <div class="q-text">The drug cocaine blocks the <strong>reuptake of dopamine</strong> back into the presynaptic neurone. What effect does this have?</div>
+    <div class="mcq-options" id="q4opts">
+      <div class="mcq-opt" onclick="selMCQ(4,'A')"><span class="mcq-letter">A</span>Less dopamine in the synaptic cleft — reduced stimulation</div>
+      <div class="mcq-opt" onclick="selMCQ(4,'B')"><span class="mcq-letter">B</span>More dopamine stays in the cleft — prolonged and intensified stimulation of receptors</div>
+      <div class="mcq-opt" onclick="selMCQ(4,'C')"><span class="mcq-letter">C</span>Dopamine is destroyed faster by enzymes</div>
+      <div class="mcq-opt" onclick="selMCQ(4,'D')"><span class="mcq-letter">D</span>No effect — reuptake is not important</div>
+    </div>
+    <button class="check-btn" onclick="chkMCQ(4,'B')">Check Answer</button>
+    <div class="fb" id="q4fb"></div>
+  </div>
+
+  <!-- OPEN Q1 with AI -->
+  <div class="ai-box" style="margin-bottom:20px;">
+    <div class="ai-header">
+      <div class="ai-pulse"></div>
+      <span style="font-weight:600;font-size:.95rem;">Open Question 01 · Critical Thinking · AI Tutor</span>
+    </div>
+    <div class="q-text" style="margin-bottom:14px;">
+      A patient is diagnosed with <strong>myasthenia gravis</strong> — a condition where the immune system produces antibodies that destroy <strong>acetylcholine receptors</strong> on muscle cells.<br>
+      <em style="color:var(--muted2);">Explain in detail: what symptoms would this patient experience, and why? Use your knowledge of synaptic transmission in your answer.</em>
+    </div>
+    <textarea id="open1" placeholder="Write your answer in full sentences. Use biological terminology — receptor, acetylcholine, neuromuscular junction, vesicle, postsynaptic membrane…"></textarea>
+    <button class="btn btn-violet" style="margin-top:10px;" onclick="getAI(1)">Get AI Feedback</button>
+    <div class="ai-resp" id="ai1"></div>
+  </div>
+
+  <!-- OPEN Q2 with AI — higher order -->
+  <div class="ai-box">
+    <div class="ai-header">
+      <div class="ai-pulse"></div>
+      <span style="font-weight:600;font-size:.95rem;">Open Question 02 · Higher Order · AI Tutor</span>
+    </div>
+    <div class="q-text" style="margin-bottom:14px;">
+      Scientists are developing a drug to treat <strong>Alzheimer's disease</strong> by preventing the breakdown of acetylcholine in the synaptic cleft.<br>
+      <em style="color:var(--muted2);">Predict the effect of this drug on synaptic transmission. What benefits and potential risks might it have? Evaluate whether this is a good strategy.</em>
+    </div>
+    <textarea id="open2" placeholder="Think like a scientist. Consider: what happens if ACh stays in the cleft longer? What structures are involved? What could go wrong?"></textarea>
+    <button class="btn btn-pink" style="margin-top:10px;" onclick="getAI(2)">Get AI Feedback</button>
+    <div class="ai-resp" id="ai2"></div>
+  </div>
+</section>
+
+
+<!-- ═══ E4b: CRITICAL THINKING + CREATIVITY CHATBOT ═══ -->
+<section id="deepthink" style="background:var(--panel2);">
+  <div class="e-tag elaborate">E4 · Deep Thinking</div>
+  <h2 class="sec-title">Critical Thinking & Creativity</h2>
+  <p class="sec-desc">Two sets of higher-order questions. Write your thinking — the AI tutor responds with Socratic guidance, not just answers. Your goal is to build understanding, not to guess right.</p>
+
+  <!-- CATEGORY TABS -->
+  <div style="display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;">
+    <button class="tab-btn active" id="tabCT" onclick="switchTab('CT')">🧠 Critical Thinking <span style="font-size:.7rem;opacity:.7;">(12 questions)</span></button>
+    <button class="tab-btn" id="tabCR" onclick="switchTab('CR')">💡 Creativity <span style="font-size:.7rem;opacity:.7;">(10 questions)</span></button>
+  </div>
+
+  <!-- CRITICAL THINKING PANEL -->
+  <div id="panelCT">
+    <div style="font-size:.75rem;color:var(--muted2);margin-bottom:16px;line-height:1.7;">These questions use <strong style="color:#fff;">Bloom's higher levels</strong>: Analyse · Evaluate · Predict · Compare. The AI tutor will ask follow-up questions if your answer is incomplete — push yourself to go deeper.</div>
+    <div id="ctQuestions"></div>
+  </div>
+
+  <!-- CREATIVITY PANEL -->
+  <div id="panelCR" style="display:none;">
+    <div style="font-size:.75rem;color:var(--muted2);margin-bottom:16px;line-height:1.7;">Open-ended creative challenges. There is <strong style="color:#fff;">no single correct answer</strong> — the AI tutor looks at the quality of your reasoning, imagination, and use of biological knowledge.</div>
+    <div id="crQuestions"></div>
+  </div>
+</section>
+
+<!-- ═══ E5: EVALUATE ═══ -->
+<section id="evaluate">
+  <div class="e-tag evaluate">E5 · Evaluate</div>
+  <h2 class="sec-title">Submit Your Work</h2>
+  <p class="sec-desc">Enter your details and submit. Ahmad receives your answers instantly.</p>
+
+  <div class="g2" style="align-items:start;max-width:820px;">
+    <div class="card">
+      <div class="name-row">
+        <div style="flex:2;"><label style="font-size:.75rem;color:var(--muted2);display:block;margin-bottom:6px;">Full Name *</label><input type="text" id="stuName" placeholder="Your full name…"></div>
+        <div style="flex:1;"><label style="font-size:.75rem;color:var(--muted2);display:block;margin-bottom:6px;">Class *</label><input type="text" id="stuClass" placeholder="e.g. 10A"></div>
+      </div>
+      <hr>
+      <div id="ansReview" style="font-size:.82rem;line-height:2.2;font-family:var(--fm);color:var(--muted2);"></div>
+      <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+      <p id="progText" style="font-size:.75rem;color:var(--muted);margin-bottom:16px;">0 / 4 questions attempted</p>
+      <button class="btn btn-green" style="width:100%;color:#000;" onclick="submitWork()">📊 Submit to Teacher's Grade Sheet</button>
+    </div>
+    <div class="submit-card">
+      <div style="font-size:2rem;margin-bottom:8px;">🧬</div>
+      <div style="font-family:var(--fm);font-size:3rem;font-weight:500;color:var(--green);line-height:1;" id="scoreDisp">—</div>
+      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:3px;color:var(--muted);margin-top:4px;">Score</div>
+      <hr>
+      <p style="font-size:.82rem;color:var(--muted2);line-height:1.7;">Ahmad reviews open questions personally and gives additional feedback in class.</p>
+      <div id="submitOk" style="display:none;margin-top:14px;padding:12px;background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.25);border-radius:8px;font-size:.82rem;color:var(--green);">✓ Submitted successfully!</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div style="font-size:1.1rem;font-weight:800;color:#fff;">Synapse<span style="color:var(--green);">Lab</span></div>
+    <div style="font-size:.72rem;color:var(--muted);line-height:1.8;">Ahmad Ghozlan · AI in Education · Biology · Lebanon</div>
+  </div>
+  <div style="display:flex;gap:10px;">
+    <button class="ft-link" onclick="shareModule()">📤 Share</button>
+    <a class="ft-link" href="https://aghozlan.github.io" target="_blank">↗ All Labs</a>
+  </div>
+</footer>
+</main>
+</div>
+
+<script>
+const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzTDERohf666RJoXbhx5hK7hTxaOQa63CDFeEKiVeSL8o4u7iBZ0uVyuiFKiMDwggmU/exec';
+
+// ── SESSION TIMER ──────────────────────────────────────────
+const sessionStart=Date.now();
+function getTimeSpent(){
+  const ms=Date.now()-sessionStart;
+  const min=Math.floor(ms/60000);
+  const sec=Math.floor((ms%60000)/1000);
+  return min+'m '+sec+'s';
+}
+
+// Chat history per question: { CT_1: [{role,text},...], CR_3: [...] }
+const chatHistories={};
+
+
+// ── NAV ──
+function goTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+const snBtns=document.querySelectorAll('.sn');
+window.addEventListener('scroll',()=>{
+  let cur='hero';
+  ['hero','explore','explain','transmission','nt','elaborate','deepthink','evaluate'].forEach(s=>{const el=document.getElementById(s);if(el&&window.scrollY>=el.offsetTop-200)cur=s;});
+  snBtns.forEach(b=>b.classList.toggle('active',b.getAttribute('onclick')?.includes("'"+cur+"'")));
+});
+
+// ── MCQ ──
+var mcqSel={},correct={q1:false,q2:false,q3:false,q4:false};
+const mcqAns={
+  1:{c:'B',h:'Mitochondria provide ATP for the energy-demanding processes at synapses: moving vesicles by exocytosis and actively pumping neurotransmitters back during reuptake.'},
+  2:{c:'B',h:'The electrical signal cannot cross the synaptic cleft. Neurotransmitters are released, diffuse across, bind receptors, and trigger a NEW electrical impulse — an electrical-chemical-electrical conversion.'},
+  3:{c:'B',h:'Synapses are strictly unidirectional. Receptor proteins only exist on the postsynaptic membrane, and vesicles only in the presynaptic knob. The signal can only flow one way.'},
+  4:{c:'B',h:'By blocking reuptake, dopamine accumulates in the cleft and continuously stimulates receptors — this is the mechanism behind cocaine\'s euphoric and addictive effects.'},
+};
+function selMCQ(q,l){
+  mcqSel[q]=l;
+  document.querySelectorAll('#q'+q+'opts .mcq-opt').forEach((o,i)=>{
+    o.classList.toggle('selected',['A','B','C','D'][i]===l);
+  });
+}
+function chkMCQ(q,ca){
+  const fb=document.getElementById('q'+q+'fb'),sel=mcqSel[q];
+  fb.style.display='block';
+  if(!sel){fb.className='fb info';fb.textContent='Select an option first.';return;}
+  document.querySelectorAll('#q'+q+'opts .mcq-opt').forEach((o,i)=>{
+    const l=['A','B','C','D'][i];
+    o.classList.remove('selected');
+    if(l===ca)o.classList.add('correct');
+    else if(l===sel)o.classList.add('wrong');
+  });
+  if(sel===ca){fb.className='fb ok';fb.textContent='✓ Correct! '+mcqAns[q].h;correct['q'+q]=true;}
+  else{fb.className='fb bad';fb.textContent='✗ '+mcqAns[q].h;correct['q'+q]=false;}
+  updateProg();
+}
+function updateProg(){
+  const done=Object.values(correct).filter(Boolean).length;
+  const pct=Math.round(done/4*100);
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progText').textContent=done+' / 4 questions correct';
+  document.getElementById('scoreDisp').textContent=pct+'%';
+  document.getElementById('ansReview').innerHTML=[
+    'Q1 (Mitochondria): '+(mcqSel[1]||'—')+(correct.q1?' ✓':''),
+    'Q2 (Signal crossing): '+(mcqSel[2]||'—')+(correct.q2?' ✓':''),
+    'Q3 (Directionality trap): '+(mcqSel[3]||'—')+(correct.q3?' ✓':''),
+    'Q4 (Cocaine/dopamine): '+(mcqSel[4]||'—')+(correct.q4?' ✓':''),
+  ].map(l=>'<div>'+l+'</div>').join('');
+}
+
+// ── AI TUTOR ──
+function getAI(n){
+  const answer=document.getElementById('open'+n).value.trim().toLowerCase();
+  const resp=document.getElementById('ai'+n);
+  if(!answer){showToast('Write your answer first!');return;}
+  resp.style.display='block';
+  resp.innerHTML='<div class="ai-thinking"><div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div></div>';
+  setTimeout(()=>{resp.textContent=buildBioFeedback(n,answer);},1400);
+}
+
+function buildBioFeedback(qn,a){
+  if(qn===1){
+    // Myasthenia gravis question
+    const hasWeakness  = /weak|muscl|fatigue|paralys|cannot contract|fail/i.test(a);
+    const hasACh       = /acetylcholine|ach\b|neurotransmitter/i.test(a);
+    const hasReceptor  = /receptor|bind|lock|key|postsynaptic/i.test(a);
+    const hasNMJ       = /neuromuscular|nmj|nerve.*muscle|muscle.*nerve/i.test(a);
+    const hasMechanism = /antibod|destro|block|fewer receptor|less binding/i.test(a);
+    const score=[hasWeakness,hasACh,hasReceptor,hasNMJ,hasMechanism].filter(Boolean).length;
+    const rights=[];
+    if(hasACh)rights.push('correctly linking the condition to acetylcholine');
+    if(hasReceptor)rights.push('explaining the role of receptor proteins');
+    if(hasWeakness)rights.push('predicting muscle weakness as a symptom');
+    if(hasNMJ)rights.push('mentioning the neuromuscular junction');
+    if(hasMechanism)rights.push('describing the antibody mechanism');
+    let p1=rights.length===0?'You have made a start. Try to connect the biology more specifically.'
+      :'Well done on '+rights.slice(0,-1).join(', ')+(rights.length>1?' and ':'')+rights[rights.length-1]+'.';
+    const fixes=[];
+    if(!hasACh)fixes.push('specify that ACh (acetylcholine) is the neurotransmitter at neuromuscular junctions');
+    if(!hasReceptor)fixes.push('explain that without receptors, ACh cannot bind and no new impulse is generated in the muscle');
+    if(!hasWeakness)fixes.push('state the clinical outcome: progressive muscle weakness and fatigue, especially in eye, face, and limb muscles');
+    let p2=fixes.length===0?'Your mechanistic explanation is thorough — excellent biological reasoning.'
+      :'To improve: '+fixes[0]+'.';
+    const p3s=[
+      'Myasthenia gravis treatments include acetylcholinesterase inhibitors — blocking ACh breakdown keeps more ACh in the cleft to compete for the remaining receptors. You now understand why this works!',
+      'This condition beautifully illustrates the lock-and-key specificity of synapses — destroy enough locks (receptors) and the key (ACh) becomes useless, no matter how much of it is released.',
+    ];
+    return p1+' '+p2+' '+p3s[score%p3s.length];
+  } else {
+    // Alzheimer's / ACh inhibitor question
+    const hasMoreACh   = /more ach|increase|accumulate|stay longer|build up/i.test(a);
+    const hasBenefit   = /benefit|memory|cognition|alzheimer|improve/i.test(a);
+    const hasRisk      = /risk|overstimulat|too much|side effect|constant|danger/i.test(a);
+    const hasEvaluate  = /good|bad|effective|strategy|whether|overall|consider/i.test(a);
+    const hasEnzyme    = /enzyme|acetylcholinesterase|breakdown|degrad/i.test(a);
+    const score=[hasMoreACh,hasBenefit,hasRisk,hasEvaluate,hasEnzyme].filter(Boolean).length;
+    const rights=[];
+    if(hasMoreACh)rights.push('predicting that ACh accumulates in the cleft');
+    if(hasBenefit)rights.push('identifying cognitive/memory benefits');
+    if(hasRisk)rights.push('considering potential risks of over-stimulation');
+    if(hasEvaluate)rights.push('attempting a genuine evaluation of the strategy');
+    if(hasEnzyme)rights.push('naming acetylcholinesterase as the target enzyme');
+    let p1=rights.length===0?'This is a challenging question — think about what happens to ACh if it cannot be broken down.'
+      :'Strong thinking on '+rights.slice(0,-1).join(', ')+(rights.length>1?' and ':'')+rights[rights.length-1]+'.';
+    const fixes=[];
+    if(!hasMoreACh)fixes.push('start by stating the direct effect: ACh cannot be broken down, so it remains in the cleft and continues stimulating receptors');
+    if(!hasRisk)fixes.push('consider the risks: if ACh cannot be cleared, the postsynaptic neurone may be over-stimulated, causing unwanted muscle contractions or excessive nerve firing');
+    if(!hasEvaluate)fixes.push('conclude with a balanced evaluation: the drug may slow memory decline but must be carefully dosed to avoid dangerous side effects');
+    let p2=fixes.length===0?'Your scientific evaluation shows genuine critical thinking — this is A-level reasoning.'
+      :'To strengthen your answer: '+fixes[0]+'.';
+    const p3s=[
+      'This is exactly how the real drug donepezil works — it is an acetylcholinesterase inhibitor used to treat Alzheimer\'s. You just reasoned through the mechanism of a real medicine!',
+      'The challenge with this approach is that ACh is used throughout the body, not just in the brain — so blocking its breakdown everywhere causes side effects like increased saliva, slower heart rate, and digestive issues.',
+    ];
+    return p1+' '+p2+' '+p3s[score%p3s.length];
+  }
+}
+
+// ── SUBMIT ──────────────────────────────────────────────────
+// NOTE: Groq API key is stored in Apps Script → Script Properties
+// as 'GROQ_API_KEY'. It is NOT in any HTML file. It survives all
+// redeployments of the same project. Never paste it in code.
+// ─────────────────────────────────────────────────────────────
+async function submitWork(){
+  const name=document.getElementById('stuName').value.trim();
+  const cls=document.getElementById('stuClass').value.trim();
+  if(!name||!cls){showToast('⚠ Enter your name and class first!');return;}
+  const btn=document.querySelector('[onclick="submitWork()"]');
+  btn.disabled=true;btn.textContent='⏳ Submitting…';
+  const done=Object.values(correct).filter(Boolean).length;
+
+  // ── Collect every word typed in open text fields ──────────
+  const open1val=document.getElementById('open1')?.value||'—';
+  const open2val=document.getElementById('open2')?.value||'—';
+
+  // ── Collect every chat turn per question ──────────────────
+  // Each question gets its own field so Ahmad can read them clearly
+  // CT = Critical Thinking (12 Qs), CR = Creativity (10 Qs)
+  const chatFields={};
+  let totalTurns=0;
+  for(const [key,msgs] of Object.entries(chatHistories)){
+    if(!msgs||msgs.length===0){chatFields['chat_'+key]='—';continue;}
+    const turns=msgs.map(m=>(m.role==='user'?'Student':'Tutor')+': '+m.content).join('\n');
+    chatFields['chat_'+key]=turns;
+    totalTurns+=msgs.length;
+  }
+
+  // ── Full combined log (backup single column) ──────────────
+  const fullLog=Object.entries(chatHistories)
+    .filter(([,msgs])=>msgs&&msgs.length>0)
+    .map(([key,msgs])=>{
+      const turns=msgs.map(m=>(m.role==='user'?'S':'T')+': '+m.content).join(' | ');
+      return '['+key+'] '+turns;
+    }).join('\n---\n')||'No conversations';
+
+  const payload={
+    sheet:'Synapse_Biology',
+    name,class:cls,
+    time_spent:getTimeSpent(),
+    q1:mcqSel[1]?'Q1:'+(mcqSel[1])+(correct.q1?' ✓':' ✗'):'—',
+    q2:mcqSel[2]?'Q2:'+(mcqSel[2])+(correct.q2?' ✓':' ✗'):'—',
+    q3:mcqSel[3]?'Q3:'+(mcqSel[3])+(correct.q3?' ✓':' ✗'):'—',
+    q4:mcqSel[4]?'Q4:'+(mcqSel[4])+(correct.q4?' ✓':' ✗'):'—',
+    open1:open1val,
+    open2:open2val,
+    chat_turns_total:totalTurns,
+    chat_full_log:fullLog,
+    score:Math.round(done/4*100)+'%',
+    ...chatFields  // spreads chat_CT_1, chat_CT_2, ..., chat_CR_10
+  };
+
+  try{
+    // CRITICAL: must use text/plain — application/json triggers CORS preflight
+    // which Apps Script cannot handle. text/plain goes no-cors safely.
+    await fetch(APPS_SCRIPT_URL,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(payload)
+    });
+    document.getElementById('submitOk').style.display='block';
+    btn.textContent='✓ Submitted!';btn.style.background='var(--green2)';btn.style.color='#000';
+    showToast('✓ Submitted to Ahmad\'s grade sheet!');
+  }catch(e){
+    btn.disabled=false;btn.textContent='📊 Submit to Teacher\'s Grade Sheet';
+    showToast('⚠ Check internet connection.');
+  }
+}
+
+// ── SHARE & TOAST ──
+function shareModule(){
+  const ci=document.getElementById('copyInput');
+  ci.value=window.location.href;ci.select();ci.setSelectionRange(0,9999);
+  try{document.execCommand('copy');}catch(e){}
+  showToast('✓ Link copied!');
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ══════════════════════════════════════════════════════════════
+// DEEP THINKING — Critical Thinking & Creativity Chatbot
+// ══════════════════════════════════════════════════════════════
+const CT_QUESTIONS=[
+  {n:1,bloom:'Analyse',q:'Analyse what would happen to nerve signal transmission if neurotransmitters were not removed after binding to receptors.',hint:'Think about continuous stimulation — what happens to a neuron that never resets?',model:'Continuous stimulation of the postsynaptic neuron. It could remain constantly activated, leading to uncontrolled signaling and inability to reset for new signals.'},
+  {n:2,bloom:'Analyse',q:'Analyse why calcium entry is essential for neurotransmitter release.',hint:'What triggers the vesicles to fuse with the membrane? What role do ions play?',model:'Calcium ions trigger synaptic vesicles to move toward and fuse with the presynaptic membrane. Without calcium, vesicles cannot release neurotransmitters into the cleft.'},
+  {n:3,bloom:'Apply',q:'A toxin prevents vesicles from fusing with the presynaptic membrane. How would this affect communication between neurons?',hint:'If vesicles cannot fuse — can neurotransmitters be released?',model:'Neurotransmitters would not be released into the cleft, so the signal would not be transmitted to the postsynaptic neuron.'},
+  {n:4,bloom:'Compare',q:'Compare electrical and chemical synapses in terms of speed, direction, and flexibility.',hint:'Think about what makes electrical signals fast and what makes chemical signals versatile.',model:'Electrical: fast, often bidirectional, less flexible. Chemical: slower, usually unidirectional, allow modulation and complex signaling.'},
+  {n:5,bloom:'Compare',q:'Compare signal transmission along an axon with transmission across a synapse.',hint:'What type of signal travels the axon? What type crosses the cleft?',model:'Along the axon: electrical (action potential). Across the synapse: chemical (neurotransmitters).'},
+  {n:6,bloom:'Interpret',q:'Interpret why neurotransmitter concentration rises and then quickly decreases in the synaptic cleft.',hint:'Why must the signal end quickly? What structures are responsible for removal?',model:'The decrease ensures the signal ends quickly so neurons can reset and prepare for the next signal.'},
+  {n:7,bloom:'Predict',q:'A drug increases the number of receptors on the postsynaptic membrane. What is the effect on signaling?',hint:'More receptors means more binding sites. How does this change sensitivity?',model:'The postsynaptic neuron becomes more sensitive to neurotransmitters, potentially strengthening the signal.'},
+  {n:8,bloom:'Evaluate',q:'Evaluate the advantages and risks of drugs that block neurotransmitter receptors.',hint:'Think of both therapeutic uses and what normal signaling loses when receptors are blocked.',model:'Benefits: treat disorders like anxiety or pain. Risks: disrupting normal brain communication, dependency, side effects.'},
+  {n:9,bloom:'Evaluate',q:'Evaluate why the nervous system uses chemical synapses instead of only electrical ones.',hint:'What can chemical synapses do that electrical synapses cannot?',model:'Chemical synapses allow signal amplification, modulation, integration of multiple inputs, and learning processes.'},
+  {n:10,bloom:'Apply',q:'Relate the role of the synapse in the reflex of withdrawing a hand from a hot object.',hint:'Trace the signal: pain receptor → sensory neuron → ? → motor neuron → muscle.',model:'Sensory neurons transmit signals to interneurons through synapses, which transmit to motor neurons causing muscle contraction and hand withdrawal.'},
+  {n:11,bloom:'Predict',q:'Predict what happens if enzymes that break down neurotransmitters in the cleft become inactive.',hint:'If neurotransmitters are not removed — what happens to the duration of stimulation?',model:'Neurotransmitters remain longer in the cleft, causing prolonged stimulation and possibly continuous muscle contraction.'},
+  {n:12,bloom:'Predict',q:'A toxin blocks calcium channels in the presynaptic neuron. Predict the effect on synaptic transmission.',hint:'Calcium is needed for what process exactly? Without it — what cannot happen?',model:'Without calcium entry, neurotransmitter release will not occur and synaptic transmission will stop.'},
+];
+
+const CR_QUESTIONS=[
+  {n:1,type:'Imagine',q:'Imagine that synapses did not exist in the nervous system. How would nerve cells communicate? Propose an alternative biological mechanism.',hint:'Consider what exists in some simple organisms — direct ion flow between cells, or hormonal signaling.',model:'Neurons might use direct electrical connections (gap junctions) where ion flow passes between cells. Or chemical signals into body fluids. Synapses allow precise, controlled communication.'},
+  {n:2,type:'Design',q:'Design a new type of synapse that transmits signals faster than the normal chemical synapse. Describe its structure and explain how it works.',hint:'What makes chemical synapses slow? What would remove that delay?',model:'A faster synapse could use electrical transmission through channels connecting two neurons directly, allowing ions to pass without neurotransmitter release, eliminating the chemical delay.'},
+  {n:3,type:'Compare',q:'Compare the synapse to a system in daily life (e.g. email, traffic lights, postal services). Explain the similarities clearly.',hint:'Identify sender, message, medium, receiver — where are these in a synapse?',model:'Like an email: presynaptic neuron = sender, neurotransmitter = message, cleft = transmission medium, receptor = inbox. Both involve sending, transmitting, and receiving with specificity.'},
+  {n:4,type:'Create',q:'If neurotransmitters had different colours based on function, what colours would you assign to excitatory and inhibitory ones? Justify your reasoning.',hint:'Think about what each type does — activate or suppress. What colour associations fit?',model:'Excitatory = bright/warm (red, orange, yellow) — stimulate activity. Inhibitory = cool/calm (blue, green) — reduce activity. Reasoning matters more than colour choice.'},
+  {n:5,type:'Predict',q:'Suppose a scientist discovers a drug that blocks neurotransmitter reuptake at the synapse. Predict the effect on nerve impulse transmission.',hint:'If reuptake is blocked, where do neurotransmitters stay? For how long?',model:'Blocking reuptake causes neurotransmitters to remain longer in the cleft, prolonging or strengthening stimulation of the postsynaptic neuron.'},
+  {n:6,type:'Analogy',q:'Create a short analogy or story explaining how a synapse works to a younger student (age 8–9). Make it vivid and accurate.',hint:'Think of throwing and catching a ball, or sending letters. Keep the biology correct!',model:'Example: a neuron is like a person throwing a ball (neurotransmitter) across a space (cleft) to another person who catches it (receptor) and can pass it on.'},
+  {n:7,type:'Imagine',q:'Imagine that synaptic transmission becomes slower in a person. What effects might this have on behaviour, movement, and learning?',hint:'Think reflexes, coordination, reaction time, and memory formation.',model:'Slower reflexes, delayed reactions, difficulty coordinating movements, slower learning — because messages travel more slowly between neurons.'},
+  {n:8,type:'Observe',q:'If you could observe a synapse in real-time with a microscope, describe step-by-step what you would expect to see from nerve impulse arrival to the next neuron firing.',hint:'Think about what is visible at each stage — vesicle movement, diffusion, receptor changes.',model:'Arrival of impulse at presynaptic terminal → vesicle movement and fusion → neurotransmitter diffusion across cleft → binding to receptors → new electrical signal generated.'},
+  {n:9,type:'Invent',q:'Propose one technological invention inspired by synapses that could improve communication between computers or robots.',hint:'How does synaptic plasticity relate to machine learning? Could artificial synapses improve AI?',model:'Neuromorphic computing uses artificial synapses for computers to exchange signals like neurons, allowing adaptive, efficient learning in machines.'},
+  {n:10,type:'Experiment',q:'Some synapses strengthen with repeated learning (synaptic plasticity). Design an experiment that could demonstrate how repeated stimulation affects synaptic strength.',hint:'What would you measure? What would you stimulate repeatedly? What would you control?',model:'Repeatedly stimulate a presynaptic neuron at set intervals and measure the postsynaptic response amplitude. If the response grows stronger over trials, the synapse has strengthened.'},
+];
+
+
+
+function getHistKey(cat,n){return cat+'_'+n;}
+
+function switchTab(tab){
+  document.getElementById('panelCT').style.display=tab==='CT'?'block':'none';
+  document.getElementById('panelCR').style.display=tab==='CR'?'block':'none';
+  document.getElementById('tabCT').classList.toggle('active',tab==='CT');
+  document.getElementById('tabCR').classList.toggle('active',tab==='CR');
+}
+
+function buildQBlocks(questions,containerId,cat){
+  const container=document.getElementById(containerId);
+  if(!container)return;
+  const bloomColors={Analyse:'#22d3ee',Compare:'#f472b6',Apply:'#00ff88',
+    Interpret:'#f59e0b',Predict:'#f87171',Evaluate:'#8b5cf6',
+    Imagine:'#8b5cf6',Design:'#22d3ee',Create:'#f472b6',Analogy:'#f59e0b',
+    Observe:'#00ff88',Invent:'#f87171',Experiment:'#06b6d4'};
+
+  questions.forEach(q=>{
+    const key=getHistKey(cat,q.n);
+    chatHistories[key]=[];
+    const col=bloomColors[q.bloom||q.type]||'#8b5cf6';
+    const div=document.createElement('div');
+    div.className='dt-qblock';
+    div.innerHTML=`
+      <div class="dt-header" onclick="toggleQ('body_${key}','chev_${key}')">
+        <div class="dt-num" style="background:${col}22;color:${col};border:1.5px solid ${col}44;">${q.n}</div>
+        <div style="flex:1;">
+          <div style="font-size:.6rem;color:${col};font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;">${q.bloom||q.type}</div>
+          <div class="dt-qtext">${q.q}</div>
+        </div>
+        <div class="dt-chevron" id="chev_${key}">▾</div>
+      </div>
+      <div class="dt-body" id="body_${key}">
+        <div style="font-size:.76rem;color:var(--muted2);margin-bottom:10px;padding:8px 12px;background:var(--panel2);border-radius:7px;border-left:3px solid ${col};">
+          💡 <em>Hint:</em> ${q.hint}
+        </div>
+        <div class="chat-history" id="chat_${key}"></div>
+        <textarea class="dt-input" id="inp_${key}" placeholder="Write your thinking here. Use biological terminology. The AI tutor will guide you further…"></textarea>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <button class="dt-send" id="btn_${key}" onclick="sendChat('${cat}',${q.n})">Send →</button>
+          <span style="font-size:.68rem;color:var(--muted);" id="status_${key}"></span>
+        </div>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function toggleQ(bodyId,chevId){
+  const body=document.getElementById(bodyId);
+  const chev=document.getElementById(chevId);
+  const open=body.classList.toggle('open');
+  chev.classList.toggle('open',open);
+}
+
+async function sendChat(cat,n){
+  const key=getHistKey(cat,n);
+  const inp=document.getElementById('inp_'+key);
+  const btn=document.getElementById('btn_'+key);
+  const status=document.getElementById('status_'+key);
+  const chatEl=document.getElementById('chat_'+key);
+  const text=inp.value.trim();
+  if(!text){inp.focus();return;}
+
+  const qs=cat==='CT'?CT_QUESTIONS:CR_QUESTIONS;
+  const qObj=qs.find(q=>q.n===n);
+
+  // Add user message
+  chatHistories[key].push({role:'user',content:text});
+  appendMsg(chatEl,'user',text);
+  inp.value='';
+  btn.disabled=true;
+  status.textContent='AI tutor is thinking…';
+
+  // Show typing indicator
+  const typing=document.createElement('div');
+  typing.className='chat-msg ai chat-typing';
+  typing.innerHTML='<div class="chat-dot"></div><div class="chat-dot"></div><div class="chat-dot"></div>';
+  chatEl.appendChild(typing);
+  chatEl.scrollTop=chatEl.scrollHeight;
+
+  // Build system prompt
+  const systemPrompt=`You are a Socratic biology tutor for Grade 10 students studying the nervous system and synapses.
+The student is answering this question: "${qObj.q}"
+A model answer (for your reference only — DO NOT give it to the student directly): "${qObj.model}"
+Your job:
+1. Acknowledge what the student got RIGHT first, specifically.
+2. Ask ONE focused follow-up question or point to ONE gap in their reasoning.
+3. If their answer is complete and accurate, praise it specifically and offer one extension thought.
+4. Never copy the model answer word-for-word. Guide them to discover it.
+5. Keep responses concise — 2–4 sentences max.
+6. Use biological vocabulary naturally (synapse, vesicle, receptor, action potential, etc.)
+7. Be warm, encouraging, and intellectually curious.`;
+
+  // Build message array (keep last 6 exchanges for context)
+  const history=chatHistories[key].slice(-6);
+  const messages=history.map(h=>({role:h.role,content:h.content}));
+
+  try{
+    // POST with text/plain avoids CORS preflight — Apps Script reads it fine
+    const body=JSON.stringify({action:'ai',system:systemPrompt,messages:messages});
+    const resp=await fetch(APPS_SCRIPT_URL,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:body
+    });
+    const raw=await resp.text();
+    console.log('Apps Script raw response:',raw);
+    const data=JSON.parse(raw);
+    console.log('Parsed data:',JSON.stringify(data));
+    const aiText=data.text||data.error||('No response. Raw: '+raw.slice(0,200));
+    chatHistories[key].push({role:'assistant',content:aiText});
+    chatEl.removeChild(typing);
+    appendMsg(chatEl,'ai',aiText);
+  }catch(e){
+    chatEl.removeChild(typing);
+    appendMsg(chatEl,'ai','⚠ Error: '+e.message+' — Check that Apps Script is redeployed as new version.');
+  }
+
+  btn.disabled=false;
+  status.textContent='';
+  chatEl.scrollTop=chatEl.scrollHeight;
+}
+
+function appendMsg(chatEl,role,text){
+  const div=document.createElement('div');
+  div.className='chat-msg '+role;
+  // Convert **bold** to <strong>
+  div.innerHTML=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  chatEl.appendChild(div);
+  chatEl.scrollTop=chatEl.scrollHeight;
+}
+
+// Build immediately — script is at end of body, DOM is ready
+buildQBlocks(CT_QUESTIONS,'ctQuestions','CT');
+buildQBlocks(CR_QUESTIONS,'crQuestions','CR');
+
+</script>
+</body>
+</html>

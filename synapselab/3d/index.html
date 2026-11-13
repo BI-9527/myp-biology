@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SynapseLab 3D — Synaptic Transmission | Ahmad Ghozlan</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:#02030a;font-family:'Outfit',sans-serif;color:#dde8ff;}
+#c{position:fixed;inset:0;z-index:1;}
+.ov{position:fixed;inset:0;z-index:10;pointer-events:none;
+  display:flex;flex-direction:column;justify-content:space-between;padding:12px 14px;}
+.top{display:flex;align-items:center;justify-content:space-between;pointer-events:all;}
+.tag{font-family:'DM Mono',monospace;font-size:.5rem;color:#00cfff;text-transform:uppercase;
+  letter-spacing:2px;border:1px solid rgba(0,207,255,.2);padding:2px 8px;border-radius:2px;
+  display:inline-block;margin-bottom:3px;}
+.nm{font-size:.88rem;font-weight:800;color:#fff;}
+.nm span{color:#cc44ff;}
+.tbtn{padding:5px 11px;border-radius:5px;border:1px solid rgba(80,160,255,.25);
+  background:rgba(8,12,26,.85);color:#dde8ff;font-family:'Outfit',sans-serif;
+  font-weight:600;font-size:.68rem;cursor:pointer;transition:all .2s;backdrop-filter:blur(8px);}
+.tbtn:hover{border-color:#00cfff;color:#00cfff;}
+.tbtn.on{background:#00cfff;color:#000;border-color:#00cfff;}
+.ctr{text-align:center;pointer-events:none;}
+.sn{font-family:'DM Mono',monospace;font-size:.5rem;color:#00cfff;text-transform:uppercase;
+  letter-spacing:2px;margin-bottom:3px;opacity:0;transition:opacity .4s;}
+.st{font-size:clamp(.88rem,2vw,1.2rem);font-weight:800;color:#fff;
+  text-shadow:0 2px 20px #000;opacity:0;transition:opacity .4s;
+  max-width:500px;margin:0 auto;line-height:1.3;}
+.ss{font-size:.7rem;color:#5a9a9e;margin-top:3px;opacity:0;transition:opacity .4s;font-style:italic;}
+.bot{display:flex;align-items:center;gap:8px;pointer-events:all;}
+.dots{display:flex;gap:5px;flex-wrap:wrap;}
+.dot{width:8px;height:8px;border-radius:50%;background:#1a3a40;transition:all .3s;cursor:pointer;}
+.dot.cur{background:#00cfff;transform:scale(1.4);}
+.dot.done{background:#0088aa;}
+/* FLOATING LEGEND PILL */
+.leg-toggle{position:fixed;top:54px;right:14px;z-index:20;
+  background:rgba(8,12,26,.92);border:1px solid rgba(80,160,255,.3);
+  border-radius:20px;padding:5px 13px;font-size:.62rem;
+  font-family:'DM Mono',monospace;color:#00cfff;cursor:pointer;
+  backdrop-filter:blur(10px);pointer-events:all;white-space:nowrap;
+  transition:all .2s;}
+.leg-toggle:hover{border-color:#00cfff;}
+/* FLOATING LEGEND PANEL */
+.leg{position:fixed;top:84px;right:14px;z-index:20;
+  background:rgba(6,9,22,.96);border:1px solid rgba(80,160,255,.22);
+  border-radius:10px;padding:10px 13px;backdrop-filter:blur(14px);
+  pointer-events:all;min-width:155px;
+  transition:opacity .3s,transform .3s;}
+.leg.hidden{opacity:0;pointer-events:none;transform:translateX(110%);}
+.ltl{font-family:'DM Mono',monospace;font-size:.48rem;color:#7a90c8;
+  text-transform:uppercase;letter-spacing:2px;margin-bottom:7px;}
+.li{display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:.67rem;color:#7a90c8;}
+.ld{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.li strong{color:#dde8ff;}
+/* INFO DRAWER — slides up from bottom */
+.info-bar{position:fixed;bottom:0;left:0;right:0;z-index:20;
+  background:rgba(6,9,22,.97);border-top:1px solid rgba(80,160,255,.22);
+  backdrop-filter:blur(14px);pointer-events:all;
+  transition:transform .35s cubic-bezier(.4,0,.2,1);}
+.info-bar.collapsed{transform:translateY(calc(100% - 44px));}
+.info-handle{display:flex;align-items:center;justify-content:space-between;
+  padding:0 16px;height:44px;cursor:pointer;user-select:none;}
+.info-handle-left{display:flex;align-items:center;gap:10px;overflow:hidden;}
+.info-step-pill{font-family:'DM Mono',monospace;font-size:.55rem;color:#000;
+  background:#cc44ff;padding:2px 9px;border-radius:10px;font-weight:700;flex-shrink:0;}
+.info-step-title{font-weight:700;font-size:.82rem;color:#fff;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.info-chevron{font-size:.68rem;color:#5a9a9e;transition:transform .3s;flex-shrink:0;}
+.info-bar:not(.collapsed) .info-chevron{transform:rotate(180deg);}
+.info-body{padding:12px 16px 18px;}
+.ilbl{font-family:'DM Mono',monospace;font-size:.52rem;color:#cc44ff;
+  text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;}
+.itl{font-weight:700;font-size:.84rem;color:#fff;margin-bottom:5px;}
+.itx{font-size:.74rem;color:#5a9a9e;line-height:1.65;}
+.itx strong{color:#c8eef0;}
+#ld{position:fixed;inset:0;z-index:100;background:#02030a;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s;}
+#ld.h{opacity:0;pointer-events:none;}
+#ld .lt{font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:6px;}
+#ld .lt span{color:#cc44ff;}
+#ld .ls{font-size:.76rem;color:#7a90c8;margin-bottom:22px;}
+#ld .lb{width:180px;height:3px;background:#0d1228;border-radius:2px;overflow:hidden;}
+#ld .lf{height:100%;background:linear-gradient(90deg,#cc44ff,#00cfff);width:0%;transition:width .3s;border-radius:2px;}
+
+/* MOBILE OPTIMIZATIONS */
+@media (max-width: 600px) {
+  .leg-toggle { top: 50px; right: 10px; padding: 4px 10px; font-size: 0.55rem; }
+  .leg { top: 75px; right: 10px; min-width: 130px; padding: 8px; }
+  .li { font-size: 0.6rem; }
+  .ld { width: 8px; height: 8px; }
+  .info-handle { height: 38px; padding: 0 12px; }
+  .info-bar.collapsed { transform: translateY(calc(100% - 38px)); }
+  .info-body { padding: 8px 12px 12px; }
+  .itl { font-size: 0.75rem; margin-bottom: 3px; }
+  .itx { font-size: 0.65rem; line-height: 1.4; }
+  .st { font-size: 0.95rem; padding: 0 10px; }
+  .ss { font-size: 0.65rem; }
+  .tbtn { padding: 4px 8px; font-size: 0.6rem; }
+}
+</style>
+</head>
+<body>
+<div id="ld">
+  <div class="lt">Synapse<span>Lab</span> 3D</div>
+  <div class="ls">Building 3D synapse model...</div>
+  <div class="lb"><div class="lf" id="lf"></div></div>
+</div>
+<canvas id="c"></canvas>
+<div class="ov">
+  <div class="top">
+    <div><div class="tag">Biology · Neural</div><div class="nm">Synapse<span>Lab</span> 3D</div></div>
+    <div style="display:flex;gap:6px;">
+      <button class="tbtn on" id="aBtn" onclick="toggleAuto()">▶</button>
+      <button class="tbtn on" id="oBtn" onclick="toggleOrb()">🔄</button>
+      <button class="tbtn" onclick="location.href='https://bi-9527.github.io/myp-biology/synapselab/'">← Lab</button>
+    </div>
+  </div>
+  <div class="ctr">
+    <div class="sn" id="sn"></div>
+    <div class="st" id="st"></div>
+    <div class="ss" id="ss"></div>
+  </div>
+  <div class="bot">
+    <div class="dots" id="dots"></div>
+  </div>
+</div>
+
+<div class="leg-toggle" onclick="toggleLegend()" id="legToggle">🔑 Key</div>
+
+<div class="leg hidden" id="legPanel">
+  <div class="ltl">Molecule Key</div>
+  <div class="li"><div class="ld" style="background:#cc44ff;"></div><strong>Vesicles</strong></div>
+  <div class="li"><div class="ld" style="background:#e8f4ff;box-shadow:0 0 4px #aaddff;"></div><strong>Ca²⁺</strong> — white</div>
+  <div class="li"><div class="ld" style="background:#ff6600;"></div><strong>ACh</strong> — orange</div>
+  <div class="li"><div class="ld" style="background:#ff1177;"></div><strong>Receptors</strong></div>
+  <div class="li"><div class="ld" style="background:#ffee00;"></div><strong>AChE</strong> — yellow</div>
+  <div class="li"><div class="ld" style="background:#ff4400;"></div><strong>Mitochondria</strong></div>
+  <div class="li"><div class="ld" style="background:#00ff44;box-shadow:0 0 4px #00ff44;"></div><strong>New AP</strong></div>
+</div>
+
+<div class="info-bar collapsed" id="infoBar">
+  <div class="info-handle" onclick="toggleDrawer()">
+    <div class="info-handle-left">
+      <span class="info-step-pill" id="drawerPill">1</span>
+      <span class="info-step-title" id="drawerTitle">The Synaptic Knob</span>
+    </div>
+    <span class="info-chevron">▲</span>
+  </div>
+  <div class="info-body">
+    <div class="ilbl" id="il"></div>
+    <div class="itl" id="it"></div>
+    <div class="itx" id="ix"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const SC=[
+{n:'Scene 1 of 8',t:'The Synaptic Knob',s:'Inside the presynaptic terminal',
+ l:'Step 1 — Anatomy',ti:'The Synaptic Knob',
+ tx:'The swollen terminal bouton of the presynaptic neuron. <strong>Mitochondria</strong> (red-orange) supply ATP energy needed for vesicle fusion. <strong>Synaptic vesicles</strong> (violet spheres) store thousands of <strong>ACh molecules</strong> ready for release.',
+ cam:{r:18,phi:1.3,th:0.3}},
+{n:'Scene 2 of 8',t:'Vesicles Ready — Drifting to Membrane',s:'Loaded with ACh · heading toward the active zone',
+ l:'Step 2 — Vesicle Formation',ti:'Vesicles Loaded with ACh',
+ tx:'Each synaptic vesicle (violet) contains thousands of <strong>acetylcholine (ACh)</strong> molecules (orange, visible inside). They drift toward the <strong>active zone</strong> — the specialised release site on the presynaptic membrane directly above the cleft. <strong>The vesicles themselves never leave the presynaptic neuron.</strong>',
+ cam:{r:14,phi:1.4,th:0.5}},
+{n:'Scene 3 of 8',t:'Ca²⁺ Rushes In',s:'Action potential triggers calcium channel opening',
+ l:'Step 3 — Calcium Influx',ti:'Voltage-Gated Ca²⁺ Channels Open',
+ tx:'The action potential arrives (yellow ring travelling down the axon). It opens <strong>voltage-gated Ca²⁺ channels</strong> in the presynaptic membrane. <strong>Ca²⁺ ions</strong> (bright white) flood inward — they are the essential chemical trigger for exocytosis. Without Ca²⁺, no ACh is released.',
+ cam:{r:12,phi:1.35,th:-0.3}},
+{n:'Scene 4 of 8',t:'Exocytosis — Only ACh Enters the Cleft',s:'Vesicles fuse · ACh molecules released · vesicles stay',
+ l:'Step 4 — Exocytosis',ti:'ACh Released Into the Synaptic Cleft',
+ tx:'Ca²⁺ triggers <strong>exocytosis</strong>: vesicles fuse with the presynaptic membrane. <strong>Only the ACh molecules</strong> (orange) burst out into the 20 nm cleft. The vesicle membrane stays in the presynaptic neuron and is recycled. No vesicles cross the cleft — only ACh.',
+ cam:{r:11,phi:1.5,th:0.1}},
+{n:'Scene 5 of 8',t:'ACh Diffuses Across the Cleft',s:'Orange molecules only — no vesicles cross',
+ l:'Step 5 — Diffusion',ti:'Only ACh Molecules Cross',
+ tx:'<strong>ACh molecules only</strong> (orange) diffuse freely across the 20 nm synaptic cleft. The gap is so narrow that this takes under 1 millisecond. The postsynaptic membrane (below) displays <strong>receptor proteins</strong> (magenta) shaped specifically to receive ACh.',
+ cam:{r:10,phi:1.55,th:0.0}},
+{n:'Scene 6 of 8',t:'ACh Binds to Receptors — and Sits There',s:'Lock-and-key · molecules arrive and stay on receptors',
+ l:'Step 6 — Receptor Binding',ti:'ACh Sits on Postsynaptic Receptors',
+ tx:'ACh molecules (orange) travel to <strong>complementary receptor proteins</strong> (magenta) on the <strong>postsynaptic</strong> membrane. Watch them arrive and <strong>sit on top of the receptors</strong> — they stay there. Binding opens Na⁺ ion channels → membrane depolarises → new action potential begins.',
+ cam:{r:9,phi:1.65,th:0.2}},
+{n:'Scene 7 of 8',t:'Signal Terminated — Reuptake & Enzyme',s:'AChE actively collides with ACh to destroy it',
+ l:'Step 7 — Signal Clearance',ti:'Reuptake & AChE Enzyme Destruction',
+ tx:'To terminate the signal, ACh is removed from the cleft two ways: <strong>① Reuptake</strong> — ACh pumped back UP into the presynaptic neuron (orange arrows rising) for recycling. <strong>② Enzyme breakdown</strong> — <strong>acetylcholinesterase AChE</strong> (yellow diamonds) actively targets and collides with remaining ACh, destroying it into choline + acetate.',
+ cam:{r:11,phi:1.5,th:0.4}},
+{n:'Scene 8 of 8',t:'New Action Potential in Postsynaptic Neuron',s:'Electrical → Chemical → Electrical complete',
+ l:'Step 8 — New Action Potential',ti:'Nerve Impulse Transmitted Successfully',
+ tx:'Na⁺ ions rush into the postsynaptic neuron through opened receptor channels → membrane <strong>depolarises</strong> → <strong>new action potential fires</strong>. The bright green pulse expands through the <strong>postsynaptic neuron body below</strong>. The complete cycle: <strong>Electrical impulse → Chemical (ACh) → New electrical impulse</strong>. Under 1 millisecond total.',
+ cam:{r:17,phi:1.15,th:0.0}}
+];
+
+// renderer
+const R=new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));
+R.setSize(innerWidth,innerHeight);
+R.shadowMap.enabled=true;
+R.toneMapping=THREE.ACESFilmicToneMapping;
+R.toneMappingExposure=1.35;
+
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x02030a);
+scene.fog=new THREE.FogExp2(0x02030a,0.028);
+
+const cam=new THREE.PerspectiveCamera(58,innerWidth/innerHeight,0.1,300);
+cam.position.set(0,2,18);
+
+// lighting
+scene.add(new THREE.AmbientLight(0x111830,4));
+const kl=new THREE.PointLight(0x4433ff,10,55);kl.position.set(0,10,5);scene.add(kl);
+const fl=new THREE.PointLight(0x0055ff,5,38);fl.position.set(-10,-5,10);scene.add(fl);
+const rl=new THREE.PointLight(0xff2277,3,30);rl.position.set(10,2,-6);scene.add(rl);
+const bl=new THREE.PointLight(0x0088ff,5,35);bl.position.set(0,-12,4);scene.add(bl);
+
+// materials
+function ms(col,emi,op=1,tr=false,rg=0.35,mt=0.15){
+  return new THREE.MeshStandardMaterial({color:col,emissive:emi,emissiveIntensity:0.45,
+    roughness:rg,metalness:mt,transparent:tr,opacity:op,side:THREE.DoubleSide});}
+function mg(col,ei=1.0){
+  return new THREE.MeshStandardMaterial({color:col,emissive:col,emissiveIntensity:ei,
+    roughness:0.1,metalness:0.15,transparent:true,opacity:0.9});}
+
+// palette
+const P={
+  PRE:0x1a4dcc,POST:0x0e2d88,VES:0xcc44ff,
+  CA2:0xeef6ff,ACH:0xff6600,REC:0xff1177,
+  ENZ:0xffee00,MIT:0xff4400,AP:0xffff00,PAP:0x00ff44
+};
+
+// helpers
+const sg=(r,s=16)=>new THREE.SphereGeometry(r,s,s);
+const cg=(a,b,h,s=16)=>new THREE.CylinderGeometry(a,b,h,s);
+function mkcyl(a,b,h,mat,x=0,y=0,z=0){const m=new THREE.Mesh(cg(a,b,h),mat);m.position.set(x,y,z);return m;}
+
+const G=new THREE.Group();scene.add(G);
+
+// presynaptic neuron
+const preM=ms(P.PRE,P.PRE,0.72,true,0.5);
+const axon=mkcyl(0.85,0.85,10,preM.clone(),0,9,0);G.add(axon);
+const hil=mkcyl(0.85,2.4,2,preM.clone(),0,4.5,0);G.add(hil);
+const bulb=new THREE.Mesh(new THREE.SphereGeometry(3.6,32,32),preM.clone());
+bulb.scale.set(1,0.82,1);bulb.position.set(0,2,0);G.add(bulb);
+const azM=ms(P.PRE,0x3366ff,0.95,false,0.2);
+const az=new THREE.Mesh(new THREE.CircleGeometry(3.0,32),azM);
+az.rotation.x=-Math.PI/2;az.position.y=0.15;G.add(az);
+
+// postsynaptic neuron (Shifted down by 1.5 for a wider gap)
+const postM=ms(P.POST,P.POST,0.74,true,0.5);
+const neck=mkcyl(0.55,0.75,1.4,postM.clone(),0,-3.2,0);G.add(neck); // -1.7 -> -3.2
+const sh=new THREE.Mesh(new THREE.SphereGeometry(3.8,32,32),postM.clone());
+sh.scale.set(1.1,0.55,1.1);sh.position.set(0,-4.7,0);G.add(sh); // -3.2 -> -4.7
+const ds=mkcyl(2.4,2.8,7,postM.clone(),0,-9.3,0);G.add(ds); // -7.8 -> -9.3
+const psdM=ms(0x2244aa,0x3355cc,0.92,false,0.2);
+const psd=new THREE.Mesh(new THREE.CircleGeometry(2.8,32),psdM);
+psd.rotation.x=Math.PI/2;psd.position.y=-2.42;G.add(psd); // -0.92 -> -2.42
+
+// receptor proteins on PSD
+const recM=mg(P.REC,1.1);
+const recPos=[];
+const recGrps=[];
+for(let i=0;i<14;i++){
+  const a=(i/14)*Math.PI*2;
+  const r=0.5+Math.random()*1.9;
+  const rx=Math.cos(a)*r,rz=Math.sin(a)*r;
+  recPos.push({x:rx,z:rz});
+  const rg=new THREE.Group();
+  const lft=mkcyl(0.12,0.12,0.65,recM.clone());lft.position.set(-0.18,0,0);
+  const rgt=mkcyl(0.12,0.12,0.65,recM.clone());rgt.position.set(0.18,0,0);
+  const top=new THREE.Mesh(new THREE.TorusGeometry(0.18,0.07,6,12),recM.clone());
+  top.rotation.x=Math.PI/2;top.position.y=0.3;
+  rg.add(lft,rgt,top);rg.position.set(rx,-2.42,rz); // -0.92 -> -2.42
+  G.add(rg);recGrps.push(rg);
+}
+
+// mitochondria
+const miM=ms(P.MIT,0xff3300,0.96,false,0.28);
+const criM=ms(0xff6633,0xff4400,0.75,false,0.4);
+[[-1.2,3.2,0.8],[-2.2,2.4,-0.7],[1.6,2.8,0.9],[0.3,3.8,-1.2],[1.8,1.8,-0.4],[-0.8,2.2,1.4]].forEach(([x,y,z])=>{
+  const b=new THREE.Mesh(sg(0.42,10),miM.clone());
+  b.scale.set(2.2,1,1.1);b.position.set(x,y,z);G.add(b);
+  [-0.3,0.3].forEach(k=>{
+    const c=new THREE.Mesh(new THREE.CircleGeometry(0.26,8),criM.clone());
+    c.rotation.y=Math.PI/2;c.position.set(x+k,y,z);G.add(c);
+  });
+});
+
+// vesicles
+const vesM=mg(P.VES,1.2);
+const viM=mg(P.ACH,0.65);
+const vesD=[];const vesS=[];
+for(let i=0;i<28;i++){
+  const vg=new THREE.Group();
+  const r=0.36+Math.random()*0.12;
+  const sh=new THREE.Mesh(sg(r,12),vesM.clone());vg.add(sh);
+  for(let j=0;j<4;j++){
+    const nt=new THREE.Mesh(sg(0.065,6),viM.clone());
+    nt.position.set((Math.random()-.5)*r*.5,(Math.random()-.5)*r*.5,(Math.random()-.5)*r*.5);
+    vg.add(nt);
+  }
+  const ang=Math.random()*Math.PI*2,rd=Math.random()*2.6;
+  const px=Math.cos(ang)*rd,pz=Math.sin(ang)*rd,py=1.0+Math.random()*3.0;
+  vg.position.set(px,py,pz);
+  vesS.push({x:px,y:py,z:pz});
+  G.add(vg);
+  vesD.push({g:vg,fused:false,fp:0});
+}
+
+// Ca2+ ions
+const caM=mg(P.CA2,2.5);
+const caD=[];
+for(let i=0;i<34;i++){
+  const m=new THREE.Mesh(sg(0.15,8),caM.clone());
+  m.visible=false;G.add(m);
+  const a=Math.random()*Math.PI*2,rd=Math.random()*3.2;
+  caD.push({m,active:false,tx:Math.cos(a)*rd,ty:0.7+Math.random()*2.5,tz:Math.sin(a)*rd,sy:14+Math.random()*3,sp:0.065+Math.random()*0.04});
+}
+
+// ACh molecules
+const achM=mg(P.ACH,1.6);
+const achD=[];
+for(let i=0;i<44;i++){
+  const m=new THREE.Mesh(sg(0.22,8),achM.clone());
+  m.visible=false;G.add(m);
+  const a=Math.random()*Math.PI*2,rd=Math.random()*2.6;
+  achD.push({m,active:false,bound:false,bt:null,sitting:false,
+    reuptake:false,destroyed:false,dp:0,
+    x:Math.cos(a)*rd,z:Math.sin(a)*rd,
+    sp:0.011+Math.random()*0.014});
+}
+
+// enzymes
+const enzM=mg(P.ENZ,1.5);
+const enzD=[];
+for(let i=0;i<14;i++){
+  const m=new THREE.Mesh(new THREE.OctahedronGeometry(0.24,0),enzM.clone());
+  m.visible=false;G.add(m);
+  const a=Math.random()*Math.PI*2,rd=0.4+Math.random()*2.6;
+  // Placed correctly in the new wider cleft range
+  enzD.push({m,active:false,targetAch:null,x:Math.cos(a)*rd,y:-1.5+Math.random()*1.5,z:Math.sin(a)*rd});
+}
+
+// reuptake arrows
+const rupM=mg(0xff7700,1.9);
+const rupD=[];
+for(let i=0;i<7;i++){
+  const a=Math.random()*Math.PI*2,rd=0.4+Math.random()*2.2;
+  const g=new THREE.Group();
+  const sh=mkcyl(0.07,0.07,0.55,rupM.clone());sh.position.y=0.28;g.add(sh);
+  const tip=new THREE.Mesh(new THREE.ConeGeometry(0.13,0.28,8),rupM.clone());tip.position.y=0.68;g.add(tip);
+  g.position.set(Math.cos(a)*rd,-0.2,Math.sin(a)*rd);
+  g.visible=false;G.add(g);
+  rupD.push({g,active:false,py:-0.2});
+}
+
+// AP rings
+const apG=new THREE.Group();
+const apR=new THREE.Mesh(new THREE.TorusGeometry(1.1,0.12,8,32),mg(P.AP,2.8));
+apR.rotation.x=Math.PI/2;apG.add(apR);
+apG.position.set(0,14,0);apG.visible=false;apG.scale.set(0,0,0);
+scene.add(apG);
+
+// postsynaptic AP
+const pApM=mg(P.PAP,2.2);
+const pApMesh=new THREE.Mesh(sg(0.5,18),pApM);
+pApMesh.position.set(0,-4.7,0); // -3.2 -> -4.7
+pApMesh.visible=false;pApMesh.scale.set(0.1,0.1,0.1);
+G.add(pApMesh);
+
+// stars
+const stG=new THREE.BufferGeometry();
+const stP=[];
+for(let i=0;i<700;i++)stP.push((Math.random()-.5)*130,(Math.random()-.5)*130,(Math.random()-.5)*130);
+stG.setAttribute('position',new THREE.Float32BufferAttribute(stP,3));
+scene.add(new THREE.Points(stG,new THREE.PointsMaterial({color:0x223355,size:0.07})));
+
+// orbit
+let theta=0.3,phi=1.3,radius=18;
+let orbOn=true,drag=false,lx=0,ly=0;
+const cv=document.getElementById('c');
+cv.addEventListener('mousedown',e=>{drag=true;lx=e.clientX;ly=e.clientY;});
+document.addEventListener('mousemove',e=>{if(!drag||!orbOn)return;theta-=(e.clientX-lx)*0.005;phi=Math.max(0.2,Math.min(Math.PI-.2,phi+(e.clientY-ly)*0.005));lx=e.clientX;ly=e.clientY;});
+document.addEventListener('mouseup',()=>drag=false);
+cv.addEventListener('wheel',e=>{radius=Math.max(4,Math.min(36,radius+e.deltaY*0.02));},{passive:true});
+cv.addEventListener('touchstart',e=>{drag=true;lx=e.touches[0].clientX;ly=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchmove',e=>{if(!drag)return;theta-=(e.touches[0].clientX-lx)*0.005;phi=Math.max(0.2,Math.min(Math.PI-.2,phi+(e.touches[0].clientY-ly)*0.005));lx=e.touches[0].clientX;ly=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',()=>drag=false);
+function toggleOrb(){orbOn=!orbOn;document.getElementById('oBtn').classList.toggle('on',orbOn);}
+
+function toggleLegend(){
+  const p=document.getElementById('legPanel');
+  const t=document.getElementById('legToggle');
+  p.classList.toggle('hidden');
+  t.textContent=p.classList.contains('hidden')?'🔑 Key':'✕ Key';
+}
+
+function toggleDrawer(){
+  document.getElementById('infoBar').classList.toggle('collapsed');
+}
+
+let cur=0,scT=0;
+let autoOn=true,autoTmr=null;
+
+// build dots
+const dotsEl=document.getElementById('dots');
+SC.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' cur':'');
+  d.onclick=()=>goScene(i);
+  dotsEl.appendChild(d);
+});
+
+function showUI(){
+  const s=SC[cur];
+  ['sn','st','ss'].forEach(id=>document.getElementById(id).style.opacity=0);
+  setTimeout(()=>{
+    document.getElementById('sn').textContent=s.n;
+    document.getElementById('st').textContent=s.t;
+    document.getElementById('ss').textContent=s.s;
+    document.getElementById('il').textContent=s.l;
+    document.getElementById('it').textContent=s.ti;
+    document.getElementById('ix').innerHTML=s.tx;
+    document.getElementById('drawerPill').textContent=cur+1;
+    document.getElementById('drawerTitle').textContent=s.ti;
+    document.getElementById('infoBar').classList.add('collapsed');
+    ['sn','st','ss'].forEach(id=>document.getElementById(id).style.opacity=1);
+  },280);
+  document.querySelectorAll('.dot').forEach((d,i)=>{d.classList.toggle('cur',i===cur);d.classList.toggle('done',i<cur);});
+  
+  const c=SC[cur].cam;
+  theta=c.th;
+  phi=c.phi;
+  radius = window.innerWidth < 600 ? c.r * 1.4 : c.r;
+  
+  scT=0;runScene();
+}
+
+function resetAll(){
+  vesD.forEach((v,i)=>{v.g.position.set(vesS[i].x,vesS[i].y,vesS[i].z);v.g.scale.set(1,1,1);v.g.visible=true;v.fused=false;v.fp=0;});
+  caD.forEach(c=>{c.m.visible=false;c.active=false;c.m.position.set(0,14,0);});
+  achD.forEach(a=>{a.m.visible=false;a.active=false;a.bound=false;a.bt=null;a.sitting=false;a.reuptake=false;a.destroyed=false;a.dp=0;a.m.scale.set(1,1,1);});
+  enzD.forEach(e=>{e.m.visible=false;e.active=false;e.targetAch=null;}); // Reset targets
+  rupD.forEach(r=>{r.g.visible=false;r.active=false;r.py=-0.2;});
+  apG.visible=false;apG.scale.set(0,0,0);apG.position.set(0,14,0);
+  pApMesh.visible=false;pApMesh.scale.set(0.1,0.1,0.1);pApMesh.material.opacity=0.9;
+}
+
+function runScene(){
+  resetAll();
+  if(cur===0)return;
+  if(cur===1){vesD.forEach(v=>v.g.visible=true);return;}
+  if(cur===2){sc3_ca();return;}
+  if(cur===3){sc4_exo();return;}
+  if(cur===4){sc5_diff();return;}
+  if(cur===5){sc6_bind();return;}
+  if(cur===6){sc7_term();return;}
+  if(cur===7){sc8_postap();return;}
+}
+
+function sc3_ca(){
+  apG.visible=true;apG.position.set(0,14,0);apG.scale.set(0.5,0.5,0.5);
+  caD.forEach((c,i)=>{setTimeout(()=>{c.m.visible=true;c.active=true;c.m.position.set((Math.random()-.5)*8,c.sy,(Math.random()-.5)*8);},i*50);});
+}
+
+function sc4_exo(){
+  sc3_ca();
+  vesD.slice(0,14).forEach((v,i)=>{
+    setTimeout(()=>{
+      const vp={x:v.g.position.x,y:v.g.position.y,z:v.g.position.z};
+      v.fused=true;
+      const flashGeo=new THREE.TorusGeometry(0.5,0.1,6,16);
+      const flashMat=new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xffffff,emissiveIntensity:3,transparent:true,opacity:1});
+      const flash=new THREE.Mesh(flashGeo,flashMat);
+      flash.rotation.x=Math.PI/2;
+      flash.position.set(vp.x,0.15,vp.z);
+      G.add(flash);
+      let fp2=0;
+      const flashAnim=setInterval(()=>{
+        fp2+=0.06;
+        flash.scale.set(1+fp2*2,1+fp2*2,1+fp2*2);
+        flash.material.opacity=Math.max(0,1-fp2);
+        if(fp2>=1){clearInterval(flashAnim);G.remove(flash);}
+      },16);
+      for(let k=0;k<3;k++){
+        const idx=i*3+k;
+        if(idx>=achD.length)return;
+        const a=achD[idx];
+        a.m.visible=true;a.active=true;a.m.scale.set(1,1,1);
+        a.m.position.set(vp.x+(Math.random()-.5)*0.4,0.18,vp.z+(Math.random()-.5)*0.4);
+      }
+    },900+i*220);
+  });
+}
+
+function sc5_diff(){
+  vesD.forEach(v=>v.g.visible=false);
+  achD.forEach((a,i)=>{
+    setTimeout(()=>{
+      a.m.visible=true;a.active=true;a.m.scale.set(1,1,1);
+      a.m.position.set(a.x,0.1+Math.random()*0.4,a.z);
+    },i*40);
+  });
+}
+
+function sc6_bind(){
+  vesD.forEach(v=>v.g.visible=false);
+  achD.forEach((a,i)=>{
+    a.m.visible=true;a.active=true;a.m.scale.set(1,1,1);
+    a.m.position.set(a.x,0.0,a.z);
+  });
+  achD.slice(0,recPos.length).forEach((a,i)=>{
+    setTimeout(()=>{
+      a.bound=true;
+      a.bt={x:recPos[i].x,y:-2.00,z:recPos[i].z}; // Receptor top lowered to -2.00
+    },800+i*110);
+  });
+}
+
+function sc7_term(){
+  vesD.forEach(v=>v.g.visible=false);
+  achD.slice(0,recPos.length).forEach((a,i)=>{
+    a.m.visible=true;a.active=true;a.sitting=true;a.m.scale.set(1,1,1);
+    a.m.position.set(recPos[i%recPos.length].x,-2.00,recPos[i%recPos.length].z);
+  });
+  
+  setTimeout(()=>{
+    // REUPTAKE
+    rupD.forEach(r=>{r.g.visible=true;r.active=true;r.py=-0.2;});
+    achD.slice(0,7).forEach((a,i)=>{
+      setTimeout(()=>{a.sitting=false;a.reuptake=true;},i*160);
+    });
+  },1500);
+  
+  setTimeout(()=>{
+    // ENZYME COLLISION LOGIC
+    enzD.forEach((e,i)=>{
+      setTimeout(()=>{
+        e.m.visible=true;e.active=true;
+        e.m.position.set(e.x, e.y, e.z); 
+        if(i < 7) {
+          e.targetAch = achD[7 + i]; // Assign a specific ACh to destroy
+        } else {
+          e.targetAch = null; // Others simply drift around
+        }
+      },i*75);
+    });
+  },2200);
+}
+
+function sc8_postap(){
+  vesD.forEach(v=>v.g.visible=false);
+  achD.slice(0,8).forEach((a,i)=>{
+    a.m.visible=true;a.active=true;a.sitting=true;a.m.scale.set(1,1,1);
+    a.m.position.set(recPos[i].x,-2.00,recPos[i].z);
+  });
+  setTimeout(()=>{
+    pApMesh.visible=true;
+    pApMesh.scale.set(0.1,0.1,0.1);
+    pApMesh.material.opacity=0.95;
+    pApMesh.material.emissiveIntensity=2.5;
+  },1200);
+}
+
+function goScene(n){cur=n;showUI();}
+function next(){if(cur<SC.length-1){cur++;showUI();}else{cur=0;showUI();}}
+function prev(){if(cur>0){cur--;showUI();}}
+function toggleAuto(){autoOn=!autoOn;document.getElementById('aBtn').textContent=autoOn?'⏸ Pause':'▶ Auto';document.getElementById('aBtn').classList.toggle('on',autoOn);clearTimeout(autoTmr);if(autoOn)schedAuto();}
+function schedAuto(){if(!autoOn)return;autoTmr=setTimeout(()=>{next();schedAuto();},7000);}
+
+// render loop
+const clock=new THREE.Clock();
+let t=0;
+function animate(){
+  requestAnimationFrame(animate);
+  const dt=clock.getDelta();t+=dt;scT+=dt;
+
+  // orbit — modified cy to center the new wider gap visually (-1.0)
+  if(orbOn&&!drag)theta+=0.0022;
+  const cx=radius*Math.sin(phi)*Math.sin(theta);
+  const cy=radius*Math.cos(phi)-1.0; 
+  const cz=radius*Math.sin(phi)*Math.cos(theta);
+  cam.position.lerp(new THREE.Vector3(cx,cy,cz),0.055);
+  cam.lookAt(0,-1.0,0);
+
+  kl.intensity=9+Math.sin(t*1.2)*2.5;
+  kl.position.x=Math.sin(t*0.32)*4;kl.position.z=Math.cos(t*0.26)*4;
+
+  // vesicles
+  vesD.forEach((v,i)=>{
+    if(!v.g.visible)return;
+    if(v.fused){
+      v.g.position.y=THREE.MathUtils.lerp(v.g.position.y,0.15,0.04);
+      v.fp=Math.min(1,v.fp+0.018);
+      const s=1-v.fp;v.g.scale.set(s,s,s);
+    } else {
+      v.g.position.y+=Math.sin(t*1.1+i*0.9)*0.003;
+      v.g.position.x+=Math.sin(t*0.7+i*1.3)*0.002;
+      v.g.rotation.y+=0.009;
+    }
+    v.g.children.forEach(c=>{if(c.material)c.material.emissiveIntensity=1.0+Math.sin(t*2+i)*0.25;});
+  });
+
+  // Ca2+
+  caD.forEach((c,i)=>{
+    if(!c.active)return;
+    if(c.m.position.y>c.ty+0.1){c.m.position.y-=c.sp;c.m.position.x=THREE.MathUtils.lerp(c.m.position.x,c.tx,0.022);c.m.position.z=THREE.MathUtils.lerp(c.m.position.z,c.tz,0.022);}
+    c.m.material.emissiveIntensity=2.0+Math.sin(t*6+i*0.7)*0.6;
+    c.m.rotation.x+=0.07;c.m.rotation.y+=0.055;
+  });
+
+  // AP ring
+  if(apG.visible){
+    apG.position.y-=0.07;
+    apG.scale.lerp(new THREE.Vector3(1,1,1),0.09);
+    apR.material.emissiveIntensity=2.2+Math.sin(t*8)*0.6;
+    if(apG.position.y<0){apG.position.y=14;apG.scale.set(0,0,0);}
+  }
+
+  // ACh
+  achD.forEach((a,i)=>{
+    if(!a.active)return;
+    const m=a.m;
+    if(a.destroyed){
+      a.dp=Math.min(1,a.dp+0.022);
+      const s=1-a.dp;m.scale.set(s,s,s);
+      m.material.emissiveIntensity=Math.max(0,1.8*(1-a.dp));
+      if(a.dp>=1)m.visible=false;
+      return;
+    }
+    if(a.reuptake){
+      m.position.y+=0.06; // slightly faster reuptake speed since gap is larger
+      m.material.emissiveIntensity=1.8+Math.sin(t*5+i)*0.3;
+      if(m.position.y>2.0)m.visible=false;
+      return;
+    }
+    if(a.sitting){
+      m.rotation.y+=0.018;
+      m.material.emissiveIntensity=1.6+Math.sin(t*2.5+i*0.6)*0.35;
+      return;
+    }
+    if(a.bound&&a.bt){
+      m.position.x=THREE.MathUtils.lerp(m.position.x,a.bt.x,0.038);
+      m.position.y=THREE.MathUtils.lerp(m.position.y,a.bt.y,0.038);
+      m.position.z=THREE.MathUtils.lerp(m.position.z,a.bt.z,0.038);
+      if(Math.abs(m.position.y-a.bt.y)<0.06)a.sitting=true;
+      m.material.emissiveIntensity=1.4+Math.sin(t*4+i)*0.3;
+    } else {
+      m.position.y-=a.sp*0.35;
+      m.position.x+=Math.sin(t*1.9+i*0.5)*0.007;
+      m.position.z+=Math.cos(t*1.5+i*0.8)*0.007;
+      if(m.position.y<-2.6)m.position.y=0.2; // Adjusted wrap boundary for deeper gap
+      m.material.emissiveIntensity=1.3+Math.sin(t*3+i)*0.25;
+    }
+    m.rotation.x+=0.022;m.rotation.y+=0.018;
+  });
+
+  // Enzymes (Updated collision logic)
+  enzD.forEach((e,i)=>{
+    if(!e.active)return;
+    e.m.rotation.x+=0.024;e.m.rotation.y+=0.031;e.m.rotation.z+=0.019;
+    e.m.material.emissiveIntensity=1.3+Math.sin(t*2.8+i)*0.4;
+    
+    if (e.targetAch && !e.targetAch.destroyed) {
+       // Target mode: Home in on the ACh molecule
+       e.m.position.lerp(e.targetAch.m.position, 0.05);
+       
+       // Destroy upon collision
+       if (e.m.position.distanceTo(e.targetAch.m.position) < 0.45) {
+          e.targetAch.sitting = false;
+          e.targetAch.destroyed = true;
+          e.targetAch = null; // Enzyme goes back to free drift
+       }
+    } else {
+       // Drift mode: normal tumble in cleft
+       e.m.position.y+=Math.sin(t*1.4+i)*0.004;
+    }
+  });
+
+  // reuptake arrows
+  rupD.forEach((r,i)=>{
+    if(!r.active)return;
+    r.py+=0.022;r.g.position.y=r.py;
+    r.g.rotation.y+=0.055;
+    r.g.children.forEach(c=>{if(c.material)c.material.emissiveIntensity=1.8+Math.sin(t*4+i)*0.5;});
+    if(r.py>1.6)r.py=-0.2;
+  });
+
+  // postsynaptic AP
+  if(pApMesh.visible){
+    const s=pApMesh.scale.x;
+    if(s<9){
+      const ns=Math.min(9,s+0.055);
+      pApMesh.scale.set(ns,ns,ns);
+      pApMesh.material.emissiveIntensity=Math.max(0.1,2.8-ns*0.27);
+      pApMesh.material.opacity=Math.max(0.05,0.95-ns*0.095);
+      bl.intensity=5+Math.sin(t*10)*12;
+    }
+  } else {bl.intensity=5;}
+
+  R.render(scene,cam);
+}
+
+window.addEventListener('resize',()=>{
+  cam.aspect=innerWidth/innerHeight;
+  cam.updateProjectionMatrix();
+  R.setSize(innerWidth,innerHeight);
+  const c=SC[cur].cam;
+  radius = window.innerWidth < 600 ? c.r * 1.4 : c.r;
+});
+
+// loading
+let lp=0;
+const li=setInterval(()=>{lp+=Math.random()*18;document.getElementById('lf').style.width=Math.min(lp,88)+'%';},85);
+setTimeout(()=>{clearInterval(li);document.getElementById('lf').style.width='100%';
+  setTimeout(()=>{document.getElementById('ld').classList.add('h');showUI();animate();if(autoOn)schedAuto();},350);
+},1100);
+</script>
+</body>
+</html>
