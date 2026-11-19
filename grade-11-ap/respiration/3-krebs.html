@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Mission 3 · The Krebs Cycle · Respiration</title>
+<meta name="description" content="Grade 11 AP Biology, cellular respiration Mission 3: the link step and the Krebs cycle in the mitochondrial matrix.">
+<link rel="icon" href="assets/his-logo.png">
+<link rel="stylesheet" href="assets/resp.css">
+<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
+<script src="assets/resp.js" defer></script>
+</head>
+<body data-section="3">
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">Mission 3 · Session 3</p>
+    <h1>The Krebs cycle: the CO<sub>2</sub> factory</h1>
+    <p class="lede">With oxygen available, Lara's two <b style="color:var(--pyr)">pyruvates</b> enter a mitochondrion. Inside the <b>matrix</b> their carbon atoms are stripped off one by one and leave as <b style="color:var(--co2)">carbon dioxide</b>, the same CO<sub>2</sub> she breathes out with every step.</p>
+    <div class="q"><span class="qn">Q3.1</span> In which part of the mitochondrion does the Krebs cycle happen?
+      <div class="reveal"><button>Show answer</button><div class="ans">In the <b>matrix</b>, the fluid inside the inner membrane.</div></div></div>
+  </div>
+  <div class="launch role" style="margin:0">
+    <span class="ico">🎭</span>
+    <div><h3>Act it out: human Krebs cycle</h3><p>A circle of carbons, a 2-carbon visitor, and two carbons who escape as CO₂!</p></div>
+    <button class="btn" data-roles="roles3">▶ Show roles</button>
+  </div>
+  <script type="application/json" id="roles3">{"title":"Human Krebs cycle","intro":"The middle of the room is the matrix. The window is the way out to the lungs.",
+   "roles":[["4 × Carbon","Hold hands in a circle: the 4-carbon molecule that is always waiting in the cycle.","#E08A00"],["2 × Acetyl carbons","Arrive holding hands: what is left of a pyruvate.","#C76A00"],["3 × NAD⁺ + 1 × FAD","Energy carriers. Collect a hydrogen card each time the cycle releases one.","#6A3FC0"],["1 × ADP","Waiting to be charged into ATP.","#E25B2B"]],
+   "steps":["The 2 acetyl carbons join the circle: now 6 carbons hold hands (citric acid).","The circle walks around once. Halfway, one carbon lets go and runs to the window shouting “CO₂!”.","A second carbon lets go and runs out: “CO₂!”. The circle is back to 4 carbons.","On the way, the NAD⁺ and FAD students grab hydrogen cards (they become NADH and FADH₂) and ADP becomes ATP.","Repeat for the second pyruvate: one glucose = 2 turns."],"seconds":180}</script>
+</section>
+
+<section class="block" id="anim">
+  <div class="part-title"><span class="badge" style="background:var(--s-kre)">3D lab</span><h2 style="margin:0">Dive into the matrix</h2></div>
+  <div class="card">
+    <div class="stage warm" id="kStage"><span class="hint">Drag to look around</span>
+      <div class="hud"><span class="chip" id="cTurns">Turns: 0</span><span class="chip" id="cCo2" style="color:#3a4a5a">CO₂: 0</span><span class="chip" id="cNadh" style="color:#6A3FC0">NADH: 0</span><span class="chip" id="cFad" style="color:#C2378F">FADH₂: 0</span><span class="chip" id="cAtp" style="color:#F2361C">ATP: 0</span></div>
+      <div class="banner" id="kBanner">Press “Enter the matrix”</div></div>
+    <div class="ctrl">
+      <button class="btn" id="enter">🔽 Enter the matrix</button>
+      <button class="btn gold" id="feed" disabled>➕ Feed one pyruvate (1 turn)</button>
+      <button class="btn green" id="whole" disabled>⚡ Run one whole glucose (2 turns)</button>
+      <button class="btn ghost" id="kReset">⟲ Reset counters</button>
+      <label class="switch">Slow<input type="checkbox" id="kSlow"></label>
+    </div>
+  </div>
+  <div class="grid2">
+    <ol class="steps" id="kSteps">
+      <li><b>Link step.</b> Each <span class="mol" style="color:var(--pyr)">pyruvate</span> (3 C) loses one carbon as <b>CO₂</b> and makes 1 NADH. The 2-carbon piece left is <span class="mol" style="color:var(--acet)">acetyl-CoA</span>.</li>
+      <li><b>Join.</b> Acetyl (2 C) joins a 4-carbon molecule waiting in the cycle → a <b>6-carbon</b> molecule (citric acid).</li>
+      <li><b>Lose carbon.</b> Around the cycle, 2 carbons leave as <b>2 CO₂</b>. Energy is loaded onto <b>3 NADH</b> and <b>1 FADH₂</b>, and <b>1 ATP</b> is made.</li>
+      <li><b>Back to the start.</b> The 4-carbon molecule is rebuilt, ready for the next acetyl. That is why it is a <b>cycle</b>.</li>
+    </ol>
+    <div>
+      <div class="q" style="margin-top:0"><span class="qn">Q3.2</span> What happens to a pyruvate as it enters the mitochondrion (the link step)?
+        <div class="reveal"><button>Show answer</button><div class="ans">It loses <b>one carbon as CO<sub>2</sub></b>, makes <b>1 NADH</b>, and the remaining 2-carbon piece (acetyl-CoA) enters the Krebs cycle.</div></div></div>
+      <div class="q teaser"><span class="qn">Q3.3 Brain teaser:</span> How many times must the cycle turn to deal with ONE glucose? Explain.
+        <div class="reveal"><button>Show answer</button><div class="ans"><b>Twice.</b> One glucose gives 2 pyruvates (Mission 2) and each pyruvate feeds one turn.</div></div></div>
+    </div>
+  </div>
+  <div class="q"><span class="qn">Q3.4</span> Press <b>Run one whole glucose</b> and read the counters. Complete the table in your booklet: per glucose, the link step + Krebs cycle make … CO₂, … NADH, … FADH₂, … ATP.
+    <div class="reveal"><button>Show answer</button><div class="ans"><b>6 CO₂</b> (all 6 carbons of glucose are now gone!) · <b>8 NADH</b> · <b>2 FADH₂</b> · <b>2 ATP</b>.</div></div></div>
+</section>
+
+<section class="block">
+  <div class="card">
+    <p class="sub">Inputs and outputs</p>
+    <div class="q" style="margin-top:0"><span class="qn">Q3.5</span> Sort the molecules for the link step + Krebs cycle.</div>
+    <div class="io" data-src="io3"></div>
+    <script type="application/json" id="io3">{"core":"KREBS<br>CYCLE<small>matrix</small>","color":"#E08A00","bins":[["in","Inputs"],["out","Outputs"]],
+      "items":[["pyruvate","m-pyr","in"],["NAD⁺","m-nad","in"],["FAD","m-fadh","in"],["ADP","m-adp","in"],["carbon dioxide","m-co2","out"],["NADH","m-nadh","out"],["FADH₂","m-fadh","out"],["ATP","m-atp","out"]]}</script>
+    <div class="q teaser"><span class="qn">Q3.6 Brain teaser:</span> The Krebs cycle never uses oxygen itself, yet it stops within seconds if oxygen runs out. Suggest why. <i>(Hint: what happens if all the NAD⁺ is turned into NADH and never emptied?)</i>
+      <div class="reveal"><button>Show answer</button><div class="ans">The cycle needs a steady supply of empty carriers (<b>NAD⁺</b> and <b>FAD</b>). Only the electron transport chain empties NADH and FADH<sub>2</sub>, and the chain needs <b>oxygen</b> at its end (Mission 4). No oxygen → carriers stay full → the cycle jams.</div></div></div>
+  </div>
+</section>
+
+<section class="block" id="lime">
+  <div class="part-title"><span class="badge" style="background:var(--co2)">Lab</span><h2 style="margin:0">The limewater breath test</h2></div>
+  <div class="grid2" style="align-items:start">
+    <div class="card" style="margin-top:0">
+      <svg id="tube" viewBox="0 0 520 470" style="width:100%;height:auto;display:block" role="img" aria-label="Test tube of limewater with a straw; bubbles turn it milky">
+        <defs><clipPath id="tclip"><path d="M180 120 L180 400 Q180 450 230 450 L290 450 Q340 450 340 400 L340 120 Z"/></clipPath></defs>
+        <path d="M170 60 L170 400 Q170 462 230 462 L290 462 Q350 462 350 400 L350 60" fill="var(--panel)" stroke="var(--ink-3)" stroke-width="7"/>
+        <g clip-path="url(#tclip)">
+          <rect x="170" y="150" width="190" height="320" fill="#d9f1ff"/>
+          <rect id="milk" x="170" y="150" width="190" height="320" fill="#ffffff" opacity="0"/>
+          <g id="bubbles"></g>
+        </g>
+        <rect x="248" y="10" width="20" height="420" rx="8" fill="#F5B800" opacity=".85"/>
+        <text x="380" y="210" font-size="22" font-weight="800" fill="var(--ink-2)">limewater</text>
+        <text x="380" y="80" font-size="22" font-weight="800" fill="var(--ink-2)">straw</text>
+        <text x="260" y="40" font-size="20" font-weight="800" fill="var(--ink-3)" text-anchor="end" id="who">↓</text>
+      </svg>
+      <div class="ctrl">
+        <button class="btn" id="breathe">😮‍💨 Breathe out</button>
+        <button class="btn ghost" id="pump">💨 Pump in room air</button>
+        <label class="switch">After exercise<input type="checkbox" id="exer"></label>
+        <button class="btn ghost" id="limeReset">⟲ Fresh limewater</button>
+      </div>
+      <div class="readout" id="milkRead" style="margin-top:10px">Cloudiness: 0% · clear</div>
+    </div>
+    <div>
+      <p>Limewater is clear, but turns <b>milky</b> when carbon dioxide bubbles through it. Invite students to the board: one pumps <b>room air</b>, one <b>breathes out</b>. Count the presses each needs to turn the limewater milky.</p>
+      <div class="q"><span class="qn">Q3.7</span> Predict, then test: which turns limewater milky faster, the air you breathe <b>in</b> or the air you breathe <b>out</b>? Explain using the Krebs cycle.
+        <div class="reveal"><button>Show answer</button><div class="ans"><b>Breathed-out air</b>: it contains about 100 times more CO<sub>2</sub> (about 4% instead of about 0.04%). That extra CO<sub>2</sub> was made in your mitochondria by the link step and the Krebs cycle.</div></div></div>
+      <div class="q realw"><span class="qn">Q3.8 Real world:</span> When a person loses 10 kg of body fat, where does most of that mass actually go?
+        <div class="reveal"><button>Show answer</button><div class="ans">Mostly out through the <b>lungs as CO<sub>2</sub></b> (about 8 kg of the 10 kg); the rest leaves as water. The carbon atoms of fat are released as CO<sub>2</sub> in the link step and Krebs cycle. (Meerman &amp; Brown, <i>BMJ</i>, 2014.)</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="part-title"><span class="badge" style="background:var(--red)">Check</span><h2 style="margin:0">Game time</h2></div>
+  <div class="launch standup"><span class="ico">🧍</span><div><h3>Stand up · Sit down</h3><p>6 statements about the Krebs cycle.</p></div><button class="btn gold" data-standup="su3">▶ Play</button></div>
+  <div class="launch battle"><span class="ico">⚔️</span><div><h3>Quiz Battle: Krebs cycle</h3><p>5 rounds · 2 ATP per correct team · last round doubles.</p></div><button class="btn red" data-battle="b3">▶ Battle</button></div>
+  <script type="application/json" id="su3">{"title":"Krebs cycle","items":[
+    ["The Krebs cycle happens in the cytoplasm.",false,"It happens in the mitochondrial matrix."],
+    ["The CO₂ you breathe out is made in the link step and Krebs cycle.",true,"All 6 carbons of glucose leave as CO₂ here."],
+    ["The Krebs cycle makes most of the cell's ATP.",false,"Only 2 ATP per glucose. Most of the energy is carried away by NADH and FADH₂."],
+    ["The cycle turns twice for each glucose.",true,"One turn for each pyruvate."],
+    ["NADH and FADH₂ are energy carriers.",true,"They carry high-energy electrons to the electron transport chain."],
+    ["Pyruvate enters the cycle as a 3-carbon molecule.",false,"It first loses a carbon as CO₂ and enters as 2-carbon acetyl-CoA."]]}</script>
+  <script type="application/json" id="b3">{"title":"Krebs cycle","points":2,"seconds":20,"qs":[
+    {"q":"Where does the Krebs cycle happen?","o":["Mitochondrial matrix","Cytoplasm","Outer membrane","Nucleus"],"a":0,"why":"The matrix, inside the inner membrane."},
+    {"q":"Which waste gas does the Krebs cycle release?","o":["Oxygen","Carbon dioxide","Nitrogen","Hydrogen"],"a":1,"why":"The carbons from glucose leave as CO₂."},
+    {"q":"How many turns of the cycle for ONE glucose?","o":["1","2","3","6"],"a":1,"why":"One glucose → 2 pyruvates → 2 turns."},
+    {"q":"What is the main job of NADH and FADH₂?","o":["Store glucose","Carry energy (electrons) to the ETC","Make CO₂","Absorb light"],"a":1,"why":"They deliver their electrons to the electron transport chain."},
+    {"q":"Which turns limewater milky fastest?","o":["Air breathed in","Air breathed out","Both the same","Neither"],"a":1,"why":"Exhaled air carries the extra CO₂ made by your mitochondria.","double":true}]}</script>
+</section>
+
+<div class="mission-end" data-section="3">
+  <h2>Mission 3 complete?</h2>
+  <p>Glucose's carbons are gone as CO₂ and its energy is loaded onto NADH and FADH₂. Next: cash them in for ATP.</p>
+  <div class="row" style="justify-content:center"><button class="btn gold big" data-complete>✓ Mission complete</button><a class="btn big" href="4-etc.html">Next: Electron transport ▶</a></div>
+  <div class="done-msg">⚡ Mission 3 powered up!</div>
+</div>
+<div class="footer"><img src="assets/his-logo.png" alt=""><div><b>Al-Hayat International School</b> · Grade 11 AP Biology · Cellular Respiration · Mission 3 of 6</div></div>
+</main>
+
+<script type="module">
+import { stage, THREE, mitochondrion, label, pill, atom, bond, mat, burst, particles, CO2, setOpacity, markBase, COL, ease, seg, lerp, reduce } from './assets/scene3d.js';
+const S = stage(document.getElementById('kStage'), { pos: [0, 4, 15], minD: 4, maxD: 26 });
+if (S) {
+  const { scene, camera } = S;
+  const mito = mitochondrion(); mito.group.scale.setScalar(1.6); mito.setCut(.6); scene.add(mito.group); markBase(mito.group);
+  const mitoL = label('mitochondrion', { bg: 'rgba(16,38,63,.85)', size: .6 }); mitoL.position.set(0, 4.2, 0); scene.add(mitoL);
+  // ---- Krebs world (hidden until we dive in) ----
+  const K = new THREE.Group(); K.visible = false; scene.add(K);
+  const RW = 2.7;
+  const wheel = new THREE.Mesh(new THREE.TorusGeometry(RW, .14, 18, 120), mat(COL.pyr, { opacity: .9, ei: .1, emissive: COL.pyr }));
+  K.add(wheel);
+  const arrows = new THREE.Group(); K.add(arrows);
+  for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2; const c = new THREE.Mesh(new THREE.ConeGeometry(.22, .5, 16), mat('#B45309'));
+    c.position.set(Math.cos(a) * RW, Math.sin(a) * RW, 0); c.rotation.z = a + Math.PI; arrows.add(c); }
+  const glow = particles(300, [22, 14, 12], '#F59E0B', .08); K.add(glow);
+  const matL = label('You are in the MATRIX', { bg: 'rgba(180,83,9,.9)', size: .65 }); matL.position.set(0, 4.6, 0); K.add(matL);
+  const title = label('Krebs\ncycle', { color: '#B45309', size: 1.15 }); title.position.set(0, 0, 0); K.add(title);
+  const stations = [['4 C', 90], ['6 C', 0], ['5 C', -90], ['4 C', 180]].map(([t, deg]) => { const a = deg * Math.PI / 180; const s = label(t, { bg: '#fff', color: '#B45309', size: .5, border: '#E08A00' });
+    s.position.set(Math.cos(a) * (RW + .85), Math.sin(a) * (RW + .85), 0); K.add(s); return s; });
+  // carrier: cluster of carbon atoms riding round the wheel
+  const carrier = new THREE.Group(); K.add(carrier); const cAtoms = [];
+  for (let i = 0; i < 6; i++) { const a = atom(COL.pyr, .26); cAtoms.push(a); carrier.add(a); }
+  function setCarbons(n) { cAtoms.forEach((a, i) => { a.visible = i < n; const ang = i / n * Math.PI * 2; a.position.set(Math.cos(ang) * .42, Math.sin(ang) * .42, 0); }); }
+  setCarbons(4); carrier.position.set(0, RW, 0);
+  // pyruvate / acetyl visitor
+  const visitor = new THREE.Group(); K.add(visitor); const vAt = [0, 1, 2].map(i => { const a = atom(COL.pyr, .3); a.position.set(i * .62 - .62, 0, 0); visitor.add(a); return a; });
+  visitor.add(bond(vAt[0].position, vAt[1].position, .08), bond(vAt[1].position, vAt[2].position, .08)); visitor.visible = false;
+  const vLab = label('pyruvate · 3 C', { bg: COL.pyr, size: .45 }); vLab.position.set(0, .75, 0); visitor.add(vLab);
+  // flying products
+  const fly = [];
+  function emit(kind, from) {
+    let o;
+    if (kind === 'co2') { o = CO2(1.1); const l = label('CO₂', { color: '#3a4a5a', size: .38 }); l.position.set(0, .55, 0); o.add(l); }
+    else o = pill(kind, { NADH: COL.nadh, 'FADH₂': COL.fadh, ATP: COL.atp }[kind], .5);
+    o.position.copy(from); K.add(o);
+    const dir = kind === 'co2' ? new THREE.Vector3((Math.random() - .5) * .6, 1.6, (Math.random() - .5) * .6) : from.clone().setZ(0).normalize().multiplyScalar(2.2).add(new THREE.Vector3(0, 0, 1));
+    fly.push({ o, dir, t: 0, life: kind === 'co2' ? 3.6 : 2.4 });
+    if (kind === 'co2') bursts.push(burst(scene, from.clone().add(K.position), '#9AAABB', .8));
+  }
+  const bursts = [];
+  // ---- counters ----
+  const cnt = { turns: 0, co2: 0, nadh: 0, fad: 0, atp: 0 };
+  const el = { turns: 'cTurns', co2: 'cCo2', nadh: 'cNadh', fad: 'cFad', atp: 'cAtp' };
+  const NAMES = { turns: 'Turns', co2: 'CO₂', nadh: 'NADH', fad: 'FADH₂', atp: 'ATP' };
+  function bump(k, n = 1) { cnt[k] += n; const e = document.getElementById(el[k]); e.textContent = NAMES[k] + ': ' + cnt[k]; e.animate([{ transform: 'scale(1.25)' }, { transform: 'scale(1)' }], { duration: 350 }); }
+  function resetCnt() { Object.keys(cnt).forEach(k => { cnt[k] = 0; document.getElementById(el[k]).textContent = NAMES[k] + ': 0'; }); }
+  // ---- timeline of one turn ----
+  const banner = document.getElementById('kBanner'); const steps = [...document.querySelectorAll('#kSteps li')];
+  const T = 10; let turn = null, queue = 0, slow = false;
+  const EV = [ // [time, action]
+    [1.6, () => { emit('co2', visitor.position.clone()); emit('NADH', visitor.position.clone()); bump('co2'); bump('nadh'); vAt[2].visible = false; vAt.forEach(a => a.material.color.set(COL.acet));
+      swapLabel(vLab, 'acetyl-CoA · 2 C', COL.acet); banner.textContent = 'Link step: 1 CO₂ leaves, 1 NADH made'; step(0); KIT.sfx.whoosh(); }],
+    [3.0, () => { visitor.visible = false; setCarbons(6); swapLabel(stations[0], '6 C', '#fff'); banner.textContent = 'Acetyl (2 C) + 4 C → 6 C (citric acid)'; step(1); KIT.sfx.coin(); bursts.push(burst(scene, carrier.position.clone().add(K.position), '#F8D000', 1.3)); }],
+    [5.0, () => { setCarbons(5); emit('co2', carrier.position.clone()); emit('NADH', carrier.position.clone()); bump('co2'); bump('nadh'); banner.textContent = 'A carbon leaves as CO₂ · NADH made'; step(2); KIT.sfx.whoosh(); }],
+    [6.6, () => { setCarbons(4); emit('co2', carrier.position.clone()); emit('NADH', carrier.position.clone()); emit('ATP', carrier.position.clone()); bump('co2'); bump('nadh'); bump('atp'); banner.textContent = 'Another CO₂ leaves · NADH + ATP made'; KIT.sfx.coin(); }],
+    [8.0, () => { emit('FADH₂', carrier.position.clone()); bump('fad'); banner.textContent = 'FADH₂ made'; }],
+    [9.0, () => { emit('NADH', carrier.position.clone()); bump('nadh'); banner.textContent = '4 C rebuilt: ready for the next acetyl'; step(3); }],
+  ];
+  function step(i) { steps.forEach((li, k) => li.classList.toggle('now', k === i)); }
+  function swapLabel(spr, text, bg) { const n = label(text, bg === '#fff' ? { bg: '#fff', color: '#B45309', size: spr.userData.baseScale.y, border: '#E08A00' } : { bg, size: spr.userData.baseScale.y }); spr.material.map.dispose(); spr.material = n.material; spr.scale.copy(n.scale); }
+  function startTurn() {
+    turn = { t: 0, fired: 0 }; visitor.visible = true; vAt.forEach(a => { a.visible = true; a.material.color.set(COL.pyr); }); swapLabel(vLab, 'pyruvate · 3 C', COL.pyr);
+    banner.textContent = 'A pyruvate arrives in the matrix'; banner.style.opacity = 1; setCarbons(4); swapLabel(stations[0], '4 C', '#fff');
+    feedB.disabled = wholeB.disabled = true;
+  }
+  S.tick((dt, tt) => {
+    glow.rotation.y += dt * .03; mito.group.rotation.y = inside ? 0 : Math.sin(tt * .3) * .3;
+    for (let i = bursts.length - 1; i >= 0; i--) if (!bursts[i].update(dt, camera)) bursts.splice(i, 1);
+    for (let i = fly.length - 1; i >= 0; i--) { const f = fly[i]; f.t += dt; f.o.position.addScaledVector(f.dir, dt * .8); f.o.rotation.y += dt * 2;
+      const a = 1 - seg(f.t, f.life * .6, f.life); setOpacity(f.o, a); if (f.t > f.life) { K.remove(f.o); fly.splice(i, 1); } }
+    // fade between outside and inside
+    fadeK += (inside ? 1 : -1) * dt * 1.2; fadeK = Math.max(0, Math.min(1, fadeK));
+    setOpacity(mito.group, 1 - fadeK); mitoL.visible = fadeK < .5; K.visible = fadeK > 0.02; K.scale.setScalar(lerp(.2, 1, ease(fadeK)));
+    if (!turn) { arrows.rotation.z -= dt * .15; return; }
+    turn.t += dt * (slow ? .5 : 1); const t = turn.t;
+    // visitor path: from left edge to the top station
+    const k1 = ease(seg(t, 0, 1.5)), k2 = ease(seg(t, 1.9, 2.9));
+    if (t < 1.9) visitor.position.set(lerp(-7, -3.6, k1), lerp(3.2, 2.8, k1), 0);
+    else visitor.position.set(lerp(-3.6, 0, k2), lerp(2.8, RW, k2), 0);
+    // carrier goes once round clockwise from the top after joining
+    const k3 = ease(seg(t, 3.2, 9.4)); const ang = Math.PI / 2 - k3 * Math.PI * 2;
+    carrier.position.set(Math.cos(ang) * RW, Math.sin(ang) * RW, 0); arrows.rotation.z -= dt * (t > 3 && t < 9.4 ? 1.2 : .15);
+    while (turn.fired < EV.length && t >= EV[turn.fired][0]) { EV[turn.fired][1](); turn.fired++; }
+    if (t >= T) { bump('turns'); turn = null; if (queue > 0) { queue--; setTimeout(startTurn, 400); } else { feedB.disabled = wholeB.disabled = false; banner.textContent = cnt.turns % 2 === 0 && cnt.turns ? '✓ One whole glucose done: check the counters!' : 'Turn complete'; KIT.sfx.good(); } }
+  });
+  let inside = false, fadeK = 0;
+  const enterB = document.getElementById('enter'), feedB = document.getElementById('feed'), wholeB = document.getElementById('whole');
+  enterB.onclick = () => {
+    inside = !inside;
+    if (inside) { S.flyTo([0, .5, 12], [0, 0, 0], 2.2); enterB.textContent = '🔼 Back out of the mitochondrion'; feedB.disabled = wholeB.disabled = !!turn; banner.textContent = 'Inside the matrix: feed it a pyruvate!'; KIT.sfx.whoosh(); }
+    else { S.flyTo([0, 4, 15], [0, 0, 0], 1.6); enterB.textContent = '🔽 Enter the matrix'; feedB.disabled = wholeB.disabled = true; banner.textContent = 'Press “Enter the matrix”'; }
+  };
+  feedB.onclick = () => { queue = 0; startTurn(); };
+  wholeB.onclick = () => { queue = 1; startTurn(); };
+  document.getElementById('kReset').onclick = resetCnt;
+  document.getElementById('kSlow').onchange = e => { slow = e.target.checked; };
+}
+
+/* ---------- limewater ---------- */
+(function () {
+  const milk = document.getElementById('milk'), bub = document.getElementById('bubbles'), read = document.getElementById('milkRead');
+  let c = 0;
+  function paint() { milk.setAttribute('opacity', Math.min(.95, c / 100 * .95)); read.textContent = 'Cloudiness: ' + Math.round(c) + '% · ' + (c >= 100 ? 'MILKY! Lots of CO₂ ✓' : c > 50 ? 'turning cloudy' : c > 10 ? 'slightly cloudy' : 'clear'); }
+  function bubbles(n) {
+    for (let i = 0; i < n; i++) { const b = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); const x = 250 + Math.random() * 20, r = 4 + Math.random() * 8;
+      b.setAttribute('cx', x); b.setAttribute('cy', 430); b.setAttribute('r', r); b.setAttribute('fill', 'none'); b.setAttribute('stroke', '#5b8db8'); b.setAttribute('stroke-width', 2.5); bub.appendChild(b);
+      b.animate([{ transform: 'translate(0,0)', opacity: 1 }, { transform: `translate(${(Math.random() - .5) * 120}px,-280px)`, opacity: 0 }], { duration: 1400 + Math.random() * 900, delay: i * 70, easing: 'ease-out' }).onfinish = () => b.remove(); }
+  }
+  document.getElementById('breathe').onclick = () => { const ex = document.getElementById('exer').checked; c = Math.min(100, c + (ex ? 20 : 10)); bubbles(ex ? 18 : 12); paint(); document.getElementById('who').textContent = '😮‍💨'; if (c >= 100) KIT.sfx.good(); else KIT.sfx.tick(); };
+  document.getElementById('pump').onclick = () => { c = Math.min(100, c + .4); bubbles(12); paint(); document.getElementById('who').textContent = '💨'; KIT.sfx.tick(); };
+  document.getElementById('limeReset').onclick = () => { c = 0; paint(); };
+  paint();
+})();
+</script>
+</body>
+</html>

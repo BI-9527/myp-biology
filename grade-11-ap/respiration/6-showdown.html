@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Mission 6 · The Showdown · Respiration</title>
+<meta name="description" content="Grade 11 AP Biology, cellular respiration Mission 6: linking respiration and photosynthesis, review games, the grand quiz battle and the winners' podium.">
+<link rel="icon" href="assets/his-logo.png">
+<link rel="stylesheet" href="assets/resp.css">
+<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
+<script src="assets/resp.js" defer></script>
+</head>
+<body data-section="6">
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">Mission 6 · Session 6</p>
+    <h1>The Showdown</h1>
+    <p class="lede">Lara crossed the finish line in Downtown Beirut! Now it's your turn: connect everything you have learned, battle for the most ATP, and give Lara's coach expert advice.</p>
+    <div class="row"><a class="btn ghost" href="#cycle">🌍 The big cycle</a><a class="btn ghost" href="#sort">🗂️ Sorting games</a><a class="btn ghost" href="#battle">⚔️ Grand battle</a><a class="btn ghost" href="#podium">🏆 Podium</a></div>
+  </div>
+  <div class="launch standup" style="margin:0"><span class="ico">🧍</span><div><h3>Warm-up: myth busters</h3><p>6 statements from all five missions. Stand for TRUE, sit for FALSE.</p></div><button class="btn gold" data-standup="su6">▶ Play</button></div>
+  <script type="application/json" id="su6">{"title":"Myth busters","items":[
+    ["Plants only photosynthesise; animals only respire.",false,"Plants do BOTH. Their cells respire day and night."],
+    ["The oxygen we breathe in ends up in water molecules.",true,"Oxygen accepts electrons at the end of the ETC and becomes water."],
+    ["The CO₂ we breathe out comes from the carbon in our food.",true,"Released in the link step and Krebs cycle."],
+    ["Fermentation makes more ATP than aerobic respiration.",false,"2 ATP compared with about 36."],
+    ["Glycolysis happens in both aerobic respiration and fermentation.",true,"It is the shared first stage."],
+    ["Mitochondria make energy out of nothing.",false,"They transfer energy that was stored in glucose into ATP."]]}</script>
+</section>
+
+<section class="block" id="cycle">
+  <div class="part-title"><span class="badge" style="background:var(--glu)">3D</span><h2 style="margin:0">One planet, one cycle</h2></div>
+  <div class="card">
+    <div class="stage" id="cStage" style="aspect-ratio:16/8"><span class="hint">Drag to look around</span></div>
+    <div class="ctrl"><label class="switch">Sunlight<input type="checkbox" id="sun" checked></label><span class="readout" id="cRead">Both organelles running</span></div>
+    <div class="grid2">
+      <div class="q"><span class="qn">Q6.1</span> Use the 3D model: what does the chloroplast pass to the mitochondrion, and what comes back?
+        <div class="reveal"><button>Show answer</button><div class="ans">Chloroplast → mitochondrion: <b>glucose</b> and <b>oxygen</b>. Mitochondrion → chloroplast: <b>carbon dioxide</b> and <b>water</b>. The products of one process are the inputs of the other.</div></div></div>
+      <div class="q teaser"><span class="qn">Q6.2 Brain teaser:</span> Switch the sunlight off. Which organelle stops first? Can the other keep going forever? Explain.
+        <div class="reveal"><button>Show answer</button><div class="ans">The <b>chloroplast</b> stops right away: no light, no photosynthesis. The <b>mitochondrion</b> keeps going while stored glucose and oxygen last, but it cannot go on forever: in the end, the energy in all food comes from the Sun.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="sort">
+  <div class="card">
+    <p class="sub">Photosynthesis vs respiration</p>
+    <div class="q" style="margin-top:0"><span class="qn">Q6.3</span> Sort each statement.</div>
+    <div class="io" data-src="io6a"></div>
+    <script type="application/json" id="io6a">{"bins":[["p","Photosynthesis"],["r","Cellular respiration"],["b","Both"]],
+      "items":[["happens in chloroplasts","m-glu","p"],["happens in mitochondria","m-atp","r"],["uses carbon dioxide","m-co2","p"],["releases carbon dioxide","m-co2","r"],["uses oxygen","m-o2","r"],["releases oxygen","m-o2","p"],["stores energy in glucose","m-glu","p"],["releases energy from glucose","m-pyr","r"],["happens in plant cells","m-nad","b"],["makes ATP","m-atp","b"]]}</script>
+  </div>
+  <div class="card">
+    <p class="sub">The stage race</p>
+    <div class="q" style="margin-top:0"><span class="qn">Q6.4</span> Which stage does each clue describe? Teams take turns: one clue per player, against the timer.</div>
+    <div class="row" style="margin-bottom:10px"><button class="btn gold" data-timer="120" data-timer-label="Stage race! 🗂️">⏱ 2-minute race</button></div>
+    <div class="io" data-src="io6b"></div>
+    <script type="application/json" id="io6b">{"bins":[["g","Glycolysis"],["k","Link step + Krebs"],["e","Electron transport chain"],["f","Fermentation"]],
+      "items":[["splits glucose into 2 pyruvate","m-glu","g"],["spends 2 ATP to get started","m-atp","g"],["happens in the matrix","m-pyr","k"],["acetyl joins a 4-carbon molecule","m-acet","k"],["makes FADH₂","m-fadh","k"],["oxygen accepts electrons","m-o2","e"],["ATP synthase spins","m-atp","e"],["about 32 ATP","m-atp","e"],["water is formed","m-h2o","e"],["makes lactic acid in muscles","m-lac","f"],["makes ethanol in yeast","m-eth","f"],["recycles NAD⁺ without oxygen","m-nad","f"]]}</script>
+  </div>
+</section>
+
+<section class="block" id="battle">
+  <div class="part-title"><span class="badge" style="background:var(--red)">Assessment</span><h2 style="margin:0">The Grand Battle</h2></div>
+  <div class="launch battle"><span class="ico">⚔️</span><div><h3>Grand Quiz Battle · 10 rounds</h3><p>Everything from Missions 1–5. 2 ATP per correct team; the last two rounds are worth double. Biggest swing of the year!</p></div><button class="btn red big" data-battle="b6">▶ Battle</button></div>
+  <script type="application/json" id="b6">{"title":"Grand Battle","points":2,"seconds":25,"qs":[
+    {"q":"What are the products of aerobic respiration?","o":["CO₂ + H₂O + ATP","Glucose + O₂","Lactic acid only","O₂ + ATP"],"a":0,"why":"Glucose + O₂ → CO₂ + H₂O + ATP."},
+    {"q":"What is the correct order of the stages?","o":["Glycolysis → Krebs → ETC","Krebs → glycolysis → ETC","ETC → Krebs → glycolysis","Glycolysis → ETC → Krebs"],"a":0,"why":"Cytoplasm first, then the matrix, then the inner membrane."},
+    {"q":"Which stage(s) release the CO₂ you breathe out?","o":["Link step + Krebs cycle","Glycolysis","Electron transport chain","Photosynthesis"],"a":0,"why":"All six carbons of glucose leave as CO₂ there."},
+    {"q":"Where does glycolysis happen?","o":["Cytoplasm","Matrix","Inner membrane","Chloroplast"],"a":0,"why":"Outside the mitochondria."},
+    {"q":"Which stage uses oxygen directly?","o":["Electron transport chain","Glycolysis","Fermentation","Krebs cycle"],"a":0,"why":"Oxygen is the final electron acceptor."},
+    {"q":"About how many ATP does aerobic respiration release per glucose?","o":["About 36","2","4","About 100"],"a":0,"why":"2 + 2 + about 32."},
+    {"q":"What do NADH and FADH₂ do?","o":["Carry electrons to the ETC","Store glucose","Absorb light","Make CO₂"],"a":0,"why":"They are the cell's energy delivery vans."},
+    {"q":"What causes the burning feeling in Lara's legs in the final sprint?","o":["Lactic acid","Ethanol","Carbon dioxide","Water"],"a":0,"why":"Lactic acid fermentation when oxygen runs short."},
+    {"q":"The products of photosynthesis are the ___ of respiration.","o":["Inputs","Outputs","Enzymes","Wastes"],"a":0,"why":"Glucose and O₂ go in; CO₂ and H₂O come out.","double":true},
+    {"q":"Bread dough rises because yeast carries out …","o":["Alcoholic fermentation","Lactic acid fermentation","Photosynthesis","The ETC"],"a":0,"why":"The CO₂ it releases makes bubbles in the dough.","double":true}]}</script>
+
+  <div class="card">
+    <div class="q realw" style="margin-top:0"><span class="qn">Q6.5 Advise Lara's coach (Claim – Evidence – Reasoning).</span> Next year Lara wants to beat her time. In the last kilometre she slows down and her legs burn. Her coach wants to know <b>why</b>, and whether months of <b>endurance training</b> will help. Use at least three things you learned in Missions 1–5.
+      <div class="reveal"><button>Show a model answer</button><div class="ans"><b>Claim:</b> Lara slows because her muscles run short of oxygen and switch to lactic acid fermentation; endurance training will help.<br><b>Evidence:</b> Aerobic respiration releases about 36 ATP per glucose but fermentation only 2 (Mission 5). The ETC stops without oxygen (Mission 4). Breathing rate rises with exercise (Mission 5 data). Trained muscles contain more mitochondria (Mission 1).<br><b>Reasoning:</b> In the final sprint her heart and lungs cannot supply enough oxygen, so the electron transport chain slows. Her muscles rely on glycolysis + lactic acid fermentation: little ATP, and lactic acid builds up and causes the burn. Endurance training gives her muscles more mitochondria and a better oxygen supply, so more ATP is made aerobically and fermentation starts later.</div></div></div>
+  </div>
+</section>
+
+<section class="block" id="podium">
+  <div class="part-title"><span class="badge" style="background:var(--gold);color:#3a2d00">Finale</span><h2 style="margin:0">The winners' podium</h2></div>
+  <div class="card">
+    <div class="stage" id="pStage" style="aspect-ratio:16/8"><span class="hint">Drag to look around</span><div class="banner" id="pBanner">Drum roll… 🥁</div></div>
+    <div class="ctrl"><button class="btn gold big" id="reveal">🏆 Reveal the winners</button><span class="readout" id="pRead"></span></div>
+  </div>
+  <div class="card">
+    <p class="sub">Exit ticket · 3 – 2 – 1</p>
+    <div class="q" style="margin-top:0"><span class="qn">Q6.6</span> In your booklet: <b>3</b> things you will remember about respiration · <b>2</b> real-life examples of respiration or fermentation · <b>1</b> question you still have.</div>
+  </div>
+</section>
+
+<div class="mission-end" data-section="6">
+  <h2>All six missions complete?</h2>
+  <p>You followed one glucose from Lara's breakfast to 36 ATP. The cell is fully powered!</p>
+  <div class="row" style="justify-content:center"><button class="btn gold big" data-complete>✓ Mission complete</button><a class="btn big" href="index.html">⌂ Back to the hub</a></div>
+  <div class="done-msg">⚡ Cell fully powered. Outstanding work, engineers!</div>
+</div>
+<div class="footer"><img src="assets/his-logo.png" alt=""><div><b>Al-Hayat International School</b> · Grade 11 AP Biology · Cellular Respiration · Mission 6 of 6</div></div>
+</main>
+
+<script type="module">
+import { stage, THREE, mitochondrion, chloroplast, label, pill, atom, mat, burst, CO2, O2, H2O, setOpacity, COL, ease, seg, lerp, reduce } from './assets/scene3d.js';
+/* ================= photosynthesis ↔ respiration cycle ================= */
+const C = stage(document.getElementById('cStage'), { pos: [0, 3.5, 17], target: [0, .3, 0], minD: 8, maxD: 30 });
+if (C) {
+  const { scene, camera } = C;
+  const ch = chloroplast(); ch.group.position.set(-5.2, 0, 0); ch.group.scale.setScalar(1.2); scene.add(ch.group);
+  const mi = mitochondrion({ folds: 7 }); mi.group.position.set(5.2, 0, 0); mi.group.scale.setScalar(.85); mi.setCut(.2); scene.add(mi.group);
+  const l1 = label('CHLOROPLAST\nphotosynthesis', { bg: 'rgba(46,139,71,.92)', size: 1.0 }); l1.position.set(-5.2, -3.3, 0); scene.add(l1);
+  const l2 = label('MITOCHONDRION\ncellular respiration', { bg: 'rgba(194,65,12,.92)', size: 1.0 }); l2.position.set(5.2, -3.3, 0); scene.add(l2);
+  const sunG = new THREE.Group(); sunG.position.set(-9.5, 5.2, -2); scene.add(sunG);
+  const sun = new THREE.Mesh(new THREE.SphereGeometry(1.1, 32, 20), new THREE.MeshBasicMaterial({ color: '#FFC400', toneMapped: false })); sunG.add(sun);
+  const sunHalo = new THREE.Mesh(new THREE.SphereGeometry(1.7, 32, 20), new THREE.MeshBasicMaterial({ color: '#FFE680', transparent: true, opacity: .3, toneMapped: false, depthWrite: false })); sunG.add(sunHalo);
+  const rays = []; for (let i = 0; i < 4; i++) { const r = new THREE.Mesh(new THREE.CylinderGeometry(.05, .05, 1, 6), new THREE.MeshBasicMaterial({ color: '#FFC400', toneMapped: false })); scene.add(r); rays.push(r); }
+  // flows: top arc chloroplast → mitochondrion (glucose + O2); bottom arc back (CO2 + H2O)
+  const top = new THREE.QuadraticBezierCurve3(new THREE.Vector3(-3, 1.8, 0), new THREE.Vector3(0, 4.6, 0), new THREE.Vector3(3, 1.8, 0));
+  const bot = new THREE.QuadraticBezierCurve3(new THREE.Vector3(3, -1.6, .5), new THREE.Vector3(0, -4.2, .5), new THREE.Vector3(-3, -1.6, .5));
+  [top, bot].forEach(cv => { const tube = new THREE.Mesh(new THREE.TubeGeometry(cv, 60, .06, 8), new THREE.MeshBasicMaterial({ color: '#94A3B8', transparent: true, opacity: .45 })); scene.add(tube); });
+  const tl = label('glucose + oxygen →', { color: '#1f6b3a', size: .55 }); tl.position.set(0, 4.2, 0); scene.add(tl);
+  const bl = label('← carbon dioxide + water', { color: '#3a4a5a', size: .55 }); bl.position.set(0, -3.9, .5); scene.add(bl);
+  function gluHex() { const g = new THREE.Mesh(new THREE.CylinderGeometry(.42, .42, .16, 6), mat(COL.glu)); g.rotation.x = Math.PI / 2; const w = new THREE.Group(); w.add(g); return w; }
+  const movers = [];
+  for (let i = 0; i < 5; i++) { const o = i % 2 ? O2(.9) : gluHex(); scene.add(o); movers.push({ o, cv: top, u: i / 5 }); }
+  for (let i = 0; i < 5; i++) { const o = i % 2 ? H2O(.9) : CO2(.8); scene.add(o); movers.push({ o, cv: bot, u: i / 5 }); }
+  const atps = []; for (let i = 0; i < 5; i++) { const p = pill('ATP', COL.atp, .5); p.userData.u = i / 5; scene.add(p); atps.push(p); }
+  const sunBox = document.getElementById('sun'), read = document.getElementById('cRead');
+  let sugar = 1; // stored-glucose level, falls in the dark
+  C.tick((dt, t) => {
+    const lit = sunBox.checked; sugar = Math.max(0, Math.min(1, sugar + (lit ? .25 : -.06) * dt));
+    const pS = lit ? 1 : 0, pR = Math.min(1, sugar * 1.4);
+    sunG.visible = lit; rays.forEach((r, i) => { r.visible = lit; const a = new THREE.Vector3(-9 + i * .4, 4.6 - i * .2, -1.6), b = new THREE.Vector3(-6.4 + i * .7, 1.4 - i * .25, 0);
+      const d = new THREE.Vector3().subVectors(b, a); r.position.copy(a).addScaledVector(d, .5); r.scale.y = d.length(); r.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize()); r.material.opacity = .6 + .4 * Math.sin(t * 6 + i); });
+    movers.forEach(m => { const sp = m.cv === top ? pS : pR; m.u = (m.u + dt * .14 * sp) % 1;
+      m.o.position.copy(m.cv.getPoint(m.u)); m.o.rotation.y += dt; setOpacity(m.o, (m.cv === top ? (lit ? 1 : .25) : (pR > .05 ? 1 : .25)) * Math.min(1, Math.sin(m.u * Math.PI) * 3)); });
+    atps.forEach((p, i) => { p.userData.u = (p.userData.u + dt * .25 * pR) % 1; const u = p.userData.u, a = i * 1.26; p.position.set(5.2 + Math.cos(a) * (1.5 + u * 2.6), Math.sin(a) * .8 + u * 2.4, 1.4 + Math.sin(a) * .5); p.material.opacity = pR > .05 ? Math.sin(u * Math.PI) : 0; });
+    ch.group.rotation.y = Math.sin(t * .4) * .2; mi.group.rotation.y = Math.sin(t * .35 + 1) * .2;
+    read.textContent = lit ? 'Sunlight ON: both organelles running' : (pR > .05 ? 'Dark: chloroplast stopped · mitochondrion using stored glucose (' + Math.round(sugar * 100) + '% left)' : 'Dark: stored glucose used up · respiration slows to a stop');
+  });
+}
+
+/* ================= winners' podium ================= */
+const P = stage(document.getElementById('pStage'), { pos: [0, 4.5, 16], target: [0, 2.2, 0], minD: 8, maxD: 28, lockVertical: true });
+if (P) {
+  const { scene, camera } = P;
+  const floor = new THREE.Mesh(new THREE.CylinderGeometry(9, 9, .2, 64), mat('#DCE6F0', { clear: 0 })); floor.position.y = -.1; scene.add(floor);
+  const spot = new THREE.SpotLight('#ffffff', 22, 40, .5, .5); spot.position.set(0, 14, 6); spot.target.position.set(0, 2, 0); scene.add(spot, spot.target);
+  let pillars = [], crown = null, rising = false, rt = 0; const bursts = [];
+  const XS = [0, -3.4, 3.4, 6.8], HS = [4.2, 3.0, 2.0, 1.2];   // 1st centre, 2nd left, 3rd right, 4th far right
+  function clear() { pillars.forEach(p => scene.remove(p.g)); pillars = []; if (crown) { scene.remove(crown); crown = null; } }
+  function build() {
+    clear(); const t = KIT.teams().map((x, i) => ({ ...x, i })).sort((a, b) => b.score - a.score);
+    t.forEach((tm, rank) => {
+      const g = new THREE.Group(); g.position.x = XS[rank]; scene.add(g);
+      const box = new THREE.Mesh(new THREE.BoxGeometry(2.8, 1, 2.6), mat(tm.color, { rough: .3, clear: .8 })); g.add(box);
+      const num = label(['1st', '2nd', '3rd', '4th'][rank], { color: '#fff', size: .8, stroke: 'rgba(0,0,0,.25)' }); g.add(num);
+      const nm = label(tm.name + '\n' + tm.score + ' ATP', { bg: 'rgba(16,38,63,.9)', size: 1.0 }); g.add(nm);
+      pillars.push({ g, box, num, nm, h: HS[rank], rank });
+    });
+    crown = new THREE.Group(); const band = new THREE.Mesh(new THREE.CylinderGeometry(.75, .75, .45, 24, 1, true), mat('#F8C400', { side: THREE.DoubleSide, rough: .2, clear: 1, emissive: '#F8C400', ei: .2 }));
+    crown.add(band); for (let i = 0; i < 5; i++) { const s = new THREE.Mesh(new THREE.ConeGeometry(.17, .5, 12), mat('#F8C400', { rough: .2, clear: 1 })); const a = i / 5 * Math.PI * 2; s.position.set(Math.cos(a) * .7, .45, Math.sin(a) * .7); crown.add(s);
+      const j = atom(['#F2361C', '#00A6D6', '#2E8B47', '#0068B0', '#C2378F'][i], .1); j.position.set(Math.cos(a) * .78, .05, Math.sin(a) * .78); crown.add(j); }
+    crown.visible = false; scene.add(crown);
+    const top = t[0]; document.getElementById('pRead').textContent = t.map((x, r) => (r + 1) + '. ' + x.name + ' ' + x.score).join(' · ');
+    return top;
+  }
+  let winner = null;
+  document.getElementById('reveal').onclick = () => { winner = build(); rising = true; rt = 0; document.getElementById('pBanner').textContent = 'Drum roll… 🥁'; KIT.sfx.tick(); };
+  P.tick((dt, t) => {
+    for (let i = bursts.length - 1; i >= 0; i--) if (!bursts[i].update(dt, camera)) bursts.splice(i, 1);
+    if (!pillars.length) return;
+    if (rising) rt += dt;
+    pillars.forEach(p => { const delay = (3 - p.rank) * .9; const k = ease(seg(rt, delay, delay + 1.4)); const h = Math.max(.05, p.h * k);
+      p.box.scale.y = h; p.box.position.y = h / 2; p.num.position.set(0, h / 2, 1.35); p.nm.position.set(0, h + .9, 0); p.nm.material.opacity = k; });
+    if (crown) { const k = seg(rt, 4.3, 5.5); crown.visible = k > 0; crown.position.set(0, lerp(9, HS[0] + 2.4, ease(k)), 0); crown.rotation.y += dt * 1.5; }
+    if (rising && rt > 5.5) { rising = false; if (winner && winner.score > 0) { document.getElementById('pBanner').textContent = '👑 ' + winner.name + ' wins the cell power cup!'; KIT.confetti(); KIT.confetti(innerWidth * .25, innerHeight * .4, 60); KIT.confetti(innerWidth * .75, innerHeight * .4, 60); KIT.sfx.good();
+        bursts.push(burst(scene, new THREE.Vector3(0, HS[0] + 2.4, 0), '#F8C400', 3)); } else document.getElementById('pBanner').textContent = 'No ATP scored yet: play some battles first!'; }
+  });
+  document.addEventListener('scores', () => { if (pillars.length && !rising) { winner = build(); rt = 99; } });
+}
+</script>
+</body>
+</html>

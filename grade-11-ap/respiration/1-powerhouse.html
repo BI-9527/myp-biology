@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Mission 1 · The Powerhouse · Respiration</title>
+<meta name="description" content="Grade 11 AP Biology, cellular respiration Mission 1: why we breathe, the respiration equation, a 3D mitochondrion and ATP.">
+<link rel="icon" href="assets/his-logo.png">
+<link rel="stylesheet" href="assets/resp.css">
+<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
+<script src="assets/resp.js" defer></script>
+</head>
+<body data-section="1">
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">Mission 1 · Session 1</p>
+    <h1>The Powerhouse</h1>
+    <p class="lede">At 7 am Lara eats a man'oushe. At 8 am she starts running. Somehow the energy locked in that bread ends up moving her legs. Today we find out <b>where</b> and <b>how</b>.</p>
+    <div class="q"><span class="qn">Q1.1 Gut feeling.</span> How do you think the food Lara eats becomes energy for her muscles? Write your first idea in your booklet.</div>
+  </div>
+  <div class="launch standup" style="margin:0">
+    <span class="ico">🏃</span>
+    <div><h3>Everybody up: the 30-second jog</h3><p>Stand up and jog on the spot. When the timer ends, put a hand on your chest. What changed?</p></div>
+    <button class="btn gold" data-timer="30" data-timer-label="Jog on the spot! 🏃">⏱ Start 30 s</button>
+  </div>
+</section>
+
+<section class="block">
+  <div class="card">
+    <div class="q" style="margin-top:0"><span class="qn">Q1.2</span> Name two things that changed in your body after jogging. Why do you think they changed?
+      <div class="reveal"><button>Show answer</button><div class="ans">You breathe faster and your heart beats faster. Working muscles need more <b>oxygen</b> to release more energy from <b>glucose</b>, and they must get rid of more <b>carbon dioxide</b>. This energy-releasing process is <b>cellular respiration</b>.</div></div></div>
+    <p class="sub" style="margin-top:22px">The respiration equation</p>
+    <div class="q"><span class="qn">Q1.3</span> Build the equation for aerobic respiration.
+      <div class="eqn" id="eq1" style="margin-top:10px">
+        <span class="mol" style="color:var(--glu)">C<sub>6</sub>H<sub>12</sub>O<sub>6</sub></span><span>+</span>
+        <select data-ans="6 O₂"><option value="">?</option><option>6 CO₂</option><option>6 O₂</option><option>6 H₂O</option></select>
+        <span class="arrow">enzymes<b>⟶</b>&nbsp;</span>
+        <select data-ans="6 CO₂"><option value="">?</option><option>6 O₂</option><option>6 CO₂</option><option>glucose</option></select><span>+</span>
+        <select data-ans="6 H₂O"><option value="">?</option><option>6 H₂O</option><option>6 O₂</option><option>NADH</option></select><span>+</span>
+        <select data-ans="ATP (energy)"><option value="">?</option><option>sunlight</option><option>ATP (energy)</option><option>chlorophyll</option></select>
+      </div>
+      <div class="row" style="margin-top:10px"><button class="btn" data-check-eq="eq1">Check</button><span class="fb"></span></div>
+      <p class="caption" style="text-align:center">glucose + oxygen → carbon dioxide + water + energy (ATP)</p>
+    </div>
+    <div class="q teaser"><span class="qn">Q1.4 Brain teaser:</span> Compare this equation with the photosynthesis equation you learned. What do you notice?
+      <div class="reveal"><button>Show answer</button><div class="ans">It is the <b>reverse</b>. Photosynthesis uses CO<sub>2</sub> + H<sub>2</sub>O + light energy to make glucose + O<sub>2</sub>. Respiration uses glucose + O<sub>2</sub> to release the energy again, giving back CO<sub>2</sub> + H<sub>2</sub>O. <a href="../photosynthesis/">Revisit photosynthesis</a>.</div></div></div>
+  </div>
+</section>
+
+<section class="block" id="mito">
+  <div class="part-title"><span class="badge" style="background:var(--s-pow)">3D lab</span><h2 style="margin:0">Inside the mitochondrion</h2></div>
+  <p class="lede">Most of the energy from glucose is released inside the <b>mitochondria</b>. Spin it, zoom in, cut it open and tap any part.</p>
+  <div class="card">
+    <div class="stage warm" id="mStage"><span class="hint">Drag to spin · scroll or pinch to zoom · tap a part</span><div class="banner" id="huntBanner" style="opacity:0"></div></div>
+    <div class="ctrl">
+      <label for="cut"><b>Cut open</b></label><input type="range" id="cut" min="0" max="100" value="55">
+      <label class="switch">Labels<input type="checkbox" id="labels" checked></label>
+      <button class="btn ghost" id="resetView">⟲ Reset view</button>
+      <button class="btn green" id="huntBtn">🔎 Start the part hunt</button>
+    </div>
+    <div class="infopanel" id="info" aria-live="polite">Tap any part of the mitochondrion to learn what it is.</div>
+    <div class="launch hunt">
+      <span class="ico">🔎</span>
+      <div><h3>Part hunt (team game)</h3><p>The board asks for a part. A team sends one player to tap it on the 3D model. Correct on the first try earns <b>+1 ATP</b> on the scoreboard.</p></div>
+      <span></span>
+    </div>
+    <div class="grid2">
+      <div class="q"><span class="qn">Q1.5</span> Label the mitochondrion in your booklet: outer membrane, inner membrane, cristae, matrix, intermembrane space.
+        <div class="reveal"><button>Show answer</button><div class="ans">Turn on <b>Labels</b> and cut the model open. The <b>matrix</b> is the fluid inside the inner membrane; the <b>intermembrane space</b> is the narrow gap between the two membranes; the <b>cristae</b> are the folds of the inner membrane.</div></div></div>
+      <div class="q teaser"><span class="qn">Q1.6 Brain teaser:</span> The inner membrane is folded into many cristae. Why might this help the cell?
+        <div class="reveal"><button>Show answer</button><div class="ans">Folds give a much <b>larger surface area</b> in a small space. The machinery that makes most of the ATP sits on the inner membrane, so more membrane means more ATP. (Just like stacking thylakoids into grana in the chloroplast.)</div></div></div>
+    </div>
+    <div class="q realw"><span class="qn">Q1.7 Real world:</span> Heart muscle cells and the leg muscles of trained runners are packed with mitochondria. Fat-storage cells have very few. Explain why.
+      <div class="reveal"><button>Show answer</button><div class="ans">Heart and leg muscles work all the time and need huge amounts of ATP, so they need many mitochondria. Endurance training like Lara's actually <b>increases</b> the number of mitochondria in her muscles. Fat cells mainly store energy and use little ATP.</div></div></div>
+  </div>
+</section>
+
+<section class="block" id="atp">
+  <div class="part-title"><span class="badge" style="background:var(--atp)">3D lab</span><h2 style="margin:0">ATP: the cell's rechargeable battery</h2></div>
+  <div class="anim-wrap">
+    <div class="card" style="margin-top:0">
+      <div class="stage" id="aStage"><span class="hint">Drag to turn the molecule</span></div>
+      <div class="ctrl">
+        <button class="btn red" id="useAtp">⚡ Use energy (ATP → ADP)</button>
+        <button class="btn green" id="recharge" disabled>🔋 Recharge (ADP → ATP)</button>
+        <span class="readout" id="atpCount">Energy used: 0 times</span>
+      </div>
+    </div>
+    <div>
+      <ul class="steps">
+        <li class="now"><b>ATP</b> = adenosine <b>tri</b>phosphate: adenine + ribose sugar + <b>3</b> phosphate groups.</li>
+        <li class="now">Breaking off the last phosphate <b>releases energy</b> for muscle contraction, active transport, building molecules…</li>
+        <li class="now">What is left is <b>ADP</b> (adenosine <b>di</b>phosphate, 2 phosphates) + a free phosphate.</li>
+        <li class="now">Cellular respiration uses the energy in glucose to <b>recharge</b> ADP back into ATP.</li>
+      </ul>
+      <div class="q"><span class="qn">Q1.8</span> What is the difference between ATP and ADP?
+        <div class="reveal"><button>Show answer</button><div class="ans">ATP has <b>three</b> phosphate groups and stores more energy. ADP has <b>two</b>. Removing one phosphate from ATP releases energy; adding it back (using energy from respiration) recharges it.</div></div></div>
+    </div>
+  </div>
+  <div class="q teaser"><span class="qn">Q1.9 Brain teaser:</span> Your body holds only about <b>250 g</b> of ATP at any moment, yet every day you use roughly your own <b>body mass</b> in ATP. How is that possible?
+    <div class="reveal"><button>Show answer</button><div class="ans">ATP is <b>recycled</b>. Each molecule is used (ATP → ADP) and recharged (ADP → ATP) over and over, hundreds of times a day. Respiration never stops recharging it, which is why you need a constant supply of glucose and oxygen.</div></div></div>
+</section>
+
+<section class="block" id="map">
+  <div class="part-title"><span class="badge" style="background:var(--blue)">Map</span><h2 style="margin:0">The three stages of aerobic respiration</h2></div>
+  <div class="card">
+    <svg viewBox="0 0 1200 440" style="width:100%;height:auto;display:block" role="img" aria-label="Glycolysis in the cytoplasm, the Krebs cycle in the matrix and the electron transport chain on the inner membrane">
+      <rect x="10" y="10" width="1180" height="420" rx="60" fill="var(--cyto)" stroke="var(--line)" stroke-width="4"/>
+      <text x="44" y="56" font-size="22" font-weight="800" fill="var(--ink-3)">CYTOPLASM</text>
+      <g transform="translate(70,190)"><polygon points="0,-46 40,-23 40,23 0,46 -40,23 -40,-23" fill="var(--glu)"/><text y="8" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">C₆</text><text y="80" text-anchor="middle" font-size="20" font-weight="800" fill="var(--glu)">glucose</text></g>
+      <path d="M118 190 L238 190" stroke="var(--ink-3)" stroke-width="5" marker-end="url(#ar)"/>
+      <rect x="245" y="140" width="220" height="100" rx="20" fill="var(--panel)" stroke="var(--s-gly)" stroke-width="5"/>
+      <text x="355" y="182" text-anchor="middle" font-size="24" font-weight="800" fill="var(--s-gly)">1 · Glycolysis</text>
+      <text x="355" y="214" text-anchor="middle" font-size="19" fill="var(--ink-2)">in the cytoplasm</text>
+      <text x="355" y="290" text-anchor="middle" font-size="19" fill="var(--ink-2)">no oxygen needed</text>
+      <path d="M465 190 L560 190" stroke="var(--pyr)" stroke-width="5" marker-end="url(#ar2)"/>
+      <text x="512" y="174" text-anchor="middle" font-size="18" font-weight="800" fill="var(--pyr)">pyruvate</text>
+      <!-- mitochondrion -->
+      <rect x="570" y="70" width="590" height="320" rx="160" fill="#FFD9AE" stroke="#F29A55" stroke-width="10"/>
+      <rect x="600" y="98" width="530" height="264" rx="132" fill="var(--matrix)" stroke="#E0612A" stroke-width="7"/>
+      <path d="M700 98 v95 M780 362 v-95 M860 98 v95 M940 362 v-95 M1020 98 v95" stroke="#E0612A" stroke-width="12" stroke-linecap="round"/>
+      <text x="865" y="62" text-anchor="middle" font-size="20" font-weight="800" fill="#B4541E">MITOCHONDRION</text>
+      <circle cx="770" cy="235" r="62" fill="var(--panel)" stroke="var(--s-kre)" stroke-width="6" stroke-dasharray="14 9"/>
+      <text x="770" y="230" text-anchor="middle" font-size="22" font-weight="800" fill="var(--s-kre)">2 · Krebs</text>
+      <text x="770" y="256" text-anchor="middle" font-size="18" fill="var(--ink-2)">in the matrix</text>
+      <rect x="935" y="150" width="190" height="96" rx="18" fill="var(--panel)" stroke="var(--s-etc)" stroke-width="5"/>
+      <text x="1030" y="190" text-anchor="middle" font-size="22" font-weight="800" fill="var(--s-etc)">3 · ETC</text>
+      <text x="1030" y="220" text-anchor="middle" font-size="17" fill="var(--ink-2)">inner membrane</text>
+      <text x="1030" y="300" text-anchor="middle" font-size="19" font-weight="800" fill="var(--o2)">needs O₂</text>
+      <path d="M832 220 L928 205" stroke="var(--ink-3)" stroke-width="5" marker-end="url(#ar)"/>
+      <text x="880" y="190" text-anchor="middle" font-size="17" font-weight="800" fill="var(--nadh)">NADH</text>
+      <g font-size="20" font-weight="900">
+        <rect x="290" y="330" width="130" height="44" rx="22" fill="var(--atp)"/><text x="355" y="360" text-anchor="middle" fill="#fff">2 ATP</text>
+        <rect x="705" y="320" width="130" height="44" rx="22" fill="var(--atp)"/><text x="770" y="350" text-anchor="middle" fill="#fff">2 ATP</text>
+        <rect x="955" y="320" width="150" height="44" rx="22" fill="var(--atp)"/><text x="1030" y="350" text-anchor="middle" fill="#fff">≈ 32 ATP</text>
+      </g>
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-3)"/></marker>
+        <marker id="ar2" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--pyr)"/></marker>
+      </defs>
+    </svg>
+    <p class="caption" style="text-align:center">One glucose → about <b>36 ATP</b> in total. The next three missions zoom into each stage.</p>
+    <div class="q"><span class="qn">Q1.10</span> Match each stage to where it happens.</div>
+    <div class="io" data-src="io1"></div>
+    <script type="application/json" id="io1">{"bins":[["cyto","Cytoplasm"],["matrix","Mitochondrial matrix"],["mem","Inner mitochondrial membrane"]],
+      "items":[["Glycolysis","m-glu","cyto"],["Krebs cycle","m-pyr","matrix"],["Electron transport chain","m-atp","mem"]]}</script>
+  </div>
+</section>
+
+<section class="block">
+  <div class="part-title"><span class="badge" style="background:var(--red)">Check</span><h2 style="margin:0">Game time</h2></div>
+  <div class="launch standup"><span class="ico">🧍</span><div><h3>Stand up · Sit down</h3><p>6 statements. Stand for TRUE, sit for FALSE.</p></div><button class="btn gold" data-standup="su1">▶ Play</button></div>
+  <div class="launch battle"><span class="ico">⚔️</span><div><h3>Quiz Battle: The Powerhouse</h3><p>5 rounds · teams answer with 1–4 fingers · 2 ATP per correct team (last round doubles).</p></div><button class="btn red" data-battle="b1">▶ Battle</button></div>
+  <script type="application/json" id="su1">{"title":"The Powerhouse","items":[
+    ["Only animals carry out cellular respiration.",false,"Plants, fungi and bacteria respire too. Plants respire day and night."],
+    ["Cellular respiration releases the energy stored in glucose.",true,"It moves that energy into ATP."],
+    ["A mitochondrion has two membranes.",true,"An outer membrane and a folded inner membrane."],
+    ["ATP has three phosphate groups.",true,"Adenosine TRIphosphate."],
+    ["Plants make glucose by photosynthesis, so they do not need to respire.",false,"Plants also need ATP, so their cells respire all the time."],
+    ["The matrix is the space between the two membranes.",false,"That is the intermembrane space. The matrix is inside the inner membrane."]]}</script>
+  <script type="application/json" id="b1">{"title":"The Powerhouse","points":2,"seconds":20,"qs":[
+    {"q":"What is the main purpose of cellular respiration?","o":["To make glucose","To make ATP","To make oxygen","To make chlorophyll"],"a":1,"why":"Respiration releases the energy in glucose and stores it in ATP."},
+    {"q":"Where is the matrix?","o":["Between the two membranes","Inside the inner membrane","Outside the cell","Inside the nucleus"],"a":1,"why":"The matrix is the fluid enclosed by the inner membrane."},
+    {"q":"Why is the inner membrane folded into cristae?","o":["To store DNA","To give more surface for making ATP","To make glucose","To keep water out"],"a":1,"why":"More membrane surface = more ATP-making machinery."},
+    {"q":"Turning ATP into ADP …","o":["uses oxygen","makes glucose","releases energy","absorbs light"],"a":2,"why":"Breaking off the third phosphate releases energy the cell can use."},
+    {"q":"Which gas does aerobic respiration use up?","o":["Carbon dioxide","Oxygen","Nitrogen","Hydrogen"],"a":1,"why":"Oxygen is used; carbon dioxide is released.","double":true}]}</script>
+</section>
+
+<div class="mission-end" data-section="1">
+  <h2>Mission 1 complete?</h2>
+  <p>You found the power station and its battery. Next: follow glucose as it is split in two.</p>
+  <div class="row" style="justify-content:center"><button class="btn gold big" data-complete>✓ Mission complete</button><a class="btn big" href="2-glycolysis.html">Next: Glycolysis ▶</a></div>
+  <div class="done-msg">⚡ Mission 1 powered up!</div>
+</div>
+<div class="footer"><img src="assets/his-logo.png" alt=""><div><b>Al-Hayat International School</b> · Grade 11 AP Biology · Cellular Respiration · Mission 1 of 6</div></div>
+</main>
+
+<script type="module">
+import { stage, THREE, mitochondrion, label, pill, atom, bond, mat, burst, COL, ease, reduce } from './assets/scene3d.js';
+
+/* ================= 3D mitochondrion explorer ================= */
+const PARTS = {
+  outer: ['Outer membrane', 'The smooth outer boundary. It lets small molecules such as pyruvate pass in and out.'],
+  ims: ['Intermembrane space', 'The narrow gap between the two membranes. In Mission 4, H⁺ ions pile up here.'],
+  inner: ['Inner membrane', 'Holds the electron transport chain and ATP synthase, where most ATP is made.'],
+  cristae: ['Cristae', 'The folds of the inner membrane. They give a huge surface area for making ATP.'],
+  matrix: ['Matrix', 'The fluid inside the inner membrane. The Krebs cycle happens here. It also holds the mitochondrion\'s own DNA and ribosomes.']
+};
+const M = stage(document.getElementById('mStage'), { pos: [0, 3, 11], minD: 4, maxD: 18 });
+if (M) {
+  const m = mitochondrion(); M.scene.add(m.group);
+  const cut = document.getElementById('cut');
+  const applyCut = () => { const v = +cut.value; m.setCut(v === 0 ? null : 1.9 - v / 100 * 2.5); };
+  cut.oninput = applyCut; applyCut();
+  // labels with leader lines (children of the model so they turn with it)
+  const L = new THREE.Group(); m.group.add(L);
+  const LAB = [['outer', [-1.0, 1.9, 0], [-2.8, 3.3, 0]], ['ims', [1.4, 1.75, 0], [2.9, 3.3, 0]], ['inner', [0.7, -1.7, 0], [2.4, -3.3, 0]],
+               ['cristae', [-1.95, -0.6, 0], [-3.6, -3.2, 0]], ['matrix', [3.0, 0.2, 0], [5.6, 1.4, 0]]];
+  LAB.forEach(([k, a, p]) => {
+    const s = label(PARTS[k][0], { bg: 'rgba(16,38,63,.88)', size: .5 }); s.position.set(...p); L.add(s);
+    const g = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(...a), new THREE.Vector3(...p)]);
+    const ln = new THREE.Line(g, new THREE.LineBasicMaterial({ color: 0x10263f, depthTest: false, transparent: true, opacity: .8 })); ln.renderOrder = 9; L.add(ln);
+    const dot = new THREE.Mesh(new THREE.SphereGeometry(.07, 12, 8), new THREE.MeshBasicMaterial({ color: 0x10263f, depthTest: false })); dot.position.set(...a); dot.renderOrder = 9; L.add(dot);
+  });
+  document.getElementById('labels').onchange = e => { L.visible = e.target.checked; };
+  document.getElementById('resetView').onclick = () => M.flyTo([0, 3, 11], [0, 0, 0]);
+  // glow highlight
+  let flash = null;
+  function highlight(name) {
+    const o = name === 'cristae' ? m.parts.cristae : m.parts[name];
+    const mats = []; o.traverse(n => { if (n.material) mats.push(n.material); });
+    flash = { mats, t: 0 };
+  }
+  M.tick(dt => { if (!flash) return; flash.t += dt; const k = Math.max(0, Math.sin(flash.t * 9)) * (1 - flash.t / 1.4);
+    flash.mats.forEach(mm => { mm.emissive.set('#F8D000'); mm.emissiveIntensity = k * .9; }); if (flash.t > 1.4) { flash.mats.forEach(mm => mm.emissiveIntensity = 0); flash = null; } });
+  // picking: first visible hit, skipping clipped-away halves
+  const info = document.getElementById('info');
+  const nameOf = o => { while (o && !PARTS[o.name]) o = o.parent; return o ? o.name : null; };
+  const banner = document.getElementById('huntBanner');
+  let hunt = null; const order = ['matrix', 'cristae', 'outer', 'inner', 'ims'];
+  M.onPick(() => [m.group], (hit, e, all) => {
+    if (!hit) return;
+    const first = nameOf(hit.object);
+    if (hunt) {
+      const near = new Set(all.filter(h => h.distance < hit.distance + .45).map(h => nameOf(h.object)));
+      const want = order[hunt.i];
+      if (near.has(want)) { highlight(want); KIT.sfx.good(); banner.textContent = '✓ Yes! That is the ' + PARTS[want][0].toLowerCase() + (hunt.miss ? '' : ' · first try: +1 ATP for that team'); KIT.confetti(innerWidth / 2, innerHeight / 2, 40);
+        hunt.i++; hunt.miss = 0; setTimeout(nextHunt, 2200); }
+      else { hunt.miss++; KIT.sfx.bad(); banner.textContent = '✗ That is the ' + (PARTS[first] ? PARTS[first][0].toLowerCase() : 'background') + '. Find the ' + PARTS[want][0].toUpperCase() + '!'; }
+      return;
+    }
+    if (first) { highlight(first); info.innerHTML = '<b>' + PARTS[first][0] + ':</b> ' + PARTS[first][1]; KIT.sfx.tick(); }
+  }, h => h.point.z <= m.plane.constant + 1e-3 && h.object.type === 'Mesh' && h.object.parent !== L);
+  function nextHunt() {
+    if (hunt.i >= order.length) { banner.textContent = '🏆 Hunt complete! All five parts found.'; KIT.sfx.good(); KIT.confetti(); setTimeout(() => banner.style.opacity = 0, 4000); hunt = null; document.getElementById('huntBtn').textContent = '🔎 Play the hunt again'; return; }
+    banner.textContent = 'Find the ' + PARTS[order[hunt.i]][0].toUpperCase() + '!'; banner.style.opacity = 1; KIT.sfx.whoosh();
+  }
+  document.getElementById('huntBtn').onclick = () => {
+    document.getElementById('labels').checked = false; L.visible = false; cut.value = 60; applyCut();
+    M.flyTo([0, 2.2, 10], [0, 0, 0]); hunt = { i: 0, miss: 0 }; nextHunt();
+    document.getElementById('mStage').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+  };
+}
+
+/* ================= 3D ATP battery ================= */
+const A = stage(document.getElementById('aStage'), { pos: [0, 1.2, 10.5], fov: 38, minD: 6, maxD: 16, lockVertical: true });
+if (A) {
+  const g = new THREE.Group(); A.scene.add(g); g.position.x = -0.2;
+  // adenine: fused hexagon + pentagon rings
+  const ring = (n, r, color, x, y) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, .28, n), mat(color, { rough: .35 })); m.rotation.x = Math.PI / 2; m.position.set(x, y, 0); return m; };
+  g.add(ring(6, .62, '#3b6fd6', -3.55, .2), ring(5, .5, '#5a88e6', -2.65, .25));
+  g.add(ring(5, .58, '#2E8B47', -1.45, -.35));
+  g.add(bond(new THREE.Vector3(-2.2, .1, 0), new THREE.Vector3(-1.85, -.2, 0), .1));
+  const P = [], pPos = [[-.2, -.35], [1.05, -.35], [2.3, -.35]];
+  pPos.forEach((p, i) => { const s = atom(COL.P, .45); s.position.set(p[0], p[1], 0); g.add(s); P.push(s);
+    const t = label('P', { color: '#3a2400', size: .42, stroke: 'rgba(255,255,255,0)' }); t.position.set(0, 0, .5); s.add(t); });
+  const b0 = bond(new THREE.Vector3(-1.0, -.35, 0), new THREE.Vector3(-.6, -.35, 0), .1);
+  const b1 = bond(new THREE.Vector3(.2, -.35, 0), new THREE.Vector3(.65, -.35, 0), .1);
+  const b2 = bond(new THREE.Vector3(1.45, -.35, 0), new THREE.Vector3(1.9, -.35, 0), .12, '#F8D000'); b2.material.emissive.set('#F8D000'); b2.material.emissiveIntensity = .6;
+  g.add(b0, b1, b2);
+  const nameL = label('ATP', { bg: COL.atp, size: .9 }); nameL.position.set(0, 2.1, 0); g.add(nameL);
+  const subs = [['adenine', -3.1, -1.25, '#3b6fd6'], ['ribose sugar', -1.45, -1.55, '#2E8B47'], ['3 phosphate groups', 1.05, -1.55, '#B07800']];
+  subs.forEach(([t, x, y, c]) => { const s = label(t, { color: c, size: .36 }); s.position.set(x, y, 0); g.add(s); });
+  const energy = pill('⚡ ENERGY released!', '#D4A800', .6); energy.visible = false; A.scene.add(energy);
+  const recharge = pill('energy from glucose', COL.glu, .5); recharge.visible = false; A.scene.add(recharge);
+  let state = 'ATP', anim = null, uses = 0; const bursts = [];
+  const home = P[2].position.clone(), away = new THREE.Vector3(4.1, -1.6, .4);
+  const useB = document.getElementById('useAtp'), recB = document.getElementById('recharge');
+  function swapName(t, c) { const n = label(t, { bg: c, size: .9 }); nameL.material.map.dispose(); nameL.material.dispose(); nameL.material = n.material; nameL.scale.copy(n.scale); }
+  useB.onclick = () => { if (anim || state !== 'ATP') return; anim = { k: 'use', t: 0 }; useB.disabled = true; KIT.sfx.whoosh();
+    bursts.push(burst(A.scene, new THREE.Vector3(1.48, -.35, 0), '#F8D000', 1.2)); };
+  recB.onclick = () => { if (anim || state !== 'ADP') return; anim = { k: 'rec', t: 0 }; recB.disabled = true; recharge.visible = true; KIT.sfx.coin(); };
+  A.tick((dt, t) => {
+    g.rotation.y = Math.sin(t * .4) * .25;
+    for (let i = bursts.length - 1; i >= 0; i--) if (!bursts[i].update(dt, A.camera)) bursts.splice(i, 1);
+    if (!anim) return;
+    anim.t += dt / 1.3; const k = ease(anim.t);
+    if (anim.k === 'use') {
+      P[2].position.lerpVectors(home, away, k); P[2].rotation.z = k * 6; b2.visible = k < .15;
+      energy.visible = true; energy.position.set(1.6, .5 + k * 2.2, .5); energy.material.opacity = 1 - Math.max(0, anim.t - .7) * 2.5;
+      if (anim.t >= 1) { anim = null; state = 'ADP'; energy.visible = false; swapName('ADP', COL.adp); recB.disabled = false; uses++;
+        document.getElementById('atpCount').textContent = 'Energy used: ' + uses + (uses === 1 ? ' time' : ' times'); KIT.sfx.good(); }
+    } else {
+      P[2].position.lerpVectors(away, home, k); P[2].rotation.z = (1 - k) * 6;
+      recharge.position.set(-2 + k * 3.5, 2.6 - k * 2.4, .6); recharge.material.opacity = 1 - Math.max(0, anim.t - .8) * 5;
+      if (anim.t >= 1) { anim = null; state = 'ATP'; b2.visible = true; recharge.visible = false; swapName('ATP', COL.atp); useB.disabled = false; KIT.sfx.coin();
+        bursts.push(burst(A.scene, new THREE.Vector3(1.48, -.35, 0), COL.glu, 1)); }
+    }
+  });
+}
+</script>
+</body>
+</html>

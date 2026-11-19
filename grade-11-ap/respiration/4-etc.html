@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Mission 4 · Electron Transport Chain · Respiration</title>
+<meta name="description" content="Grade 11 AP Biology, cellular respiration Mission 4: the electron transport chain and ATP synthase on the inner mitochondrial membrane.">
+<link rel="icon" href="assets/his-logo.png">
+<link rel="stylesheet" href="assets/resp.css">
+<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
+<script src="assets/resp.js" defer></script>
+</head>
+<body data-section="4">
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">Mission 4 · Session 4</p>
+    <h1>The ATP turbine</h1>
+    <p class="lede">The NADH and FADH<sub>2</sub> from Missions 2 and 3 are full of energy. Now they cash it in. On the folded <b>inner membrane</b>, a chain of proteins passes electrons along, pumps H<sup>+</sup>, and spins a tiny turbine, <b>ATP synthase</b>, that makes most of Lara's ATP.</p>
+    <div class="q"><span class="qn">Q4.1</span> Where exactly is the electron transport chain?
+      <div class="reveal"><button>Show answer</button><div class="ans">In the <b>inner mitochondrial membrane</b>, especially the cristae. That is why the folds matter: more membrane = more chains = more ATP.</div></div></div>
+  </div>
+  <div class="launch role" style="margin:0">
+    <span class="ico">🎭</span>
+    <div><h3>Act it out: the bucket brigade</h3><p>Pass the electron down the line, pump the H⁺ runners, spin the turbine, and let oxygen make water!</p></div>
+    <button class="btn" data-roles="roles4">▶ Show roles</button>
+  </div>
+  <script type="application/json" id="roles4">{"title":"The electron bucket brigade","intro":"Left side of the room = intermembrane space. Right side = matrix. The row of desks between = inner membrane.",
+   "roles":[["NADH","Carries the ball (an electron) to the first protein, then sits down as NAD⁺.","#6A3FC0"],["3 × Protein pumps","Stand in a line along the membrane. Pass the ball to the next pump.","#0E7490"],["5 × H⁺ runners","Start in the matrix. Each time a pump gets the ball, one H⁺ runs to the intermembrane space.","#00A6D6"],["3 × ATP synthase","Hold hands in a small circle. Spin once each time an H⁺ runs back through you, and shout “ATP!”","#64748B"],["Oxygen","Stands at the end of the line. Catches the ball and grabs 2 H⁺ runners: you are WATER!","#1F9E97"]],
+   "steps":["NADH hands the ball (electron) to the first pump.","Pump → pump → pump: each pass sends one H⁺ runner across to the intermembrane space.","H⁺ runners can only get back through the ATP synthase circle, which spins: “ATP!”","Oxygen catches the ball and pairs up with H⁺ to make water.","Now replay with Oxygen sitting down (no oxygen). What happens to the line?"],"seconds":180}</script>
+</section>
+
+<section class="block" id="anim">
+  <div class="part-title"><span class="badge" style="background:var(--s-etc)">3D lab</span><h2 style="margin:0">Inside the inner membrane</h2></div>
+  <div class="card">
+    <div class="stage" id="eStage" style="aspect-ratio:16/8.4"><span class="hint">Drag to look around · scroll to zoom</span>
+      <div class="hud"><span class="chip" id="hH">H⁺ in intermembrane space: 0</span><span class="chip" id="hA" style="color:#F2361C">ATP made: 0</span><span class="chip" id="hW" style="color:#0FA3D8">Water made: 0</span></div>
+      <div class="banner" id="eBanner" style="opacity:0"></div></div>
+    <div class="ctrl">
+      <label for="o2"><b>Oxygen supply</b></label><input type="range" id="o2" min="0" max="100" step="5" value="100"><span class="readout" id="o2r">100%</span>
+      <button class="btn red" id="poison">☠ Add cyanide</button>
+      <label class="switch">Labels<input type="checkbox" id="eLabels" checked></label>
+      <button class="btn ghost" id="eView">🎥 Change view</button>
+      <button class="btn ghost" id="eReset">⟲ Reset</button>
+    </div>
+  </div>
+  <div class="anim-wrap">
+    <div class="card" style="margin-top:0">
+      <p class="sub">Live: ATP made per 10 seconds</p>
+      <svg id="eChart" viewBox="0 0 900 280" style="width:100%;height:auto;display:block" role="img" aria-label="Live graph of ATP production over time"></svg>
+    </div>
+    <ol class="steps" id="eSteps">
+      <li><b>1.</b> <span class="mol" style="color:var(--nadh)">NADH</span> and <span class="mol" style="color:var(--fadh)">FADH₂</span> drop off high-energy <b>electrons</b> (they become NAD⁺ and FAD again).</li>
+      <li><b>2.</b> The electrons are passed from protein to protein along the inner membrane.</li>
+      <li><b>3.</b> Their energy is used to pump <span class="mol" style="color:var(--hplus)">H⁺</span> into the intermembrane space.</li>
+      <li><b>4.</b> H⁺ flow back through <b>ATP synthase</b>, which spins and turns ADP into <span class="mol" style="color:var(--atp)">ATP</span>.</li>
+      <li><b>5.</b> At the end, <span class="mol" style="color:var(--o2)">oxygen</span> catches the electrons and joins with H⁺ to form <span class="mol" style="color:var(--h2o)">water</span>.</li>
+    </ol>
+  </div>
+  <div class="q"><span class="qn">Q4.2</span> Put the steps of the electron transport chain in order.
+    <ol class="order" data-src="ord4"></ol>
+    <script type="application/json" id="ord4">["NADH and FADH₂ drop off their electrons.","Electrons are passed from protein to protein.","Their energy pumps H⁺ into the intermembrane space.","H⁺ flow back through ATP synthase, which makes ATP.","Oxygen catches the electrons and forms water."]</script>
+  </div>
+  <div class="grid2">
+    <div class="q teaser"><span class="qn">Q4.3 Brain teaser:</span> The Qaraoun dam on the Litani river holds water high behind a wall; when the water rushes down through turbines, they spin and make electricity. In the mitochondrion, what plays the part of the <b>dam</b>, the <b>water</b> and the <b>turbine</b>?
+      <div class="reveal"><button>Show answer</button><div class="ans">Dam = the <b>inner membrane</b> · water piled up behind it = <b>H⁺ ions</b> in the intermembrane space · turbine = <b>ATP synthase</b>, which spins as H⁺ flow through and makes ATP.</div></div></div>
+    <div class="q"><span class="qn">Q4.4</span> What is the job of oxygen in the chain? What does it become?
+      <div class="reveal"><button>Show answer</button><div class="ans">Oxygen is the <b>final electron acceptor</b>: it catches the used electrons at the end of the chain and joins with H⁺ to form <b>water</b>. Without it the electrons have nowhere to go.</div></div></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="card">
+    <p class="sub">Inputs and outputs</p>
+    <div class="q" style="margin-top:0"><span class="qn">Q4.5</span> Sort the molecules for the electron transport chain.</div>
+    <div class="io" data-src="io4"></div>
+    <script type="application/json" id="io4">{"core":"ELECTRON<br>TRANSPORT<br>CHAIN<small>inner membrane</small>","color":"#C2410C","bins":[["in","Inputs"],["out","Outputs"]],
+      "items":[["NADH","m-nadh","in"],["FADH₂","m-fadh","in"],["oxygen","m-o2","in"],["ADP","m-adp","in"],["ATP","m-atp","out"],["water","m-h2o","out"],["NAD⁺","m-nad","out"],["FAD","m-fadh","out"]]}</script>
+  </div>
+  <div class="card">
+    <p class="sub">Effect of oxygen</p>
+    <div class="q" style="margin-top:0"><span class="qn">Q4.6</span> Use the <b>Oxygen supply</b> slider: let the graph run at 100%, then drop to 50%, then 0%. Describe and explain what happens to ATP production.
+      <div class="reveal"><button>Show answer</button><div class="ans">Less oxygen → fewer electrons can leave the chain → electrons pass more slowly → fewer H⁺ pumped → ATP synthase slows → <b>less ATP</b>. At 0% the chain jams and ATP production from the ETC <b>stops</b>, once the H⁺ already pumped have flowed back.</div></div></div>
+    <div class="grid2">
+      <div class="q realw"><span class="qn">Q4.7 Real world:</span> Cyanide blocks the last protein of the chain. Press <b>☠ Add cyanide</b>. Why is cyanide deadly within minutes, even though the blood is still full of oxygen?
+        <div class="reveal"><button>Show answer</button><div class="ans">Electrons can no longer be handed to oxygen, so the whole chain stops and almost no ATP is made. Cells that need huge amounts of ATP, especially in the <b>heart and brain</b>, fail within minutes.</div></div></div>
+      <div class="q realw"><span class="qn">Q4.8 Real world:</span> At the top of Mount Everest each breath holds only about one third of the oxygen at sea level. Why do climbers feel weak and slow up there?
+        <div class="reveal"><button>Show answer</button><div class="ans">Less oxygen reaches the mitochondria, so the electron transport chain runs slower and muscles make <b>less ATP</b>. Climbers spend weeks acclimatising, and most use bottled oxygen.</div></div></div>
+    </div>
+    <div class="q teaser"><span class="qn">Q4.9 Brain teaser: the ATP bill.</span> Add up the ATP for one glucose: glycolysis … + Krebs cycle … + electron transport chain … = …
+      <div class="reveal"><button>Show answer</button><div class="ans">2 + 2 + about 32 = about <b>36 ATP</b> per glucose. Nearly 90% comes from the electron transport chain, which needs oxygen.</div></div></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="part-title"><span class="badge" style="background:var(--red)">Check</span><h2 style="margin:0">Game time</h2></div>
+  <div class="launch standup"><span class="ico">🧍</span><div><h3>Stand up · Sit down</h3><p>6 statements about the electron transport chain.</p></div><button class="btn gold" data-standup="su4">▶ Play</button></div>
+  <div class="launch battle"><span class="ico">⚔️</span><div><h3>Quiz Battle: Electron transport</h3><p>5 rounds · 2 ATP per correct team · last round doubles.</p></div><button class="btn red" data-battle="b4">▶ Battle</button></div>
+  <script type="application/json" id="su4">{"title":"Electron transport chain","items":[
+    ["The electron transport chain is in the inner mitochondrial membrane.",true,"On the cristae."],
+    ["Oxygen is the final electron acceptor.",true,"It catches the electrons at the end of the chain."],
+    ["The electron transport chain releases carbon dioxide.",false,"It releases water. CO₂ came from the link step and Krebs cycle."],
+    ["ATP synthase makes ATP when H⁺ flows through it.",true,"Like water spinning a turbine."],
+    ["Without oxygen, the chain keeps running normally.",false,"With no oxygen, electrons pile up and the chain stops."],
+    ["The ETC makes more ATP than glycolysis and the Krebs cycle together.",true,"About 32 versus 4."]]}</script>
+  <script type="application/json" id="b4">{"title":"Electron transport","points":2,"seconds":20,"qs":[
+    {"q":"Where is the electron transport chain?","o":["Inner mitochondrial membrane","Outer membrane","Cytoplasm","Nucleus"],"a":0,"why":"Embedded in the inner membrane and its cristae."},
+    {"q":"What is the final electron acceptor?","o":["Oxygen","Carbon dioxide","Glucose","NADH"],"a":0,"why":"Oxygen accepts the electrons and becomes water."},
+    {"q":"Which enzyme uses the flow of H⁺ to make ATP?","o":["ATP synthase","Amylase","RuBisCO","Lipase"],"a":0,"why":"ATP synthase spins as H⁺ pass through it."},
+    {"q":"About how many ATP does the ETC make per glucose?","o":["2","4","32","100"],"a":2,"why":"Around 32, most of the total of about 36."},
+    {"q":"What is the waste product of the electron transport chain?","o":["Water","Carbon dioxide","Lactic acid","Glucose"],"a":0,"why":"Oxygen + electrons + H⁺ → water.","double":true}]}</script>
+</section>
+
+<div class="mission-end" data-section="4">
+  <h2>Mission 4 complete?</h2>
+  <p>You have seen where about 32 of Lara's 36 ATP come from, and why she must keep breathing. Next: what if oxygen runs out?</p>
+  <div class="row" style="justify-content:center"><button class="btn gold big" data-complete>✓ Mission complete</button><a class="btn big" href="5-fermentation.html">Next: Fermentation ▶</a></div>
+  <div class="done-msg">⚡ Mission 4 powered up!</div>
+</div>
+<div class="footer"><img src="assets/his-logo.png" alt=""><div><b>Al-Hayat International School</b> · Grade 11 AP Biology · Cellular Respiration · Mission 4 of 6</div></div>
+</main>
+
+<script type="module">
+import { stage, THREE, label, pill, atom, mat, burst, O2, H2O, setOpacity, COL, ease, seg, lerp, reduce } from './assets/scene3d.js';
+const S = stage(document.getElementById('eStage'), { pos: [0, 2.5, 19], fov: 38, minD: 6, maxD: 32 });
+if (S) {
+  const { scene, camera } = S;
+  const W = 10, D = 3;           // half-width and half-depth of the membrane patch
+  // ---- compartments ----
+  const ims = new THREE.Mesh(new THREE.BoxGeometry(W * 2, 3.8, D * 2), mat('#FFE38A', { opacity: .16, depthWrite: false })); ims.position.y = 2.6; scene.add(ims);
+  const mtx = new THREE.Mesh(new THREE.BoxGeometry(W * 2, 3.8, D * 2), mat('#FFC98F', { opacity: .16, depthWrite: false })); mtx.position.y = -2.6; scene.add(mtx);
+  const core = new THREE.Mesh(new THREE.BoxGeometry(W * 2, .9, D * 2), mat('#F6B37A', { opacity: .55, depthWrite: false })); scene.add(core);
+  // phospholipid heads (instanced)
+  const headG = new THREE.SphereGeometry(.17, 10, 8), headM = mat('#E0612A', { rough: .5, clear: .2 });
+  const nx = 52, nz = 16, heads = new THREE.InstancedMesh(headG, headM, nx * nz * 2); const mm = new THREE.Matrix4(); let k = 0;
+  for (let layer of [.55, -.55]) for (let i = 0; i < nx; i++) for (let j = 0; j < nz; j++) { mm.makeTranslation(-W + .2 + i * (W * 2 - .4) / (nx - 1), layer, -D + .2 + j * (D * 2 - .4) / (nz - 1)); heads.setMatrixAt(k++, mm); }
+  scene.add(heads);
+  // ---- proteins ----
+  const PX = [-6.6, -2.6, 1.4], PC = ['#7C5BD6', '#0E8A9A', '#2563EB'], PN = ['Protein pump 1', 'Protein pump 2', 'Protein pump 3'];
+  const pumps = PX.map((x, i) => { const m = new THREE.Mesh(new THREE.CapsuleGeometry(.95, 1.5 + i * .2, 10, 24), mat(PC[i], { rough: .35 })); m.position.set(x, .1, 0); m.scale.z = .85; scene.add(m); return m; });
+  // ATP synthase: membrane rotor + stalk + head
+  const SX = 6.4;
+  const rotor = new THREE.Group(); rotor.position.set(SX, 0, 0); scene.add(rotor);
+  const ring = new THREE.Mesh(new THREE.CylinderGeometry(1.0, 1.0, 1.25, 12, 1, true), mat('#64748B', { side: THREE.DoubleSide, rough: .4 })); rotor.add(ring);
+  for (let i = 0; i < 12; i++) { const f = new THREE.Mesh(new THREE.BoxGeometry(.18, 1.3, .32), mat(i % 2 ? '#94A3B8' : '#475569')); const a = i / 12 * Math.PI * 2; f.position.set(Math.cos(a) * 1.0, 0, Math.sin(a) * 1.0); f.rotation.y = -a; rotor.add(f); }
+  const stalk = new THREE.Mesh(new THREE.CylinderGeometry(.18, .18, 1.6, 12), mat('#334155')); stalk.position.set(0, -1.35, 0); rotor.add(stalk);
+  const head = new THREE.Group(); head.position.set(SX, -2.75, 0); scene.add(head);
+  for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2; const l = atom(i % 2 ? '#CBD5E1' : '#E25B2B', .5, { rough: .35 }); l.position.set(Math.cos(a) * .55, 0, Math.sin(a) * .55); head.add(l); }
+  const statorArm = new THREE.Mesh(new THREE.CylinderGeometry(.08, .08, 3.2, 8), mat('#94A3B8')); statorArm.position.set(SX + 1.25, -1.5, 0); scene.add(statorArm);
+  // ---- labels ----
+  const LB = new THREE.Group(); scene.add(LB);
+  const lab = (t, x, y, z, o) => { const s = label(t, o); s.position.set(x, y, z); LB.add(s); return s; };
+  lab('INTERMEMBRANE SPACE · H⁺ pile up here', -3.2, 4.2, 0, { bg: 'rgba(160,120,0,.9)', size: .55 });
+  lab('MATRIX', -8.3, -4.1, 0, { bg: 'rgba(180,83,9,.9)', size: .55 });
+  lab('inner membrane', -8.6, 1.05, D, { size: .42 });
+  PN.forEach((t, i) => lab(t, PX[i], 2.3 + (i === 1 ? .35 : 0), .4, { bg: PC[i], size: .42 }));
+  lab('ATP synthase', SX, 1.75, .4, { bg: '#475569', size: .48 });
+  // ---- moving things ----
+  const elec = new THREE.Mesh(new THREE.SphereGeometry(.26, 20, 14), new THREE.MeshBasicMaterial({ color: '#FFD000', toneMapped: false })); scene.add(elec); elec.visible = false;
+  const halo = new THREE.Mesh(new THREE.SphereGeometry(.5, 20, 14), new THREE.MeshBasicMaterial({ color: '#FFE680', transparent: true, opacity: .35, toneMapped: false, depthWrite: false })); elec.add(halo);
+  const eLab = label('e⁻', { color: '#7a5a00', size: .42 }); eLab.position.set(0, .55, 0); elec.add(eLab);
+  const trail = []; for (let i = 0; i < 8; i++) { const t = new THREE.Mesh(new THREE.SphereGeometry(.16 - i * .015, 10, 8), new THREE.MeshBasicMaterial({ color: '#FFD000', transparent: true, opacity: .5 - i * .05, toneMapped: false, depthWrite: false })); scene.add(t); trail.push(t); t.visible = false; }
+  const hGeo = new THREE.SphereGeometry(.17, 12, 10), hMat = new THREE.MeshPhysicalMaterial({ color: COL.hplus, roughness: .3, clearcoat: .6 });
+  const H = []; // {m, state:'ims'|'up'|'down', ...}
+  function newH(x, y) { const m = new THREE.Mesh(hGeo, hMat); m.position.set(x, y, (Math.random() - .5) * 2); scene.add(m); const h = { m, v: new THREE.Vector3((Math.random() - .5), (Math.random() - .5), (Math.random() - .5)).multiplyScalar(.8) }; H.push(h); return h; }
+  // pre-fill a few in the matrix for flavour
+  const matrixH = []; for (let i = 0; i < 14; i++) { const m = new THREE.Mesh(hGeo, hMat); m.position.set(-W + 1 + Math.random() * (W * 2 - 2), -1.6 - Math.random() * 2.6, (Math.random() - .5) * 4); scene.add(m); matrixH.push(m); }
+  const hLabs = [label('H⁺', { color: '#036a8a', size: .36 }), label('H⁺', { color: '#036a8a', size: .36 })]; hLabs[0].position.set(-6, 3.2, 1.2); hLabs[1].position.set(-7.6, -3.2, 1.2); hLabs.forEach(l => LB.add(l));
+  const o2 = O2(1.3); o2.position.set(PX[2], -2.6, .6); scene.add(o2); const o2L = label('O₂', { color: COL.o2, size: .45 }); o2L.position.set(0, .6, 0); o2.add(o2L);
+  const flyers = []; const bursts = [];
+  function flyer(obj, from, to, dur, done, fade = true) { obj.position.copy(from); scene.add(obj); flyers.push({ obj, from: from.clone(), to: to.clone(), t: 0, dur, done, fade }); }
+  // ---- state ----
+  let o2Level = 1, poisoned = false, cyc = null, cycleN = 0, imsCount = 0, atp = 0, water = 0, spin = 0, synthAcc = 0;
+  const banner = document.getElementById('eBanner'), steps = [...document.querySelectorAll('#eSteps li')];
+  const hud = { h: document.getElementById('hH'), a: document.getElementById('hA'), w: document.getElementById('hW') };
+  function setStep(i) { steps.forEach((li, k) => li.classList.toggle('now', k === i)); }
+  function say(t) { banner.textContent = t; banner.style.opacity = t ? 1 : 0; }
+  const P = { start: new THREE.Vector3(PX[0], -1.6, .5) };
+  function startCycle() {
+    cycleN++; const fad = cycleN % 3 === 0;
+    cyc = { t: 0, fad, pumped: 0, stage: 0 };
+    const carrier = pill(fad ? 'FADH₂' : 'NADH', fad ? COL.fadh : COL.nadh, .55);
+    const entryX = fad ? PX[1] : PX[0];
+    flyer(carrier, new THREE.Vector3(entryX - 3.5, -3.6, 1), new THREE.Vector3(entryX, -1.7, .9), 1.1, () => {
+      const empty = pill(fad ? 'FAD' : 'NAD⁺', fad ? COL.fadh : COL.nad, .5);
+      flyer(empty, new THREE.Vector3(entryX, -1.7, .9), new THREE.Vector3(entryX - 2.6, -4, 1.4), 1.4, null);
+    }, false);
+    setStep(0); say(fad ? 'FADH₂ drops off its electrons (it joins later in the chain)' : 'NADH drops off its electrons');
+  }
+  // electron route: list of [x,y] waypoints; pumps at indices
+  function route(fad) {
+    const r = []; if (!fad) r.push([PX[0], -1.5], [PX[0], 0]); else r.push([PX[1], -1.5], [PX[1], 0]);
+    if (!fad) r.push([PX[1], 0]); r.push([PX[2], 0], [PX[2], -2.2]); return r;
+  }
+  function pumpH(x) { const h = newH(x, .2); flyer(h.m, new THREE.Vector3(x, -1.8, .2), new THREE.Vector3(x + (Math.random() - .5) * 2.4, 1.9 + Math.random() * 2.2, (Math.random() - .5) * 3.6), .9, () => { h.free = true; }, false); h.free = false; imsCount++; }
+  const chartPts = [], hist = []; let chartAcc = 0, atpWindow = [];
+  S.tick((dt, tt) => {
+    for (let i = bursts.length - 1; i >= 0; i--) if (!bursts[i].update(dt, camera)) bursts.splice(i, 1);
+    for (let i = flyers.length - 1; i >= 0; i--) { const f = flyers[i]; f.t += dt / f.dur; const kk = ease(f.t); f.obj.position.lerpVectors(f.from, f.to, kk);
+      if (f.fade && f.t > .7) setOpacity(f.obj, Math.max(0, 1 - (f.t - .7) / .3)); if (f.t >= 1) { flyers.splice(i, 1); if (f.fade) { scene.remove(f.obj); } else if (f.obj.type !== 'Mesh' || f.obj.geometry !== hGeo) scene.remove(f.obj); f.done && f.done(); } }
+    // H+ jiggle in the intermembrane space
+    H.forEach(h => { if (!h.free) return; h.m.position.addScaledVector(h.v, dt); const p = h.m.position;
+      if (p.x < -W + .5 || p.x > W - .5) h.v.x *= -1; if (p.y < 1.0 || p.y > 4.3) h.v.y *= -1; if (p.z < -D + .4 || p.z > D - .4) h.v.z *= -1; });
+    matrixH.forEach((m, i) => { m.position.x += Math.sin(tt * .7 + i) * dt * .3; m.position.y += Math.cos(tt * .9 + i * 2) * dt * .2; });
+    // electron cycle (rate limited by oxygen)
+    const running = o2Level > 0 && !poisoned;
+    if (!cyc && running && !reduce) { startCycle(); }
+    if (cyc) {
+      const speed = poisoned ? 0 : Math.max(0, o2Level) * 1.0;
+      const r = route(cyc.fad), legs = r.length - 1;
+      if (cyc.t < 1.1) cyc.t += dt; // NADH arriving
+      else {
+        const nearEnd = cyc.t - 1.1 >= legs - 1 - 1e-6;
+        // electrons only move as fast as oxygen can take them away; cyanide blocks the last pump
+        const sp = poisoned ? (nearEnd ? 0 : 1) : speed;
+        cyc.t += dt * .9 * sp;
+        const u = Math.min(legs, cyc.t - 1.1); const i = Math.min(legs - 1, Math.floor(u)), f = ease(u - i);
+        const a = r[i], b = r[i + 1]; const lift = Math.sin(f * Math.PI) * (a[1] === b[1] ? .9 : 0);
+        elec.visible = true; elec.position.set(lerp(a[0], b[0], f), lerp(a[1], b[1], f) + lift, .9);
+        // pump on arrival at each protein (centre y=0)
+        const pumpsHit = r.slice(1, i + 1 + (f > .95 ? 1 : 0)).filter(p => p[1] === 0).length;
+        while (cyc.pumped < pumpsHit) { const x = r.filter(p => p[1] === 0)[cyc.pumped][0]; pumpH(x); pumpH(x); pumpH(x); cyc.pumped++; setStep(cyc.pumped === 1 ? 1 : 2); say('Electron passed along · H⁺ pumped up'); bursts.push(burst(scene, new THREE.Vector3(x, 0, 1.2), '#FFD000', .9)); }
+        if (sp === 0 && poisoned) say('☠ Cyanide! The last pump is blocked: electrons are stuck');
+        else if (sp === 0) say('No oxygen to catch the electrons: the chain is jammed!');
+        if (cyc.t - 1.1 >= legs) { // reached oxygen
+          elec.visible = false; water++; setStep(4); say('Oxygen catches the electrons + H⁺ → water');
+          const w = H2O(1.2); const wl = label('H₂O', { color: COL.h2o, size: .4 }); wl.position.set(0, .55, 0); w.add(wl);
+          flyer(w, new THREE.Vector3(PX[2], -2.6, .6), new THREE.Vector3(PX[2] + 2 + Math.random(), -4.4, 1.6), 2.2, null);
+          bursts.push(burst(scene, new THREE.Vector3(PX[2], -2.4, .8), COL.h2o, 1));
+          cyc = null;
+        }
+      }
+      // trail
+      hist.unshift(elec.position.clone()); if (hist.length > 18) hist.length = 18;
+      trail.forEach((tr, j) => { tr.visible = elec.visible; tr.position.copy(hist[Math.min(hist.length - 1, j * 2 + 1)]); });
+    } else { elec.visible = false; trail.forEach(t => t.visible = false); }
+    o2.visible = o2Level > 0; o2.rotation.y += dt;
+    // H+ return through ATP synthase: rate depends on how many H+ are piled up
+    const flow = Math.min(3, imsCount / 4); synthAcc += dt * flow;
+    if (synthAcc >= 1 && imsCount > 0) { synthAcc = 0; const h = H.find(x => x.free);
+      if (h) { h.free = false; imsCount--; flyer(h.m, h.m.position.clone(), new THREE.Vector3(SX, 1.2, 0), .5, () => {
+        flyer(h.m, new THREE.Vector3(SX, 1.2, 0), new THREE.Vector3(SX, -1.4, 0), .5, () => { scene.remove(h.m); H.splice(H.indexOf(h), 1); h3++; if (h3 % 3 === 0) makeATP(); }, false); }, false); setStep(3); } }
+    spin += dt * (.4 + flow * 2.2); rotor.rotation.y = spin; head.rotation.y = -spin * .2;
+    hud.h.textContent = 'H⁺ in intermembrane space: ' + imsCount; hud.a.textContent = 'ATP made: ' + atp; hud.w.textContent = 'Water made: ' + water;
+    // chart sampling
+    chartAcc += dt; if (chartAcc >= .5) { chartAcc = 0; atpWindow.push([tt, atp]); while (atpWindow.length && atpWindow[0][0] < tt - 10) atpWindow.shift();
+      const rate = atpWindow.length > 1 ? atp - atpWindow[0][1] : 0; chartPts.push([tt, rate, o2Level, poisoned]); while (chartPts.length && chartPts[0][0] < tt - 60) chartPts.shift(); drawChart(tt); }
+  });
+  let h3 = 0;
+  function makeATP() { atp++; const p = pill('ATP', COL.atp, .55); flyer(p, new THREE.Vector3(SX, -2.75, .8), new THREE.Vector3(SX + 2.2 + Math.random() * 1.2, -4 - Math.random() * .4, 1.4), 1.6, null);
+    bursts.push(burst(scene, new THREE.Vector3(SX, -2.75, .9), COL.atp, .9)); if (atp % 5 === 0) KIT.sfx.coin(); }
+  // ---- chart ----
+  const NS = 'http://www.w3.org/2000/svg', ch = document.getElementById('eChart');
+  const e = (t, a, txt) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); if (txt != null) n.textContent = txt; ch.appendChild(n); return n; };
+  function drawChart(now) { ch.innerHTML = ''; const L = 70, R = 880, T = 16, B = 220, Y = v => B - v / 10 * (B - T), X = t => R - (now - t) / 60 * (R - L);
+    for (let v = 0; v <= 10; v += 2) { e('line', { x1: L, x2: R, y1: Y(v), y2: Y(v), stroke: 'var(--line)' }); e('text', { x: L - 10, y: Y(v) + 6, 'text-anchor': 'end', 'font-size': 17, fill: 'var(--ink-3)' }, v); }
+    chartPts.forEach((p, i) => { if (i && (p[2] < 1 || p[3])) e('rect', { x: X(chartPts[i - 1][0]), y: T, width: Math.max(0, X(p[0]) - X(chartPts[i - 1][0]) + .5), height: B - T, fill: p[3] ? '#C7321B' : '#1F9E97', opacity: p[3] ? .12 : .1 * (1 - p[2]) + .02 }); });
+    let d = ''; chartPts.forEach((p, i) => d += (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ' ' + Y(Math.min(10, p[1])).toFixed(1));
+    e('path', { d, fill: 'none', stroke: '#F2361C', 'stroke-width': 5, 'stroke-linejoin': 'round' });
+    e('line', { x1: L, x2: R, y1: B, y2: B, stroke: 'var(--ink)', 'stroke-width': 2 });
+    e('text', { x: (L + R) / 2, y: B + 40, 'text-anchor': 'middle', 'font-size': 18, 'font-weight': 700, fill: 'var(--ink)' }, 'Time → (last 60 seconds)');
+    e('text', { x: 18, y: (T + B) / 2, 'text-anchor': 'middle', 'font-size': 17, 'font-weight': 700, fill: 'var(--ink)', transform: `rotate(-90 18 ${(T + B) / 2})` }, 'ATP / 10 s'); }
+  // ---- controls ----
+  const o2s = document.getElementById('o2'), o2r = document.getElementById('o2r');
+  o2s.oninput = () => { o2Level = +o2s.value / 100; o2r.textContent = o2s.value + '%'; };
+  const pb = document.getElementById('poison');
+  pb.onclick = () => { poisoned = !poisoned; pb.textContent = poisoned ? '💊 Remove cyanide' : '☠ Add cyanide'; pumps[2].material.color.set(poisoned ? '#3f3f46' : PC[2]); pumps[2].material.emissive.set(poisoned ? '#7f1d1d' : '#000'); pumps[2].material.emissiveIntensity = poisoned ? .5 : 0; KIT.sfx[poisoned ? 'bad' : 'good'](); };
+  document.getElementById('eLabels').onchange = ev => { LB.visible = ev.target.checked; };
+  const views = [[[0, 2.5, 19], [0, 0, 0]], [[11, 6, 12], [3, -.5, 0]], [[-2, -1, 9], [-2, -.4, 0]], [[0, 16, 6], [0, 0, 0]]]; let vi = 0;
+  document.getElementById('eView').onclick = () => { vi = (vi + 1) % views.length; S.flyTo(...views[vi], 1.6); };
+  document.getElementById('eReset').onclick = () => { o2s.value = 100; o2s.oninput(); if (poisoned) pb.onclick(); atp = water = 0; chartPts.length = 0; atpWindow.length = 0; S.flyTo(...views[0], 1.2); vi = 0; };
+  if (reduce) say('Animations are reduced on this device: use the slider and buttons to explore.');
+}
+</script>
+</body>
+</html>

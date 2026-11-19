@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Mission 5 · Fermentation · Respiration</title>
+<meta name="description" content="Grade 11 AP Biology, cellular respiration Mission 5: anaerobic respiration, lactic acid and alcoholic fermentation.">
+<link rel="icon" href="assets/his-logo.png">
+<link rel="stylesheet" href="assets/resp.css">
+<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
+<script src="assets/resp.js" defer></script>
+<style>
+.bars{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:end;height:260px;padding:10px 6px 0;border-bottom:3px solid var(--ink)}
+.bars .col{display:flex;gap:6px;align-items:end;justify-content:center;height:100%}
+.bars .b{width:42%;border-radius:8px 8px 0 0;transition:height .8s cubic-bezier(.2,.8,.2,1);position:relative;min-height:2px}
+.bars .b span{position:absolute;top:-28px;left:50%;transform:translateX(-50%);font:900 18px/1 var(--sans);color:var(--ink)}
+.bars-x{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;text-align:center;font-weight:800;margin-top:8px}
+.racepick{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+.racepick label{display:flex;flex-direction:column;gap:6px;font-weight:900;padding:10px;border-radius:14px;border:3px solid var(--tc);background:color-mix(in srgb,var(--tc) 9%,var(--panel))}
+.racepick select{font:800 18px var(--sans);padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+@media (max-width:980px){.racepick{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body data-section="5">
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">Mission 5 · Session 5</p>
+    <h1>Fermentation: Plan B</h1>
+    <p class="lede">Kilometre 42. Lara sprints for the finish on the Beirut Corniche. Her heart and lungs cannot deliver oxygen fast enough, the electron transport chain slows, and her muscles switch to <b>Plan B</b>: respiration <b>without oxygen</b>.</p>
+    <div class="q move"><span class="qn">Everybody up!</span> Count your breaths for 30 s sitting still. Then do jumping jacks for 45 s and count again. Each team enters its average below.</div>
+  </div>
+  <div>
+    <div class="launch standup" style="margin:0 0 12px"><span class="ico">🧘</span><div><h3>1 · Resting breaths</h3><p>Sit still and count breaths for 30 seconds.</p></div><button class="btn gold" data-timer="30" data-timer-label="Count your breaths 🧘">⏱ 30 s</button></div>
+    <div class="launch standup" style="margin:0"><span class="ico">🤸</span><div><h3>2 · Jumping jacks!</h3><p>45 seconds as fast as you can. Then count breaths for 30 s.</p></div><button class="btn red" data-timer="45" data-timer-label="Jumping jacks! 🤸">⏱ 45 s</button></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="card">
+    <p class="sub">Class data: breaths per 30 seconds</p>
+    <table class="data" id="breathTable">
+      <thead><tr><th></th><th style="color:var(--t0)" class="tn0">Team 1</th><th style="color:var(--t1)" class="tn1">Team 2</th><th style="color:var(--t2)" class="tn2">Team 3</th><th style="color:var(--t3)" class="tn3">Team 4</th></tr></thead>
+      <tbody>
+        <tr><th>At rest</th><td><input type="number" min="0" max="80" data-r="0"></td><td><input type="number" min="0" max="80" data-r="1"></td><td><input type="number" min="0" max="80" data-r="2"></td><td><input type="number" min="0" max="80" data-r="3"></td></tr>
+        <tr><th>After exercise</th><td><input type="number" min="0" max="80" data-e="0"></td><td><input type="number" min="0" max="80" data-e="1"></td><td><input type="number" min="0" max="80" data-e="2"></td><td><input type="number" min="0" max="80" data-e="3"></td></tr>
+      </tbody>
+    </table>
+    <div class="bars" id="bars" aria-label="Bar chart of breaths at rest and after exercise for each team"></div>
+    <div class="bars-x" id="barsX"></div>
+    <p class="caption" style="text-align:center"><span style="color:#5E7186;font-weight:900">■</span> at rest &nbsp; <span style="color:#F2361C;font-weight:900">■</span> after exercise</p>
+    <div class="grid2">
+      <div class="q"><span class="qn">Q5.1</span> Copy the class data into your booklet. By how much did breathing rate rise?</div>
+      <div class="q"><span class="qn">Q5.2</span> Explain why breathing rate rises during exercise.
+        <div class="reveal"><button>Show answer</button><div class="ans">Working muscles need much more ATP, so they need more <b>oxygen</b> for aerobic respiration (the electron transport chain) and must get rid of more <b>CO<sub>2</sub></b>. Breathing stays fast after exercise to repay the <b>oxygen debt</b> and break down lactic acid.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="lactic">
+  <div class="part-title"><span class="badge" style="background:var(--lac)">Plan B · animals</span><h2 style="margin:0">Lactic acid fermentation</h2></div>
+  <div class="card">
+    <div class="grid2" style="align-items:center">
+      <svg viewBox="0 0 620 300" style="width:100%;height:auto" role="img" aria-label="Glycolysis then lactic acid fermentation, recycling NAD+">
+        <rect x="10" y="10" width="600" height="280" rx="24" fill="var(--cyto)"/>
+        <text x="30" y="44" font-size="20" font-weight="800" fill="var(--ink-3)">CYTOPLASM of a muscle cell · no oxygen</text>
+        <g transform="translate(80,150)"><polygon points="0,-38 33,-19 33,19 0,38 -33,19 -33,-19" fill="var(--glu)"/><text y="7" text-anchor="middle" font-size="19" font-weight="800" fill="#fff">glucose</text></g>
+        <path d="M120 150 H210" stroke="var(--ink-3)" stroke-width="5" marker-end="url(#fa)"/><text x="165" y="132" text-anchor="middle" font-size="17" font-weight="800" fill="var(--s-gly)">glycolysis</text>
+        <rect x="160" y="185" width="90" height="36" rx="18" fill="var(--atp)"/><text x="205" y="210" text-anchor="middle" font-size="18" font-weight="900" fill="#fff">2 ATP</text>
+        <rect x="215" y="128" width="130" height="44" rx="22" fill="var(--pyr)"/><text x="280" y="157" text-anchor="middle" font-size="19" font-weight="900" fill="#fff">2 pyruvate</text>
+        <path d="M345 150 H430" stroke="var(--ink-3)" stroke-width="5" marker-end="url(#fa)"/>
+        <rect x="435" y="128" width="160" height="44" rx="22" fill="var(--lac)"/><text x="515" y="157" text-anchor="middle" font-size="19" font-weight="900" fill="#fff">2 lactic acid</text>
+        <path d="M390 120 C 390 70, 140 70, 140 120" fill="none" stroke="var(--nad)" stroke-width="4" stroke-dasharray="8 7" marker-end="url(#fb)"/>
+        <text x="265" y="68" text-anchor="middle" font-size="18" font-weight="800" fill="var(--nad)">NAD⁺ recycled → glycolysis keeps going</text>
+        <text x="388" y="200" text-anchor="middle" font-size="17" font-weight="800" fill="var(--nadh)">NADH → NAD⁺</text>
+        <defs><marker id="fa" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink-3)"/></marker>
+        <marker id="fb" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--nad)"/></marker></defs>
+      </svg>
+      <div>
+        <div class="q" style="margin-top:0"><span class="qn">Q5.3</span> Complete lactic acid fermentation.
+          <div class="eqn" id="eq5a" style="margin-top:10px">
+            <select data-ans="pyruvate"><option value="">?</option><option>glucose</option><option>pyruvate</option><option>oxygen</option></select><span>+</span><span class="mol" style="color:var(--nadh)">NADH</span>
+            <span class="arrow">no O₂<b>⟶</b>&nbsp;</span>
+            <select data-ans="lactic acid"><option value="">?</option><option>ethanol</option><option>lactic acid</option><option>water</option></select><span>+</span>
+            <select data-ans="NAD⁺"><option value="">?</option><option>NAD⁺</option><option>ATP</option><option>CO₂</option></select>
+          </div>
+          <div class="row" style="margin-top:10px"><button class="btn" data-check-eq="eq5a">Check</button><span class="fb"></span></div></div>
+        <div class="q teaser"><span class="qn">Q5.4 Brain teaser:</span> Turning pyruvate into lactic acid makes <b>no</b> extra ATP. So why do muscle cells bother?
+          <div class="reveal"><button>Show answer</button><div class="ans">It turns NADH back into <b>NAD⁺</b>. Glycolysis needs NAD⁺ to keep running. Without fermentation the NAD⁺ would run out and even the 2 ATP from glycolysis would stop.</div></div></div>
+      </div>
+    </div>
+    <div class="q realw"><span class="qn">Q5.5 Real world:</span> Lara's legs burn in the final sprint, and she keeps breathing hard for minutes after crossing the line. Explain both.
+      <div class="reveal"><button>Show answer</button><div class="ans">Short of oxygen, her muscles made ATP by <b>lactic acid fermentation</b>; lactic acid built up and her muscles became acidic and tired (the burn). Afterwards she breathes hard to repay the <b>oxygen debt</b>: oxygen is needed to clear the lactic acid and restart full aerobic respiration.</div></div></div>
+  </div>
+</section>
+
+<section class="block" id="yeast">
+  <div class="part-title"><span class="badge" style="background:var(--eth)">Plan B · yeast</span><h2 style="margin:0">Alcoholic fermentation: the balloon race</h2></div>
+  <div class="card">
+    <p>Yeast (a fungus) ferments sugar into <b style="color:var(--eth)">ethanol</b> and <b style="color:var(--co2)">carbon dioxide</b>. Each flask holds yeast + sugar water with a balloon on top. <b>Each team picks a temperature</b>. Predict which balloon will inflate the most, then race!</p>
+    <div class="stage" id="yStage" style="aspect-ratio:16/8"><span class="hint">Drag to look around</span><div class="banner" id="yBanner">Pick your temperatures, then start the race</div>
+      <div class="hud"><span class="chip" id="yClock">0:00 of 2:00 (sped up)</span></div></div>
+    <div class="racepick" id="racepick"></div>
+    <div class="ctrl">
+      <button class="btn green big" id="race">🏁 Start the race</button>
+      <button class="btn ghost" id="yReset">⟲ Reset balloons</button>
+      <label class="switch">Sugar added<input type="checkbox" id="sugar" checked></label>
+    </div>
+    <div class="grid2">
+      <div class="q"><span class="qn">Q5.6</span> Complete alcoholic fermentation.
+        <div class="eqn" id="eq5b" style="margin-top:10px">
+          <span class="mol" style="color:var(--pyr)">pyruvate</span>
+          <span class="arrow">yeast, no O₂<b>⟶</b>&nbsp;</span>
+          <select data-ans="ethanol"><option value="">?</option><option>lactic acid</option><option>ethanol</option><option>glucose</option></select><span>+</span>
+          <select data-ans="carbon dioxide"><option value="">?</option><option>oxygen</option><option>water</option><option>carbon dioxide</option></select>
+        </div>
+        <div class="row" style="margin-top:10px"><button class="btn" data-check-eq="eq5b">Check</button><span class="fb"></span></div></div>
+      <div class="q"><span class="qn">Q5.7</span> Record each team's temperature and balloon size. Which temperature worked best? Why did the hottest flasks fail?
+        <div class="reveal"><button>Show answer</button><div class="ans">Around <b>35–40 °C</b> is best. In the cold the yeast's enzymes work slowly. Above about <b>55 °C</b> the enzymes are <b>denatured</b> and the yeast dies, so no CO<sub>2</sub> is made. With no sugar, nothing happens at any temperature: no glucose, no fermentation.</div></div></div>
+    </div>
+    <div class="q realw"><span class="qn">Q5.8 Real world:</span> Lebanese bakers leave man'oushe dough in a warm place before baking, and labneh is made by adding bacteria to milk. Use fermentation to explain each.
+      <div class="reveal"><button>Show answer</button><div class="ans"><b>Dough:</b> yeast ferments the sugars and makes CO<sub>2</sub> bubbles that make the dough rise; the ethanol evaporates in the hot oven, and warmth speeds up the yeast's enzymes. <b>Labneh/yogurt:</b> bacteria carry out <b>lactic acid fermentation</b>; the lactic acid makes the milk sour and thick.</div></div></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="card">
+    <p class="sub">Compare the two types of fermentation</p>
+    <div class="q" style="margin-top:0"><span class="qn">Q5.9</span> Sort each fact into the right box.</div>
+    <div class="io" data-src="io5"></div>
+    <script type="application/json" id="io5">{"bins":[["lac","Lactic acid fermentation"],["alc","Alcoholic fermentation"],["both","Both"]],
+      "items":[["makes lactic acid","m-lac","lac"],["makes ethanol","m-eth","alc"],["releases CO₂","m-co2","alc"],["human muscle cells","m-atp","lac"],["yeast","m-pyr","alc"],["recycles NAD⁺","m-nad","both"],["2 ATP per glucose","m-atp","both"],["no oxygen needed","m-o2","both"]]}</script>
+  </div>
+  <div class="card">
+    <p class="sub">3D: the ATP towers</p>
+    <div class="grid2" style="align-items:center">
+      <div class="stage" id="tStage" style="aspect-ratio:4/3"><span class="hint">Drag to look around</span></div>
+      <div>
+        <p>Each red coin is one ATP made from <b>one glucose</b>.</p>
+        <button class="btn big" id="build">🧱 Build the towers</button>
+        <div class="q"><span class="qn">Q5.10</span> How many times more ATP does aerobic respiration release from one glucose than fermentation? Why is that?
+          <div class="reveal"><button>Show answer</button><div class="ans">About 36 ÷ 2 = <b>18 times more</b>. Fermentation only uses glycolysis; the energy left in lactic acid or ethanol is never released. Aerobic respiration finishes the job in the Krebs cycle and electron transport chain.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="part-title"><span class="badge" style="background:var(--red)">Check</span><h2 style="margin:0">Game time</h2></div>
+  <div class="launch standup"><span class="ico">🧍</span><div><h3>Stand up · Sit down</h3><p>6 statements about fermentation.</p></div><button class="btn gold" data-standup="su5">▶ Play</button></div>
+  <div class="launch battle"><span class="ico">⚔️</span><div><h3>Quiz Battle: Fermentation</h3><p>5 rounds · 2 ATP per correct team · last round doubles.</p></div><button class="btn red" data-battle="b5">▶ Battle</button></div>
+  <script type="application/json" id="su5">{"title":"Fermentation","items":[
+    ["Fermentation needs oxygen.",false,"Fermentation is anaerobic: no oxygen needed."],
+    ["Lactic acid fermentation happens in human muscle cells.",true,"Especially during hard exercise."],
+    ["Yeast makes carbon dioxide when it ferments sugar.",true,"That is what blows up the balloon and makes dough rise."],
+    ["Fermentation releases as much ATP as aerobic respiration.",false,"Only 2 ATP per glucose, compared with about 36."],
+    ["Bread rises because yeast produces oxygen.",false,"The bubbles are carbon dioxide."],
+    ["Yogurt and labneh are made by fermentation.",true,"Bacteria carry out lactic acid fermentation."]]}</script>
+  <script type="application/json" id="b5">{"title":"Fermentation","points":2,"seconds":20,"qs":[
+    {"q":"What does lactic acid fermentation produce?","o":["Lactic acid","Ethanol + CO₂","Water","Oxygen"],"a":0,"why":"Pyruvate + NADH → lactic acid + NAD⁺."},
+    {"q":"Which organism makes ethanol and CO₂?","o":["Yeast","Human muscle","A plant leaf","A mitochondrion"],"a":0,"why":"Yeast carries out alcoholic fermentation."},
+    {"q":"How many ATP does fermentation release per glucose?","o":["2","4","32","36"],"a":0,"why":"Only the 2 net ATP from glycolysis."},
+    {"q":"What is the main purpose of fermentation?","o":["Recycle NAD⁺ so glycolysis can continue","Make oxygen","Make glucose","Make CO₂ for plants"],"a":0,"why":"No NAD⁺, no glycolysis, no ATP at all."},
+    {"q":"Yeast at 70 °C makes no CO₂ because …","o":["Its enzymes are denatured and it dies","There is too much sugar","There is too much oxygen","It starts photosynthesis"],"a":0,"why":"High temperatures denature enzymes.","double":true}]}</script>
+</section>
+
+<div class="mission-end" data-section="5">
+  <h2>Mission 5 complete?</h2>
+  <p>You know Plan A (aerobic, about 36 ATP) and Plan B (fermentation, 2 ATP). Time for the final showdown!</p>
+  <div class="row" style="justify-content:center"><button class="btn gold big" data-complete>✓ Mission complete</button><a class="btn big" href="6-showdown.html">Next: The Showdown ▶</a></div>
+  <div class="done-msg">⚡ Mission 5 powered up!</div>
+</div>
+<div class="footer"><img src="assets/his-logo.png" alt=""><div><b>Al-Hayat International School</b> · Grade 11 AP Biology · Cellular Respiration · Mission 5 of 6</div></div>
+</main>
+
+<script>
+/* ---------- breathing data bar chart ---------- */
+document.addEventListener('DOMContentLoaded', function () {
+  function ready() {
+    if (!window.KIT) return setTimeout(ready, 30);
+    var KEY = 'his.resp.breaths', t = KIT.teams(), d; try { d = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { d = {}; }
+    for (var i = 0; i < 4; i++) document.querySelectorAll('.tn' + i).forEach(function (el, _) { el.textContent = t[+el.className.slice(2)].name; });
+    var bars = document.getElementById('bars'), bx = document.getElementById('barsX');
+    bars.innerHTML = t.map(function (x, i) { return '<div class="col"><div class="b" data-b="r' + i + '" style="background:#5E7186;height:0"><span></span></div><div class="b" data-b="e' + i + '" style="background:#F2361C;height:0"><span></span></div></div>'; }).join('');
+    bx.innerHTML = t.map(function (x) { return '<span style="color:' + x.color + '">' + x.name + '</span>'; }).join('');
+    var ins = document.querySelectorAll('#breathTable input');
+    ins.forEach(function (inp) { var k = inp.dataset.r != null ? 'r' + inp.dataset.r : 'e' + inp.dataset.e; if (d[k] != null) inp.value = d[k];
+      inp.addEventListener('input', function () { d[k] = inp.value; try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) {} paint(); }); });
+    function paint() { var max = 10; Object.keys(d).forEach(function (k) { max = Math.max(max, +d[k] || 0); });
+      document.querySelectorAll('#bars .b').forEach(function (b) { var v = +d[b.dataset.b] || 0; b.style.height = (v / max * 92) + '%'; b.querySelector('span').textContent = v ? v : ''; }); }
+    paint();
+  }
+  ready();
+});
+</script>
+<script type="module">
+import { stage, THREE, label, pill, atom, mat, burst, COL, ease, seg, lerp, reduce } from './assets/scene3d.js';
+/* ================= yeast balloon race ================= */
+const TEAMC = ['#F2361C', '#D4A800', '#00A6D6', '#0068B0'];
+const temps = [5, 20, 35, 45, 55, 70];
+const pick = document.getElementById('racepick');
+const defaults = [20, 35, 55, 5];
+function teamNames() { return (window.KIT && KIT.teams()) ? KIT.teams().map(t => t.name) : ['Team 1', 'Team 2', 'Team 3', 'Team 4']; }
+pick.innerHTML = TEAMC.map((c, i) => `<label style="--tc:${c}"><span class="tn">Team ${i + 1}</span><select data-i="${i}">${temps.map(t => `<option value="${t}" ${t === defaults[i] ? 'selected' : ''}>${t} °C</option>`).join('')}</select></label>`).join('');
+setTimeout(() => { const n = teamNames(); pick.querySelectorAll('.tn').forEach((el, i) => el.textContent = n[i]); }, 300);
+function rate(T, sugar) { if (!sugar) return 0; let r = Math.exp(-((T - 36) ** 2) / (2 * 10 ** 2)); if (T > 45) r *= Math.max(0, (58 - T) / 13); return r; }
+const Y = stage(document.getElementById('yStage'), { pos: [0, 4.5, 15], target: [0, 1.6, 0], minD: 7, maxD: 26, lockVertical: true });
+if (Y) {
+  const { scene, camera } = Y;
+  const bench = new THREE.Mesh(new THREE.BoxGeometry(18, .3, 5), mat('#C8D3DE', { rough: .6, clear: 0 })); bench.position.y = -.15; scene.add(bench);
+  const prof = [[0, 0], [1.25, 0], [1.35, .1], [1.35, 1.4], [.55, 2.6], [.42, 3.4], [.5, 3.5]].map(p => new THREE.Vector2(p[0], p[1]));
+  const glassG = new THREE.LatheGeometry(prof, 48);
+  const liquidG = new THREE.LatheGeometry([[0, .05], [1.22, .05], [1.28, .12], [1.28, 1.3], [0, 1.3]].map(p => new THREE.Vector2(p[0], p[1])), 48);
+  const flasks = TEAMC.map((c, i) => {
+    const g = new THREE.Group(); g.position.x = -6.3 + i * 4.2; scene.add(g);
+    const glass = new THREE.Mesh(glassG, new THREE.MeshPhysicalMaterial({ color: '#e8f4ff', roughness: .05, transmission: 0, transparent: true, opacity: .28, side: THREE.DoubleSide, depthWrite: false, clearcoat: 1 }));
+    glass.renderOrder = 3; g.add(glass);
+    const liq = new THREE.Mesh(liquidG, mat('#E7C77B', { opacity: .75, depthWrite: false, clear: .3 })); g.add(liq);
+    const ringM = new THREE.Mesh(new THREE.TorusGeometry(1.45, .09, 10, 48), mat(c)); ringM.rotation.x = Math.PI / 2; ringM.position.y = .15; g.add(ringM);
+    const balloon = new THREE.Mesh(new THREE.SphereGeometry(1, 40, 28), mat(c, { opacity: .92, rough: .25, clear: 1 }));
+    balloon.position.y = 3.6; balloon.scale.set(.42, .3, .42); g.add(balloon);
+    const knot = new THREE.Mesh(new THREE.CylinderGeometry(.5, .55, .35, 24), mat(c)); knot.position.y = 3.45; g.add(knot);
+    const tl = label('20 °C', { bg: c, size: .55 }); tl.position.set(0, -.75, 1.6); g.add(tl);
+    const bub = []; for (let k = 0; k < 18; k++) { const b = new THREE.Mesh(new THREE.SphereGeometry(.06 + Math.random() * .05, 10, 8), new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: .8 })); b.position.set((Math.random() - .5) * 2, Math.random() * 1.2 + .1, (Math.random() - .5) * 2); b.visible = false; g.add(b); bub.push(b); }
+    return { g, balloon, tl, bub, vol: 0, T: 20 };
+  });
+  const banner = document.getElementById('yBanner'), clock = document.getElementById('yClock');
+  let racing = false, simT = 0; const RACE = 120, SPEED = 12; // 2 simulated minutes in 10 s
+  function syncTemps() { pick.querySelectorAll('select').forEach((s, i) => { const T = +s.value; flasks[i].T = T; const n = label(T + ' °C', { bg: TEAMC[i], size: .55 }); flasks[i].tl.material.map.dispose(); flasks[i].tl.material = n.material; flasks[i].tl.scale.copy(n.scale); }); }
+  pick.addEventListener('change', syncTemps); syncTemps();
+  const sugar = document.getElementById('sugar');
+  function reset() { racing = false; simT = 0; flasks.forEach(f => { f.vol = 0; }); banner.textContent = 'Pick your temperatures, then start the race'; clock.textContent = '0:00 of 2:00 (sped up)'; }
+  document.getElementById('yReset').onclick = reset;
+  document.getElementById('race').onclick = () => { reset(); syncTemps(); racing = true; banner.textContent = 'Fermenting… watch the CO₂ bubbles!'; KIT.sfx.go(); };
+  Y.tick((dt, t) => {
+    if (racing) { simT = Math.min(RACE, simT + dt * SPEED); const m = Math.floor(simT / 60), s = Math.floor(simT % 60); clock.textContent = m + ':' + ('0' + s).slice(-2) + ' of 2:00 (sped up)';
+      flasks.forEach(f => { f.vol += rate(f.T, sugar.checked) * dt * SPEED / RACE; });
+      if (simT >= RACE) { racing = false; const best = flasks.reduce((a, f, i) => f.vol > flasks[a].vol ? i : a, 0); const n = teamNames();
+        banner.textContent = flasks[best].vol > .02 ? `🏆 ${n[best]} wins at ${flasks[best].T} °C! (+3 ATP on the scoreboard)` : 'No balloon inflated. Was there any sugar?';
+        if (flasks[best].vol > .02) { KIT.award(best, 3, document.getElementById('yStage')); KIT.confetti(); KIT.sfx.good(); } } }
+    flasks.forEach((f, i) => {
+      const s = .42 + Math.sqrt(f.vol) * 1.25; f.balloon.scale.set(s, .3 + Math.sqrt(f.vol) * 1.5, s); f.balloon.position.y = 3.55 + (.3 + Math.sqrt(f.vol) * 1.5) * .85;
+      const r = racing ? rate(f.T, sugar.checked) : 0;
+      f.bub.forEach((b, k) => { b.visible = r > .03 && k < 18 * r + 1; if (b.visible) { b.position.y += dt * (1 + r * 2); if (b.position.y > 1.25) { b.position.y = .1; b.position.x = (Math.random() - .5) * 2; b.position.z = (Math.random() - .5) * 2; } } });
+      f.g.rotation.y = Math.sin(t * .5 + i) * .08;
+    });
+  });
+}
+/* ================= ATP towers ================= */
+const TS = stage(document.getElementById('tStage'), { pos: [0, 5.5, 19.5], target: [0, 3.9, 0], minD: 8, maxD: 30, autoRotate: true, autoRotateSpeed: .6 });
+if (TS) {
+  const { scene } = TS;
+  const coinG = new THREE.CylinderGeometry(.9, .9, .22, 32), coinM = mat(COL.atp, { rough: .3 });
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(5, 5, .2, 48), mat('#C8D3DE', { clear: 0 })); base.position.y = -.1; scene.add(base);
+  const towers = [{ x: -2, n: 36, title: 'Aerobic\n≈ 36 ATP', c: COL.glu, coins: [] }, { x: 2.4, n: 2, title: 'Fermentation\n2 ATP', c: '#8A63D2', coins: [] }];
+  towers.forEach(T => { const l = label(T.title, { bg: T.c, size: .7 }); l.position.set(T.x, -1.1, 1.5); scene.add(l); T.l = l; T.count = label('0', { color: '#10263F', size: .8 }); T.count.position.set(T.x, .9, 0); scene.add(T.count); });
+  let building = false, bt = 0;
+  document.getElementById('build').onclick = () => { towers.forEach(T => { T.coins.forEach(c => scene.remove(c)); T.coins = []; }); building = true; bt = 0; KIT.sfx.go(); };
+  function setCount(T, n) { const s = label(String(n), { color: '#10263F', size: .8 }); T.count.material.map.dispose(); T.count.material = s.material; T.count.scale.copy(s.scale); T.count.position.y = .5 + n * .24 + .6; }
+  TS.tick(dt => {
+    if (!building) return; bt += dt;
+    towers.forEach(T => { const want = Math.min(T.n, Math.floor(bt * 9)); while (T.coins.length < want) { const c = new THREE.Mesh(coinG, coinM); c.position.set(T.x, 6 + T.coins.length * .24, 0); c.userData.y = .12 + T.coins.length * .24; scene.add(c); T.coins.push(c); KIT.sfx.tick(); setCount(T, T.coins.length); } });
+    towers.forEach(T => T.coins.forEach(c => { c.position.y += (c.userData.y - c.position.y) * Math.min(1, dt * 10); }));
+    if (bt > 36 / 9 + 1) { building = false; KIT.sfx.good(); }
+  });
+}
+</script>
+</body>
+</html>

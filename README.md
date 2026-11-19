@@ -118,6 +118,28 @@ The teacher hub (`index.html`) has a card for it with a *Copy student link* butt
 
 ---
 
+## Grade 11 American Program: Cellular Respiration
+
+A stand-alone, six-session lesson in `grade-11-ap/respiration/`, built for the active board. Students follow along in a printed booklet whose question numbers match the pages.
+
+**Student link (mission hub):** https://bi-9527.github.io/myp-biology/grade-11-ap/respiration/
+
+| File | What it is |
+|---|---|
+| `index.html` | Mission hub: story (Lara's Beirut Marathon), team names, class progress meter, links to the six missions. |
+| `1-powerhouse.html` | Session 1: why we breathe, the equation, 3D mitochondrion (cut open, part hunt), 3D ATP battery. |
+| `2-glycolysis.html` | Session 2: 3D cell fly-in and glucose split, human-glycolysis role play. |
+| `3-krebs.html` | Session 3: dive into the matrix, 3D Krebs wheel releasing CO₂, limewater breath test. |
+| `4-etc.html` | Session 4: 3D inner membrane, electron hops, H⁺ pumping, ATP synthase turbine, oxygen slider, cyanide, live graph. |
+| `5-fermentation.html` | Session 5: jumping-jack breathing lab, lactic acid and alcoholic fermentation, 3D yeast balloon race, 3D ATP towers. |
+| `6-showdown.html` | Session 6: 3D chloroplast–mitochondrion cycle, sorting games, 10-round grand battle, CER, 3D winners' podium. |
+| `respiration-11AP.pdf` / `.tex` | 9-page student booklet and its XeLaTeX source (needs the Inter font and `assets/his-logo.png`). |
+| `assets/` | Shared styles and classroom kit (`resp.css`, `resp.js`), 3D helpers (`scene3d.js`), and three.js r160 stored locally so no CDN is needed. |
+
+Every page has Stand-up/Sit-down quizzes, team Quiz Battles (answers shuffled each time), a timer, a random team picker and a team ATP scoreboard. Scores and mission progress are saved in the board computer's browser, so they carry over from session to session.
+
+---
+
 ## Student research: Biodegradation & Sustainable Development staff interview
 
 A stand-alone online interview for staff, with a live Google Sheets backend and an analysis dashboard. Folder: `sustainability-interview/` (not part of the MYP 2 tabs or locks). Full setup guide: `sustainability-interview/README.md`.

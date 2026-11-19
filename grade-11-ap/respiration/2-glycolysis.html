@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Mission 2 · Glycolysis · Respiration</title>
+<meta name="description" content="Grade 11 AP Biology, cellular respiration Mission 2: glycolysis in the cytoplasm, glucose split into two pyruvates.">
+<link rel="icon" href="assets/his-logo.png">
+<link rel="stylesheet" href="assets/resp.css">
+<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
+<script src="assets/resp.js" defer></script>
+</head>
+<body data-section="2">
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">Mission 2 · Session 2</p>
+    <h1>Glycolysis: splitting sugar</h1>
+    <p class="lede"><b>Glyco</b> = sugar, <b>lysis</b> = splitting. Lara's breakfast has been digested into <b style="color:var(--glu)">glucose</b>, carried by her blood into a leg-muscle cell. Stage 1 begins in the <b>cytoplasm</b>, before glucose ever reaches a mitochondrion.</p>
+    <div class="q"><span class="qn">Q2.1</span> Where in the cell does glycolysis happen? Watch the first step of the animation, then write it in your booklet.
+      <div class="reveal"><button>Show answer</button><div class="ans">In the <b>cytoplasm</b>, the fluid outside the mitochondria. Glycolysis does <b>not</b> need oxygen.</div></div></div>
+  </div>
+  <div class="launch role" style="margin:0">
+    <span class="ico">🎭</span>
+    <div><h3>Act it out: human glucose</h3><p>10 students become carbons, ATP and NAD⁺. Split the sugar in front of the class!</p></div>
+    <button class="btn" data-roles="roles2">▶ Show roles</button>
+  </div>
+  <script type="application/json" id="roles2">{"title":"Human glycolysis","intro":"The front of the classroom is the cytoplasm. The door is the way into the mitochondrion.",
+   "roles":[["6 × Carbon","Hold hands in a ring. You are one glucose molecule (6 carbons).","#2E8B47"],["2 × ATP","Each carries one phosphate card “P”. You pay to start the reaction.","#F2361C"],["2 × NAD⁺","Empty energy carriers. Wait for a hydrogen card.","#8A63D2"],["4 × new ATP","Stay seated until the glucose has been split.","#F2361C"]],
+   "steps":["The 6 carbons form a ring in the cytoplasm.","The 2 ATP hand their “P” to the carbons at each end. They are now ADP: sit down.","The ring breaks into two lines of 3 carbons.","The 4 new ATP stand up, and each NAD⁺ takes a hydrogen card to become NADH.","Each 3-carbon line is now a pyruvate. Walk to the door: the mitochondrion is waiting!"],"seconds":180}</script>
+</section>
+
+<section class="block" id="anim">
+  <div class="part-title"><span class="badge" style="background:var(--s-gly)">3D lab</span><h2 style="margin:0">Watch one glucose split</h2></div>
+  <div class="anim-wrap">
+    <div class="card" style="margin-top:0">
+      <div class="stage" id="gStage"><span class="hint">Drag to look around</span>
+        <div class="hud"><span class="chip" id="hSpent">ATP spent: 0</span><span class="chip" id="hMade">ATP made: 0</span><span class="chip" id="hNet">Net ATP: 0</span><span class="chip" id="hNadh">NADH: 0</span></div>
+        <div class="banner" id="gBanner"></div></div>
+      <div class="ctrl">
+        <button class="btn" id="gPlay">⏸ Pause</button>
+        <button class="btn ghost" id="gNext">Next step ▶</button>
+        <button class="btn ghost" id="gRestart">⟲ Restart</button>
+        <label class="switch">Slow<input type="checkbox" id="gSlow"></label>
+      </div>
+    </div>
+    <ol class="steps" id="gSteps">
+      <li><b>1.</b> <span class="mol" style="color:var(--glu)">Glucose</span> (6 carbons) enters the <b>cytoplasm</b>.</li>
+      <li><b>2.</b> <b>2 ATP are spent</b> to activate the glucose (like a match lighting a fire).</li>
+      <li><b>3.</b> The glucose is <b>split</b> into two 3-carbon halves.</li>
+      <li><b>4.</b> Energy is captured: <b>4 <span style="color:var(--atp)">ATP</span></b> and <b>2 <span style="color:var(--nadh)">NADH</span></b> are made. Each half becomes <span class="mol" style="color:var(--pyr)">pyruvate</span>.</li>
+      <li><b>5.</b> If oxygen is present, the 2 pyruvates move into the <b>mitochondrion</b>.</li>
+    </ol>
+  </div>
+  <div class="q"><span class="qn">Q2.2</span> Put the steps of glycolysis in order. Tap them 1 → 5.
+    <ol class="order" data-src="ord2"></ol>
+    <script type="application/json" id="ord2">["Glucose (6 carbons) enters the cytoplasm.","2 ATP are spent to activate the glucose.","The glucose is split into two 3-carbon halves.","4 ATP and 2 NADH are made; each half becomes pyruvate.","The 2 pyruvates move into the mitochondrion (if oxygen is present)."]</script>
+  </div>
+</section>
+
+<section class="block">
+  <div class="card">
+    <p class="sub">The reaction</p>
+    <div class="q" style="margin-top:0"><span class="qn">Q2.3</span> Complete the summary of glycolysis.
+      <div class="eqn" id="eq2" style="margin-top:10px">
+        <select data-ans="glucose"><option value="">?</option><option>oxygen</option><option>glucose</option><option>pyruvate</option></select>
+        <span class="arrow">cytoplasm<b>⟶</b>&nbsp;</span>
+        <span>2</span><select data-ans="pyruvate"><option value="">?</option><option>pyruvate</option><option>glucose</option><option>carbon dioxide</option></select><span>+</span>
+        <span>2</span><select data-ans="ATP"><option value="">?</option><option>ADP</option><option>ATP</option><option>O₂</option></select><span style="font-size:.7em;color:var(--ink-3)">(net)</span><span>+</span>
+        <span>2</span><select data-ans="NADH"><option value="">?</option><option>NAD⁺</option><option>NADH</option><option>H₂O</option></select>
+      </div>
+      <div class="row" style="margin-top:10px"><button class="btn" data-check-eq="eq2">Check</button><span class="fb"></span></div>
+    </div>
+    <div class="grid2">
+      <div class="q teaser"><span class="qn">Q2.4 Brain teaser:</span> Glycolysis is like opening a shop: you spend money before you earn any. It spends 2 ATP and makes 4 ATP. What is the profit (net gain)?
+        <div class="reveal"><button>Show answer</button><div class="ans">4 made − 2 spent = <b>2 ATP net gain</b> per glucose.</div></div></div>
+      <div class="q"><span class="qn">Q2.5</span> Carbon count: glucose has 6 carbons. How many carbons does each pyruvate have? Were any carbons lost?
+        <div class="reveal"><button>Show answer</button><div class="ans">Each pyruvate has <b>3</b> carbons. 2 × 3 = 6, so <b>no carbon is lost</b> in glycolysis: no CO<sub>2</sub> is released yet. That happens in Mission 3.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="card">
+    <p class="sub">Inputs and outputs</p>
+    <div class="q" style="margin-top:0"><span class="qn">Q2.6</span> Drag each molecule into the correct box (or tap a molecule, then tap a box).</div>
+    <div class="io" data-src="io2"></div>
+    <script type="application/json" id="io2">{"bins":[["in","Inputs (used)"],["out","Outputs (made)"],["no","Not part of glycolysis"]],
+      "items":[["glucose","m-glu","in"],["2 ATP (spent)","m-atp","in"],["2 NAD⁺","m-nad","in"],["2 pyruvate","m-pyr","out"],["4 ATP (made)","m-atp","out"],["2 NADH","m-nadh","out"],["oxygen","m-o2","no"],["carbon dioxide","m-co2","no"]]}</script>
+    <div class="grid2">
+      <div class="q teaser"><span class="qn">Q2.7 Brain teaser:</span> Glycolysis happens in almost every living thing on Earth, from bacteria to humans, and it needs no oxygen. What does this suggest about how old it is?
+        <div class="reveal"><button>Show answer</button><div class="ans">It is probably one of the <b>oldest</b> energy pathways. Early Earth had almost no oxygen, so the first cells needed a way to get ATP without it. All their descendants kept glycolysis.</div></div></div>
+      <div class="q realw"><span class="qn">Q2.8 Real world:</span> Why can't Lara run a marathon using glycolysis alone?
+        <div class="reveal"><button>Show answer</button><div class="ans">Glycolysis gives only <b>2 ATP</b> per glucose. Aerobic respiration gives about <b>36</b>. Using glycolysis alone, she would need about 18 times more glucose for the same energy. Most of her ATP must come from the mitochondria.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="part-title"><span class="badge" style="background:var(--red)">Check</span><h2 style="margin:0">Game time</h2></div>
+  <div class="launch standup"><span class="ico">🧍</span><div><h3>Stand up · Sit down</h3><p>5 statements about glycolysis.</p></div><button class="btn gold" data-standup="su2">▶ Play</button></div>
+  <div class="launch battle"><span class="ico">⚔️</span><div><h3>Quiz Battle: Glycolysis</h3><p>5 rounds · 2 ATP per correct team · last round doubles.</p></div><button class="btn red" data-battle="b2">▶ Battle</button></div>
+  <script type="application/json" id="su2">{"title":"Glycolysis","items":[
+    ["Glycolysis happens inside the mitochondria.",false,"It happens in the cytoplasm."],
+    ["Glycolysis needs oxygen.",false,"It works with or without oxygen."],
+    ["One glucose is split into two pyruvates.",true,"6 carbons → 2 × 3 carbons."],
+    ["Glycolysis makes a net gain of 4 ATP.",false,"4 are made but 2 are spent, so the net gain is 2."],
+    ["Glycolysis also makes NADH.",true,"2 NADH carry energy to the electron transport chain."]]}</script>
+  <script type="application/json" id="b2">{"title":"Glycolysis","points":2,"seconds":20,"qs":[
+    {"q":"Where does glycolysis happen?","o":["Cytoplasm","Matrix","Inner membrane","Nucleus"],"a":0,"why":"Glycolysis takes place in the cytoplasm."},
+    {"q":"How many carbon atoms are in one pyruvate?","o":["2","3","6","12"],"a":1,"why":"Glucose (6 C) splits into two pyruvates of 3 C each."},
+    {"q":"What is the net gain of ATP from glycolysis, per glucose?","o":["1","2","4","36"],"a":1,"why":"4 made − 2 spent = 2."},
+    {"q":"Besides ATP, which energy carrier does glycolysis make?","o":["NADH","Oxygen","Chlorophyll","Glucose"],"a":0,"why":"2 NAD⁺ pick up hydrogen and energy to become 2 NADH."},
+    {"q":"Glycolysis can run without oxygen. Why does that matter?","o":["Cells can still make a little ATP when oxygen runs out","It makes more ATP than the ETC","It produces oxygen","It happens only in plants"],"a":0,"why":"It is the cell's back-up ATP supply: see Mission 5, fermentation.","double":true}]}</script>
+</section>
+
+<div class="mission-end" data-section="2">
+  <h2>Mission 2 complete?</h2>
+  <p>Glucose is split and 2 pyruvates are on their way. Next: enter the mitochondrion and meet the Krebs cycle.</p>
+  <div class="row" style="justify-content:center"><button class="btn gold big" data-complete>✓ Mission complete</button><a class="btn big" href="3-krebs.html">Next: Krebs cycle ▶</a></div>
+  <div class="done-msg">⚡ Mission 2 powered up!</div>
+</div>
+<div class="footer"><img src="assets/his-logo.png" alt=""><div><b>Al-Hayat International School</b> · Grade 11 AP Biology · Cellular Respiration · Mission 2 of 6</div></div>
+</main>
+
+<script type="module">
+import { stage, THREE, mitochondrion, label, pill, atom, bond, mat, burst, particles, COL, ease, seg, lerp, reduce } from './assets/scene3d.js';
+const S = stage(document.getElementById('gStage'), { pos: [0, 7, 26], minD: 4, maxD: 40 });
+if (S) {
+  const { scene, camera } = S;
+  // ---- the cell ----
+  const cell = new THREE.Mesh(new THREE.SphereGeometry(10, 64, 40), mat('#9cc7ea', { opacity: .16, side: THREE.DoubleSide, depthWrite: false, clear: 1 }));
+  cell.renderOrder = 1; scene.add(cell);
+  const cellL = label('cell membrane', { size: .9 }); cellL.position.set(-9.2, -6.2, 2); scene.add(cellL);
+  const cytoL = label('CYTOPLASM', { bg: 'rgba(16,38,63,.85)', size: .9 }); cytoL.position.set(-3.5, -4.2, 3); scene.add(cytoL);
+  const nuc = new THREE.Mesh(new THREE.SphereGeometry(2.4, 40, 28), mat('#8A63D2', { opacity: .55, depthWrite: false })); nuc.position.set(-6.2, 3.6, -5); scene.add(nuc);
+  const nucL = label('nucleus', { size: .7 }); nucL.position.set(-6.2, 6.6, -5); scene.add(nucL);
+  const mitos = [[5.2, -2.3, -1, .4], [3.2, 3.8, -3.5, .55], [-2.6, -5.2, -2, .9], [6.4, 2.6, 1.5, -.3]].map(p => {
+    const m = mitochondrion({ folds: 7 }); m.group.scale.setScalar(.38); m.group.position.set(p[0], p[1], p[2]); m.group.rotation.z = p[3]; scene.add(m.group); return m; });
+  const mitoL = label('mitochondrion', { size: .7 }); mitoL.position.set(5.6, -4, -1); scene.add(mitoL);
+  const fog = particles(260, [17, 15, 15], '#7aa9d6', .07); scene.add(fog);
+
+  // ---- glucose ring ----
+  const glu = new THREE.Group(); scene.add(glu);
+  const C = [], R = 1.25;
+  for (let i = 0; i < 6; i++) {
+    const a = Math.PI / 2 + i * Math.PI / 3; const s = atom(COL.glu, .42, { ei: 0 }); s.position.set(Math.cos(a) * R, Math.sin(a) * R, 0);
+    s.userData.home = s.position.clone(); glu.add(s); C.push(s);
+    const n = label(String(i + 1), { size: .38, color: '#fff', stroke: 'rgba(0,0,0,0)' }); n.position.set(0, 0, .5); s.add(n);
+  }
+  const bonds = []; const mkB = (i, j) => { const b = bond(C[i].position, C[j].position, .09); glu.add(b); bonds.push({ b, i, j }); };
+  for (let i = 0; i < 6; i++) mkB(i, (i + 1) % 6);
+  const gluL = label('glucose · 6 carbons', { bg: COL.glu, size: .62 }); scene.add(gluL);
+  // halves: carbons 0,1,2 (left) and 3,4,5 (right); crossing bonds 2-3 and 5-0
+  const LEFT = [0, 1, 2], RIGHT = [5, 4, 3];
+  // chains for pyruvate (straight lines)
+  const chainL = [[-3, 1.05, 0], [-3, 0, 0], [-3, -1.05, 0]], chainR = [[3, 1.05, 0], [3, 0, 0], [3, -1.05, 0]];
+  const phos = [atom(COL.P, .26), atom(COL.P, .26)]; phos.forEach(p => { p.visible = false; glu.add(p); });
+  const pyrL = [label('pyruvate · 3 C', { bg: COL.pyr, size: .6 }), label('pyruvate · 3 C', { bg: COL.pyr, size: .6 })]; pyrL.forEach(l => { l.visible = false; scene.add(l); });
+  // tokens
+  const tok = (t, c) => { const p = pill(t, c, .62); p.visible = false; scene.add(p); return p; };
+  const atpIn = [tok('ATP', COL.atp), tok('ATP', COL.atp)];
+  const adpOut = [tok('ADP', COL.adp), tok('ADP', COL.adp)];
+  const atpOut = [0, 1, 2, 3].map(() => tok('ATP', COL.atp));
+  const nadIn = [tok('NAD⁺', COL.nad), tok('NAD⁺', COL.nad)];
+  const nadhOut = [tok('NADH', COL.nadh), tok('NADH', COL.nadh)];
+  const banner = document.getElementById('gBanner');
+  const steps = [...document.querySelectorAll('#gSteps li')];
+  const hud = { s: document.getElementById('hSpent'), m: document.getElementById('hMade'), n: document.getElementById('hNet'), d: document.getElementById('hNadh') };
+  const STEP = 3.6, N = 5; let t = 0, playing = !reduce, slow = false, lastPh = -1; const bursts = [];
+  const TXT = ['Glucose enters the cytoplasm', 'Spend 2 ATP to activate glucose', 'Split! 6 carbons → 3 + 3', 'Payday: 4 ATP + 2 NADH, two pyruvates', 'Pyruvates head into the mitochondrion'];
+  const WIDE = [[0, 7, 26], [0, 0, 0]], CLOSE = [[0, 1.2, 8.6], [0, .2, 0]];
+  const target = mitos[0].group.position;
+  function setHud(spent, made, nadh) { hud.s.textContent = 'ATP spent: ' + spent; hud.m.textContent = 'ATP made: ' + made; hud.n.textContent = 'Net ATP: ' + (made - spent >= 0 ? '+' : '') + (made - spent); hud.d.textContent = 'NADH: ' + nadh; }
+  function place(obj, from, to, k) { obj.position.set(lerp(from[0], to[0], k), lerp(from[1], to[1], k), lerp(from[2], to[2], k)); }
+  function draw() {
+    const ph = Math.min(N - 1, Math.floor(t / STEP));
+    if (ph !== lastPh) {
+      steps.forEach((li, i) => li.classList.toggle('now', i === ph)); banner.textContent = (ph + 1) + ' · ' + TXT[ph]; banner.style.opacity = 1;
+      if (ph === 0 && lastPh !== -1) S.flyTo(...WIDE, 1);
+      if (ph === 4) S.flyTo([4, 4, 20], [2.5, -1, 0], 2.2);
+      if (ph === 2) bursts.push(burst(scene, new THREE.Vector3(0, 0, .3), '#F8D000', 2));
+      if (ph === 3) KIT.sfx.coin(); else if (ph > 0) KIT.sfx.whoosh();
+      lastPh = ph;
+    }
+    const k1 = ease(seg(t, 0, STEP * .75));
+    // step 1: glucose enters from outside the cell; camera flies in
+    glu.position.set(lerp(-15, 0, k1), lerp(3, 0, k1), 0); glu.rotation.z = (1 - k1) * 3;
+    if (t > STEP * .55 && t < STEP * .6 && !S._flewIn) { S._flewIn = 1; S.flyTo(...CLOSE, 1.8); }
+    if (t < STEP * .5) S._flewIn = 0;
+    // step 2: ATP in → ADP out, phosphates on carbons 1 and 6 (index 0 and 5)
+    const k2a = ease(seg(t, STEP, STEP * 1.6)), k2b = ease(seg(t, STEP * 1.6, STEP * 2));
+    atpIn.forEach((p, i) => { p.visible = t >= STEP && k2a < 1; const tgt = i ? C[5].position : C[0].position; place(p, [i ? 4 : -4, 3, 1], [tgt.x + glu.position.x, tgt.y + 1.0, .6], k2a); });
+    adpOut.forEach((p, i) => { p.visible = k2a >= 1 && k2b < 1; place(p, [i ? 1.1 : -1.1, 2.2, .6], [i ? 5 : -5, 3.8, -1], k2b); p.material.opacity = 1 - k2b; });
+    phos.forEach((p, i) => { p.visible = k2a >= 1; });
+    const glow = t >= STEP * 1.6 && t < STEP * 3 ? .4 + .3 * Math.sin(t * 8) : 0;
+    C.forEach(c => { c.material.emissive.set('#F8D000'); c.material.emissiveIntensity = glow; });
+    // step 3+4: split, then straighten into chains
+    const k3 = ease(seg(t, STEP * 2, STEP * 2.8)), k4 = ease(seg(t, STEP * 3, STEP * 3.6));
+    LEFT.forEach((ci, j) => { const h = C[ci].userData.home; const mid = [h.x - 1.7, h.y, 0]; const c = chainL[j];
+      C[ci].position.set(lerp(lerp(h.x, mid[0], k3), c[0], k4), lerp(h.y, c[1], k4), 0); });
+    RIGHT.forEach((ci, j) => { const h = C[ci].userData.home; const mid = [h.x + 1.7, h.y, 0]; const c = chainR[j];
+      C[ci].position.set(lerp(lerp(h.x, mid[0], k3), c[0], k4), lerp(h.y, c[1], k4), 0); });
+    // bonds follow atoms; crossing bonds vanish on split
+    bonds.forEach(({ b, i, j }) => { const cross = (LEFT.includes(i) !== LEFT.includes(j)); b.visible = !(cross && k3 > .05);
+      const a = C[i].position, c = C[j].position, d = new THREE.Vector3().subVectors(c, a), len = d.length();
+      b.position.copy(a).addScaledVector(d, .5); b.scale.set(1, len / b.geometry.parameters.height, 1); b.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize()); });
+    phos[0].position.copy(C[0].position).add(new THREE.Vector3(0, .62, .1)); phos[1].position.copy(C[5].position).add(new THREE.Vector3(0, .62, .1));
+    const pyrCol = new THREE.Color(COL.glu).lerp(new THREE.Color(COL.pyr), k4);
+    C.forEach(c => c.material.color.copy(pyrCol));
+    phos.forEach(p => { p.material.transparent = true; p.material.opacity = 1 - k4; });
+    gluL.visible = t < STEP * 2.2; gluL.position.set(glu.position.x, glu.position.y + 2.4, 0);
+    // step 4 payouts
+    const k4b = ease(seg(t, STEP * 3.2, STEP * 3.95));
+    atpOut.forEach((p, i) => { p.visible = t >= STEP * 3.2 && t < STEP * 4.4; const side = i < 2 ? -1 : 1; place(p, [side * 3, 0, 0], [side * (4.6 + (i % 2) * 1.7), 2.4 + (i % 2) * .9, .8], k4b); });
+    nadIn.forEach((p, i) => { const side = i ? 1 : -1; const k = ease(seg(t, STEP * 3, STEP * 3.4)); p.visible = t >= STEP * 3 && k < 1; place(p, [side * 7, -3.6, 0], [side * 3, -1.9, .6], k); });
+    nadhOut.forEach((p, i) => { const side = i ? 1 : -1; p.visible = t >= STEP * 3.4 && t < STEP * 4.4; place(p, [side * 3, -1.9, .6], [side * 5.2, -2.6, .8], k4b); });
+    pyrL.forEach((l, i) => { l.visible = t >= STEP * 3.3; });
+    // step 5: pyruvates travel to the mitochondrion
+    const k5 = ease(seg(t, STEP * 4, STEP * 5));
+    const off = new THREE.Vector3(lerp(0, target.x, k5), lerp(0, target.y, k5), lerp(0, target.z + .6, k5));
+    if (t >= STEP * 4) { glu.position.copy(off); glu.scale.setScalar(lerp(1, .32, k5)); } else glu.scale.setScalar(1);
+    pyrL[0].position.set(glu.position.x - 3 * glu.scale.x, glu.position.y + 1.9 * glu.scale.x + .3, .6);
+    pyrL[1].position.set(glu.position.x + 3 * glu.scale.x, glu.position.y + 1.9 * glu.scale.x + .3, .6);
+    pyrL.forEach(l => l.material.opacity = 1 - seg(t, STEP * 4.7, STEP * 5));
+    const spent = t >= STEP * 1.6 ? 2 : 0, made = t >= STEP * 3.6 ? 4 : 0, nadh = t >= STEP * 3.6 ? 2 : 0; setHud(spent, made, nadh);
+  }
+  S.tick((dt, tt) => {
+    fog.rotation.y += dt * .02; mitos.forEach((m, i) => m.group.rotation.y += dt * (.15 + i * .03));
+    for (let i = bursts.length - 1; i >= 0; i--) if (!bursts[i].update(dt, camera)) bursts.splice(i, 1);
+    if (playing) { t += dt * (slow ? .5 : 1); if (t >= STEP * N + 1.5) { t = 0; lastPh = -1; S.flyTo(...WIDE, 1.2); } }
+    draw();
+  });
+  const pb = document.getElementById('gPlay');
+  const setPlay = v => { playing = v; pb.textContent = v ? '⏸ Pause' : '▶ Play'; };
+  pb.onclick = () => setPlay(!playing);
+  document.getElementById('gRestart').onclick = () => { t = 0; lastPh = -1; S.flyTo(...WIDE, 1); setPlay(true); };
+  document.getElementById('gNext').onclick = () => { setPlay(false); let ph = Math.floor(t / STEP) + 1; if (ph >= N) { ph = 0; S.flyTo(...WIDE, 1); } t = ph * STEP + STEP * .98; if (ph >= 1 && ph < 4) S.flyTo(...CLOSE, 1.2); };
+  document.getElementById('gSlow').onchange = e => { slow = e.target.checked; };
+  if (reduce) { t = STEP * 3.98; S.camera.position.set(...CLOSE[0]); setPlay(false); }
+}
+</script>
+</body>
+</html>

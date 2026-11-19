@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Cellular Respiration · Mission Hub</title>
+<meta name="description" content="Al-Hayat International School · Grade 11 American Program Biology. Cellular respiration in six interactive 3D missions for the active board, with team scoring and a printable student booklet.">
+<link rel="icon" href="assets/his-logo.png">
+<link rel="stylesheet" href="assets/resp.css">
+<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
+<script src="assets/resp.js" defer></script>
+</head>
+<body data-section="0">
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">Grade 11 · American Program · Biology</p>
+    <h1>Mission: Power the Cell</h1>
+    <p class="lede">Lara is running the <b>Beirut Marathon</b>: 42 km through the city. Every step costs her muscles energy in the form of <b style="color:var(--atp)">ATP</b>. Where does it come from?</p>
+    <p>Your teams are the cell's energy engineers. Over six missions you will follow one molecule of <b style="color:var(--glu)">glucose</b> from Lara's breakfast man'oushe all the way to ATP, and earn ATP points for your team on the way.</p>
+    <div class="row" style="margin-top:14px">
+      <a class="btn big" href="1-powerhouse.html">▶ Start Mission 1</a>
+      <a class="btn ghost big" href="respiration-11AP.pdf">📄 Student booklet (PDF)</a>
+    </div>
+  </div>
+  <div>
+    <div class="stage" id="heroStage"><span class="hint">Drag to spin the mitochondrion</span></div>
+    <p class="caption">A mitochondrion, the cell's power station. You will open it up in Mission 1.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="card">
+    <p class="sub">Class power level</p>
+    <div class="power" id="power"><i style="width:0"></i><span>0 of 6 missions complete</span></div>
+  </div>
+  <div class="missions" id="missions">
+    <a class="mcard" href="1-powerhouse.html" style="--mc:var(--s-pow)" data-m="1">
+      <span class="num">Mission 1 · Session 1</span><h3>The Powerhouse</h3>
+      <p>Why we breathe, the respiration equation, a 3D mitochondrion to cut open, and ATP, the cell's rechargeable battery.</p>
+      <p>🏃 Jog test · 🧊 3D explorer · 🔎 Part hunt · 🧍 Stand-up · ⚔️ Battle</p><span class="st">Not started</span></a>
+    <a class="mcard" href="2-glycolysis.html" style="--mc:var(--s-gly)" data-m="2">
+      <span class="num">Mission 2 · Session 2</span><h3>Glycolysis: splitting sugar</h3>
+      <p>In the cytoplasm, glucose (6 carbons) is split into two pyruvates. Spend 2 ATP, earn 4.</p>
+      <p>🧊 3D sugar split · 🎭 Human glucose · 🧩 Inputs and outputs · ⚔️ Battle</p><span class="st">Not started</span></a>
+    <a class="mcard" href="3-krebs.html" style="--mc:var(--s-kre)" data-m="3">
+      <span class="num">Mission 3 · Session 3</span><h3>The Krebs cycle</h3>
+      <p>Inside the matrix, carbon leaves as the CO<sub>2</sub> you breathe out, and energy is loaded onto NADH and FADH<sub>2</sub>.</p>
+      <p>🧊 3D cycle wheel · 🫧 Limewater breath test · 🧍 Stand-up · ⚔️ Battle</p><span class="st">Not started</span></a>
+    <a class="mcard" href="4-etc.html" style="--mc:var(--s-etc)" data-m="4">
+      <span class="num">Mission 4 · Session 4</span><h3>The electron transport chain</h3>
+      <p>On the inner membrane, electrons are passed down a chain, H<sup>+</sup> pumps up, ATP synthase spins and oxygen catches the electrons.</p>
+      <p>🧊 3D ATP turbine · 🎭 Bucket brigade · 🌫️ Oxygen slider · ⚔️ Battle</p><span class="st">Not started</span></a>
+    <a class="mcard" href="5-fermentation.html" style="--mc:var(--s-fer)" data-m="5">
+      <span class="num">Mission 5 · Session 5</span><h3>Fermentation: Plan B</h3>
+      <p>No oxygen? Muscles make lactic acid and yeast makes alcohol and CO<sub>2</sub>. Only 2 ATP instead of 36.</p>
+      <p>🤸 Jumping-jack lab · 🧊 3D yeast balloon · 🧱 ATP towers · ⚔️ Battle</p><span class="st">Not started</span></a>
+    <a class="mcard" href="6-showdown.html" style="--mc:var(--s-sho)" data-m="6">
+      <span class="num">Mission 6 · Session 6</span><h3>The Showdown</h3>
+      <p>Respiration and photosynthesis as one cycle, the grand quiz battle, advice for Lara's coach, and the 3D winners' podium.</p>
+      <p>🧊 3D carbon cycle · 🗂️ Stage sort · ⚔️ Grand battle · 🏆 Podium</p><span class="st">Not started</span></a>
+  </div>
+</section>
+
+<section class="block">
+  <div class="grid2">
+    <div class="card">
+      <p class="sub">Teams</p>
+      <p>Name the four teams. Scores are kept on <b>this computer</b> across all six missions, so the class can see who is ahead every lesson.</p>
+      <div class="teamsetup" id="teamsetup">
+        <label style="--tc:var(--t0)">Team 1<input data-t="0" maxlength="18"></label>
+        <label style="--tc:var(--t1)">Team 2<input data-t="1" maxlength="18"></label>
+        <label style="--tc:var(--t2)">Team 3<input data-t="2" maxlength="18"></label>
+        <label style="--tc:var(--t3)">Team 4<input data-t="3" maxlength="18"></label>
+      </div>
+      <div class="row" style="margin-top:14px">
+        <button class="btn" id="saveNames">Save names</button>
+        <button class="btn ghost" id="resetScores">Reset scores</button>
+        <button class="btn ghost" id="resetProg">Reset mission progress</button>
+        <span class="fb" id="teamFb"></span>
+      </div>
+    </div>
+    <div class="card">
+      <p class="sub">How to run a session</p>
+      <ul style="margin:0;padding-left:1.2em">
+        <li>Project the session page. Students follow in their printed booklet: the question numbers match.</li>
+        <li><b>🧍 Stand-up:</b> everyone stands for TRUE and sits for FALSE when the countdown ends.</li>
+        <li><b>⚔️ Quiz Battle:</b> each team agrees, then holds up 1–4 fingers. Tap the teams that were right to award ATP.</li>
+        <li><b>🎭 Act it out:</b> students become molecules. Use 🎲 Pick to choose who performs.</li>
+        <li>Use <b>+ / −</b> on the scoreboard at the bottom for anything else: good answers, teamwork, tidy booklets.</li>
+        <li>Press <b>Mission complete</b> at the end of each page to power up the class meter.</li>
+        <li>Tools at the top: ⏱ timer, 🎲 random pick, <b>A+</b> bigger text, ⛶ full screen. <span class="kbd">Esc</span> closes any full-screen activity.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="footer"><img src="assets/his-logo.png" alt=""><div><b>Al-Hayat International School</b> · Aramoun, Lebanon<br>Grade 11 American Program · Biology · Cellular Respiration. Six missions, one per session. See also <a href="../photosynthesis/">Photosynthesis</a>.</div></div>
+</main>
+
+<script type="module">
+import { stage, THREE, mitochondrion, pill, COL, reduce } from './assets/scene3d.js';
+const S = stage(document.getElementById('heroStage'), { pos: [0, 2.2, 11.5], autoRotate: true, autoRotateSpeed: 1.1, minD: 6, maxD: 20 });
+if (S) {
+  const m = mitochondrion(); m.group.rotation.x = 0.35; S.scene.add(m.group);
+  m.setCut(0.0);
+  // ATP pills streaming out of the mitochondrion
+  const tokens = [];
+  for (let i = 0; i < 9; i++) { const p = pill('ATP', COL.atp, 0.5); p.userData.t = i / 9; S.scene.add(p); tokens.push(p); }
+  S.tick((dt, t) => {
+    m.group.rotation.y = Math.sin(t * .3) * .25;
+    tokens.forEach((p, i) => {
+      p.userData.t = (p.userData.t + dt * .12) % 1; const k = p.userData.t, a = i * 2.4 + t * .2;
+      const r = 2.2 + k * 4.2; p.position.set(Math.cos(a) * r, Math.sin(a * 1.3) * 1.2 + k * 1.5, Math.sin(a) * r * .6);
+      p.material.opacity = k < .1 ? k * 10 : (k > .8 ? (1 - k) * 5 : 1);
+    });
+  });
+}
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  function ready() {
+    if (!window.KIT) return setTimeout(ready, 30);
+    var done = KIT.done(), n = done.filter(function (x) { return x >= 1 && x <= 6 }).length;
+    var pw = document.querySelector('#power');
+    setTimeout(function () { pw.querySelector('i').style.width = (n / 6 * 100) + '%'; }, 200);
+    pw.querySelector('span').textContent = n + ' of 6 missions complete' + (n === 6 ? ' · cell fully powered! ⚡' : '');
+    document.querySelectorAll('.mcard').forEach(function (c) { var m = +c.dataset.m; if (done.indexOf(m) > -1) { c.classList.add('done'); c.querySelector('.st').textContent = '✓ Mission complete'; } });
+    var ins = document.querySelectorAll('#teamsetup input');
+    function fill() { var t = KIT.teams(); ins.forEach(function (i) { i.value = t[+i.dataset.t].name; }); }
+    fill();
+    var fb = document.getElementById('teamFb');
+    document.getElementById('saveNames').onclick = function () { KIT.setTeamNames([].map.call(ins, function (i) { return i.value.trim(); })); fb.textContent = 'Saved ✓'; fb.style.color = 'var(--good)'; KIT.sfx.good(); };
+    var armed = {};
+    function confirmBtn(btn, label, act) { btn.onclick = function () { if (armed[label]) { act(); armed[label] = 0; btn.textContent = label; fb.textContent = 'Done ✓'; fb.style.color = 'var(--good)'; return; } armed[label] = 1; btn.textContent = 'Click again to confirm'; setTimeout(function () { armed[label] = 0; btn.textContent = label; }, 3000); }; }
+    confirmBtn(document.getElementById('resetScores'), 'Reset scores', function () { KIT.resetScores(); });
+    confirmBtn(document.getElementById('resetProg'), 'Reset mission progress', function () { KIT.resetProgress(); location.reload(); });
+  }
+  ready();
+});
+</script>
+</body>
+</html>
