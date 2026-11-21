@@ -171,3 +171,14 @@ A stand-alone online interview for staff, with a live Google Sheets backend and 
 
 **Interview link (for staff):** https://bi-9527.github.io/myp-biology/sustainability-interview/
 **Dashboard (protected by a secret word):** https://bi-9527.github.io/myp-biology/sustainability-interview/dashboard.html
+
+---
+
+## PYP Grade 2 · Animals All Around Us
+
+Live at **https://bi-9527.github.io/myp-biology/pyp-grade-2/animals/**
+
+A 21-slide interactive presentation (Sharing the planet): animal groups, backbone game,
+explorer gallery, habitats, food, life cycles, drag-and-drop sorting, riddles, quiz,
+taking action and reflection. Read-aloud on every slide, teacher notes with PYP alignment
+(press **T**). Photos load from Wikipedia / Wikimedia Commons; emoji cards appear if offline.

@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Animals All Around Us · Grade 2 PYP</title>
+<meta name="description" content="An interactive Grade 2 PYP presentation about animal groups, habitats, food, life cycles and caring for animals. Sharing the planet.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFF7E8; --paper-2:#FDEFD3; --ink:#1E2A38; --ink-2:#4A5868; --ink-3:#7C8794;
+  --line:#1E2A38; --card:#FFFFFF;
+  --mammal:#E8762B; --bird:#2D8FDB; --reptile:#3C9A4C; --amphibian:#12A39E;
+  --fish:#4657C2; --insect:#E5AE00; --invert:#C9457F;
+  --good:#22A35A; --bad:#E0473A;
+  --r:22px; --shadow:5px 5px 0 var(--line);
+  --head:"Baloo 2","Comic Sans MS","Chalkboard SE",system-ui,sans-serif;
+  --body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);overflow:hidden;
+  background-image:radial-gradient(circle at 1px 1px,rgba(30,42,56,.09) 1.2px,transparent 0);background-size:26px 26px;
+  -webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer;border:none;background:none}
+h1,h2,h3{font-family:var(--head);line-height:1.02;letter-spacing:-.01em}
+
+/* ---------- deck shell ---------- */
+.deck{position:fixed;inset:0;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;gap:12px;padding:10px 18px;flex:0 0 auto;z-index:5}
+.brand{font-family:var(--head);font-weight:800;font-size:20px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.brand .paw{font-size:24px}
+.progress{flex:1;height:12px;border:2.5px solid var(--line);border-radius:99px;background:#fff;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--mammal),var(--insect),var(--reptile),var(--bird),var(--invert));transition:width .45s cubic-bezier(.3,1.4,.5,1)}
+.count{font-family:var(--head);font-weight:700;font-size:17px;min-width:56px;text-align:right}
+.tbtn{height:40px;padding:0 14px;border:2.5px solid var(--line);border-radius:14px;background:#fff;font-weight:800;font-size:15px;display:inline-flex;align-items:center;gap:6px;box-shadow:3px 3px 0 var(--line);transition:transform .1s}
+.tbtn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line)}
+.tbtn.on{background:var(--ink);color:#fff}
+.stage{flex:1;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;padding:8px 28px 24px;overflow-y:auto;overflow-x:hidden;opacity:0;visibility:hidden;transform:translateX(40px);transition:opacity .4s,transform .5s cubic-bezier(.2,.9,.3,1),visibility 0s .5s}
+.slide.prev{transform:translateX(-40px)}
+.slide.active{opacity:1;visibility:visible;transform:none;transition:opacity .4s,transform .5s cubic-bezier(.2,.9,.3,1),visibility 0s}
+.wrap{max-width:1240px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;justify-content:center;gap:20px;padding:10px 0}
+.navbar{flex:0 0 auto;position:relative;display:flex;justify-content:center;gap:14px;padding:10px 16px 14px;z-index:6;border-top:3px solid var(--line);background:var(--paper-2)}
+.nbtn{height:60px;min-width:60px;padding:0 22px;border:3px solid var(--line);border-radius:20px;background:#fff;font-family:var(--head);font-weight:800;font-size:22px;box-shadow:var(--shadow);display:inline-flex;align-items:center;gap:8px;transition:transform .1s}
+.nbtn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--line)}
+.nbtn.next{background:var(--insect)}
+.nbtn:disabled{opacity:.35;pointer-events:none}
+.say{position:absolute;right:18px;top:50%;margin-top:-28px;z-index:7;width:58px;height:58px;border-radius:50%;border:3px solid var(--line);background:#fff;font-size:28px;box-shadow:var(--shadow);display:grid;place-items:center}
+.say.talking{background:var(--good);animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.08)}}
+
+/* ---------- shared pieces ---------- */
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--head);font-weight:800;font-size:16px;letter-spacing:.06em;text-transform:uppercase;padding:5px 14px;border:2.5px solid var(--line);border-radius:99px;background:#fff;align-self:flex-start}
+.title{font-size:clamp(34px,4.8vw,64px);font-weight:800}
+.lead{font-size:clamp(19px,2vw,25px);color:var(--ink-2);font-weight:700;max-width:900px;line-height:1.35}
+.card{background:var(--card);border:3px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.ph{position:relative;overflow:hidden;background:linear-gradient(135deg,#FFE3B8,#FFC98A);display:grid;place-items:center}
+.ph .emo{font-size:clamp(48px,7vw,96px);filter:drop-shadow(0 4px 0 rgba(0,0,0,.1));transition:opacity .3s}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s,transform .6s}
+.ph img.ok{opacity:1}
+.ph img.ok+.emo,.ph.loaded .emo{opacity:0}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:2.5px solid var(--line);border-radius:99px;background:#fff;font-weight:800;font-size:15px}
+.grid{display:grid;gap:18px}
+.btn{padding:14px 22px;border:3px solid var(--line);border-radius:18px;background:#fff;font-family:var(--head);font-weight:800;font-size:22px;box-shadow:4px 4px 0 var(--line);transition:transform .1s,background .2s}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--line)}
+.btn.primary{background:var(--insect)}
+.row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.speak-inline{width:44px;height:44px;border-radius:50%;border:2.5px solid var(--line);background:#fff;font-size:20px;display:inline-grid;place-items:center;flex:0 0 auto}
+
+/* ---------- title slide ---------- */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:34px;align-items:center}
+.hero h1{font-size:clamp(52px,7.6vw,110px);font-weight:800}
+.hero h1 .w{display:inline-block;animation:bob 3s ease-in-out infinite}
+.hero h1 .w:nth-child(2){animation-delay:.3s;color:var(--mammal)}
+.hero h1 .w:nth-child(3){animation-delay:.6s}
+.hero h1 .w:nth-child(4){animation-delay:.9s;color:var(--bird)}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-1deg)}}
+.collage{position:relative;aspect-ratio:1/1;max-height:62vh;justify-self:center;width:100%}
+.collage .ph{position:absolute;border:4px solid var(--line);border-radius:26px;box-shadow:var(--shadow)}
+.collage .c1{width:52%;height:52%;left:0;top:4%;transform:rotate(-6deg)}
+.collage .c2{width:46%;height:46%;right:2%;top:0;transform:rotate(5deg)}
+.collage .c3{width:44%;height:44%;left:10%;bottom:2%;transform:rotate(4deg)}
+.collage .c4{width:50%;height:50%;right:0;bottom:6%;transform:rotate(-4deg)}
+.collage .ph:hover{transform:rotate(0) scale(1.04);z-index:2}
+.collage .ph{transition:transform .3s}
+.badge-row{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ---------- see think wonder ---------- */
+.stw{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:stretch}
+.mystery{position:relative;border-radius:26px;border:4px solid var(--line);box-shadow:var(--shadow);overflow:hidden;min-height:380px}
+.mystery .ph{position:absolute;inset:0}
+.mystery img{transition:filter .8s,transform .8s}
+.mystery[data-step="0"] img{filter:blur(28px) saturate(.6);transform:scale(1.3)}
+.mystery[data-step="1"] img{filter:blur(12px);transform:scale(1.15)}
+.mystery[data-step="2"] img{filter:blur(4px);transform:scale(1.05)}
+.mystery .qmark{position:absolute;top:14px;left:14px;background:#fff;border:3px solid var(--line);border-radius:14px;padding:6px 14px;font-family:var(--head);font-weight:800;font-size:20px;z-index:2}
+.stw-steps{display:flex;flex-direction:column;gap:14px}
+.stw-step{padding:18px 20px;display:flex;gap:14px;align-items:flex-start;opacity:.45;transition:opacity .3s,transform .3s}
+.stw-step.on{opacity:1;transform:translateX(6px)}
+.stw-step .big{font-size:40px;line-height:1}
+.stw-step h3{font-size:30px}
+.stw-step p{font-size:19px;font-weight:700;color:var(--ink-2)}
+
+/* ---------- what is an animal ---------- */
+.needs{grid-template-columns:repeat(5,1fr)}
+.need{padding:20px 14px;text-align:center;cursor:pointer;transition:transform .2s}
+.need:hover{transform:translateY(-6px) rotate(-1deg)}
+.need .ic{font-size:58px}
+.need h3{font-size:28px;margin-top:6px}
+.need p{font-size:17px;font-weight:700;color:var(--ink-2);margin-top:4px;min-height:48px}
+
+/* ---------- backbone game ---------- */
+.bb{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.bb-photo{aspect-ratio:4/3;border-radius:26px;border:4px solid var(--line);box-shadow:var(--shadow)}
+.bb-name{font-family:var(--head);font-weight:800;font-size:44px;text-align:center;margin-top:12px}
+.bb-btns{display:flex;flex-direction:column;gap:18px}
+.bb-btn{padding:22px;border:4px solid var(--line);border-radius:24px;background:#fff;box-shadow:var(--shadow);display:flex;align-items:center;gap:18px;text-align:left;transition:transform .1s,background .2s}
+.bb-btn:active{transform:translate(3px,3px)}
+.bb-btn .ic{font-size:56px}
+.bb-btn b{display:block;font-family:var(--head);font-size:32px}
+.bb-btn span{font-size:18px;font-weight:700;color:var(--ink-2)}
+.bb-btn.right{background:#C9F2D6}.bb-btn.wrong{background:#FFD3CE;animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.feedback{font-family:var(--head);font-weight:800;font-size:24px;min-height:34px}
+.stars{font-size:30px;letter-spacing:4px}
+
+/* ---------- group slides ---------- */
+.group{--g:var(--mammal)}
+.g-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.g-head .title{color:var(--ink)}
+.g-head .title span{color:var(--g)}
+.g-tag{background:var(--g);color:#fff;border-color:var(--line)}
+.g-body{display:grid;grid-template-columns:1.1fr 1fr;gap:24px}
+.g-hero{border-radius:26px;border:4px solid var(--line);box-shadow:var(--shadow);min-height:300px;position:relative}
+.g-hero .cap{position:absolute;left:14px;bottom:14px;z-index:2;background:#fff;border:3px solid var(--line);border-radius:14px;padding:6px 14px;font-family:var(--head);font-weight:800;font-size:22px}
+.g-side{display:flex;flex-direction:column;gap:16px}
+.features{display:flex;flex-direction:column;gap:10px}
+.feat{display:flex;align-items:center;gap:14px;padding:12px 16px;border:3px solid var(--line);border-radius:18px;background:#fff;font-size:20px;font-weight:800;transform:scale(.96);opacity:.0;transition:transform .35s cubic-bezier(.3,1.6,.5,1),opacity .3s}
+.slide.active .feat{transform:none;opacity:1}
+.slide.active .feat:nth-child(2){transition-delay:.12s}.slide.active .feat:nth-child(3){transition-delay:.24s}.slide.active .feat:nth-child(4){transition-delay:.36s}
+.feat .ic{width:46px;height:46px;border-radius:14px;background:var(--g);display:grid;place-items:center;font-size:24px;flex:0 0 auto;border:2.5px solid var(--line)}
+.minis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.mini{perspective:800px;aspect-ratio:1/1.12;cursor:pointer}
+.mini-in{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.3,1.3,.5,1);transform-style:preserve-3d}
+.mini.flip .mini-in{transform:rotateY(180deg)}
+.mini-f,.mini-b{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:3px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}
+.mini-f .ph{position:absolute;inset:0 0 34px 0}
+.mini-f b{position:absolute;left:0;right:0;bottom:0;height:34px;display:grid;place-items:center;font-family:var(--head);font-size:17px;background:#fff;border-top:3px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 4px}
+.mini-b{transform:rotateY(180deg);background:var(--g);color:#fff;padding:10px;display:flex;flex-direction:column;justify-content:center;gap:4px;font-weight:800;font-size:14px;line-height:1.25}
+.mini-b b{font-family:var(--head);font-size:18px}
+.hint{font-size:16px;font-weight:800;color:var(--ink-3)}
+
+/* ---------- explorer ---------- */
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.fbtn{padding:8px 14px;border:2.5px solid var(--line);border-radius:99px;background:#fff;font-weight:800;font-size:15px;transition:background .15s}
+.fbtn.on{background:var(--ink);color:#fff}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.gcard{border:3px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;box-shadow:3px 3px 0 var(--line);text-align:left;transition:transform .15s}
+.gcard:hover{transform:translateY(-4px) rotate(-.6deg)}
+.gcard .ph{aspect-ratio:1/1}
+.gcard .meta{padding:8px 10px;border-top:3px solid var(--line)}
+.gcard b{font-family:var(--head);font-size:18px;display:block;line-height:1.05}
+.gcard small{font-weight:800;font-size:13px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;border:1.5px solid var(--line)}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:20;background:rgba(30,42,56,.55);display:none;align-items:center;justify-content:center;padding:18px}
+.modal.open{display:flex;animation:fade .25s}
+@keyframes fade{from{opacity:0}}
+.mbox{width:min(980px,100%);max-height:92vh;overflow:auto;display:grid;grid-template-columns:1.2fr 1fr;background:#fff;border:4px solid var(--line);border-radius:28px;box-shadow:8px 8px 0 var(--line);animation:pop .35s cubic-bezier(.3,1.5,.5,1)}
+@keyframes pop{from{transform:scale(.85)}}
+.mbox .ph{min-height:420px;border-right:4px solid var(--line)}
+.mtext{padding:24px;display:flex;flex-direction:column;gap:12px}
+.mtext h2{font-size:44px}
+.mtext .fact{font-size:20px;font-weight:700;line-height:1.4;background:var(--paper);border:3px dashed var(--line);border-radius:18px;padding:14px}
+.facts-list{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;font-size:18px;font-weight:800;align-items:center}
+.facts-list span:nth-child(odd){font-size:24px}
+.mclose{position:absolute;top:18px;right:18px;width:52px;height:52px;border-radius:50%;background:#fff;border:3px solid var(--line);font-size:26px;font-weight:800;z-index:21}
+
+/* ---------- habitats ---------- */
+.hab-tabs{display:flex;gap:10px;flex-wrap:wrap}
+.hab-tab{padding:10px 16px;border:3px solid var(--line);border-radius:16px;background:#fff;font-family:var(--head);font-weight:800;font-size:19px;box-shadow:3px 3px 0 var(--line)}
+.hab-tab.on{background:var(--ink);color:#fff}
+.hab-view{display:grid;grid-template-columns:1.25fr 1fr;gap:22px}
+.hab-photo{border-radius:26px;border:4px solid var(--line);box-shadow:var(--shadow);min-height:360px;position:relative}
+.hab-photo .cap{position:absolute;left:14px;top:14px;z-index:2;background:#fff;border:3px solid var(--line);border-radius:14px;padding:6px 14px;font-family:var(--head);font-weight:800;font-size:24px}
+.hab-info{display:flex;flex-direction:column;gap:14px}
+.hab-info .desc{font-size:21px;font-weight:700;line-height:1.4}
+.hab-animals{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.hab-animals .gcard .ph{aspect-ratio:1/.9}
+.adapt{padding:14px 16px;font-size:18px;font-weight:800;background:#E9F7FF}
+
+/* ---------- food ---------- */
+.food{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.fcol{padding:16px;display:flex;flex-direction:column;gap:12px}
+.fcol h3{font-size:34px;display:flex;align-items:center;gap:10px}
+.fcol p{font-size:17px;font-weight:800;color:var(--ink-2)}
+.ftray{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ftray .ph{aspect-ratio:1/1;border-radius:14px;border:2.5px solid var(--line)}
+.ftray .ph{transition:filter .6s}
+.fhide .ph{filter:blur(9px) grayscale(.5)}
+.g-hero{overflow:hidden;padding:0;display:block}
+.g-hero .ph,.hab-photo .ph,.reveal .ph{position:absolute;inset:0}
+.bb-photo .ph,.q-photo .ph{height:100%;border-radius:22px}
+.hab-photo .ph{border-radius:22px}.reveal .ph{border-radius:50%}
+
+/* ---------- life cycles ---------- */
+.lc-tabs{display:flex;gap:12px}
+.cycle{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:start}
+.stage-card{padding:14px;text-align:center;opacity:.3;transform:translateY(10px) scale(.96);transition:all .45s cubic-bezier(.3,1.4,.5,1)}
+.stage-card.on{opacity:1;transform:none}
+.stage-card .ph{aspect-ratio:1/1;border-radius:16px;border:3px solid var(--line);margin-bottom:10px}
+.stage-card h3{font-size:28px}
+.stage-card p{font-size:17px;font-weight:700;color:var(--ink-2)}
+.stage-card .num{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--insect);border:3px solid var(--line);font-family:var(--head);font-weight:800;font-size:20px;margin-bottom:6px}
+
+/* ---------- sort game ---------- */
+.sort{display:grid;grid-template-columns:1fr;gap:16px}
+.pool{display:flex;gap:12px;flex-wrap:wrap;min-height:118px;padding:12px;border:3px dashed var(--line);border-radius:22px;background:rgba(255,255,255,.6)}
+.tok{width:104px;border:3px solid var(--line);border-radius:16px;background:#fff;overflow:hidden;box-shadow:3px 3px 0 var(--line);touch-action:none;user-select:none;cursor:grab;transition:transform .15s,box-shadow .15s}
+.tok .ph{height:72px;pointer-events:none}
+.tok b{display:block;text-align:center;font-family:var(--head);font-size:14px;padding:2px 4px;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tok.sel{transform:translateY(-6px) rotate(-3deg);box-shadow:5px 8px 0 var(--line);outline:4px solid var(--insect)}
+.tok.ghost{position:fixed;z-index:30;pointer-events:none;transform:rotate(-5deg) scale(1.08);box-shadow:8px 10px 0 rgba(0,0,0,.25)}
+.tok.dim{opacity:.25}
+.baskets{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.basket{min-height:190px;border:3px solid var(--line);border-radius:20px;background:#fff;padding:8px;display:flex;flex-direction:column;gap:6px;transition:transform .15s,background .15s}
+.basket h4{font-family:var(--head);font-size:20px;text-align:center;padding:4px;border-radius:12px;color:#fff;border:2.5px solid var(--line)}
+.basket.over{transform:scale(1.04);background:#FFF4C9}
+.basket .in{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+.basket .in .ph{width:46px;height:46px;border-radius:12px;border:2.5px solid var(--line)}
+.basket .in .ph .emo{font-size:26px}
+.basket.flash{animation:shake .4s;background:#FFD3CE}
+.basket.yay{animation:pulse .5s}
+
+/* ---------- riddles ---------- */
+.riddle{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center}
+.clues{display:flex;flex-direction:column;gap:12px}
+.clue{padding:16px 18px;font-size:23px;font-weight:800;display:flex;gap:12px;align-items:center;opacity:0;transform:translateX(-20px);transition:all .4s cubic-bezier(.3,1.4,.5,1)}
+.clue.on{opacity:1;transform:none}
+.clue .n{width:40px;height:40px;border-radius:50%;background:var(--bird);color:#fff;border:3px solid var(--line);display:grid;place-items:center;font-family:var(--head);flex:0 0 auto}
+.reveal{overflow:hidden;aspect-ratio:1/1;max-height:56vh;border-radius:50%;border:5px solid var(--line);box-shadow:var(--shadow);justify-self:center;width:100%;max-width:460px;position:relative}
+.reveal .cover{position:absolute;inset:0;background:var(--bird);display:grid;place-items:center;font-family:var(--head);font-weight:800;font-size:150px;color:#fff;z-index:3;transition:clip-path .8s cubic-bezier(.6,0,.3,1);clip-path:circle(75% at 50% 50%)}
+.reveal.open .cover{clip-path:circle(0% at 50% 50%)}
+.reveal .nm{position:absolute;bottom:8%;left:50%;transform:translateX(-50%);z-index:2;background:#fff;border:3px solid var(--line);border-radius:14px;padding:4px 16px;font-family:var(--head);font-weight:800;font-size:28px;white-space:nowrap}
+
+/* ---------- quiz ---------- */
+.quiz{display:grid;grid-template-columns:1fr 1.1fr;gap:26px;align-items:center}
+.q-photo{aspect-ratio:4/3;border-radius:26px;border:4px solid var(--line);box-shadow:var(--shadow)}
+.q-text{font-family:var(--head);font-weight:800;font-size:clamp(28px,3.2vw,42px);line-height:1.1}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.opt{padding:18px;border:3.5px solid var(--line);border-radius:20px;background:#fff;font-family:var(--head);font-weight:800;font-size:24px;box-shadow:4px 4px 0 var(--line);transition:transform .1s,background .2s}
+.opt:active{transform:translate(3px,3px)}
+.opt.right{background:#C9F2D6}.opt.wrong{background:#FFD3CE;animation:shake .4s}
+.qdots{display:flex;gap:8px}
+.qdots i{width:18px;height:18px;border-radius:50%;border:2.5px solid var(--line);background:#fff}
+.qdots i.r{background:var(--good)}.qdots i.w{background:var(--bad)}.qdots i.c{background:var(--insect)}
+.result{text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.result .bigstar{font-size:90px;animation:bob 2s infinite}
+
+/* ---------- caring / action ---------- */
+.actions{grid-template-columns:repeat(3,1fr)}
+.act{padding:20px;display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:transform .2s,background .2s;text-align:left}
+.act .ic{font-size:50px}
+.act h3{font-size:27px}
+.act p{font-size:17px;font-weight:700;color:var(--ink-2)}
+.act.on{background:#D7F5E1;transform:rotate(-1deg)}
+.act .tick{align-self:flex-start;font-weight:800;font-size:15px;padding:4px 10px;border:2.5px solid var(--line);border-radius:99px;background:#fff}
+.act.on .tick{background:var(--good);color:#fff}
+
+/* ---------- reflection ---------- */
+.reflect{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.rcard{padding:20px;display:flex;flex-direction:column;gap:12px}
+.rcard h3{font-size:30px}
+.rcard p{font-size:18px;font-weight:700;color:var(--ink-2)}
+.faces{display:flex;gap:10px;justify-content:space-between}
+.face{font-size:52px;padding:6px;border-radius:18px;border:3px solid transparent;transition:transform .2s}
+.face:hover{transform:scale(1.12)}
+.face.on{border-color:var(--line);background:#FFF1B8;transform:scale(1.1)}
+.rcard textarea{width:100%;min-height:110px;border:3px solid var(--line);border-radius:16px;padding:12px;font:800 19px var(--body);resize:vertical;background:var(--paper)}
+.lp{display:flex;flex-wrap:wrap;gap:8px}
+.lp button{padding:8px 12px;border:2.5px solid var(--line);border-radius:99px;font-weight:800;background:#fff;font-size:15px}
+.lp button.on{background:var(--reptile);color:#fff}
+
+/* ---------- teacher notes ---------- */
+.notes{position:fixed;top:64px;right:14px;width:min(420px,calc(100% - 28px));max-height:calc(100% - 170px);overflow:auto;z-index:15;background:#1E2A38;color:#F3F5F8;border-radius:20px;padding:18px 20px;box-shadow:6px 6px 0 rgba(0,0,0,.25);display:none;font-size:15px;line-height:1.5}
+.notes.open{display:block;animation:fade .2s}
+.notes h4{font-family:var(--head);font-size:20px;color:#FFD65A;margin:10px 0 4px}
+.notes h4:first-child{margin-top:0}
+.notes ul{padding-left:18px}
+.notes .tagline{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.notes .tagline span{background:rgba(255,255,255,.12);padding:3px 9px;border-radius:99px;font-weight:700;font-size:13px}
+.overview{position:fixed;inset:0;z-index:25;background:var(--paper);display:none;overflow:auto;padding:24px}
+.overview.open{display:block}
+.ov-grid{max-width:1200px;margin:16px auto 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.ov-item{padding:14px;text-align:left;font-weight:800;font-size:17px;display:flex;gap:10px;align-items:center}
+.ov-item .n{width:36px;height:36px;border-radius:50%;background:var(--insect);border:2.5px solid var(--line);display:grid;place-items:center;font-family:var(--head);flex:0 0 auto}
+.ov-item.cur{background:#FFF1B8}
+
+.confetti{position:fixed;top:-20px;width:12px;height:18px;z-index:40;pointer-events:none;border:2px solid var(--line);border-radius:3px}
+.credit{font-size:13px;font-weight:700;color:var(--ink-3)}
+.credit a{color:inherit}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .hero,.stw,.bb,.g-body,.hab-view,.riddle,.quiz,.mbox{grid-template-columns:1fr}
+  .needs{grid-template-columns:repeat(2,1fr)}
+  .food,.actions,.reflect{grid-template-columns:1fr}
+  .baskets{grid-template-columns:repeat(3,1fr)}
+  .cycle{grid-template-columns:repeat(2,1fr)}
+  .collage{max-height:none;max-width:460px}
+  .mbox .ph{min-height:260px;border-right:0;border-bottom:4px solid var(--line)}
+  .slide{padding:6px 16px 24px}
+  .say{right:10px;width:50px;height:50px;margin-top:-25px;font-size:22px}
+  .navbar{justify-content:flex-start}
+  .brand .txt{display:none}
+  .g-hero,.hab-photo{min-height:260px}
+  .reveal{max-width:300px}
+}
+@media (max-width:560px){
+  .minis{grid-template-columns:repeat(2,1fr)}
+  .opts{grid-template-columns:1fr}
+  .hab-animals{grid-template-columns:repeat(2,1fr)}
+  .nbtn{height:54px;font-size:18px;padding:0 16px}
+  .tbtn .lbl{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="deck">
+  <header class="topbar">
+    <div class="brand"><span class="paw">🐾</span><span class="txt">Animals All Around Us</span></div>
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+    <div class="count" id="count">1 / 1</div>
+    <button class="tbtn" id="ovBtn" title="All slides (O)">🗂️ <span class="lbl">Slides</span></button>
+    <button class="tbtn" id="notesBtn" title="Teacher notes (T)">🍎 <span class="lbl">Teacher</span></button>
+    <button class="tbtn" id="fsBtn" title="Full screen (F)">⛶</button>
+  </header>
+  <main class="stage" id="stage"></main>
+  <nav class="navbar">
+    <button class="nbtn" id="prevBtn" aria-label="Previous slide">◀ Back</button>
+    <button class="nbtn next" id="nextBtn" aria-label="Next slide">Next ▶</button>
+    <button class="say" id="sayBtn" aria-label="Read this slide aloud" title="Read aloud">🔊</button>
+  </nav>
+</div>
+
+<aside class="notes" id="notes" aria-live="polite"></aside>
+<div class="overview" id="overview">
+  <div class="row" style="max-width:1200px;margin:0 auto;justify-content:space-between">
+    <h2 style="font-size:40px">All slides</h2>
+    <button class="btn" id="ovClose">✕ Close</button>
+  </div>
+  <div class="ov-grid" id="ovGrid"></div>
+</div>
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <button class="mclose" id="mclose" aria-label="Close">✕</button>
+  <div class="mbox" id="mbox"></div>
+</div>
+
+<script>
+/* ================================================================
+   DATA
+   Photos are fetched at load time from Wikipedia (free-licence lead
+   images). If there is no internet, each photo falls back to a big
+   emoji on a coloured card, so every activity still works.
+   ================================================================ */
+const GROUPS = {
+  mammal:   {name:"Mammals",    one:"mammal",    color:"var(--mammal)",    emoji:"🦁", backbone:true},
+  bird:     {name:"Birds",      one:"bird",      color:"var(--bird)",      emoji:"🦅", backbone:true},
+  reptile:  {name:"Reptiles",   one:"reptile",   color:"var(--reptile)",   emoji:"🐊", backbone:true},
+  amphibian:{name:"Amphibians", one:"amphibian", color:"var(--amphibian)", emoji:"🐸", backbone:true},
+  fish:     {name:"Fish",       one:"fish",      color:"var(--fish)",      emoji:"🐠", backbone:true},
+  insect:   {name:"Insects",    one:"insect",    color:"var(--insect)",    emoji:"🐝", backbone:false},
+  invert:   {name:"Other Invertebrates", one:"invertebrate", color:"var(--invert)", emoji:"🐙", backbone:false}
+};
+const HAB = {
+  ocean:{name:"Ocean",icon:"🌊"}, rainforest:{name:"Rainforest",icon:"🌴"}, desert:{name:"Desert",icon:"🏜️"},
+  polar:{name:"Polar",icon:"🧊"}, grassland:{name:"Grassland",icon:"🌾"}, fresh:{name:"Rivers & Ponds",icon:"🏞️"},
+  forest:{name:"Forest & Garden",icon:"🌳"}
+};
+const DIET = {herbivore:{name:"Herbivore",icon:"🥬",say:"eats plants"}, carnivore:{name:"Carnivore",icon:"🍖",say:"eats other animals"}, omnivore:{name:"Omnivore",icon:"🍽️",say:"eats plants and animals"}};
+
+const A = [
+ // mammals
+ {id:"lion",name:"Lion",w:"Lion",g:"mammal",e:"🦁",h:"grassland",d:"carnivore",f:"Lions live in family groups called prides. A lion's roar can be heard 8 kilometres away!"},
+ {id:"elephant",name:"Elephant",w:"African bush elephant",g:"mammal",e:"🐘",h:"grassland",d:"herbivore",f:"Elephants are the biggest land animals. They use their trunk to smell, drink, lift and even hug!"},
+ {id:"dolphin",name:"Dolphin",w:"Common bottlenose dolphin",g:"mammal",e:"🐬",h:"ocean",d:"carnivore",f:"Dolphins live in the sea but they are mammals. They breathe air through a blowhole on top of their head."},
+ {id:"bat",name:"Fruit Bat",w:"Egyptian fruit bat",g:"mammal",e:"🦇",h:"forest",d:"herbivore",f:"Bats are the only mammals that can really fly. Their wings are hands with thin skin stretched between long fingers."},
+ {id:"kangaroo",name:"Kangaroo",w:"Red kangaroo",g:"mammal",e:"🦘",h:"desert",d:"herbivore",f:"A baby kangaroo is called a joey. It grows inside a pouch on its mother's tummy."},
+ {id:"polarbear",name:"Polar Bear",w:"Polar bear",g:"mammal",e:"🐻‍❄️",h:"polar",d:"carnivore",f:"Under its thick fur, a polar bear has black skin that soaks up the sun's warmth."},
+ {id:"giraffe",name:"Giraffe",w:"Giraffe",g:"mammal",e:"🦒",h:"grassland",d:"herbivore",f:"Giraffes are the tallest animals in the world. Their tongue is about as long as your arm!"},
+ {id:"raccoon",name:"Raccoon",w:"Raccoon",g:"mammal",e:"🦝",h:"forest",d:"omnivore",f:"Raccoons have clever little hands. They eat fruit, nuts, insects and even fish."},
+ {id:"camel",name:"Camel",w:"Dromedary",g:"mammal",e:"🐪",h:"desert",d:"herbivore",f:"A camel's hump stores fat, not water. Camels can close their nostrils to keep sand out."},
+ // birds
+ {id:"eagle",name:"Bald Eagle",w:"Bald eagle",g:"bird",e:"🦅",h:"forest",d:"carnivore",f:"Eagles have amazing eyesight. They can spot a fish in a lake from high up in the sky."},
+ {id:"penguin",name:"Emperor Penguin",w:"Emperor penguin",g:"bird",e:"🐧",h:"polar",d:"carnivore",f:"Penguins cannot fly, but they are super swimmers. Emperor penguin dads keep the egg warm on their feet!"},
+ {id:"macaw",name:"Macaw",w:"Scarlet macaw",g:"bird",e:"🦜",h:"rainforest",d:"herbivore",f:"Macaws use their strong, curved beak to crack hard nuts and seeds."},
+ {id:"owl",name:"Barn Owl",w:"Barn owl",g:"bird",e:"🦉",h:"forest",d:"carnivore",f:"Barn owls fly almost silently. Their heart-shaped face helps them hear tiny mice in the dark."},
+ {id:"ostrich",name:"Ostrich",w:"Common ostrich",g:"bird",e:"🪶",h:"grassland",d:"omnivore",f:"The ostrich is the biggest bird and lays the biggest eggs. It cannot fly, but it runs very fast!"},
+ {id:"hummingbird",name:"Hummingbird",w:"Ruby-throated hummingbird",g:"bird",e:"🐦",h:"forest",d:"omnivore",f:"Hummingbirds are the only birds that can fly backwards. They drink sweet nectar from flowers."},
+ // reptiles
+ {id:"crocodile",name:"Crocodile",w:"Nile crocodile",g:"reptile",e:"🐊",h:"fresh",d:"carnivore",f:"Crocodile mums lay eggs in a nest and gently carry their babies in their mouth."},
+ {id:"chameleon",name:"Chameleon",w:"Panther chameleon",g:"reptile",e:"🦎",h:"rainforest",d:"carnivore",f:"Chameleons can change colour. Each eye can look in a different direction at the same time!"},
+ {id:"turtle",name:"Sea Turtle",w:"Green sea turtle",g:"reptile",e:"🐢",h:"ocean",d:"herbivore",f:"Sea turtles swim far across the ocean, then come back to a sandy beach to lay their eggs."},
+ {id:"python",name:"Tree Python",w:"Green tree python",g:"reptile",e:"🐍",h:"rainforest",d:"carnivore",f:"Baby green tree pythons are yellow or red. They turn green as they grow up."},
+ {id:"komodo",name:"Komodo Dragon",w:"Komodo dragon",g:"reptile",e:"🦎",h:"grassland",d:"carnivore",f:"The Komodo dragon is the biggest lizard in the world. It smells with its forked tongue."},
+ // amphibians
+ {id:"treefrog",name:"Tree Frog",w:"Red-eyed tree frog",g:"amphibian",e:"🐸",h:"rainforest",d:"carnivore",f:"Red-eyed tree frogs have sticky toes for climbing. Their bright red eyes can surprise hungry animals."},
+ {id:"axolotl",name:"Axolotl",w:"Axolotl",g:"amphibian",e:"🦎",h:"fresh",d:"carnivore",f:"Axolotls keep their feathery gills and live in water all their life. They can regrow a lost leg!"},
+ {id:"toad",name:"Toad",w:"Common toad",g:"amphibian",e:"🐸",h:"forest",d:"carnivore",f:"Toads have dry, bumpy skin. They often walk instead of hopping."},
+ {id:"salamander",name:"Fire Salamander",w:"Fire salamander",g:"amphibian",e:"🦎",h:"forest",d:"carnivore",f:"Salamanders have smooth, damp skin. Bright yellow spots tell other animals: don't eat me!"},
+ // fish
+ {id:"clownfish",name:"Clownfish",w:"Ocellaris clownfish",g:"fish",e:"🐠",h:"ocean",d:"omnivore",f:"Clownfish live safely inside sea anemones. The anemone's stingers keep enemies away."},
+ {id:"shark",name:"Great White Shark",w:"Great white shark",g:"fish",e:"🦈",h:"ocean",d:"carnivore",f:"Sharks keep growing new teeth all their life. Some lose thousands of teeth!"},
+ {id:"seahorse",name:"Seahorse",w:"Lined seahorse",g:"fish",e:"🐟",h:"ocean",d:"carnivore",f:"Seahorses are fish! The dad seahorse carries the eggs in a pouch until the babies hatch."},
+ {id:"goldfish",name:"Goldfish",w:"Goldfish",g:"fish",e:"🐟",h:"fresh",d:"omnivore",f:"Goldfish breathe with gills and use fins to swim. They can remember things for months."},
+ // insects
+ {id:"butterfly",name:"Monarch Butterfly",w:"Monarch butterfly",g:"insect",e:"🦋",h:"grassland",d:"herbivore",f:"Monarch butterflies fly thousands of kilometres every year. They taste with their feet!"},
+ {id:"bee",name:"Honey Bee",w:"Western honey bee",g:"insect",e:"🐝",h:"forest",d:"herbivore",f:"Honey bees do a special dance to tell their friends where to find flowers."},
+ {id:"ladybird",name:"Ladybird",w:"Coccinella septempunctata",g:"insect",e:"🐞",h:"forest",d:"carnivore",f:"Ladybirds eat tiny bugs called aphids that hurt plants. Gardeners love them!"},
+ {id:"ant",name:"Ant",w:"Red wood ant",g:"insect",e:"🐜",h:"forest",d:"omnivore",f:"Ants live and work together in big groups called colonies. They can carry things heavier than themselves."},
+ // other invertebrates
+ {id:"spider",name:"Garden Spider",w:"Araneus diadematus",g:"invert",e:"🕷️",h:"forest",d:"carnivore",f:"Spiders have 8 legs, so they are not insects. They spin silky webs to catch their food."},
+ {id:"octopus",name:"Octopus",w:"Common octopus",g:"invert",e:"🐙",h:"ocean",d:"carnivore",f:"An octopus has 8 arms, 3 hearts and blue blood. It has no bones, so it can squeeze through tiny holes."},
+ {id:"starfish",name:"Sea Star",w:"Protoreaster nodosus",g:"invert",e:"⭐",h:"ocean",d:"carnivore",f:"Sea stars have no bones and no brain. If they lose an arm, they can grow a new one!"},
+ {id:"snail",name:"Snail",w:"Cornu aspersum",g:"invert",e:"🐌",h:"forest",d:"herbivore",f:"A snail carries its shell home on its back. It slides along on slimy mucus."}
+];
+const AM = Object.fromEntries(A.map(a=>[a.id,a]));
+
+/* extra photos: habitats & life-cycle stages */
+const EXTRA = {
+  hab_ocean:{w:"Coral reef",e:"🌊"}, hab_rainforest:{w:"Tropical rainforest",e:"🌴"}, hab_desert:{w:"Dune",e:"🏜️"},
+  hab_polar:{w:"Iceberg",e:"🧊"}, hab_grassland:{w:"Savanna",e:"🌾"}, hab_fresh:{w:"Pond",e:"🏞️"}, hab_forest:{w:"Temperate deciduous forest",e:"🌳"},
+  lc_frogspawn:{w:"Frogspawn",e:"🫧"}, lc_tadpole:{w:"Tadpole",e:"🐟"}, lc_froglet:{w:"Common frog",e:"🐸"},
+  lc_bfegg:{w:"Egg (biology)",e:"⚪"}, lc_caterpillar:{w:"Caterpillar",e:"🐛"}, lc_chrysalis:{w:"Pupa",e:"🫘"}
+};
+
+/* ================================================================
+   PHOTO LOADING (Wikipedia, CORS via origin=*)
+   ================================================================ */
+const PHOTO = {};               // key -> url
+const KEYS = {};                // key -> wiki title
+A.forEach(a=>KEYS[a.id]=a.w);
+Object.entries(EXTRA).forEach(([k,v])=>KEYS[k]=v.w);
+const CACHE_KEY = "g2-animals-photos-v2";
+
+function ph(key, cls="", emojiOverride){
+  const em = emojiOverride || (AM[key]?AM[key].e:(EXTRA[key]?EXTRA[key].e:"🐾"));
+  const g = AM[key]?GROUPS[AM[key].g].color:"#9ad";
+  const name = AM[key]?AM[key].name:"";
+  return `<div class="ph ${cls}" data-k="${key}" style="background:linear-gradient(135deg,color-mix(in srgb,${g} 25%,#fff),color-mix(in srgb,${g} 55%,#fff))"><img alt="${name}" loading="lazy"><span class="emo">${em}</span></div>`;
+}
+function paint(root=document){
+  root.querySelectorAll(".ph[data-k]").forEach(el=>{
+    const img = el.querySelector("img"); const url = PHOTO[el.dataset.k];
+    if(url && img.getAttribute("src")!==url){
+      img.onload=()=>{img.classList.add("ok");el.classList.add("loaded")};
+      img.onerror=()=>{img.remove()};
+      img.src=url;
+    }
+  });
+}
+async function loadPhotos(){
+  try{
+    const c = JSON.parse(localStorage.getItem(CACHE_KEY)||"null");
+    if(c && Date.now()-c.t < 7*864e5){ Object.assign(PHOTO,c.p); paint(); return; }
+  }catch(e){}
+  const entries = Object.entries(KEYS);
+  for(let i=0;i<entries.length;i+=20){
+    const chunk = entries.slice(i,i+20);
+    const titles = chunk.map(([,t])=>t).join("|");
+    const url = "https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&redirects=1&prop=pageimages&piprop=thumbnail&pithumbsize=1100&pilimit=50&titles="+encodeURIComponent(titles);
+    try{
+      const j = await (await fetch(url)).json();
+      const q = j.query||{}; const pages = Object.values(q.pages||{});
+      chunk.forEach(([k,t])=>{
+        let tt=t; const n=(q.normalized||[]).find(x=>x.from===tt); if(n) tt=n.to;
+        const r=(q.redirects||[]).find(x=>x.from===tt); if(r) tt=r.to;
+        const p=pages.find(x=>x.title===tt);
+        if(p && p.thumbnail) PHOTO[k]=p.thumbnail.source;
+      });
+      paint();
+    }catch(e){ /* offline: emoji fallbacks stay */ }
+  }
+  try{ if(Object.keys(PHOTO).length>10) localStorage.setItem(CACHE_KEY,JSON.stringify({t:Date.now(),p:PHOTO})); }catch(e){}
+}
+
+/* ================================================================
+   HELPERS
+   ================================================================ */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const byGroup=g=>A.filter(a=>a.g===g);
+let voice=null;
+function pickVoice(){const vs=speechSynthesis.getVoices();voice=vs.find(v=>/en-GB/i.test(v.lang)&&/female|Libby|Sonia|Serena|Kate/i.test(v.name))||vs.find(v=>/^en/i.test(v.lang))||null}
+if("speechSynthesis" in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}
+function speak(text){
+  if(!("speechSynthesis" in window)) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text); u.rate=.9; u.pitch=1.08; if(voice) u.voice=voice;
+  const b=$("#sayBtn"); b.classList.add("talking"); u.onend=u.onerror=()=>b.classList.remove("talking");
+  speechSynthesis.speak(u);
+}
+function confetti(n=70){
+  const cols=["#E8762B","#2D8FDB","#3C9A4C","#12A39E","#E5AE00","#C9457F","#4657C2"];
+  for(let i=0;i<n;i++){
+    const c=document.createElement("div");c.className="confetti";
+    c.style.left=Math.random()*100+"vw";c.style.background=cols[i%cols.length];
+    document.body.appendChild(c);
+    const dx=(Math.random()-.5)*240, rot=Math.random()*900;
+    c.animate([{transform:"translate(0,0) rotate(0)"},{transform:`translate(${dx}px,${innerHeight+60}px) rotate(${rot}deg)`}],{duration:1800+Math.random()*1600,easing:"cubic-bezier(.2,.6,.4,1)",delay:Math.random()*300}).onfinish=()=>c.remove();
+  }
+}
+function openAnimal(id){
+  const a=AM[id], g=GROUPS[a.g];
+  $("#mbox").innerHTML=`${ph(a.id)}
+   <div class="mtext">
+     <span class="chip" style="background:${g.color};color:#fff;align-self:flex-start">${g.emoji} ${g.name}</span>
+     <h2>${a.name}</h2>
+     <div class="facts-list">
+       <span>${g.backbone?"🦴":"🫧"}</span><span>${g.backbone?"Has a backbone (vertebrate)":"No backbone (invertebrate)"}</span>
+       <span>${HAB[a.h].icon}</span><span>Lives in: ${HAB[a.h].name}</span>
+       <span>${DIET[a.d].icon}</span><span>${DIET[a.d].name}: ${DIET[a.d].say}</span>
+     </div>
+     <div class="fact">🤩 ${a.f}</div>
+     <div class="row"><button class="btn primary" id="mSay">🔊 Read to me</button></div>
+   </div>`;
+  paint($("#mbox"));
+  $("#modal").classList.add("open");
+  $("#mSay").onclick=()=>speak(`${a.name}. ${a.name}s are ${g.name.toLowerCase()}. ${a.f}`);
+}
+$("#mclose").onclick=()=>{$("#modal").classList.remove("open");speechSynthesis&&speechSynthesis.cancel()};
+$("#modal").addEventListener("click",e=>{if(e.target.id==="modal")$("#mclose").click()});
+
+/* ================================================================
+   SLIDES
+   Each slide: {title, say, notes, html(), init(el)}
+   ================================================================ */
+const PYP = `<h4>Unit at a glance</h4>
+<b>Transdisciplinary theme:</b> Sharing the planet<br>
+<b>Central idea:</b> Animals can be grouped by their features, and their features help them live in their habitats.<br>
+<b>Lines of inquiry:</b><ul><li>How animals are grouped by their features (form)</li><li>How animals' bodies help them survive where they live (function)</li><li>Our responsibility to care for animals (responsibility)</li></ul>
+<b>Key concepts:</b> Form · Function · Responsibility<br><b>Related concepts:</b> classification, habitat, adaptation, life cycle`;
+
+const SLIDES = [
+/* 1. Title */
+{title:"Animals All Around Us", say:"Animals all around us! Today we are going to explore the amazing world of animals. Are you ready to be inquirers?",
+ notes:PYP+`<h4>Opening</h4>Ask: <i>What animals have you seen this week?</i> Collect ideas on the board to revisit at the end.<div class="tagline"><span>Inquiry phase: Tuning in</span><span>Learner profile: Inquirers</span></div>`,
+ html:()=>`<div class="wrap"><div class="hero">
+   <div style="display:flex;flex-direction:column;gap:18px">
+     <span class="kicker">🌍 Sharing the Planet · Grade 2</span>
+     <h1><span class="w">Animals</span> <span class="w">All</span> <span class="w">Around</span> <span class="w">Us</span></h1>
+     <p class="lead">Animals can be grouped by their features, and their features help them live in their homes.</p>
+     <div class="badge-row">
+       <span class="chip">🔍 Form</span><span class="chip">⚙️ Function</span><span class="chip">💚 Responsibility</span>
+     </div>
+     <div class="row"><button class="btn primary" data-go="1">Let's explore! 🚀</button></div>
+   </div>
+   <div class="collage">${ph("lion","c1")}${ph("macaw","c2")}${ph("treefrog","c3")}${ph("octopus","c4")}</div>
+ </div></div>`},
+
+/* 2. See think wonder */
+{title:"Mystery animal", say:"Mystery animal! Look closely. What do you see? What do you think it is? What do you wonder? Tap the button to see more.",
+ notes:`<h4>Thinking routine: See · Think · Wonder</h4>Reveal the photo in three steps. Give think time before each tap. Accept all ideas, then ask <i>What makes you say that?</i><br>Record wonderings on a class "Wonder Wall" to drive the inquiry.<div class="tagline"><span>ATL: Thinking skills</span><span>ATL: Communication</span><span>Learner profile: Thinkers</span></div>`,
+ html:()=>`<div class="wrap">
+   <span class="kicker">🕵️ Tuning in</span><h2 class="title">Who is hiding?</h2>
+   <div class="stw">
+     <div class="mystery" id="mys" data-step="0"><span class="qmark">❓ Mystery animal</span>${ph("chameleon")}</div>
+     <div class="stw-steps">
+       <div class="card stw-step on" data-s="0"><span class="big">👀</span><div><h3>I see…</h3><p>What colours and shapes can you see?</p></div></div>
+       <div class="card stw-step" data-s="1"><span class="big">💭</span><div><h3>I think…</h3><p>What animal could it be? Why do you think that?</p></div></div>
+       <div class="card stw-step" data-s="2"><span class="big">✨</span><div><h3>I wonder…</h3><p>What questions do you have?</p></div></div>
+       <button class="btn primary" id="mysBtn">Show me more 🔎</button>
+     </div>
+   </div></div>`,
+ init:el=>{let s=0;const m=$("#mys",el),b=$("#mysBtn",el);b.onclick=()=>{
+   s++; if(s>3){s=0}
+   m.dataset.step=s; $$(".stw-step",el).forEach(x=>x.classList.toggle("on",+x.dataset.s<=Math.min(s,2)));
+   if(s===3){b.textContent="It's a chameleon! 🦎 Again?";speak("It's a panther chameleon! It is a reptile that can change colour.");confetti(40)}
+   else b.textContent="Show me more 🔎";
+ }}},
+
+/* 3. What is an animal */
+{title:"What makes an animal?", say:"What makes something an animal? Animals move. Animals eat food. Animals breathe. Animals grow. And animals have babies. Tap each card to learn more.",
+ notes:`<h4>Big idea</h4>All animals share the characteristics of living things, but unlike plants they must eat food to get energy.<br><b>Ask:</b> Is a tree an animal? Is a car? How do you know?<div class="tagline"><span>Related concept: Classification</span><span>Learner profile: Knowledgeable</span></div>`,
+ html:()=>`<div class="wrap">
+   <span class="kicker">🔍 Finding out</span><h2 class="title">What makes an animal?</h2>
+   <p class="lead">All animals do these five things. Tap a card!</p>
+   <div class="grid needs">
+     ${[["🏃","Move","Swim, fly, hop, crawl or run!"],["😋","Eat","Animals must eat plants or other animals."],["🫁","Breathe","With lungs, gills or even skin!"],["📏","Grow","Babies grow bigger every day."],["🥚","Have babies","Some lay eggs, some are born live."]]
+      .map(([i,h,p])=>`<button class="card need" data-say="${h}. ${p}"><div class="ic">${i}</div><h3>${h}</h3><p>${p}</p></button>`).join("")}
+   </div></div>`,
+ init:el=>$$(".need",el).forEach(b=>b.onclick=()=>speak(b.dataset.say))},
+
+/* 4. Backbone game */
+{title:"Backbone or no backbone?", say:"Some animals have a backbone, like you! They are called vertebrates. Animals with no backbone are called invertebrates. Look at the animal and tap the right button.",
+ notes:`<h4>Vertebrates and invertebrates</h4>Have students feel the bumps of their own spine first. That's a backbone!<br>Vertebrates: mammals, birds, reptiles, amphibians, fish. Invertebrates: insects, spiders, octopus, sea stars, snails, worms. Most animals on Earth are invertebrates!<div class="tagline"><span>Key concept: Form</span><span>ATL: Thinking – classifying</span></div>`,
+ html:()=>`<div class="wrap">
+   <div class="row" style="justify-content:space-between"><div><span class="kicker">🦴 Quick game</span><h2 class="title">Backbone or no backbone?</h2></div><div class="stars" id="bbStars"></div></div>
+   <div class="bb">
+     <div><div class="bb-photo" id="bbPhoto"></div><div class="bb-name" id="bbName"></div></div>
+     <div class="bb-btns">
+       <button class="bb-btn" data-v="1"><span class="ic">🦴</span><div><b>Backbone</b><span>Vertebrate – like you!</span></div></button>
+       <button class="bb-btn" data-v="0"><span class="ic">🫧</span><div><b>No backbone</b><span>Invertebrate</span></div></button>
+       <div class="feedback" id="bbFb"></div>
+     </div>
+   </div></div>`,
+ init:el=>{
+   let round=0,score=0,cur,lock=false; const pool=shuffle(A).slice(0,8);
+   const show=()=>{lock=false;$$(".bb-btn",el).forEach(b=>b.className="bb-btn");
+     if(round>=pool.length){$("#bbPhoto",el).innerHTML=`<div class="ph" style="height:100%;border-radius:22px"><span class="emo">🏆</span></div>`;$("#bbName",el).textContent=`${score} / ${pool.length} correct!`;$("#bbFb",el).innerHTML=`<button class="btn primary" id="bbAgain">Play again 🔁</button>`;$("#bbAgain",el).onclick=()=>{round=0;score=0;pool.splice(0,8,...shuffle(A).slice(0,8));$("#bbStars",el).textContent="";show()};confetti();return}
+     cur=pool[round];$("#bbPhoto",el).innerHTML=ph(cur.id,"","");$("#bbPhoto",el).firstChild.style.cssText+=";height:100%;border-radius:22px";$("#bbName",el).textContent=cur.name;$("#bbFb",el).textContent=`Animal ${round+1} of ${pool.length}`;paint(el)};
+   $$(".bb-btn",el).forEach(b=>b.onclick=()=>{if(lock||round>=pool.length)return;lock=true;
+     const ok=(+b.dataset.v===1)===GROUPS[cur.g].backbone;
+     b.classList.add(ok?"right":"wrong");
+     if(ok){score++;$("#bbStars",el).textContent+="⭐";}
+     $("#bbFb",el).textContent=ok?`Yes! A ${cur.name.toLowerCase()} is a ${GROUPS[cur.g].one}. 🎉`:`Not quite. A ${cur.name.toLowerCase()} ${GROUPS[cur.g].backbone?"has":"has no"} backbone.`;
+     setTimeout(()=>{round++;show()},1600)});
+   show();
+ }},
+];
+
+/* 5–11. Group slides */
+const GROUP_INFO = {
+ mammal:{hero:"elephant",feat:[["🧸","Have hair or fur"],["🍼","Babies drink milk from their mother"],["🫁","Breathe air with lungs"],["🌡️","Warm-blooded – they stay warm inside"]],say:"Mammals have hair or fur. Their babies drink milk from their mother. They breathe air with lungs, and they are warm-blooded. You are a mammal too!",note:"Humans are mammals! Ask: <i>How are you like a lion?</i> Dolphins and bats are tricky mammals: one swims, one flies."},
+ bird:{hero:"macaw",feat:[["🪶","Have feathers"],["🥚","Lay eggs with hard shells"],["🐦","Have a beak and no teeth"],["🪽","Have wings (but not all can fly!)"]],say:"Birds have feathers. They lay eggs with hard shells. They have a beak, and they have wings, but not all birds can fly!",note:"Every bird has feathers – no other animal does. Penguins and ostriches are birds that can't fly. Compare beak shapes to food (function)."},
+ reptile:{hero:"chameleon",feat:[["🐉","Dry, scaly skin"],["🥚","Most lay eggs on land"],["🫁","Breathe air with lungs"],["☀️","Cold-blooded – they warm up in the sun"]],say:"Reptiles have dry, scaly skin. Most lay eggs on land. They breathe air with lungs, and they warm up by lying in the sun.",note:"Cold-blooded means their body temperature changes with their surroundings. That's why lizards bask on warm rocks."},
+ amphibian:{hero:"treefrog",feat:[["💧","Smooth, damp skin"],["🌊","Start life in water"],["🔄","Change shape as they grow"],["🌿","Live on land and in water"]],say:"Amphibians have smooth, damp skin. They start life in water, change shape as they grow, and can live on land and in water.",note:"'Amphibian' means 'two lives' – in water and on land. Link to the frog life cycle later in the deck."},
+ fish:{hero:"clownfish",feat:[["🫧","Breathe underwater with gills"],["🐟","Have fins to swim"],["✨","Most have scales"],["🌊","Live in water all their life"]],say:"Fish breathe underwater with gills. They have fins to swim, most have scales, and they live in water all their life.",note:"Misconception check: whales and dolphins are NOT fish – they breathe air. Sharks and seahorses ARE fish."},
+ insect:{hero:"butterfly",feat:[["6️⃣","Have 6 legs"],["🐞","3 body parts: head, thorax, abdomen"],["📡","Have 2 antennae"],["🛡️","Hard outer skin, no backbone"]],say:"Insects have six legs and three body parts: a head, a thorax and an abdomen. They have two antennae and no backbone.",note:"Count legs! A spider has 8 legs so it is NOT an insect. Try a bug hunt in the school garden (research skills)."},
+ invert:{hero:"octopus",feat:[["🫧","No backbone"],["🐚","Some have shells, some are soft"],["🕷️","Spiders have 8 legs"],["🌍","Most animals on Earth are invertebrates!"]],say:"These animals have no backbone. Some have shells, some are soft and squishy. Spiders have eight legs. Most animals on Earth are invertebrates!",note:"Invertebrates are a huge, varied set of groups: arachnids (spiders), molluscs (snails, octopus), echinoderms (sea stars), worms and more."}
+};
+Object.keys(GROUPS).forEach(gk=>{
+  const g=GROUPS[gk], info=GROUP_INFO[gk], list=byGroup(gk);
+  SLIDES.push({title:g.name, say:info.say,
+   notes:`<h4>${g.name}</h4>${info.note}<h4>Try this</h4>Tap the small cards to flip them and read a fun fact. Ask: <i>What features do these animals share?</i><div class="tagline"><span>Line of inquiry 1</span><span>Key concept: Form</span><span>ATL: Research – observing</span></div>`,
+   html:()=>`<div class="wrap group" style="--g:${g.color}">
+     <div class="g-head"><div><span class="kicker g-tag">${g.emoji} Animal group</span><h2 class="title" style="margin-top:8px"><span>${g.name}</span></h2></div>
+     <span class="chip">${g.backbone?"🦴 Vertebrates":"🫧 Invertebrates"}</span></div>
+     <div class="g-body">
+       <button class="g-hero" data-open="${info.hero}" aria-label="Open ${AM[info.hero].name}">${ph(info.hero,"","")}<span class="cap">${AM[info.hero].name}</span></button>
+       <div class="g-side">
+         <div class="features">${info.feat.map(([i,t])=>`<div class="feat"><span class="ic">${i}</span>${t}</div>`).join("")}</div>
+         <div class="minis">${list.slice(0,4).map(a=>`<div class="mini" data-flip data-say="${a.name}. ${a.f}"><div class="mini-in"><div class="mini-f">${ph(a.id)}<b>${a.name}</b></div><div class="mini-b"><b>${a.name}</b>${a.f}</div></div></div>`).join("")}</div>
+         <span class="hint">👆 Tap a card to flip it · tap the big photo to zoom</span>
+       </div>
+     </div></div>`,
+   init:el=>{
+     const hero=$(".g-hero .ph",el);hero.style.cssText+=";position:absolute;inset:0";
+     $(".g-hero",el).style.cssText+=";overflow:hidden;padding:0;display:block";
+     $$("[data-flip]",el).forEach(m=>m.onclick=()=>{m.classList.toggle("flip");if(m.classList.contains("flip"))speak(m.dataset.say)});
+   }});
+});
+
+/* 12+. remaining slides */
+SLIDES.push(
+/* Explorer */
+{title:"Animal explorer", say:"Welcome to the animal explorer! Tap any animal to see a big photo and learn about it. Use the buttons to show just one group.",
+ notes:`<h4>Free exploration</h4>Pairs choose 3 animals and tell each other: which group, where it lives, what it eats. Use the filters to compare groups.<br><b>Extension:</b> Find two animals that live in the same habitat but belong to different groups.<div class="tagline"><span>ATL: Social – collaborating</span><span>ATL: Communication</span><span>Learner profile: Communicators</span></div>`,
+ html:()=>`<div class="wrap" style="justify-content:flex-start">
+   <span class="kicker">🧭 Going further</span><h2 class="title">Animal explorer</h2>
+   <div class="filters" id="flt"><button class="fbtn on" data-f="all">🌍 All (${A.length})</button>${Object.entries(GROUPS).map(([k,g])=>`<button class="fbtn" data-f="${k}"><span class="dot" style="background:${g.color}"></span>${g.name}</button>`).join("")}</div>
+   <div class="gallery" id="gal">${A.map(a=>`<button class="gcard" data-open="${a.id}" data-g="${a.g}">${ph(a.id)}<div class="meta"><b>${a.name}</b><small><span class="dot" style="background:${GROUPS[a.g].color}"></span>${GROUPS[a.g].name.replace("Other ","")}</small></div></button>`).join("")}</div>
+ </div>`,
+ init:el=>$$(".fbtn",el).forEach(b=>b.onclick=()=>{$$(".fbtn",el).forEach(x=>x.classList.toggle("on",x===b));$$(".gcard",el).forEach(c=>c.style.display=(b.dataset.f==="all"||c.dataset.g===b.dataset.f)?"":"none")})},
+
+/* Habitats */
+{title:"Animal homes", say:"A habitat is an animal's home. It gives the animal food, water and shelter. Tap a habitat to see who lives there.",
+ notes:`<h4>Habitats and adaptation</h4>A habitat gives an animal food, water, shelter and space. Animals have body parts and behaviours (adaptations) that help them survive there.<br><b>Ask:</b> Could a polar bear live in the desert? Why not?<div class="tagline"><span>Line of inquiry 2</span><span>Key concept: Function</span><span>Related concept: Adaptation</span></div>`,
+ html:()=>`<div class="wrap">
+   <span class="kicker">🏡 Habitats</span><h2 class="title">Where do animals live?</h2>
+   <div class="hab-tabs" id="habTabs">${Object.entries(HAB).map(([k,h],i)=>`<button class="hab-tab ${i?"":"on"}" data-h="${k}">${h.icon} ${h.name}</button>`).join("")}</div>
+   <div class="hab-view" id="habView"></div></div>`,
+ init:el=>{
+   const ADAPT={ocean:["Fins and flippers for swimming","Gills to breathe underwater (fish)","A blowhole to breathe air (dolphins)"],rainforest:["Bright colours and camouflage","Sticky toes and gripping tails for climbing","Strong beaks for nuts and fruit"],desert:["Store fat to survive with little food","Wide feet for walking on sand","Rest in the shade when it's hot"],polar:["Thick fur, feathers or fat to stay warm","White colours to hide in snow","Great swimmers in icy water"],grassland:["Long legs to run fast","Long necks to reach treetops","Living in groups to stay safe"],fresh:["Webbed feet for swimming","Eyes on top of the head to peek out of water","Damp skin (amphibians)"],forest:["Camouflage colours like bark and leaves","Sharp eyes and ears to find food","Wings to fly between trees"]};
+   const DESC={ocean:"Salty sea water covers most of our planet. Coral reefs are full of colourful life.",rainforest:"Hot, wet and green! Rainforests have more kinds of animals than anywhere else.",desert:"Very dry with little rain. Days can be hot and nights can be cold.",polar:"Icy cold, with snow and ice all year round.",grassland:"Wide, open land with tall grass and only a few trees.",fresh:"Rivers, lakes and ponds have fresh water – not salty.",forest:"Trees, bushes and gardens, full of hiding places."};
+   const show=k=>{
+     $$(".hab-tab",el).forEach(t=>t.classList.toggle("on",t.dataset.h===k));
+     const list=A.filter(a=>a.h===k).slice(0,6);
+     $("#habView",el).innerHTML=`<div class="hab-photo">${ph("hab_"+k,"","")}<span class="cap">${HAB[k].icon} ${HAB[k].name}</span></div>
+       <div class="hab-info"><p class="desc">${DESC[k]}</p>
+       <div class="card adapt">💡 Animals here have…<ul style="padding-left:22px;margin-top:4px">${ADAPT[k].map(x=>`<li>${x}</li>`).join("")}</ul></div>
+       <div class="hab-animals">${list.map(a=>`<button class="gcard" data-open="${a.id}">${ph(a.id)}<div class="meta"><b>${a.name}</b></div></button>`).join("")}</div></div>`;
+     const p=$(".hab-photo .ph",el);p.style.cssText+=";position:absolute;inset:0;border-radius:22px";
+     paint(el);
+   };
+   $$(".hab-tab",el).forEach(t=>t.onclick=()=>{show(t.dataset.h);speak(HAB[t.dataset.h].name+". "+DESC[t.dataset.h])});
+   show("ocean");
+ }},
+
+/* Food */
+{title:"What do animals eat?", say:"What do animals eat? Herbivores eat plants. Carnivores eat other animals. Omnivores eat plants and animals. Guess first, then tap reveal!",
+ notes:`<h4>Herbivore · Carnivore · Omnivore</h4>Before revealing, ask students to predict which animals are hiding in each blurry group, using the clues in the heading. Then ask: <i>What are you? (Most people are omnivores!)</i><br><b>Function link:</b> sharp teeth for meat, flat teeth for plants.<div class="tagline"><span>Key concept: Function</span><span>ATL: Thinking – predicting</span></div>`,
+ html:()=>{const pick=d=>A.filter(a=>a.d===d);const sets={herbivore:["elephant","giraffe","turtle","bee","kangaroo","snail"],carnivore:["lion","shark","owl","ladybird","crocodile","spider"],omnivore:["raccoon","ostrich","clownfish","ant","goldfish","hummingbird"]};
+   sets.omnivore=[...new Set(sets.omnivore)];
+   return `<div class="wrap"><div class="row" style="justify-content:space-between"><div><span class="kicker">🍽️ Food</span><h2 class="title">What do animals eat?</h2></div><button class="btn primary" id="foodBtn">👀 Reveal!</button></div>
+   <div class="food fhide" id="food">
+   ${Object.entries(DIET).map(([k,d],i)=>`<div class="card fcol" style="border-top:12px solid ${["var(--reptile)","var(--bad)","var(--insect)"][i]}"><h3>${d.icon} ${d.name}</h3><p>${d.name}s ${d.say.replace("eats","eat")}.</p><div class="ftray">${sets[k].map(id=>`<button data-open="${id}" style="padding:0">${ph(id)}</button>`).join("")}</div></div>`).join("")}
+   </div><p class="hint">🔮 The photos are blurry! Can you guess the animals and their food group before you reveal them?</p></div>`},
+ init:el=>{const f=$("#food",el),b=$("#foodBtn",el);b.onclick=()=>{f.classList.toggle("fhide");b.textContent=f.classList.contains("fhide")?"👀 Reveal!":"🙈 Hide";if(!f.classList.contains("fhide"))confetti(30)}}},
+
+/* Life cycles */
+{title:"Life cycles", say:"Animals grow and change. This is called a life cycle. Tap next stage to watch a frog and a butterfly grow!",
+ notes:`<h4>Life cycles</h4>Frogs (amphibians) and butterflies (insects) both go through big changes called <b>metamorphosis</b>. Compare with mammals, whose babies look like small adults.<br><b>Ask:</b> How is a tadpole like a fish? How is a caterpillar different from a butterfly?<div class="tagline"><span>Related concept: Life cycle</span><span>Key concept: Change</span><span>ATL: Thinking – sequencing</span></div>`,
+ html:()=>`<div class="wrap">
+   <div class="row" style="justify-content:space-between"><div><span class="kicker">🔄 Growing & changing</span><h2 class="title">Life cycles</h2></div>
+   <div class="lc-tabs"><button class="hab-tab on" data-lc="frog">🐸 Frog</button><button class="hab-tab" data-lc="bf">🦋 Butterfly</button></div></div>
+   <div class="cycle" id="cyc"></div>
+   <div class="row"><button class="btn primary" id="lcNext">Next stage ▶</button><button class="btn" id="lcReset">↺ Start again</button></div></div>`,
+ init:el=>{
+   const C={frog:[["lc_frogspawn","Eggs","A mother frog lays jelly eggs called frogspawn in a pond."],["lc_tadpole","Tadpole","A tadpole hatches. It has a tail and breathes with gills, like a fish."],["lc_froglet","Froglet","It grows legs, its tail gets shorter, and it starts to breathe air."],["treefrog","Frog","Now it is a frog! It can live on land and in water."]],
+           bf:[["lc_bfegg","Egg","A butterfly lays tiny eggs on a leaf."],["lc_caterpillar","Caterpillar","A hungry caterpillar hatches and eats and eats and grows!"],["lc_chrysalis","Chrysalis","It makes a hard case called a chrysalis and changes inside."],["butterfly","Butterfly","A butterfly comes out, dries its wings and flies away!"]]};
+   let cur="frog",step=0;
+   const draw=()=>{$("#cyc",el).innerHTML=C[cur].map(([k,h,p],i)=>`<div class="card stage-card ${i<=step?"on":""}"><span class="num">${i+1}</span>${ph(k)}<h3>${h}</h3><p>${p}</p></div>`).join("");paint(el)};
+   $("#lcNext",el).onclick=()=>{if(step<3){step++;draw();const s=C[cur][step];speak(s[1]+". "+s[2]);if(step===3)confetti(40)}};
+   $("#lcReset",el).onclick=()=>{step=0;draw()};
+   $$("[data-lc]",el).forEach(b=>b.onclick=()=>{cur=b.dataset.lc;step=0;$$("[data-lc]",el).forEach(x=>x.classList.toggle("on",x===b));draw()});
+   draw();
+ }},
+
+/* Sort game */
+{title:"Sort the animals!", say:"Game time! Drag each animal into the right group. You can also tap an animal, then tap its group.",
+ notes:`<h4>Sorting challenge</h4>Students drag (or tap, then tap a basket) each animal into its group. Wrong answers shake and bounce back, so they can try again.<br>Great for pairs on a tablet or as a whole-class game on the board: students come up one at a time and explain <i>why</i>.<div class="tagline"><span>Inquiry phase: Sorting out</span><span>ATL: Thinking – classifying</span><span>Key concept: Form</span></div>`,
+ html:()=>`<div class="wrap" style="justify-content:flex-start">
+   <div class="row" style="justify-content:space-between"><div><span class="kicker">🧺 Game</span><h2 class="title">Sort the animals!</h2></div><div class="row"><span class="stars" id="srtScore"></span><button class="btn" id="srtNew">🔀 New animals</button></div></div>
+   <div class="sort"><div class="pool" id="pool"></div>
+   <div class="baskets">${Object.entries(GROUPS).filter(([k])=>k!=="invert").map(([k,g])=>`<div class="basket" data-g="${k}"><h4 style="background:${g.color}">${g.emoji} ${g.name}</h4><div class="in"></div></div>`).join("")}</div></div>
+   <p class="hint">👆 Drag an animal into its group – or tap the animal, then tap the group.</p></div>`,
+ init:el=>{
+   let sel=null,placed=0,total=0;
+   const fill=()=>{
+     const picks=shuffle(Object.keys(GROUPS).filter(k=>k!=="invert").flatMap(k=>shuffle(byGroup(k)).slice(0,2)));
+     total=picks.length;placed=0;$("#srtScore",el).textContent="";
+     $$(".basket .in",el).forEach(b=>b.innerHTML="");
+     $("#pool",el).innerHTML=picks.map(a=>`<div class="tok" data-id="${a.id}">${ph(a.id)}<b>${a.name}</b></div>`).join("");
+     paint(el);bind();
+   };
+   const tryDrop=(tok,basket)=>{
+     const a=AM[tok.dataset.id];
+     if(a.g===basket.dataset.g){
+       basket.querySelector(".in").insertAdjacentHTML("beforeend",ph(a.id));paint(basket);
+       tok.remove();placed++;basket.classList.remove("yay");void basket.offsetWidth;basket.classList.add("yay");
+       $("#srtScore",el).textContent=`${placed} / ${total} ⭐`;
+       if(placed===total){confetti(120);speak("Amazing! You sorted all the animals!")}
+     }else{basket.classList.remove("flash");void basket.offsetWidth;basket.classList.add("flash");speak(`Hmm, a ${a.name.toLowerCase()} is not ${/^[aeiou]/i.test(GROUPS[basket.dataset.g].one)?"an":"a"} ${GROUPS[basket.dataset.g].one}. Try again!`)}
+   };
+   $$(".basket",el).forEach(b=>b.onclick=()=>{if(sel){const s=sel;sel=null;s.classList.remove("sel");tryDrop(s,b)}});
+   function bind(){
+     $$(".tok",el).forEach(t=>{
+       t.onpointerdown=e=>{
+         e.preventDefault();const sx=e.clientX,sy=e.clientY;let ghost=null,over=null;
+         const move=ev=>{
+           if(!ghost&&Math.hypot(ev.clientX-sx,ev.clientY-sy)>8){ghost=t.cloneNode(true);ghost.classList.add("ghost");ghost.classList.remove("sel");document.body.appendChild(ghost);t.classList.add("dim")}
+           if(ghost){ghost.style.left=ev.clientX-52+"px";ghost.style.top=ev.clientY-50+"px";
+             const b=document.elementFromPoint(ev.clientX,ev.clientY)?.closest(".basket");
+             if(over!==b){over&&over.classList.remove("over");over=b;b&&b.classList.add("over")}}
+         };
+         const up=ev=>{
+           removeEventListener("pointermove",move);removeEventListener("pointerup",up);removeEventListener("pointercancel",up);
+           if(ghost){ghost.remove();t.classList.remove("dim");over&&over.classList.remove("over");if(over)tryDrop(t,over)}
+           else{ if(sel===t){t.classList.remove("sel");sel=null}else{sel&&sel.classList.remove("sel");sel=t;t.classList.add("sel");speak(AM[t.dataset.id].name)} }
+         };
+         addEventListener("pointermove",move);addEventListener("pointerup",up);addEventListener("pointercancel",up);
+       };
+     });
+   }
+   $("#srtNew",el).onclick=fill;fill();
+ }},
+
+/* Riddles */
+{title:"Who am I?", say:"Who am I? Listen to the clues one at a time. Can you guess the animal before the picture is revealed?",
+ notes:`<h4>Riddles</h4>Reveal one clue at a time; students show a thumbs-up when they think they know. Ask them to justify with a feature: <i>"It's a bird because it has feathers."</i><br><b>Extension:</b> Students write their own 3-clue riddle for a classmate.<div class="tagline"><span>ATL: Communication – listening</span><span>Learner profile: Thinkers</span></div>`,
+ html:()=>`<div class="wrap">
+   <div class="row" style="justify-content:space-between"><div><span class="kicker">🤔 Riddles</span><h2 class="title">Who am I?</h2></div><span class="chip" id="rdNum"></span></div>
+   <div class="riddle"><div class="clues" id="clues"></div><div class="reveal" id="rv"></div></div>
+   <div class="row"><button class="btn primary" id="rdClue">Next clue 💡</button><button class="btn" id="rdShow">Show me! 🎉</button><button class="btn" id="rdNext">Next riddle ▶</button></div></div>`,
+ init:el=>{
+   const R=[["I have black and white feathers.","I cannot fly, but I swim very well.","I live where it is icy cold.","penguin"],
+            ["I have smooth, damp skin.","I started life as a tadpole.","I have bright red eyes and sticky toes.","treefrog"],
+            ["I have 8 arms and no bones.","I have 3 hearts.","I live in the ocean.","octopus"],
+            ["I have 6 legs.","I make honey.","I dance to talk to my friends.","bee"],
+            ["I am a mammal.","I have a very long neck.","I am the tallest animal in the world.","giraffe"],
+            ["I have dry, scaly skin.","I can change my colour.","My eyes can look two ways at once.","chameleon"]];
+   let i=0,c=0;
+   const draw=()=>{const r=R[i];$("#rdNum",el).textContent=`Riddle ${i+1} of ${R.length}`;
+     $("#clues",el).innerHTML=r.slice(0,3).map((t,k)=>`<div class="card clue ${k<=c?"on":""}"><span class="n">${k+1}</span>${t}</div>`).join("");
+     $("#rv",el).className="reveal";$("#rv",el).innerHTML=`${ph(r[3],"","")}<div class="cover">?</div><span class="nm">${AM[r[3]].name}</span>`;
+     const p=$("#rv .ph",el);p.style.cssText+=";position:absolute;inset:0;border-radius:50%";paint(el)};
+   $("#rdClue",el).onclick=()=>{if(c<2){c++;draw();speak(R[i][c])}};
+   $("#rdShow",el).onclick=()=>{$("#rv",el).classList.add("open");speak("I am a "+AM[R[i][3]].name+"!");confetti(40)};
+   $("#rdNext",el).onclick=()=>{i=(i+1)%R.length;c=0;draw();speak(R[i][0])};
+   draw();
+ }},
+
+/* Quiz */
+{title:"Animal quiz", say:"Quiz time! Look at the photo, read the question and tap your answer.",
+ notes:`<h4>Check for understanding</h4>8 questions covering groups, features, habitats and diet. Use it as a whole-class quiz with mini-whiteboards, or let pairs play on a device.<br>Note which questions the class finds hardest to plan the next lesson.<div class="tagline"><span>Formative assessment</span><span>Inquiry phase: Making conclusions</span><span>Learner profile: Knowledgeable</span></div>`,
+ html:()=>`<div class="wrap"><div class="row" style="justify-content:space-between"><div><span class="kicker">⭐ Quiz</span><h2 class="title">Animal quiz</h2></div><div class="qdots" id="qdots"></div></div><div id="qbox"></div></div>`,
+ init:el=>{
+   const Q=[["dolphin","A dolphin lives in the sea. What group is it in?",["Fish","Mammal","Reptile","Amphibian"],1,"Dolphins breathe air and drink milk as babies, so they are mammals!"],
+            ["owl","Which body covering do ALL birds have?",["Fur","Scales","Feathers","Damp skin"],2,"Only birds have feathers."],
+            ["spider","Is a spider an insect?",["Yes – it has 6 legs","No – it has 8 legs"],1,"Spiders have 8 legs. Insects have 6."],
+            ["polarbear","Where does a polar bear live?",["Desert","Rainforest","Polar ice","Pond"],2,"Polar bears live in the icy Arctic."],
+            ["giraffe","A giraffe eats only leaves. It is a…",["Herbivore","Carnivore","Omnivore"],0,"Herbivores eat plants."],
+            ["clownfish","How do fish breathe underwater?",["With lungs","With gills","Through a blowhole","They don't breathe"],1,"Fish use gills to take oxygen from water."],
+            ["treefrog","Which animal starts life as a tadpole?",["Lizard","Frog","Bird","Bee"],1,"Frogs are amphibians. They begin life in water as tadpoles."],
+            ["octopus","Does an octopus have a backbone?",["Yes","No"],1,"An octopus is an invertebrate – it has no bones at all!"]];
+   let i=0,score=0;const res=[];
+   const dots=()=>$("#qdots",el).innerHTML=Q.map((_,k)=>`<i class="${res[k]===true?"r":res[k]===false?"w":k===i?"c":""}"></i>`).join("");
+   const draw=()=>{dots();
+     if(i>=Q.length){$("#qbox",el).innerHTML=`<div class="result"><div class="bigstar">${score>=7?"🏆":score>=5?"🌟":"💪"}</div><h2 class="title">${score} out of ${Q.length}!</h2><p class="lead">${score>=7?"Animal expert! Amazing work.":score>=5?"Great job, inquirer!":"Good try! Let's explore again and have another go."}</p><button class="btn primary" id="qAgain">Play again 🔁</button></div>`;
+       $("#qAgain",el).onclick=()=>{i=0;score=0;res.length=0;draw()};if(score>=5)confetti(140);speak(`You got ${score} out of ${Q.length}!`);return}
+     const [id,q,opts,ans,why]=Q[i];
+     $("#qbox",el).innerHTML=`<div class="quiz"><div class="q-photo">${ph(id,"","")}</div><div><p class="q-text">${q}</p><div class="opts">${opts.map((o,k)=>`<button class="opt" data-k="${k}">${o}</button>`).join("")}</div><p class="feedback" id="qfb" style="margin-top:14px"></p></div></div>`;
+     const p=$(".q-photo .ph",el);p.style.cssText+=";height:100%;border-radius:22px";paint(el);
+     let lock=false;
+     $$(".opt",el).forEach(b=>b.onclick=()=>{if(lock)return;lock=true;const ok=+b.dataset.k===ans;
+       b.classList.add(ok?"right":"wrong");if(!ok)$$(".opt",el)[ans].classList.add("right");
+       res[i]=ok;if(ok)score++;$("#qfb",el).textContent=(ok?"✅ Yes! ":"💡 ")+why;speak((ok?"Yes! ":"")+why);dots();
+       setTimeout(()=>{i++;draw()},2600)});
+   };
+   draw();
+ }},
+
+/* Caring */
+{title:"Caring for animals", say:"We share the planet with animals. How can we take care of them? Tap the actions you can do!",
+ notes:`<h4>Taking action</h4>Students choose one or more actions they can really do. Display choices on a class "We Care" chart and check back in a week.<br>Student-initiated action is a key part of the PYP – celebrate small, real actions.<div class="tagline"><span>Line of inquiry 3</span><span>Key concept: Responsibility</span><span>Learner profile: Caring</span><span>Inquiry phase: Taking action</span></div>`,
+ html:()=>`<div class="wrap">
+   <span class="kicker">💚 Taking action</span><h2 class="title">How can we care for animals?</h2>
+   <p class="lead">We share the planet. Tap the actions you will do!</p>
+   <div class="grid actions">
+     ${[["🗑️","Keep it clean","Put rubbish in the bin so animals don't eat it or get stuck."],["🌼","Plant flowers","Flowers give bees and butterflies food."],["💧","Save water","Turn off the tap. Rivers and ponds need water for animals."],["🐾","Be gentle","Watch animals quietly. Never chase or hurt them."],["🏠","Leave homes alone","Don't break nests, webs or shells."],["📣","Tell others","Share what you learned with your family!"]]
+       .map(([i,h,p])=>`<button class="card act"><span class="ic">${i}</span><h3>${h}</h3><p>${p}</p><span class="tick">I will do this</span></button>`).join("")}
+   </div></div>`,
+ init:el=>$$(".act",el).forEach(b=>b.onclick=()=>{b.classList.toggle("on");$(".tick",b).textContent=b.classList.contains("on")?"✔ I will!":"I will do this";if(b.classList.contains("on")){speak($("h3",b).textContent+". "+$("p",b).textContent)}})},
+
+/* Reflection */
+{title:"Reflection", say:"Time to reflect! How do you feel about what you learned? What is something new you learned? Which learner profile word were you today?",
+ notes:`<h4>Reflection</h4>Students pick a face, share one new learning with a partner, and choose a learner profile attribute they showed. Typed answers stay on this device only.<br><b>Thinking routine:</b> "I used to think… Now I think…"<div class="tagline"><span>Learner profile: Reflective</span><span>ATL: Self-management</span></div>`,
+ html:()=>`<div class="wrap">
+   <span class="kicker">🪞 Reflecting</span><h2 class="title">What did I learn?</h2>
+   <div class="reflect">
+     <div class="card rcard"><h3>How do I feel?</h3><p>Tap a face.</p><div class="faces">${["🤩","😊","🙂","🤔"].map(f=>`<button class="face">${f}</button>`).join("")}</div></div>
+     <div class="card rcard"><h3>I used to think… now I think…</h3><textarea placeholder="I used to think a dolphin was a fish. Now I think…"></textarea></div>
+     <div class="card rcard"><h3>Today I was…</h3><p>Tap the learner profile words.</p><div class="lp">${["Inquirer","Thinker","Caring","Communicator","Knowledgeable","Risk-taker","Open-minded","Reflective"].map(x=>`<button>${x}</button>`).join("")}</div></div>
+   </div></div>`,
+ init:el=>{$$(".face",el).forEach(f=>f.onclick=()=>{$$(".face",el).forEach(x=>x.classList.toggle("on",x===f))});$$(".lp button",el).forEach(b=>b.onclick=()=>{b.classList.toggle("on");if(b.classList.contains("on"))speak(b.textContent)})}},
+
+/* End */
+{title:"Well done!", say:"Well done, animal explorers! Keep asking questions about the animals around you.",
+ notes:`<h4>Next steps</h4><ul><li>Bug hunt in the school garden – sort what you find.</li><li>Each student researches one animal and makes a fact card.</li><li>Invite a vet, zookeeper or local farmer as a guest speaker.</li></ul><h4>Photo credits</h4>Photos load from Wikipedia / Wikimedia Commons (free licences). Each photo's author and licence are on its Wikipedia page.`,
+ html:()=>`<div class="wrap" style="align-items:center;text-align:center">
+   <div style="font-size:90px;animation:bob 2s infinite">🏆</div>
+   <h2 class="title">Well done, animal explorers!</h2>
+   <p class="lead">Keep asking questions about the animals around you. What will you find out next?</p>
+   <div class="row" style="justify-content:center"><button class="btn primary" data-go="0">↺ Start again</button><button class="btn" data-go="${11}">🧭 Animal explorer</button></div>
+   <p class="credit">Photos: <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a> contributors, via Wikipedia (free licences). Read-aloud uses your device's voice.</p>
+ </div>`,
+ init:el=>{ /* confetti on arrival */ }}
+);
+
+/* ================================================================
+   ENGINE
+   ================================================================ */
+const stage=$("#stage"); let idx=0; const built=[];
+SLIDES.forEach((s,i)=>{const sec=document.createElement("section");sec.className="slide";sec.setAttribute("aria-label",s.title);sec.innerHTML=s.html();stage.appendChild(sec);built.push(sec)});
+const explorerIndex = SLIDES.findIndex(s=>s.title==="Animal explorer");
+built.forEach((sec,i)=>{ if(SLIDES[i].init) SLIDES[i].init(sec); });
+$$('[data-go="11"]').forEach(b=>b.dataset.go=explorerIndex);
+document.addEventListener("click",e=>{
+  const go=e.target.closest("[data-go]"); if(go){show(+go.dataset.go);return}
+  const op=e.target.closest("[data-open]"); if(op){openAnimal(op.dataset.open)}
+});
+function show(n){
+  n=Math.max(0,Math.min(SLIDES.length-1,n));
+  built.forEach((s,i)=>{s.classList.toggle("active",i===n);s.classList.toggle("prev",i<n)});
+  idx=n; built[n].scrollTop=0;
+  $("#bar").style.width=((n)/(SLIDES.length-1)*100)+"%";
+  $("#count").textContent=`${n+1} / ${SLIDES.length}`;
+  $("#prevBtn").disabled=n===0; $("#nextBtn").disabled=n===SLIDES.length-1;
+  $("#notes").innerHTML=`<div style="font-size:12px;opacity:.7;font-weight:800;letter-spacing:.06em;text-transform:uppercase">Slide ${n+1} · ${SLIDES[n].title}</div>`+SLIDES[n].notes;
+  if(history.replaceState) history.replaceState(null,"","#"+(n+1));
+  "speechSynthesis" in window && speechSynthesis.cancel();
+  if(n===SLIDES.length-1) confetti(100);
+  paint(built[n]);
+}
+$("#prevBtn").onclick=()=>show(idx-1);
+$("#nextBtn").onclick=()=>show(idx+1);
+$("#sayBtn").onclick=()=>{ if(speechSynthesis.speaking){speechSynthesis.cancel();$("#sayBtn").classList.remove("talking")} else speak(SLIDES[idx].say) };
+$("#notesBtn").onclick=()=>{$("#notes").classList.toggle("open");$("#notesBtn").classList.toggle("on")};
+$("#fsBtn").onclick=()=>{ if(!document.fullscreenElement) document.documentElement.requestFullscreen?.().catch(()=>{}); else document.exitFullscreen?.() };
+const ov=$("#overview");
+$("#ovBtn").onclick=()=>{ $("#ovGrid").innerHTML=SLIDES.map((s,i)=>`<button class="card ov-item ${i===idx?"cur":""}" data-ov="${i}"><span class="n">${i+1}</span>${s.title}</button>`).join(""); ov.classList.add("open") };
+$("#ovClose").onclick=()=>ov.classList.remove("open");
+$("#ovGrid").addEventListener("click",e=>{const b=e.target.closest("[data-ov]");if(b){ov.classList.remove("open");show(+b.dataset.ov)}});
+document.addEventListener("keydown",e=>{
+  if(e.target.matches("textarea,input")) return;
+  if($("#modal").classList.contains("open")){ if(e.key==="Escape") $("#mclose").click(); return }
+  if(e.key==="ArrowRight"||e.key==="PageDown"||(e.key===" "&&!e.target.closest("button"))){e.preventDefault();show(idx+1)}
+  else if(e.key==="ArrowLeft"||e.key==="PageUp"){show(idx-1)}
+  else if(e.key.toLowerCase()==="t"){$("#notesBtn").click()}
+  else if(e.key.toLowerCase()==="f"){$("#fsBtn").click()}
+  else if(e.key.toLowerCase()==="o"){$("#ovBtn").click()}
+  else if(e.key==="Escape"){ov.classList.remove("open")}
+});
+/* swipe */
+let tx=null,ty=null;
+stage.addEventListener("touchstart",e=>{if(e.target.closest(".tok"))return;tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+stage.addEventListener("touchend",e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>80&&Math.abs(dx)>Math.abs(dy)*1.5)show(idx+(dx<0?1:-1));tx=null},{passive:true});
+
+const start=parseInt(location.hash.slice(1),10);
+show(isNaN(start)?0:start-1);
+loadPhotos();
+</script>
+</body>
+</html>
