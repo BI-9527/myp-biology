@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Station 1 · Energy is everywhere · Energy Quest</title>
+<meta name="description" content="MYP 1 Science, Energy Quest Station 1: what energy is and the eight energy stores, with a 3D energy hunt.">
+<link rel="icon" href="assets/his-logo.png">
+<link rel="stylesheet" href="assets/kit.css">
+<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
+<script src="assets/conf.js"></script>
+<script src="assets/kit.js" defer></script>
+<style>
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.flip{perspective:900px;height:200px;cursor:pointer}
+.flip .in{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .fc,.flip .bc{position:absolute;inset:0;border-radius:16px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;color:#fff}
+.flip .fc .ic{font-size:50px;line-height:1}
+.flip .fc b{font:900 20px/1.2 var(--sans);margin-top:10px}
+.flip .bc{transform:rotateY(180deg);font:600 17px/1.4 var(--sans)}
+.flip .bc i{display:block;margin-top:8px;font-style:normal;font-weight:800;opacity:.95}
+@media (max-width:980px){.cards{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body data-section="1">
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">Station 1 · Energy is everywhere</p>
+    <h1>What is energy?</h1>
+    <p class="lede"><b>Energy is what makes things happen.</b> It makes things move, heat up, light up, make sound, and grow. You cannot see energy itself, but you can see what it does.</p>
+    <div class="crit-row"><span class="crit A">A</span> Knowing and understanding</div>
+    <div class="q"><span class="qn">Q1.1 Gut feeling.</span> The power just cut in Aramoun. List three things in your home that need energy. Where do you think each one gets it?</div>
+  </div>
+  <div class="launch standup" style="margin:0">
+    <span class="ico">🙋</span>
+    <div><h3>Everybody up: energy charades</h3><p>One player acts out something that uses energy (no words!). Their team guesses what it is. 30 seconds per team.</p></div>
+    <button class="btn gold" data-timer="30" data-timer-label="Energy charades! 🙋">⏱ 30 s</button>
+  </div>
+</section>
+
+<section class="block">
+  <div class="part-title"><span class="badge" style="background:var(--e-kin)">Learn</span><h2 style="margin:0">The 8 energy stores</h2></div>
+  <p class="lede">Energy can be stored in different ways. Tap each card to flip it.</p>
+  <div class="cards" id="cards"></div>
+  <div class="q teaser"><span class="qn">Q1.2 Brain teaser:</span> Which two cards store energy because of something's <b>position or shape</b>, so the energy is "waiting" to be used? Why do we call them <i>potential</i>?
+    <div class="reveal"><button>Show answer</button><div class="ans"><b>Gravitational potential</b> (high up) and <b>elastic potential</b> (stretched or squashed). <i>Potential</i> means "could happen": the energy is stored and can be released later, when the object falls or springs back.</div></div></div>
+</section>
+
+<section class="block" id="hunt">
+  <div class="part-title"><span class="badge" style="background:var(--e-gpe)">3D</span><h2 style="margin:0">The energy hunt</h2></div>
+  <p class="lede">Explore the neighbourhood. Tap any object to reveal its main energy store, or start the team hunt.</p>
+  <div class="card">
+    <div class="stage" id="hStage" style="aspect-ratio:16/8.5"><span class="hint">Drag to look around · scroll to zoom · tap an object</span><div class="banner" id="hBanner" style="opacity:0"></div>
+      <div class="hud"><span class="chip" id="found">Found: 0 / 8</span></div></div>
+    <div class="ctrl">
+      <button class="btn green" id="huntBtn">🔎 Start the team hunt</button>
+      <button class="btn ghost" id="hReset">⟲ Reset view</button>
+    </div>
+    <div class="infopanel" id="hInfo" aria-live="polite">Tap an object to find out which energy store it has.</div>
+    <div class="launch hunt"><span class="ico">🔎</span><div><h3>Team hunt rules</h3><p>The board names an energy store. The team whose turn it is sends one player to tap an object with that store. First try correct: <b>+1 ⚡</b> on the scoreboard.</p></div><span></span></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="card">
+    <p class="sub">Sort the stores</p>
+    <div class="q" style="margin-top:0"><span class="qn">Q1.3</span> Drag each object into the box for its main energy store (or tap an object, then tap a box).</div>
+    <div class="io" data-src="io1"></div>
+    <script type="application/json" id="io1">{"bins":[["kin","Kinetic"],["gpe","Gravitational potential"],["ela","Elastic potential"],["che","Chemical"]],
+      "items":[["rolling football","f-kin","kin"],["wind blowing","f-kin","kin"],["running dog","f-kin","kin"],["apple hanging on a tree","f-gpe","gpe"],["water behind a dam","f-gpe","gpe"],["book on a high shelf","f-gpe","gpe"],["stretched rubber band","f-ela","ela"],["squashed spring","f-ela","ela"],["pulled-back bow","f-ela","ela"],["bread","f-che","che"],["phone battery","f-che","che"],["petrol","f-che","che"]]}</script>
+    <div class="grid2">
+      <div class="q teaser"><span class="qn">Q1.4 Brain teaser:</span> A book sits still on the top shelf. Does it have energy? How could you prove it?
+        <div class="reveal"><button>Show answer</button><div class="ans">Yes: <b>gravitational potential energy</b>, because it is high up. If it falls, that stored energy becomes kinetic energy (and a loud sound when it hits the floor!). Stored energy is still energy.</div></div></div>
+      <div class="q realw"><span class="qn">Q1.5 Real world:</span> Your phone is on 10%. Which energy store is in the battery? Name three things that energy turns into when you play a game.
+        <div class="reveal"><button>Show answer</button><div class="ans">The battery stores <b>chemical</b> energy. Playing a game turns it into <b>light</b> (screen), <b>sound</b> (speaker) and <b>thermal</b> energy (the phone gets warm), passing through electrical energy on the way.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="part-title"><span class="badge" style="background:var(--red)">Check</span><h2 style="margin:0">Game time</h2></div>
+  <div class="launch standup"><span class="ico">🧍</span><div><h3>Stand up · Sit down</h3><p>6 statements. Stand for TRUE, sit for FALSE.</p></div><button class="btn gold" data-standup="su1">▶ Play</button></div>
+  <div class="launch battle"><span class="ico">⚔️</span><div><h3>Quiz Battle: energy stores</h3><p>5 rounds · 2 ⚡ per correct team · last round doubles.</p></div><button class="btn red" data-battle="b1">▶ Battle</button></div>
+  <script type="application/json" id="su1">{"title":"Energy stores","items":[
+    ["Energy is what makes things happen.",true,"It makes things move, heat up, light up, make sound or grow."],
+    ["Only moving things have energy.",false,"Things can STORE energy too: food, a battery, a stretched spring, a rock up high."],
+    ["Food stores chemical energy.",true,"Your body releases it to move and keep warm."],
+    ["A stretched trampoline stores elastic potential energy.",true,"Its stretched springs and mat push the jumper back up."],
+    ["A rock at the bottom of a hill has more gravitational potential energy than one at the top.",false,"Higher up = more gravitational potential energy."],
+    ["Sound is a kind of energy.",true,"Sound energy makes the air vibrate, and your eardrum too."]]}</script>
+  <script type="application/json" id="b1">{"title":"Energy stores","points":2,"seconds":20,"qs":[
+    {"q":"Which energy store does a moving bicycle have?","o":["Kinetic","Chemical","Elastic potential","Sound"],"a":0,"why":"Anything that moves has kinetic energy."},
+    {"q":"A climber stands at the top of Qurnat as Sawda (3088 m). Which store has increased?","o":["Gravitational potential","Elastic potential","Sound","Light"],"a":0,"why":"Higher up = more gravitational potential energy."},
+    {"q":"Which object stores elastic potential energy?","o":["A squashed spring","A cup of tea","A banana","A ringing bell"],"a":0,"why":"Stretched or squashed objects store elastic potential energy."},
+    {"q":"Where is chemical energy stored?","o":["In food, fuels and batteries","Only in the Sun","In moving air","In loud music"],"a":0,"why":"Chemical energy is stored in substances and released by reactions."},
+    {"q":"A cup of hot tea mostly stores …","o":["Thermal energy","Elastic potential energy","Sound energy","Kinetic energy of the cup"],"a":0,"why":"Hot objects store thermal energy.","double":true}]}</script>
+</section>
+
+<div class="mission-end" data-section="1">
+  <h2>Station 1 complete?</h2>
+  <p>You can spot energy stores everywhere. Next: the two big ones, kinetic and potential, in a 3D skate park.</p>
+  <div class="row" style="justify-content:center"><button class="btn gold big" data-complete>✓ Station complete</button><a class="btn big" href="2-kinetic-potential.html">Next: Kinetic &amp; potential ▶</a></div>
+  <div class="done-msg">⚡ Station 1 powered up!</div>
+</div>
+<div class="footer"><img src="assets/his-logo.png" alt=""><div><b>Al-Hayat International School</b> · MYP 1 Sciences · Energy Quest · Station 1 of 6</div></div>
+</main>
+
+<script>
+/* flip cards */
+(function () {
+  var C = [['🏃', 'Kinetic', 'kin', 'Energy of anything that is <b>moving</b>.', 'a rolling ball, the wind'],
+    ['🧗', 'Gravitational potential', 'gpe', 'Energy stored because something is <b>high up</b>.', 'a book on a shelf, water behind a dam'],
+    ['🏹', 'Elastic potential', 'ela', 'Energy stored in something <b>stretched or squashed</b>.', 'a pulled bow, a squashed spring'],
+    ['🍞', 'Chemical', 'che', 'Energy stored in <b>food, fuels and batteries</b>.', 'man\'oushe, diesel, a phone battery'],
+    ['🔥', 'Thermal', 'the', 'Energy of <b>hot</b> objects. Hotter = more thermal energy.', 'hot tea, a campfire'],
+    ['💡', 'Light', 'lig', 'Energy that lets us <b>see</b>. It travels very fast.', 'the Sun, a lamp'],
+    ['🔊', 'Sound', 'sou', 'Energy carried by <b>vibrations</b>.', 'music, a drum, thunder'],
+    ['🔌', 'Electrical', 'ele', 'Energy carried by an <b>electric current</b>.', 'a phone charger, power lines']];
+  var box = document.getElementById('cards');
+  box.innerHTML = C.map(function (c) { return '<div class="flip" tabindex="0" role="button" aria-label="' + c[1] + ' energy card"><div class="in"><div class="fc f-' + c[2] + '"><span class="ic">' + c[0] + '</span><b>' + c[1] + '</b></div><div class="bc f-' + c[2] + '"><span>' + c[3] + '</span><i>e.g. ' + c[4] + '</i></div></div></div>'; }).join('');
+  box.querySelectorAll('.flip').forEach(function (f) { var t = function () { f.classList.toggle('on'); if (window.KIT) KIT.sfx.whoosh(); }; f.onclick = t; f.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t(); } }; });
+})();
+</script>
+<script type="module">
+import { stage, THREE, label, pill, mat, atom, burst, reduce } from './assets/scene3d.js';
+import { ground, house, tree, sun, car, E, ENAME } from './assets/energy3d.js';
+const S = stage(document.getElementById('hStage'), { pos: [0, 13, 25], target: [0, 1, 0], minD: 8, maxD: 40, lockVertical: true });
+if (S) {
+  const { scene, camera } = S;
+  scene.add(ground(30, 20));
+  // road loop
+  const road = new THREE.Mesh(new THREE.RingGeometry(5.2, 6.4, 64), mat('#4B5563', { clear: 0, rough: .9, side: THREE.DoubleSide })); road.rotation.x = -Math.PI / 2; road.position.set(-6, .02, 2); road.scale.set(1, .55, 1); scene.add(road);
+  const objs = {}; // key -> group with userData
+  function add(key, g, x, z, name, why) { g.position.set(x, 0, z); scene.add(g); g.userData = Object.assign(g.userData || {}, { key, name, why }); objs[key] = g;
+    const l = label(name, { bg: 'rgba(16,38,63,.85)', size: .72 }); l.position.set(0, g.userData.lh || 2.4, 0); g.add(l); g.userData.lab = l; return g; }
+  // 1 car (kinetic)
+  const cg = new THREE.Group(); const cm = car('#EF4444'); cg.add(cm); cg.userData.lh = 1.6; add('kin', cg, -6, 2, 'car driving', 'It is <b>moving</b>, so it has <b>kinetic</b> energy. Faster = more kinetic energy.'); cm.add(cg.userData.lab); cg.userData.anchor = cm;
+  // 2 football on a high wall (gpe)
+  const wg = new THREE.Group(); const wall = new THREE.Mesh(new THREE.BoxGeometry(2.4, 2.6, .6), mat('#D6C7A1', { rough: .8, clear: 0 })); wall.position.y = 1.3; wg.add(wall);
+  const fb = atom('#F8FAFC', .32); fb.position.set(.4, 2.92, 0); wg.add(fb); wg.userData.lh = 3.8; add('gpe', wg, 3.5, -4.5, 'football on a high wall', 'It is <b>high up</b>, so it stores <b>gravitational potential</b> energy. If it falls, that becomes kinetic energy.');
+  // 3 slingshot (elastic)
+  const sg = new THREE.Group(); const wood = mat('#8B5A2B', { rough: .7, clear: 0 });
+  const stem = new THREE.Mesh(new THREE.CylinderGeometry(.08, .1, 1.1, 10), wood); stem.position.y = .55; sg.add(stem);
+  [-1, 1].forEach(s => { const arm = new THREE.Mesh(new THREE.CylinderGeometry(.07, .08, .8, 10), wood); arm.position.set(s * .25, 1.35, 0); arm.rotation.z = -s * .45; sg.add(arm); });
+  const stone = atom('#6B7280', .16); stone.position.set(0, 1.45, .95); sg.add(stone);
+  [-1, 1].forEach(s => { const a = new THREE.Vector3(s * .42, 1.68, 0), b = stone.position.clone(); const d = new THREE.Vector3().subVectors(b, a); const band = new THREE.Mesh(new THREE.CylinderGeometry(.03, .03, d.length(), 6), mat('#B91C1C')); band.position.copy(a).addScaledVector(d, .5); band.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize()); sg.add(band); });
+  sg.userData.lh = 2.5; add('ela', sg, 7.5, 1, 'stretched slingshot', 'Its band is <b>stretched</b>, so it stores <b>elastic potential</b> energy. Let go and it becomes kinetic energy of the stone.');
+  // 4 man'oushe on a table (chemical)
+  const tg = new THREE.Group(); const top = new THREE.Mesh(new THREE.BoxGeometry(1.8, .12, 1.1), mat('#A16207', { rough: .6 })); top.position.y = .9; tg.add(top);
+  [[-.75, -.45], [.75, -.45], [-.75, .45], [.75, .45]].forEach(([x, z]) => { const l = new THREE.Mesh(new THREE.CylinderGeometry(.05, .05, .9, 8), mat('#78350F')); l.position.set(x, .45, z); tg.add(l); });
+  const bread = new THREE.Mesh(new THREE.CylinderGeometry(.5, .5, .06, 32), mat('#E9C46A', { rough: .8, clear: 0 })); bread.position.y = 1.0; tg.add(bread);
+  for (let i = 0; i < 14; i++) { const d = atom('#3F6212', .035); const a = Math.random() * Math.PI * 2, r = Math.random() * .42; d.position.set(Math.cos(a) * r, 1.04, Math.sin(a) * r); tg.add(d); }
+  tg.userData.lh = 2.0; add('che', tg, 1, 4.5, "man'oushe on a table", 'Food stores <b>chemical</b> energy. Your body releases it to move, grow and keep warm.');
+  // 5 campfire (thermal)
+  const fg = new THREE.Group(); for (let i = 0; i < 3; i++) { const log = new THREE.Mesh(new THREE.CylinderGeometry(.09, .09, 1, 8), mat('#5B3A1E')); log.rotation.z = Math.PI / 2; log.rotation.y = i * Math.PI / 3; log.position.y = .1; fg.add(log); }
+  const flames = []; ['#F97316', '#FACC15', '#EF4444'].forEach((c, i) => { const f = new THREE.Mesh(new THREE.ConeGeometry(.28 - i * .06, .9 - i * .15, 12), new THREE.MeshBasicMaterial({ color: c, toneMapped: false, transparent: true, opacity: .9 })); f.position.y = .5; fg.add(f); flames.push(f); });
+  fg.userData.lh = 1.9; add('the', fg, 9.5, -5, 'campfire', 'The fire is very <b>hot</b>, so it gives out <b>thermal</b> energy (and some light). It comes from the chemical energy in the wood.');
+  // 6 street lamp (light)
+  const lg = new THREE.Group(); const pole = new THREE.Mesh(new THREE.CylinderGeometry(.07, .09, 3.2, 10), mat('#334155')); pole.position.y = 1.6; lg.add(pole);
+  const bulb = new THREE.Mesh(new THREE.SphereGeometry(.25, 20, 14), new THREE.MeshBasicMaterial({ color: '#FFE680', toneMapped: false })); bulb.position.y = 3.25; lg.add(bulb);
+  const glow = new THREE.Mesh(new THREE.SphereGeometry(.6, 20, 14), new THREE.MeshBasicMaterial({ color: '#FFF3B0', transparent: true, opacity: .35, toneMapped: false, depthWrite: false })); glow.position.y = 3.25; lg.add(glow);
+  lg.userData.lh = 4.1; add('lig', lg, -1.5, -5.5, 'street lamp', 'The lamp gives out <b>light</b> energy so we can see. It comes from electrical energy.');
+  // 7 speaker (sound)
+  const spg = new THREE.Group(); const cab = new THREE.Mesh(new THREE.BoxGeometry(.9, 1.4, .7), mat('#111827', { rough: .4 })); cab.position.y = .7; spg.add(cab);
+  [[.95, .28], [.45, .17]].forEach(([y, r]) => { const c = new THREE.Mesh(new THREE.CylinderGeometry(r, r, .05, 24), mat('#9CA3AF')); c.rotation.x = Math.PI / 2; c.position.set(0, y, .36); spg.add(c); });
+  const notes = []; for (let i = 0; i < 3; i++) { const n = label('♪', { color: E.sou, size: .6, stroke: 'rgba(255,255,255,.9)' }); spg.add(n); notes.push(n); }
+  spg.userData.lh = 2.4; add('sou', spg, -11.5, -3, 'speaker playing music', 'The speaker makes the air <b>vibrate</b>: <b>sound</b> energy. It comes from electrical energy.');
+  // 8 power line (electrical) + house
+  const eg = new THREE.Group(); [-1.6, 1.6].forEach(x => { const p = new THREE.Mesh(new THREE.CylinderGeometry(.08, .1, 3.4, 8), mat('#78350F')); p.position.set(x, 1.7, 0); eg.add(p); const bar = new THREE.Mesh(new THREE.BoxGeometry(.8, .08, .08), mat('#78350F')); bar.position.set(x, 3.2, 0); eg.add(bar); });
+  const sparks = []; [-.3, .3].forEach(dz => { const w = new THREE.Mesh(new THREE.CylinderGeometry(.02, .02, 3.2, 6), mat('#1F2937')); w.rotation.z = Math.PI / 2; w.position.set(0, 3.15, dz); eg.add(w); });
+  for (let i = 0; i < 3; i++) { const s = new THREE.Mesh(new THREE.SphereGeometry(.09, 10, 8), new THREE.MeshBasicMaterial({ color: '#38BDF8', toneMapped: false })); eg.add(s); sparks.push(s); }
+  const hs = house('#E0F2FE', '#1D4ED8'); hs.position.set(3.4, 0, 0); hs.scale.setScalar(.8); eg.add(hs);
+  eg.userData.lh = 4.0; add('ele', eg, -11, 5.5, 'power lines', 'An electric <b>current</b> flows in the wires: <b>electrical</b> energy, carried from the power station to homes.');
+  // scenery
+  const sn = sun(1.1); sn.position.set(12, 9, -9); scene.add(sn);
+  [[-14, -7], [13, 6], [6, 7], [-4, -8], [12, -1]].forEach(([x, z]) => { const t = tree(1.1); t.position.set(x, 0, z); scene.add(t); });
+  // ---- interaction ----
+  const info = document.getElementById('hInfo'), banner = document.getElementById('hBanner'), foundEl = document.getElementById('found');
+  const found = new Set(); const bursts = [];
+  function reveal(key) { const g = objs[key]; if (g.userData.revealed) return; g.userData.revealed = true; const l = pill(ENAME[key], E[key], .62); l.position.set(0, (g.userData.lh || 2.4) + .8, 0); (g.userData.anchor || g).add(l); found.add(key); foundEl.textContent = 'Found: ' + found.size + ' / 8'; }
+  const keyOf = o => { while (o && !(o.userData && o.userData.key)) o = o.parent; return o ? o.userData.key : null; };
+  let hunt = null; const ORDER = ['ela', 'gpe', 'che', 'sou', 'kin', 'ele', 'the', 'lig'];
+  S.onPick(() => Object.values(objs), (hit) => {
+    if (!hit) return; const k = keyOf(hit.object); if (!k) return; const g = objs[k];
+    bursts.push(burst(scene, g.position.clone().add(new THREE.Vector3(0, 1.4, 0)), E[k], 1.4));
+    if (hunt) {
+      const want = ORDER[hunt.i];
+      if (k === want) { reveal(k); KIT.sfx.good(); banner.textContent = '✓ Yes! The ' + g.userData.name + ' has ' + ENAME[k] + ' energy' + (hunt.miss ? '' : ' · first try: +1 ⚡'); KIT.confetti(innerWidth / 2, innerHeight / 2, 40); hunt.i++; hunt.miss = 0; setTimeout(next, 2300); }
+      else { hunt.miss++; KIT.sfx.bad(); banner.textContent = '✗ Not that one. Find ' + ENAME[want].toUpperCase() + ' energy!'; }
+      return;
+    }
+    reveal(k); KIT.sfx.tick(); info.innerHTML = '<b>' + g.userData.name[0].toUpperCase() + g.userData.name.slice(1) + ':</b> ' + g.userData.why;
+  }, h => h.object.type === 'Mesh');
+  function next() {
+    if (hunt.i >= ORDER.length) { banner.textContent = '🏆 Hunt complete: all 8 energy stores found!'; KIT.confetti(); KIT.sfx.good(); hunt = null; document.getElementById('huntBtn').textContent = '🔎 Play the hunt again'; return; }
+    banner.textContent = 'Find something with ' + ENAME[ORDER[hunt.i]].toUpperCase() + ' energy!'; banner.style.opacity = 1; KIT.sfx.whoosh();
+  }
+  document.getElementById('huntBtn').onclick = () => { hunt = { i: 0, miss: 0 }; next(); S.flyTo([0, 13, 25], [0, 1, 0], 1.2); };
+  document.getElementById('hReset').onclick = () => S.flyTo([0, 13, 25], [0, 1, 0], 1.2);
+  // ---- animation ----
+  S.tick((dt, t) => {
+    for (let i = bursts.length - 1; i >= 0; i--) if (!bursts[i].update(dt, camera)) bursts.splice(i, 1);
+    const a = t * .45; cm.position.set(Math.cos(a) * 5.8, 0, Math.sin(a) * 5.8 * .55); cm.rotation.y = -Math.atan2(Math.cos(a) * 3.19, -Math.sin(a) * 5.8); cm.userData.wheels.forEach(w => w.rotation.y += dt * 6);
+    flames.forEach((f, i) => { f.scale.set(1, 1 + .18 * Math.sin(t * 9 + i * 2), 1); });
+    notes.forEach((n, i) => { const u = (t * .5 + i / 3) % 1; n.position.set(.3 + Math.sin(u * 6 + i) * .3, 1.2 + u * 1.4, .5); n.material.opacity = 1 - u; });
+    sparks.forEach((s, i) => { const u = (t * .6 + i / 3) % 1; s.position.set(-1.6 + u * 3.2, 3.15, i % 2 ? .3 : -.3); });
+    glow.material.opacity = .3 + .08 * Math.sin(t * 3);
+  });
+}
+</script>
+</body>
+</html>

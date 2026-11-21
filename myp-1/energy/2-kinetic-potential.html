@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Station 2 · Kinetic &amp; potential · Energy Quest</title>
+<meta name="description" content="MYP 1 Science, Energy Quest Station 2: kinetic and gravitational potential energy in a 3D skate park and a bouncing-ball lab.">
+<link rel="icon" href="assets/his-logo.png">
+<link rel="stylesheet" href="assets/kit.css">
+<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
+<script src="assets/conf.js"></script>
+<script src="assets/kit.js" defer></script>
+</head>
+<body data-section="2">
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">Station 2 · Kinetic &amp; potential</p>
+    <h1>Moving energy, stored energy</h1>
+    <div class="crit-row"><span class="crit A">A</span> Knowing and understanding <span class="crit C">C</span> Processing data</div>
+    <div class="grid2" style="gap:12px">
+      <div class="card" style="margin:0;border-left:8px solid var(--e-kin)"><b class="t-kin">Kinetic energy</b><p style="margin:.3em 0 0">The energy of <b>movement</b>. Faster → more kinetic energy. Heavier → more kinetic energy.</p></div>
+      <div class="card" style="margin:0;border-left:8px solid var(--e-gpe)"><b class="t-gpe">Gravitational potential energy</b><p style="margin:.3em 0 0">Energy <b>stored by height</b>. Higher → more. Heavier → more.</p></div>
+    </div>
+  </div>
+  <div class="launch standup" style="margin:0">
+    <span class="ico">🙆</span>
+    <div><h3>Everybody up: be the skater!</h3><p>Arms up high = lots of gravitational potential. Crouch low and wiggle fast = lots of kinetic. The teacher calls a spot on the ramp ("top!", "bottom!", "halfway!") and you show it.</p></div>
+    <button class="btn gold" data-timer="60" data-timer-label="Be the skater! 🙆">⏱ 1 min</button>
+  </div>
+</section>
+
+<section class="block" id="skate">
+  <div class="part-title"><span class="badge" style="background:var(--e-gpe)">3D sim</span><h2 style="margin:0">The skate park</h2></div>
+  <div class="labgrid">
+    <div class="card" style="margin-top:0">
+      <div class="stage" id="sStage"><span class="hint">Drag to look around</span><div class="banner" id="sBanner" style="opacity:0"></div>
+        <div class="hud"><span class="chip" id="sSpeed">Speed: 0 m/s</span><span class="chip" id="sHeight">Height: 0 m</span></div></div>
+      <div class="ctrl">
+        <label for="h0"><b>Start height</b></label><input type="range" id="h0" min="1" max="5" step=".5" value="4"><span class="readout" id="h0r">4 m</span>
+      </div>
+      <div class="ctrl">
+        <label><b>Skater</b> <select id="mass" class="readout"><option value="30">30 kg (small kid)</option><option value="50" selected>50 kg (student)</option><option value="70">70 kg (adult)</option></select></label>
+        <label><b>Friction</b> <select id="fric" class="readout"><option value="0">none (ice!)</option><option value=".02" selected>a little (smooth ramp)</option><option value=".06">a lot (sandy ramp)</option></select></label>
+      </div>
+      <div class="ctrl">
+        <button class="btn big" id="go">▶ Drop in!</button>
+        <button class="btn ghost" id="sReset">⟲ Reset</button>
+        <label class="switch">Slow motion<input type="checkbox" id="slow"></label>
+        <button class="btn gold" id="flagBtn">🏁 Flag challenge</button>
+      </div>
+    </div>
+    <div class="card" style="margin-top:0">
+      <p class="sub">Live energy bars (joules, J)</p>
+      <div class="ebar" style="--n:4" id="bars">
+        <div class="col"><span class="val t-kin" id="vK">0</span><div class="bar f-kin" id="bK"></div></div>
+        <div class="col"><span class="val t-gpe" id="vG">0</span><div class="bar f-gpe" id="bG"></div></div>
+        <div class="col"><span class="val t-the" id="vT">0</span><div class="bar f-the" id="bT"></div></div>
+        <div class="col"><span class="val" id="vS">0</span><div class="bar" id="bS" style="background:repeating-linear-gradient(45deg,#94A3B8 0 8px,#CBD5E1 8px 16px)"></div></div>
+      </div>
+      <div class="ebar-x" style="--n:4"><span class="t-kin">Kinetic</span><span class="t-gpe">Grav. potential</span><span class="t-the">Thermal (wasted)</span><span>TOTAL</span></div>
+      <div class="infopanel" id="sInfo">Press <b>Drop in!</b> and watch the bars swap as the skater goes up and down.</div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="q"><span class="qn">Q2.1</span> Where on the ramp is the skater's <span class="t-kin"><b>kinetic</b></span> energy greatest? Where is the <span class="t-gpe"><b>gravitational potential</b></span> energy greatest?
+      <div class="reveal"><button>Show answer</button><div class="ans">Kinetic energy is greatest at the <b>bottom</b> (fastest). Gravitational potential energy is greatest at the <b>top</b> (highest), where the skater stops for a moment.</div></div></div>
+    <div class="q"><span class="qn">Q2.2</span> Set friction to <b>none</b>. What happens to the TOTAL bar? What does that tell you about energy?
+      <div class="reveal"><button>Show answer</button><div class="ans">The total stays the <b>same</b>: energy just swaps between gravitational potential and kinetic. Energy is <b>not used up</b>; it only changes form.</div></div></div>
+  </div>
+  <div class="grid2">
+    <div class="q"><span class="qn">Q2.3</span> Now set friction to <b>a lot</b>. Why does the skater go less high each time? Where does the energy go?
+      <div class="reveal"><button>Show answer</button><div class="ans">Friction between the wheels, the ramp and the air changes some energy into <b>thermal</b> energy (and sound). This energy spreads out and cannot lift the skater, so we call it <b>wasted</b>. The total is still the same!</div></div></div>
+    <div class="q teaser"><span class="qn">Q2.4 Brain teaser:</span> Try the 30 kg and the 70 kg skater from the same height with no friction. Who is faster at the bottom? Who has more energy?
+      <div class="reveal"><button>Show answer</button><div class="ans">Surprise: they reach the bottom at the <b>same speed</b>! But the heavier skater has <b>more</b> energy (more gravitational potential at the top and more kinetic at the bottom), because more mass means more energy.</div></div></div>
+  </div>
+  <div class="launch battle"><span class="ico">🏁</span><div><h3>Flag challenge (team game)</h3><p>Press <b>🏁 Flag challenge</b>: a flag appears on the right side and friction is set to <i>a little</i>. Each team writes the <b>lowest start height</b> that will reach the flag. Test each guess: the closest team that reaches the flag wins <b>+3 ⚡</b>.</p></div><span></span></div>
+</section>
+
+<section class="block" id="bounce">
+  <div class="part-title"><span class="badge" style="background:var(--e-kin)">3D lab</span><h2 style="margin:0">The bounce lab</h2></div>
+  <div class="labgrid">
+    <div class="card" style="margin-top:0">
+      <div class="stage" id="bStage" style="aspect-ratio:4/3"><span class="hint">Drag to look around</span></div>
+      <div class="ctrl">
+        <label for="bh"><b>Drop height</b></label><input type="range" id="bh" min=".5" max="3" step=".5" value="2"><span class="readout" id="bhr">2.0 m</span>
+      </div>
+      <div class="ctrl">
+        <label><b>Ball</b> <select id="ball" class="readout"><option value=".7">basketball</option><option value=".55">tennis ball</option><option value=".08">ball of clay</option></select></label>
+        <button class="btn big" id="drop">⬇ Drop</button>
+      </div>
+    </div>
+    <div class="card" style="margin-top:0">
+      <p class="sub">Bounce heights (measured by the sim)</p>
+      <table class="data" id="bTable"><thead><tr><th>Drop</th><th>Bounce 1</th><th>Bounce 2</th><th>Bounce 3</th><th>Bounce 4</th></tr></thead><tbody></tbody></table>
+      <div class="q"><span class="qn">Q2.5</span> Copy the table for the basketball into your sheet. Describe the pattern in the bounce heights.
+        <div class="reveal"><button>Show answer</button><div class="ans">Each bounce is <b>lower</b> than the one before: the basketball reaches about <b>70%</b> of the previous height each time. The heights get smaller and smaller until the ball stops.</div></div></div>
+      <div class="q teaser"><span class="qn">Q2.6 Brain teaser:</span> Why can a dropped ball never bounce <i>higher</i> than where it started? Where did the "missing" energy go?
+        <div class="reveal"><button>Show answer</button><div class="ans">A ball can't get more energy than it started with: energy can't be created. At each bounce some energy changes into <b>sound</b> (the "thud") and <b>thermal</b> energy in the ball and the floor, so less is left to lift it.</div></div></div>
+    </div>
+  </div>
+  <div class="q realw"><span class="qn">Q2.7 Real world:</span> As the Jounieh–Harissa cable car climbs the mountain, which energy store of the cabin increases? Where does that energy come from?
+    <div class="reveal"><button>Show answer</button><div class="ans">Its <b>gravitational potential</b> energy increases as it gets higher. The energy comes from the <b>electric motor</b> that pulls the cable (electrical energy).</div></div></div>
+  <div class="q realw"><span class="qn">Q2.8 Real world:</span> Why is the first hill of a roller coaster always the tallest?
+    <div class="reveal"><button>Show answer</button><div class="ans">At the top of the first hill the train has its most gravitational potential energy. That energy powers the rest of the ride. Friction wastes some energy all the way, so every later hill must be <b>lower</b> or the train would not get over it.</div></div></div>
+</section>
+
+<section class="block">
+  <div class="part-title"><span class="badge" style="background:var(--red)">Check</span><h2 style="margin:0">Game time</h2></div>
+  <div class="launch standup"><span class="ico">🧍</span><div><h3>Stand up · Sit down</h3><p>6 statements about kinetic and potential energy.</p></div><button class="btn gold" data-standup="su2">▶ Play</button></div>
+  <div class="launch battle"><span class="ico">⚔️</span><div><h3>Quiz Battle: kinetic &amp; potential</h3><p>5 rounds · 2 ⚡ per correct team · last round doubles.</p></div><button class="btn red" data-battle="b2">▶ Battle</button></div>
+  <script type="application/json" id="su2">{"title":"Kinetic & potential","items":[
+    ["A car parked in a car park has kinetic energy.",false,"It is not moving, so it has no kinetic energy."],
+    ["Lifting a box higher gives it more gravitational potential energy.",true,"Higher = more gravitational potential energy."],
+    ["A truck and a bicycle go at the same speed. The truck has more kinetic energy.",true,"More mass = more kinetic energy."],
+    ["When a skater goes down a ramp, gravitational potential energy changes into kinetic energy.",true,"Going down: height falls, speed rises."],
+    ["Friction makes energy disappear.",false,"Friction changes energy into thermal energy and sound. None disappears."],
+    ["At the very top of its swing, a swing has the most kinetic energy.",false,"At the top it stops for a moment: most gravitational potential, least kinetic."]]}</script>
+  <script type="application/json" id="b2">{"title":"Kinetic & potential","points":2,"seconds":20,"qs":[
+    {"q":"Which has the MOST kinetic energy?","o":["A lorry driving fast","A lorry parked","A bicycle going slowly","A sleeping cat"],"a":0,"why":"Big mass + high speed = lots of kinetic energy."},
+    {"q":"Where does a swing have the most gravitational potential energy?","o":["At the highest point","At the lowest point","Halfway down","It is the same everywhere"],"a":0,"why":"Highest point = most gravitational potential energy."},
+    {"q":"A ball rolls DOWN a hill. Which change happens?","o":["Gravitational potential → kinetic","Kinetic → gravitational potential","Chemical → light","Sound → elastic"],"a":0,"why":"It loses height and gains speed."},
+    {"q":"Why does a bouncing ball bounce lower each time?","o":["Some energy becomes sound and thermal energy","Gravity gets stronger","The ball gets heavier","Energy is destroyed"],"a":0,"why":"Energy is transformed, never destroyed."},
+    {"q":"With NO friction, a skater starts at 4 m high. How high will she go on the other side?","o":["4 m","2 m","8 m","0 m"],"a":0,"why":"No energy is wasted, so she can reach the same height again.","double":true}]}</script>
+</section>
+
+<div class="mission-end" data-section="2">
+  <h2>Station 2 complete?</h2>
+  <p>Energy swaps between kinetic and potential, and friction turns some into thermal energy. Next: a whole chain of energy changes!</p>
+  <div class="row" style="justify-content:center"><button class="btn gold big" data-complete>✓ Station complete</button><a class="btn big" href="3-transformations.html">Next: Transformations ▶</a></div>
+  <div class="done-msg">⚡ Station 2 powered up!</div>
+</div>
+<div class="footer"><img src="assets/his-logo.png" alt=""><div><b>Al-Hayat International School</b> · MYP 1 Sciences · Energy Quest · Station 2 of 6</div></div>
+</main>
+
+<script type="module">
+import { stage, THREE, label, pill, mat, atom, burst, reduce } from './assets/scene3d.js';
+import { E } from './assets/energy3d.js';
+const g = 9.8;
+/* ================= skate park ================= */
+const S = stage(document.getElementById('sStage'), { pos: [0, 4.2, 15], target: [0, 2.2, 0], minD: 8, maxD: 28, lockVertical: true });
+if (S) {
+  const { scene, camera } = S;
+  const X = 6, A = 5 / 36;                 // ramp: h(x) = A x², 0…5 m high at x = ±6 m
+  const hOf = x => A * x * x, dh = x => 2 * A * x;
+  // ramp surface: extrude the curve along z
+  const pts = []; for (let i = 0; i <= 80; i++) { const x = -X + i * 2 * X / 80; pts.push(new THREE.Vector2(x, hOf(x))); }
+  const shape = new THREE.Shape(); shape.moveTo(-X, -.3); pts.forEach(p => shape.lineTo(p.x, p.y)); shape.lineTo(X, -.3); shape.lineTo(-X, -.3);
+  const ramp = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: 3, bevelEnabled: false }), mat('#CBD5E1', { rough: .5, clear: .3 })); ramp.position.z = -1.5; scene.add(ramp);
+  const edge = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts.map(p => new THREE.Vector3(p.x, p.y + .02, 1.52))), new THREE.LineBasicMaterial({ color: '#334155' })); scene.add(edge);
+  const floor = new THREE.Mesh(new THREE.BoxGeometry(18, .3, 6), mat('#A7D3A0', { clear: 0, rough: .9 })); floor.position.y = -.45; scene.add(floor);
+  // height marks
+  for (let m = 1; m <= 5; m++) { const xm = -Math.sqrt(m / A); const t = label(m + ' m', { size: .42, color: '#334155' }); t.position.set(xm - .6, m, 1.6); scene.add(t);
+    const tick = new THREE.Mesh(new THREE.BoxGeometry(.4, .04, .04), new THREE.MeshBasicMaterial({ color: '#334155' })); tick.position.set(xm - .1, m, 1.55); scene.add(tick); }
+  // skater
+  const sk = new THREE.Group(); sk.scale.setScalar(1.7); scene.add(sk);
+  const board = new THREE.Mesh(new THREE.BoxGeometry(.9, .07, .3), mat('#F97316', { clear: .8 })); board.position.y = .12; sk.add(board);
+  [-.3, .3].forEach(x => [-.12, .12].forEach(z => { const w = atom('#111827', .07); w.position.set(x, .05, z); sk.add(w); }));
+  const body = new THREE.Mesh(new THREE.CapsuleGeometry(.17, .55, 8, 16), mat('#2563EB', { clear: .5 })); body.position.y = .62; sk.add(body);
+  const head = atom('#F2C9A0', .17); head.position.y = 1.12; sk.add(head);
+  const helmet = new THREE.Mesh(new THREE.SphereGeometry(.19, 20, 12, 0, Math.PI * 2, 0, Math.PI / 2), mat('#DC2626', { clear: 1 })); helmet.position.y = 1.14; sk.add(helmet);
+  // flag
+  const flag = new THREE.Group(); const pole = new THREE.Mesh(new THREE.CylinderGeometry(.03, .03, 1.4, 8), mat('#334155')); pole.position.y = .7; flag.add(pole);
+  const cloth = new THREE.Mesh(new THREE.PlaneGeometry(.6, .38), new THREE.MeshStandardMaterial({ color: '#16A34A', side: THREE.DoubleSide })); cloth.position.set(.3, 1.2, 0); flag.add(cloth); flag.visible = false; scene.add(flag);
+  // HUD + bars
+  const el = id => document.getElementById(id);
+  const banner = el('sBanner'), info = el('sInfo');
+  let m = 50, mu = .02, h0 = 4, x = -Math.sqrt(4 / A), dir = 1, Emech = 0, Th = 0, running = false, slow = false, flagH = 0, challenge = false, bestRight = 0, crossedBottom = false;
+  const bursts = [];
+  function place() { const y = hOf(x), ang = Math.atan(dh(x)); sk.position.set(x, y, 0); sk.rotation.z = ang; }
+  function reset() { h0 = +el('h0').value; m = +el('mass').value; mu = +el('fric').value; x = -Math.sqrt(h0 / A); dir = 1; Emech = m * g * h0; Th = 0; running = false; bestRight = 0; crossedBottom = false; place(); paint(0); banner.style.opacity = 0; }
+  function paint(v) {
+    const G = m * g * hOf(x), K = Math.max(0, Emech - G), tot = K + G + Th, max = 70 * g * 5;
+    const set = (b, vEl, val) => { el(b).style.height = Math.max(.5, val / max * 100) + '%'; el(vEl).textContent = Math.round(val / 10) * 10; };
+    set('bK', 'vK', K); set('bG', 'vG', G); set('bT', 'vT', Th); set('bS', 'vS', tot);
+    el('sSpeed').textContent = 'Speed: ' + v.toFixed(1) + ' m/s'; el('sHeight').textContent = 'Height: ' + hOf(x).toFixed(1) + ' m';
+  }
+  function step(dt) {
+    const y = hOf(x); let v = Math.sqrt(Math.max(0, 2 * (Emech - m * g * y) / m));
+    if (v < 1e-3) dir = x < 0 ? 1 : -1;
+    const dxdt = dir * Math.max(v, .05) / Math.sqrt(1 + dh(x) ** 2); const xn = x + dxdt * dt;
+    if (Emech - m * g * hOf(xn) < 0) { dir *= -1; return v; }
+    const loss = Math.min(Emech - m * g * hOf(xn), mu * m * g * v * dt); Emech -= loss; Th += loss; x = xn;
+    if (x > 0 && !crossedBottom) crossedBottom = true;
+    if (crossedBottom && x > 0) bestRight = Math.max(bestRight, hOf(x));
+    if (challenge && crossedBottom && dir < 0 && x > 0 && !step.judged) { step.judged = true; judge(); }
+    return v;
+  }
+  function judge() { const ok = bestRight >= flagH - .02; banner.textContent = ok ? '✓ Flag reached! (' + bestRight.toFixed(2) + ' m ≥ ' + flagH.toFixed(1) + ' m)' : '✗ Not high enough: ' + bestRight.toFixed(2) + ' m of ' + flagH.toFixed(1) + ' m'; banner.style.opacity = 1;
+    KIT.sfx[ok ? 'good' : 'bad'](); if (ok) { KIT.confetti(innerWidth / 2, innerHeight / 3, 50); bursts.push(burst(scene, flag.position.clone().add(new THREE.Vector3(0, 1, 0)), '#16A34A', 1.5)); } }
+  S.tick((dt) => {
+    for (let i = bursts.length - 1; i >= 0; i--) if (!bursts[i].update(dt, camera)) bursts.splice(i, 1);
+    cloth.rotation.y = Math.sin(performance.now() / 300) * .3;
+    if (!running) return;
+    const T = dt * (slow ? .35 : 1); let v = 0; const n = 12; for (let i = 0; i < n; i++) v = step(T / n);
+    place(); paint(v);
+    if (Emech - m * g * 0 < 1 && Math.abs(x) < .05) { running = false; info.innerHTML = 'The skater has stopped: all the energy has become <b class="t-the">thermal</b> energy.'; }
+  });
+  el('h0').oninput = () => { el('h0r').textContent = el('h0').value + ' m'; if (!running) reset(); };
+  el('mass').onchange = el('fric').onchange = () => { if (!running) reset(); };
+  el('go').onclick = () => { reset(); step.judged = false; running = true; KIT.sfx.go(); info.innerHTML = 'Watch the <b class="t-gpe">blue</b> and <b class="t-kin">orange</b> bars swap. The TOTAL bar shows all the energy added together.'; };
+  el('sReset').onclick = () => { reset(); };
+  el('slow').onchange = e => { slow = e.target.checked; };
+  el('flagBtn').onclick = () => { challenge = true; flagH = [2.5, 3, 3.5, 4][Math.floor(Math.random() * 4)]; const fx = Math.sqrt(flagH / A); flag.position.set(fx + .1, flagH, -.8); flag.visible = true;
+    el('fric').value = '.02'; reset(); banner.textContent = '🏁 Flag at ' + flagH + ' m. Teams: what is the lowest start height that reaches it?'; banner.style.opacity = 1; KIT.sfx.whoosh(); };
+  reset();
+}
+
+/* ================= bounce lab ================= */
+const B = stage(document.getElementById('bStage'), { pos: [0, 2, 7.5], target: [0, 1.4, 0], minD: 4, maxD: 14, lockVertical: true });
+if (B) {
+  const { scene, camera } = B;
+  const floor = new THREE.Mesh(new THREE.BoxGeometry(6, .2, 4), mat('#D6C7A1', { rough: .8, clear: 0 })); floor.position.y = -.1; scene.add(floor);
+  const ruler = new THREE.Mesh(new THREE.BoxGeometry(.25, 3.2, .05), mat('#FDE68A', { rough: .6 })); ruler.position.set(-1.1, 1.6, -.4); scene.add(ruler);
+  for (let i = 0; i <= 30; i++) { const y = i * .1; const tk = new THREE.Mesh(new THREE.BoxGeometry(i % 5 ? .08 : .16, .012, .06), new THREE.MeshBasicMaterial({ color: '#111827' })); tk.position.set(-1.05 + (i % 5 ? .04 : 0), y, -.36); scene.add(tk);
+    if (i % 5 === 0) { const t = label((i / 10).toFixed(1) + ' m', { size: .2, color: '#111827' }); t.position.set(-1.55, y, -.35); scene.add(t); } }
+  const ball = atom('#EA580C', .16); scene.add(ball);
+  const marks = new THREE.Group(); scene.add(marks);
+  let y = 2, v = 0, e = .7, run = false, bounces = [], startH = 2, peak = 0, goingUp = false;
+  const el = id => document.getElementById(id);
+  const tb = el('bTable').querySelector('tbody');
+  function setBallLook() { const k = el('ball').selectedIndex; ball.material.color.set(['#EA580C', '#BEF264', '#A16207'][k]); }
+  function resetBall() { startH = +el('bh').value; y = startH; v = 0; run = false; ball.position.set(0, y + .16, 0); setBallLook(); }
+  el('bh').oninput = () => { el('bhr').textContent = (+el('bh').value).toFixed(1) + ' m'; if (!run) resetBall(); };
+  el('ball').onchange = () => { if (!run) resetBall(); };
+  el('drop').onclick = () => { resetBall(); e = +el('ball').value; bounces = []; marks.clear(); run = true; peak = 0; goingUp = false; KIT.sfx.whoosh(); };
+  function addMark(h) { const ring = new THREE.Mesh(new THREE.BoxGeometry(.7, .02, .02), new THREE.MeshBasicMaterial({ color: '#DC2626' })); ring.position.set(.1, h + .16, 0); marks.add(ring);
+    const t = label(h.toFixed(2) + ' m', { size: .2, color: '#DC2626' }); t.position.set(.75, h + .16, 0); marks.add(t); }
+  function record() { const row = document.createElement('tr'); const name = el('ball').options[el('ball').selectedIndex].text;
+    row.innerHTML = '<td>' + startH.toFixed(1) + ' m · ' + name + '</td>' + [0, 1, 2, 3].map(i => '<td>' + (bounces[i] != null ? bounces[i].toFixed(2) + ' m' : '–') + '</td>').join(''); tb.prepend(row); while (tb.children.length > 6) tb.lastChild.remove(); }
+  B.tick((dt) => {
+    if (!run) return; const n = 8;
+    for (let i = 0; i < n; i++) { const d = dt / n; v -= g * d; y += v * d;
+      if (y <= 0) { y = 0; const speed = Math.abs(v) * Math.sqrt(e); if (speed < .25 || bounces.length >= 4) { run = false; record(); KIT.sfx.good(); break; } v = speed; goingUp = true; peak = 0; KIT.sfx.tick(); }
+      if (goingUp && v <= 0) { goingUp = false; bounces.push(y); addMark(y); } }
+    ball.position.y = y + .16; const sq = y < .03 ? .8 : 1; ball.scale.set(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq));
+  });
+  resetBall();
+}
+</script>
+</body>
+</html>

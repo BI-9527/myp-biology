@@ -140,6 +140,31 @@ Every page has Stand-up/Sit-down quizzes, team Quiz Battles (answers shuffled ea
 
 ---
 
+## MYP 1 Sciences: Energy Quest
+
+A stand-alone MYP Year 1 unit in `myp-1/energy/` on kinetic and potential energy, energy transformations and renewable and non-renewable resources, assessed with IB MYP Sciences criteria A–D.
+
+**Student link (hub):** https://bi-9527.github.io/myp-biology/myp-1/energy/
+
+| File | What it is |
+|---|---|
+| `index.html` | Hub: 3D wind-and-solar town, statement of inquiry, concepts, criteria, team setup, links to stations and PDFs. |
+| `1-energy-everywhere.html` | Station 1: eight energy stores, 3D neighbourhood energy hunt, sorting game. |
+| `2-kinetic-potential.html` | Station 2: 3D skate park with friction and live energy bars, 3D bounce lab. |
+| `3-transformations.html` | Station 3: 3D chain-reaction machine, change-makers, device detective, Sankey diagrams, energy relay. |
+| `4-renewable.html` | Station 4: renewable sort, 3D power-town game (day/night, demand, CO₂), Lebanon solar vs diesel debate. |
+| `5-lab.html` | Station 5: ramp investigation (criteria B and C) with a 3D simulation, data table, anomalies and graph. |
+| `6-challenge.html` | Station 6: myth-busters, GRASPS school energy plan (criterion D), grand battle, 3D podium. |
+| `energy-student-sheet.pdf` | 8-page student sheet; question numbers match the stations. |
+| `energy-quiz.pdf` | Formative quiz (criterion A, 25 marks). |
+| `energy-exam.pdf` | Summative test (criteria A–D, 54 marks) with a student-friendly rubric. |
+| `print/` | XeLaTeX sources for the three PDFs (`hisstyle.sty`, Inter font). |
+| `assets/` | Classroom kit, 3D builders and three.js r160 stored locally. |
+
+The quiz and the test use new contexts, so nothing repeats the student sheet. Answer keys are kept off the public site.
+
+---
+
 ## Student research: Biodegradation & Sustainable Development staff interview
 
 A stand-alone online interview for staff, with a live Google Sheets backend and an analysis dashboard. Folder: `sustainability-interview/` (not part of the MYP 2 tabs or locks). Full setup guide: `sustainability-interview/README.md`.

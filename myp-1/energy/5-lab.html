@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Station 5 · The lab: ramp racers · Energy Quest</title>
+<meta name="description" content="MYP 1 Science, Energy Quest Station 5: a full virtual investigation of how release height affects how far a toy car rolls (MYP criteria B and C).">
+<link rel="icon" href="assets/his-logo.png">
+<link rel="stylesheet" href="assets/kit.css">
+<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
+<script src="assets/conf.js"></script>
+<script src="assets/kit.js" defer></script>
+<style>
+.step-h{display:flex;align-items:center;gap:12px;margin:0 0 10px}
+.step-h .n{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font:900 20px/1 var(--sans);color:#fff;background:var(--cB);flex:none}
+.step-h.c .n{background:var(--cC)}
+.cv{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cv label{display:flex;gap:10px;align-items:center;padding:8px 12px;border-radius:10px;border:2px solid var(--line);background:var(--panel);font-weight:600;cursor:pointer}
+.cv label.ok{border-color:var(--good);background:var(--good-soft)}.cv label.no{border-color:var(--bad);background:var(--bad-soft)}
+.cv input{width:22px;height:22px;accent-color:var(--blue)}
+#dataT td.tr{cursor:pointer}
+#dataT td.anom{text-decoration:line-through;color:var(--bad);background:var(--bad-soft)}
+#dataT td.new{animation:pop .5s}
+@media (max-width:980px){.cv{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-section="5">
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">Station 5 · The lab</p>
+    <h1>Ramp racers</h1>
+    <p class="lede">Lara's little brother races toy cars down a ramp in the school corridor. He says: <i>"The higher I start the car, the farther it goes!"</i> Is he right? Let's investigate like real scientists.</p>
+    <div class="crit-row"><span class="crit B">B</span> Inquiring and designing <span class="crit C">C</span> Processing and evaluating</div>
+  </div>
+  <div class="card" style="margin:0">
+    <p class="sub">Equipment</p>
+    <p style="margin:0">toy car · ramp (60 cm long) · stack of books to set the height · ruler · tape measure (4 m) · masking tape to mark the start line</p>
+    <p class="sub" style="margin-top:12px">Safety</p>
+    <p style="margin:0">Keep the floor clear so nobody trips. Never stand where the car is rolling. Stack the books so they cannot fall.</p>
+  </div>
+</section>
+
+<!-- ============ CRITERION B ============ -->
+<section class="block">
+  <div class="card">
+    <div class="step-h"><span class="n">B1</span><h3 style="margin:0">The research question</h3></div>
+    <div class="q" style="margin-top:0"><span class="qn">Q5.1</span> Build a research question we can test.
+      <div class="builder" id="rq" style="margin-top:8px">How does the
+        <select data-ans="release height of the car"><option value="">choose…</option><option>colour of the car</option><option>release height of the car</option><option>time of day</option></select>
+        affect the
+        <select data-ans="distance the car rolls"><option value="">choose…</option><option>distance the car rolls</option><option>colour of the floor</option><option>number of books in the library</option></select> ?
+      </div>
+      <div class="row" style="margin-top:10px"><button class="btn green" data-check-eq="rq">Check</button><span class="fb"></span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="step-h"><span class="n">B2</span><h3 style="margin:0">The prediction (hypothesis)</h3></div>
+    <div class="q" style="margin-top:0"><span class="qn">Q5.2</span> Build a testable prediction that uses science to explain it.
+      <div class="builder" id="hyp" style="margin-top:8px">If the release height is increased, then the distance the car rolls will
+        <select data-ans="increase"><option value="">choose…</option><option>increase</option><option>decrease</option><option>stay the same</option></select>
+        because the car will have more
+        <select data-ans="gravitational potential"><option value="">choose…</option><option>sound</option><option>gravitational potential</option><option>chemical</option></select>
+        energy at the top, which changes into more
+        <select data-ans="kinetic"><option value="">choose…</option><option>kinetic</option><option>light</option><option>elastic potential</option></select>
+        energy at the bottom.
+      </div>
+      <div class="row" style="margin-top:10px"><button class="btn green" data-check-eq="hyp">Check</button><span class="fb"></span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="step-h"><span class="n">B3</span><h3 style="margin:0">The variables</h3></div>
+    <div class="q" style="margin-top:0"><span class="qn">Q5.3</span> Choose the variables.
+      <div class="builder" id="vars" style="margin-top:8px">
+        <b>Independent variable</b> (what I change):
+        <select data-ans="release height (cm)"><option value="">choose…</option><option>distance rolled (cm)</option><option>release height (cm)</option><option>type of car</option></select>
+        <b>Dependent variable</b> (what I measure):
+        <select data-ans="distance rolled (cm)"><option value="">choose…</option><option>release height (cm)</option><option>distance rolled (cm)</option><option>length of the ramp</option></select>
+      </div>
+      <div class="row" style="margin-top:10px"><button class="btn green" data-check-eq="vars">Check</button><span class="fb"></span></div>
+      <p style="margin-top:14px"><b>Controlled variables</b> (kept the same to make it a fair test): tick the <b>four</b> that matter.</p>
+      <div class="cv" id="cv">
+        <label data-ok="1"><input type="checkbox"> the same toy car</label>
+        <label data-ok="0"><input type="checkbox"> the colour of my shirt</label>
+        <label data-ok="1"><input type="checkbox"> the same floor surface</label>
+        <label data-ok="1"><input type="checkbox"> let go of the car without pushing</label>
+        <label data-ok="0"><input type="checkbox"> the weather outside</label>
+        <label data-ok="1"><input type="checkbox"> measure from the bottom of the ramp</label>
+      </div>
+      <div class="row" style="margin-top:10px"><button class="btn green" id="cvBtn">Check</button><span class="fb"></span></div>
+    </div>
+    <div class="q"><span class="qn">Q5.4</span> In your sheet, write a step-by-step method: how you will change the height, how you will measure the distance, and how many times you will repeat each height.
+      <div class="reveal"><button>Show a model method</button><div class="ans">1. Mark a start line at the top of the ramp with tape. 2. Set the top of the ramp to 10 cm using books. 3. Place the car's front wheels on the line and let go without pushing. 4. When it stops, measure the distance from the bottom of the ramp to the back of the car with a tape measure. 5. Repeat 3 times for this height. 6. Repeat for 20, 30, 40 and 50 cm. 7. Work out the average distance for each height.</div></div></div>
+  </div>
+</section>
+
+<!-- ============ EXPERIMENT ============ -->
+<section class="block" id="exp">
+  <div class="part-title"><span class="badge" style="background:var(--cC)">3D lab</span><h2 style="margin:0">Run the experiment</h2></div>
+  <div class="card">
+    <div class="stage" id="lStage" style="aspect-ratio:16/6.5"><span class="hint">Drag to look around</span><div class="banner" id="lBanner">Choose a height, then release the car</div></div>
+    <div class="ctrl">
+      <label for="hh"><b>Release height</b></label><input type="range" id="hh" min="10" max="50" step="10" value="10"><span class="readout" id="hhr">10 cm</span>
+      <label><b>Floor</b> <select id="surf" class="readout"><option value="tile">tiled corridor</option><option value="carpet">carpet (extension)</option></select></label>
+      <button class="btn big" id="rel">🚗 Release the car</button>
+      <button class="btn gold" id="auto">⚡ Run all 15 trials</button>
+    </div>
+  </div>
+  <div class="labgrid">
+    <div class="card" style="margin-top:0">
+      <div class="step-h c"><span class="n">C1</span><h3 style="margin:0">Data table · <span id="surfName">tiled corridor</span></h3></div>
+      <table class="data" id="dataT"><thead><tr><th>Release height (cm)</th><th>Trial 1 (cm)</th><th>Trial 2 (cm)</th><th>Trial 3 (cm)</th><th>Average (cm)</th></tr></thead><tbody></tbody></table>
+      <p class="caption">Tap a trial to mark it as an anomaly (it is left out of the average). Tap again to bring it back.</p>
+      <div class="row"><button class="btn" id="avgBtn">🧮 Calculate averages</button><button class="btn ghost" id="clr">🗑 Clear this table</button></div>
+      <div class="q"><span class="qn">Q5.5</span> Copy the table into your sheet. Work out each average yourself first, then check with the button. <i>Average = (trial 1 + trial 2 + trial 3) ÷ 3</i></div>
+    </div>
+    <div class="card" style="margin-top:0">
+      <div class="step-h c"><span class="n">C2</span><h3 style="margin:0">Graph</h3></div>
+      <svg id="graph" viewBox="0 0 640 420" style="width:100%;height:auto;display:block" role="img" aria-label="Graph of average distance rolled against release height"></svg>
+      <label class="switch" style="margin-top:8px">Best-fit line<input type="checkbox" id="fit" checked></label>
+    </div>
+  </div>
+  <div class="card">
+    <div class="step-h c"><span class="n">C3</span><h3 style="margin:0">Conclusion and evaluation</h3></div>
+    <div class="grid2">
+      <div class="q" style="margin-top:0"><span class="qn">Q5.6</span> Describe the trend in your graph. Use numbers from your data.
+        <div class="reveal"><button>Show answer</button><div class="ans">As the release height increases, the distance rolled <b>increases</b>. The points make a roughly straight line through the origin: doubling the height (e.g. 20 → 40 cm) roughly <b>doubles</b> the distance (about 125 → 250 cm on tiles).</div></div></div>
+      <div class="q" style="margin-top:0"><span class="qn">Q5.7</span> Was your prediction supported? Explain using energy.
+        <div class="reveal"><button>Show answer</button><div class="ans">Yes. A higher start gives the car more <b>gravitational potential energy</b>, which becomes more <b>kinetic energy</b> at the bottom. More kinetic energy lets the car roll farther before <b>friction</b> turns it all into thermal energy and it stops.</div></div></div>
+    </div>
+    <div class="grid2">
+      <div class="q"><span class="qn">Q5.8</span> Did you find an anomaly (a result that does not fit the pattern)? What might have caused it, and what should you do?
+        <div class="reveal"><button>Show answer</button><div class="ans">A trial far from the other two at the same height is an anomaly. Causes: the car was pushed, it hit something, or it was measured wrongly. Leave it out of the average and <b>repeat</b> that trial.</div></div></div>
+      <div class="q"><span class="qn">Q5.9</span> Evaluate the method: name two problems that could make the results less reliable, and suggest an improvement for each.
+        <div class="reveal"><button>Show answer</button><div class="ans">Problem: the car may be pushed slightly → improvement: use a ruler as a gate and lift it to release. Problem: hard to see exactly where the car stops / the car veers sideways → mark the stop point with tape, use guide rails, film it. Also: do more trials (5 per height) and test more heights.</div></div></div>
+    </div>
+    <div class="q teaser"><span class="qn">Q5.10 Extension:</span> Switch the floor to <b>carpet</b> and run the experiment again. Compare the two graphs and explain the difference.
+      <div class="reveal"><button>Show answer</button><div class="ans">On carpet the car rolls much <b>less far</b> from every height. Carpet causes more <b>friction</b>, so the car's kinetic energy is changed into thermal energy faster. The trend (higher → farther) is the same.</div></div></div>
+  </div>
+</section>
+
+<div class="mission-end" data-section="5">
+  <h2>Station 5 complete?</h2>
+  <p>You designed, ran and evaluated a real investigation. Final station: the challenge!</p>
+  <div class="row" style="justify-content:center"><button class="btn gold big" data-complete>✓ Station complete</button><a class="btn big" href="6-challenge.html">Next: The challenge ▶</a></div>
+  <div class="done-msg">⚡ Station 5 powered up!</div>
+</div>
+<div class="footer"><img src="assets/his-logo.png" alt=""><div><b>Al-Hayat International School</b> · MYP 1 Sciences · Energy Quest · Station 5 of 6</div></div>
+</main>
+
+<script>
+/* controlled-variable checker */
+document.getElementById('cvBtn').onclick = function () { var labs = document.querySelectorAll('#cv label'), good = 0, bad = 0;
+  labs.forEach(function (l) { var on = l.querySelector('input').checked, ok = l.dataset.ok === '1'; l.classList.remove('ok', 'no'); if (on) { l.classList.add(ok ? 'ok' : 'no'); ok ? good++ : bad++; } });
+  KIT.say(this, good === 4 && bad === 0, good === 4 && bad === 0 ? 'All four controlled variables found!' : good + ' / 4 correct' + (bad ? ', ' + bad + ' not needed' : '')); };
+</script>
+<script type="module">
+import { stage, THREE, label, pill, mat, atom, burst, ease, seg, lerp, reduce } from './assets/scene3d.js';
+import { car } from './assets/energy3d.js';
+const HEIGHTS = [10, 20, 30, 40, 50], K = { tile: 6.2, carpet: 2.8 };
+const DATA = { tile: {}, carpet: {} }; HEIGHTS.forEach(h => { DATA.tile[h] = []; DATA.carpet[h] = []; });
+const ANOM = { tile: {}, carpet: {} };
+let showAvg = false;
+const el = id => document.getElementById(id);
+const surf = () => el('surf').value;
+function measure(h, s) { let d = h * K[s] * (1 + (Math.random() - .5) * .1); if (Math.random() < .12) d *= Math.random() < .5 ? .76 : 1.22; return Math.round(d); }
+/* ---------- table + graph ---------- */
+function avgOf(s, h) { const v = DATA[s][h].filter((_, i) => !(ANOM[s][h + ':' + i])); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; }
+function paintTable(fresh) {
+  const s = surf(); el('surfName').textContent = s === 'tile' ? 'tiled corridor' : 'carpet';
+  el('dataT').querySelector('tbody').innerHTML = HEIGHTS.map(h => '<tr><th>' + h + '</th>' + [0, 1, 2].map(i => { const v = DATA[s][h][i]; const a = ANOM[s][h + ':' + i];
+    return '<td class="tr' + (a ? ' anom' : '') + (fresh === h + ':' + i ? ' new' : '') + '" data-k="' + h + ':' + i + '">' + (v != null ? v : '') + '</td>'; }).join('') +
+    '<td><b>' + (showAvg && DATA[s][h].length ? Math.round(avgOf(s, h)) : '') + '</b></td></tr>').join('');
+  el('dataT').querySelectorAll('td.tr').forEach(td => td.onclick = () => { if (!td.textContent) return; const k = td.dataset.k; ANOM[s][k] = !ANOM[s][k]; paintTable(); graph(); KIT.sfx.tick(); });
+}
+const NS = 'http://www.w3.org/2000/svg', G = el('graph');
+function e(t, a, txt) { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); if (txt != null) n.textContent = txt; G.appendChild(n); return n; }
+function graph() {
+  G.innerHTML = ''; const L = 80, R = 620, T = 20, B = 350, X = v => L + v / 60 * (R - L), Y = v => B - v / 400 * (B - T);
+  for (let v = 0; v <= 400; v += 50) { e('line', { x1: L, x2: R, y1: Y(v), y2: Y(v), stroke: 'var(--line)' }); e('text', { x: L - 8, y: Y(v) + 6, 'text-anchor': 'end', 'font-size': 16, fill: 'var(--ink-3)' }, v); }
+  for (let v = 0; v <= 60; v += 10) { e('line', { x1: X(v), x2: X(v), y1: T, y2: B, stroke: 'var(--line)' }); e('text', { x: X(v), y: B + 24, 'text-anchor': 'middle', 'font-size': 16, fill: 'var(--ink-3)' }, v); }
+  e('line', { x1: L, x2: R, y1: B, y2: B, stroke: 'var(--ink)', 'stroke-width': 2 }); e('line', { x1: L, x2: L, y1: T, y2: B, stroke: 'var(--ink)', 'stroke-width': 2 });
+  e('text', { x: (L + R) / 2, y: B + 56, 'text-anchor': 'middle', 'font-size': 18, 'font-weight': 800, fill: 'var(--ink)' }, 'Release height (cm)');
+  e('text', { x: 22, y: (T + B) / 2, 'text-anchor': 'middle', 'font-size': 18, 'font-weight': 800, fill: 'var(--ink)', transform: `rotate(-90 22 ${(T + B) / 2})` }, 'Distance rolled (cm)');
+  const pts = [];
+  ['tile', 'carpet'].forEach(s => { const col = s === 'tile' ? '#C2410C' : '#7C3AED';
+    HEIGHTS.forEach(h => { DATA[s][h].forEach((v, i) => { if (v == null) return; e('circle', { cx: X(h), cy: Y(v), r: 5, fill: ANOM[s][h + ':' + i] ? 'none' : col, stroke: col, 'stroke-width': 2, opacity: .4 }); });
+      const a = avgOf(s, h); if (a != null && showAvg) { e('circle', { cx: X(h), cy: Y(a), r: 9, fill: col, stroke: 'var(--panel)', 'stroke-width': 3 }); if (s === surf()) pts.push([h, a]); } });
+    const ap = HEIGHTS.map(h => [h, avgOf(s, h)]).filter(p => p[1] != null);
+    if (el('fit').checked && showAvg && ap.length >= 2) { const n = ap.length, sx = ap.reduce((a, p) => a + p[0], 0), sy = ap.reduce((a, p) => a + p[1], 0), sxx = ap.reduce((a, p) => a + p[0] * p[0], 0), sxy = ap.reduce((a, p) => a + p[0] * p[1], 0);
+      const m = (n * sxy - sx * sy) / (n * sxx - sx * sx || 1), c = (sy - m * sx) / n; e('line', { x1: X(0), y1: Y(Math.max(0, c)), x2: X(55), y2: Y(Math.min(400, m * 55 + c)), stroke: col, 'stroke-width': 3, 'stroke-dasharray': '8 6' });
+      e('text', { x: X(56), y: Y(Math.min(400, m * 55 + c)) - 6, 'font-size': 16, 'font-weight': 800, fill: col }, s === 'tile' ? 'tiles' : 'carpet'); } });
+}
+el('avgBtn').onclick = () => { showAvg = true; paintTable(); graph(); KIT.sfx.good(); };
+el('fit').onchange = graph;
+el('clr').onclick = () => { const s = surf(); HEIGHTS.forEach(h => DATA[s][h] = []); ANOM[s] = {}; paintTable(); graph(); };
+el('surf').onchange = () => { paintTable(); graph(); setSurface(); };
+paintTable(); graph();
+
+/* ---------- 3D ramp ---------- */
+const U = 20; // 1 scene unit = 20 cm
+const S = stage(el('lStage'), { pos: [8.2, 5.4, 14], target: [8.2, .6, 0], fov: 38, minD: 5, maxD: 26, lockVertical: true });
+let setSurface = () => {};
+if (S) {
+  const { scene, camera } = S;
+  const floorMat = mat('#E5E7EB', { rough: .6, clear: .3 });
+  const floor = new THREE.Mesh(new THREE.BoxGeometry(22, .2, 3), floorMat); floor.position.set(8, -.1, 0); scene.add(floor);
+  const grout = new THREE.Group(); scene.add(grout); for (let i = -3; i <= 19; i++) { const l = new THREE.Mesh(new THREE.BoxGeometry(.02, .01, 3), new THREE.MeshBasicMaterial({ color: '#CBD5E1' })); l.position.set(i, .005, 0); grout.add(l); }
+  setSurface = () => { const c = surf() === 'tile'; floorMat.color.set(c ? '#E5E7EB' : '#9F1239'); floorMat.roughness = c ? .4 : 1; grout.visible = c; };
+  // tape measure along the floor
+  const tape = new THREE.Mesh(new THREE.BoxGeometry(20, .02, .35), mat('#FACC15', { rough: .5 })); tape.position.set(10, .02, 1.05); scene.add(tape);
+  for (let cm = 0; cm <= 400; cm += 10) { const x = cm / U; const big = cm % 50 === 0; const tk = new THREE.Mesh(new THREE.BoxGeometry(.03, .02, big ? .3 : .15), new THREE.MeshBasicMaterial({ color: '#111827' })); tk.position.set(x, .04, 1.05 - (big ? 0 : .08)); scene.add(tk);
+    if (big) { const t = label(cm + '', { size: .32, color: '#111827' }); t.position.set(x, .25, 1.5); scene.add(t); } }
+  const cmL = label('cm', { size: .32, color: '#111827' }); cmL.position.set(20.4, .25, 1.5); scene.add(cmL);
+  // ramp hinged at x=0 (bottom), length 3 units = 60 cm
+  const RL = 3; const ramp = new THREE.Group(); scene.add(ramp);
+  const board = new THREE.Mesh(new THREE.BoxGeometry(RL, .1, .9), mat('#B07A45', { rough: .6 })); board.position.set(-RL / 2, -.05, 0); ramp.add(board);
+  const books = new THREE.Group(); scene.add(books);
+  const hL = label('10 cm', { bg: '#15803D', size: .4 }); scene.add(hL);
+  const c = car('#2563EB'); c.scale.setScalar(.55); scene.add(c);
+  const stopMark = new THREE.Mesh(new THREE.BoxGeometry(.04, .3, 1.2), new THREE.MeshBasicMaterial({ color: '#DC2626' })); stopMark.visible = false; scene.add(stopMark);
+  const dLab = label('', { bg: '#DC2626', size: .45 }); dLab.visible = false; scene.add(dLab);
+  let H = 10, ang = 0, run = null; const banner = el('lBanner');
+  function setH(h) { H = h; ang = Math.asin(Math.min(.98, (h / U) / RL)); ramp.rotation.z = -ang;
+    books.clear(); const nb = Math.round(h / 5); const top = Math.sin(ang) * RL; const bx = -Math.cos(ang) * RL + .1;
+    for (let i = 0; i < nb; i++) { const b = new THREE.Mesh(new THREE.BoxGeometry(.9, top / nb * .98, 1.1), mat(['#DC2626', '#2563EB', '#16A34A', '#CA8A04'][i % 4], { rough: .6 })); b.position.set(bx - .2, top / nb * (i + .5), 0); books.add(b); }
+    const nl = label(h + ' cm', { bg: '#15803D', size: .4 }); hL.material.map.dispose(); hL.material = nl.material; hL.scale.copy(nl.scale); hL.position.set(bx - .2, top + .45, 0);
+    if (!run) placeOnRamp(0); }
+  function placeOnRamp(u) { const p = new THREE.Vector3(-Math.cos(ang) * RL * (1 - u) + .0, Math.sin(ang) * RL * (1 - u), 0); c.position.copy(p).add(new THREE.Vector3(Math.sin(ang) * .12, Math.cos(ang) * .12 - .05, 0)); c.rotation.z = -ang; c.position.x -= .15 * (1 - u); }
+  el('hh').oninput = () => { el('hhr').textContent = el('hh').value + ' cm'; setH(+el('hh').value); stopMark.visible = dLab.visible = false; };
+  function release(h, cb) { const s = surf(); const d = measure(h, s); run = { t: 0, d, h, s, cb }; stopMark.visible = dLab.visible = false; banner.textContent = 'Releasing from ' + h + ' cm…'; KIT.sfx.whoosh(); }
+  el('rel').onclick = () => { if (run) return; release(H, (h, d, s) => record(h, d, s)); };
+  function record(h, d, s) { const arr = DATA[s][h]; if (arr.length >= 3) { banner.textContent = 'Already 3 trials at ' + h + ' cm: choose another height (or clear the table).'; return false; } arr.push(d); paintTable(h + ':' + (arr.length - 1)); graph(); return true; }
+  el('auto').onclick = () => { if (run) return; const s = surf(); const q = []; HEIGHTS.forEach(h => { for (let i = DATA[s][h].length; i < 3; i++) q.push(h); });
+    if (!q.length) { banner.textContent = 'Table is full! Clear it to run again.'; return; }
+    el('auto').dataset.fast = '1';
+    const next = () => { const h = q.shift(); if (h == null) { delete el('auto').dataset.fast; banner.textContent = 'All trials done: now calculate the averages!'; KIT.sfx.good(); return; } el('hh').value = h; el('hhr').textContent = h + ' cm'; setH(h); release(h, (hh, d, ss) => { record(hh, d, ss); setTimeout(next, 250); }); };
+    next(); };
+  S.tick((dt) => {
+    if (!run) return; run.t += dt * (el('auto').dataset.fast ? 3 : 1);
+    const tr = .7, dist = run.d / U, tf = 1.2 + dist * .08;
+    if (run.t < tr) { const u = (run.t / tr) ** 2; placeOnRamp(u); }
+    else { const k = Math.min(1, (run.t - tr) / tf), x = dist * (1 - (1 - k) * (1 - k)); c.rotation.z = 0; c.position.set(x + .15, .02, 0); c.userData.wheels.forEach(w => w.rotation.y += dt * 8 * (1 - k));
+      if (k >= 1) { const r = run; run = null; stopMark.position.set(x, .15, 0); stopMark.visible = true;
+        const nl = label(r.d + ' cm', { bg: '#DC2626', size: .45 }); dLab.material.map.dispose(); dLab.material = nl.material; dLab.scale.copy(nl.scale); dLab.position.set(x, .9, 0); dLab.visible = true;
+        banner.textContent = 'The car rolled ' + r.d + ' cm'; KIT.sfx.tick(); r.cb && r.cb(r.h, r.d, r.s); setTimeout(() => { if (!run) placeOnRamp(0); }, 900); } }
+  });
+  setH(10); setSurface();
+}
+</script>
+</body>
+</html>

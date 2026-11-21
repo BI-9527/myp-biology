@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Station 3 · Energy transformations · Energy Quest</title>
+<meta name="description" content="MYP 1 Science, Energy Quest Station 3: energy transformations, what makes them happen, and useful and wasted energy.">
+<link rel="icon" href="assets/his-logo.png">
+<link rel="stylesheet" href="assets/kit.css">
+<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
+<script src="assets/conf.js"></script>
+<script src="assets/kit.js" defer></script>
+<style>
+.dev{display:grid;grid-template-columns:1.2fr auto 1fr auto 1fr;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--panel);border:1px solid var(--line);margin:8px 0}
+.dev b{font-size:1.05em}
+.dev select{font:800 17px var(--sans);padding:7px 8px;border-radius:10px;border:2px solid var(--line);background:var(--panel);color:var(--ink);width:100%}
+.dev select.ok{border-color:var(--good);background:var(--good-soft)}.dev select.no{border-color:var(--bad);background:var(--bad-soft)}
+@media (max-width:980px){.dev{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-section="3">
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">Station 3 · Energy transformations</p>
+    <h1>Energy changes form</h1>
+    <p class="lede">An <b>energy transformation</b> is when energy changes from one form into another. Energy is <b>never made and never destroyed</b>: the total amount always stays the same. It just changes form.</p>
+    <div class="crit-row"><span class="crit A">A</span> Knowing and understanding</div>
+  </div>
+  <div class="launch role" style="margin:0">
+    <span class="ico">🎭</span>
+    <div><h3>Act it out: the energy relay</h3><p>Pass a ball along a line of students. Each student shouts their energy form as they pass it on!</p></div>
+    <button class="btn" data-roles="roles3">▶ Show roles</button>
+  </div>
+  <script type="application/json" id="roles3">{"title":"The energy relay","intro":"The ball is the energy. It never disappears: it just changes form as it moves along the line.",
+   "roles":[["Chemical","Holds the ball first: “I am the food in your breakfast!”","#15803D"],["Kinetic","“I am your running legs!”","#EA580C"],["Gravitational potential","Holds the ball high above your head: “I am the ball up high!”","#1D4ED8"],["Sound","Claps once loudly: “I am the bang!”","#DB2777"],["Thermal","Rubs hands: “I am the warmth that spreads out and gets wasted!”","#DC2626"]],
+   "steps":["Line up in this order: chemical → kinetic → gravitational potential → sound → thermal.","Pass the ball down the line. Each student says their line as they pass it on.","At the end, the thermal student spreads their arms wide: the energy is now spread out in the room.","Question: did the energy disappear? (No! It became spread-out thermal energy.)"],"seconds":90}</script>
+</section>
+
+<section class="block" id="machine">
+  <div class="part-title"><span class="badge" style="background:var(--e-ela)">3D</span><h2 style="margin:0">The chain-reaction machine</h2></div>
+  <div class="anim-wrap">
+    <div class="card" style="margin-top:0">
+      <div class="stage" id="mStage"><span class="hint">Drag to look around</span><div class="banner" id="mBanner"></div>
+        </div>
+      <div class="ctrl">
+        <button class="btn" id="mPlay">⏸ Pause</button>
+        <button class="btn ghost" id="mNext">Next step ▶</button>
+        <button class="btn ghost" id="mRestart">⟲ Restart</button>
+        <label class="switch">Slow<input type="checkbox" id="mSlow"></label>
+      </div>
+    </div>
+    <ol class="steps" id="mSteps">
+      <li><b>1.</b> The squashed spring is released and pushes the ball. <span class="t-ela"><b>Elastic potential</b></span> → <span class="t-kin"><b>kinetic</b></span>.</li>
+      <li><b>2.</b> The ball rolls down the ramp. <span class="t-gpe"><b>Gravitational potential</b></span> → <span class="t-kin"><b>kinetic</b></span>.</li>
+      <li><b>3.</b> The ball knocks the dominoes over, one after another. <span class="t-kin"><b>Kinetic</b></span> → <span class="t-kin"><b>kinetic</b></span> (each domino's <span class="t-gpe">grav. potential</span> → kinetic as it falls).</li>
+      <li><b>4.</b> The last domino hits the bell. <span class="t-kin"><b>Kinetic</b></span> → <span class="t-sou"><b>sound</b></span>.</li>
+      <li><b>5.</b> It falls onto a switch. The battery lights the lamp. <span class="t-che"><b>Chemical</b></span> → <span class="t-ele"><b>electrical</b></span> → <span class="t-lig"><b>light</b></span> + <span class="t-the"><b>thermal</b></span>.</li>
+    </ol>
+  </div>
+  <div class="q"><span class="qn">Q3.1</span> For each step of the machine, write the energy change <b>and</b> what made it happen (the "change-maker").
+    <div class="reveal"><button>Show answer</button><div class="ans">1 Spring: elastic → kinetic (the spring <b>pushes</b>: a force). 2 Ramp: gravitational potential → kinetic (<b>gravity</b> pulls the ball down). 3 Dominoes: kinetic → kinetic (each <b>push</b> knocks the next). 4 Bell: kinetic → sound (the hit makes the bell <b>vibrate</b>). 5 Lamp: chemical → electrical → light + thermal (closing the switch lets an <b>electric current</b> flow).</div></div></div>
+</section>
+
+<section class="block">
+  <div class="part-title"><span class="badge" style="background:var(--blue)">Key idea</span><h2 style="margin:0">What makes the change happen?</h2></div>
+  <div class="card">
+    <p>Energy only changes form when <b>something happens</b>. We call these the <b>change-makers</b>:</p>
+    <div class="grid3">
+      <div class="q" style="margin:0"><b>💪 A force</b><br>a push, a pull, gravity or friction</div>
+      <div class="q" style="margin:0"><b>🔥 Heating</b><br>something hot warms something cooler</div>
+      <div class="q" style="margin:0"><b>⚡ An electric current</b><br>flows when a circuit is closed</div>
+      <div class="q" style="margin:0"><b>🧪 A chemical reaction</b><br>burning, digesting food, a battery working</div>
+      <div class="q" style="margin:0"><b>☀️ Light shining</b><br>sunlight landing on a solar panel or a leaf</div>
+      <div class="q" style="margin:0"><b>🔊 Vibration</b><br>a moving object makes the air shake</div>
+    </div>
+    <div class="q"><span class="qn">Q3.2</span> Sort each event by its change-maker.</div>
+    <div class="io" data-src="io3"></div>
+    <script type="application/json" id="io3">{"bins":[["force","💪 Force"],["heat","🔥 Heating"],["current","⚡ Electric current"],["chem","🧪 Chemical reaction"],["light","☀️ Light shining"]],
+      "items":[["an apple falls from a tree","f-gpe","force"],["rubbing your hands to warm them","f-kin","force"],["kicking a football","f-kin","force"],["an ice cube melts in your hand","f-the","heat"],["a pan warms on a hot stove","f-the","heat"],["a toaster's wires glow","f-ele","current"],["a fan starts to spin","f-ele","current"],["wood burning in a campfire","f-che","chem"],["your body digesting lunch","f-che","chem"],["a solar panel charges a lamp","f-lig","light"]]}</script>
+  </div>
+</section>
+
+<section class="block">
+  <div class="card">
+    <p class="sub">Device detective</p>
+    <div class="q" style="margin-top:0"><span class="qn">Q3.3</span> For each device, choose the energy that goes <b>in</b> and the main <b>useful</b> energy that comes out.</div>
+    <div id="devs"></div>
+    <div class="row" style="margin-top:10px"><button class="btn" data-check-eq="devs">Check</button><span class="fb"></span></div>
+  </div>
+</section>
+
+<section class="block" id="sankey">
+  <div class="part-title"><span class="badge" style="background:var(--e-lig)">Compare</span><h2 style="margin:0">Useful and wasted energy: the bulb battle</h2></div>
+  <div class="labgrid">
+    <div class="card" style="margin-top:0">
+      <div class="row" style="margin-bottom:10px">
+        <button class="btn" data-dev="0">💡 Old filament bulb</button>
+        <button class="btn ghost" data-dev="1">🔆 LED bulb</button>
+        <button class="btn ghost" data-dev="2">🌀 Electric fan</button>
+      </div>
+      <svg id="sk" viewBox="0 0 900 360" style="width:100%;height:auto;display:block" role="img" aria-label="Energy flow diagram showing useful and wasted energy"></svg>
+      <p class="caption">Energy flow (Sankey) diagram. The width of each arrow shows the amount of energy. Example values for every 100 J of electrical energy.</p>
+    </div>
+    <div>
+      <div class="q" style="margin-top:0"><span class="qn">Q3.4</span> Which bulb wastes more energy? During a power cut, why do Lebanese families choose LEDs for their solar batteries?
+        <div class="reveal"><button>Show answer</button><div class="ans">The <b>old filament bulb</b> wastes much more: most of its energy becomes thermal energy (it gets very hot). An LED turns much more of the energy into light, so the same battery lights the house for <b>much longer</b>.</div></div></div>
+      <div class="q"><span class="qn">Q3.5</span> A kettle takes in 200 J of electrical energy. 150 J heats the water. How much energy is wasted?
+        <div class="row" style="margin-top:8px"><input type="number" id="calc" class="readout" style="width:120px" placeholder="? J"><button class="btn" id="calcBtn">Check</button><span class="fb"></span></div>
+        <div class="reveal"><button>Show answer</button><div class="ans">200 J − 150 J = <b>50 J</b> wasted (as thermal energy warming the air and the kettle, and a little sound). Energy in = energy out.</div></div></div>
+      <div class="q teaser"><span class="qn">Q3.6 Brain teaser:</span> If energy is never destroyed, why do we keep having to pay for electricity and fuel?
+        <div class="reveal"><button>Show answer</button><div class="ans">The energy is not destroyed, but it ends up as <b>spread-out thermal energy</b> (warm air, warm walls). Spread-out energy is very hard to collect and use again, so we need new useful energy.</div></div></div>
+    </div>
+  </div>
+  <div class="q realw"><span class="qn">Q3.7 Real world:</span> Many buildings in Aramoun use a diesel generator during power cuts. Write the energy chain from the diesel to the light in your room, and name two forms of wasted energy you can notice near a generator.
+    <div class="reveal"><button>Show answer</button><div class="ans">Diesel (<b>chemical</b>) → engine moving (<b>kinetic</b>) → generator (<b>electrical</b>) → lamp (<b>light</b>). Wasted: <b>sound</b> (the loud noise) and <b>thermal</b> energy (the hot engine and exhaust).</div></div></div>
+</section>
+
+<section class="block">
+  <div class="part-title"><span class="badge" style="background:var(--red)">Check</span><h2 style="margin:0">Game time</h2></div>
+  <div class="launch standup"><span class="ico">🧍</span><div><h3>Stand up · Sit down</h3><p>6 statements about energy transformations.</p></div><button class="btn gold" data-standup="su3">▶ Play</button></div>
+  <div class="launch battle"><span class="ico">⚔️</span><div><h3>Quiz Battle: transformations</h3><p>5 rounds · 2 ⚡ per correct team · last round doubles.</p></div><button class="btn red" data-battle="b3">▶ Battle</button></div>
+  <script type="application/json" id="su3">{"title":"Transformations","items":[
+    ["Energy can be destroyed if you use it.",false,"Energy is never destroyed. It changes form, often into spread-out thermal energy."],
+    ["A torch changes chemical energy into light energy.",true,"Battery (chemical) → electrical → light (+ some thermal)."],
+    ["Gravity can make an energy change happen.",true,"Gravity is a force: it turns gravitational potential energy into kinetic energy."],
+    ["A loudspeaker's useful output is thermal energy.",false,"Its useful output is sound. Thermal energy is wasted."],
+    ["An LED wastes less energy than an old filament bulb.",true,"More of its energy becomes useful light."],
+    ["When you rub your hands together, kinetic energy becomes thermal energy.",true,"Friction (a force) warms your hands."]]}</script>
+  <script type="application/json" id="b3">{"title":"Transformations","points":2,"seconds":20,"qs":[
+    {"q":"What is the main energy change in a solar panel?","o":["Light → electrical","Electrical → light","Chemical → thermal","Sound → kinetic"],"a":0,"why":"Sunlight is turned into electricity."},
+    {"q":"What makes a ball on a ramp start rolling down?","o":["Gravity (a force)","Light","Sound","An electric current"],"a":0,"why":"Gravity pulls it down: gravitational potential → kinetic."},
+    {"q":"A hair dryer's useful outputs are …","o":["Thermal + kinetic (hot moving air)","Light only","Chemical energy","Elastic potential energy"],"a":0,"why":"It blows hot air. The noise is wasted sound."},
+    {"q":"A machine takes in 100 J and gives out 30 J of useful energy. How much is wasted?","o":["70 J","130 J","30 J","0 J"],"a":0,"why":"100 − 30 = 70 J. Energy in = energy out."},
+    {"q":"Which energy change happens when you eat breakfast and then run?","o":["Chemical → kinetic + thermal","Kinetic → chemical","Light → sound","Electrical → chemical"],"a":0,"why":"Food's chemical energy moves your muscles and keeps you warm.","double":true}]}</script>
+</section>
+
+<div class="mission-end" data-section="3">
+  <h2>Station 3 complete?</h2>
+  <p>Time for the 📝 <b>formative quiz</b> (printed). Then: where does our energy come from, and will it run out?</p>
+  <div class="row" style="justify-content:center"><button class="btn gold big" data-complete>✓ Station complete</button><a class="btn big" href="4-renewable.html">Next: Power the town ▶</a></div>
+  <div class="done-msg">⚡ Station 3 powered up!</div>
+</div>
+<div class="footer"><img src="assets/his-logo.png" alt=""><div><b>Al-Hayat International School</b> · MYP 1 Sciences · Energy Quest · Station 3 of 6</div></div>
+</main>
+
+<script>
+/* device detective rows */
+(function () {
+  var F = ['chemical', 'electrical', 'kinetic', 'light', 'sound', 'thermal', 'elastic potential', 'gravitational potential'];
+  var D = [['🍞 Toaster', 'electrical', 'thermal'], ['🔦 Torch (battery)', 'chemical', 'light'], ['🌬️ Wind turbine', 'kinetic', 'electrical'], ['🔊 Loudspeaker', 'electrical', 'sound'], ['🏹 Bow and arrow', 'elastic potential', 'kinetic'], ['🚗 Car engine', 'chemical', 'kinetic'], ['☀️ Solar panel', 'light', 'electrical'], ['💧 Water falling at a dam', 'gravitational potential', 'kinetic']];
+  var opt = '<option value="">choose…</option>' + F.map(function (f) { return '<option>' + f + '</option>'; }).join('');
+  document.getElementById('devs').innerHTML = D.map(function (d) { return '<div class="dev"><b>' + d[0] + '</b><span>in:</span><select data-ans="' + d[1] + '">' + opt + '</select><span>useful out:</span><select data-ans="' + d[2] + '">' + opt + '</select></div>'; }).join('');
+  // kettle calculation
+  document.getElementById('calcBtn').onclick = function () { var v = +document.getElementById('calc').value, ok = v === 50; if (window.KIT) KIT.say(this, ok, ok ? 'Correct: 50 J wasted!' : 'Not yet. Energy in − useful energy = ?'); };
+  // Sankey
+  var DEV = [{ n: 'Old filament bulb', in: 100, out: [['light (useful)', 5, '#B98900'], ['thermal (wasted)', 95, '#DC2626']] },
+             { n: 'LED bulb', in: 100, out: [['light (useful)', 40, '#B98900'], ['thermal (wasted)', 60, '#DC2626']] },
+             { n: 'Electric fan', in: 100, out: [['kinetic (useful)', 70, '#EA580C'], ['thermal (wasted)', 20, '#DC2626'], ['sound (wasted)', 10, '#DB2777']] }];
+  var svg = document.getElementById('sk'), NS = 'http://www.w3.org/2000/svg';
+  function e(t, a, txt) { var n = document.createElementNS(NS, t); for (var k in a) n.setAttribute(k, a[k]); if (txt != null) n.textContent = txt; svg.appendChild(n); return n; }
+  function draw(i) {
+    var d = DEV[i]; svg.innerHTML = ''; var W = 2.2, x0 = 30, xs = 300, top = 180 - d.in * W / 2;
+    e('rect', { x: x0, y: top, width: xs - x0, height: d.in * W, fill: '#0284C7', rx: 4 });
+    e('text', { x: x0 + 10, y: top - 12, 'font-size': 20, 'font-weight': 800, fill: '#0284C7' }, d.in + ' J electrical in');
+    var y = top; d.out.forEach(function (o, k) {
+      var h = o[1] * W, ty = k === 0 ? 40 + h / 2 : (k === 1 ? 180 + (d.out.length === 2 ? 60 : 20) : 300);
+      var path = 'M' + xs + ' ' + y + ' C ' + (xs + 120) + ' ' + y + ', ' + (xs + 140) + ' ' + (ty - h / 2) + ', ' + (xs + 250) + ' ' + (ty - h / 2) + ' L 640 ' + (ty - h / 2) + ' L 640 ' + (ty + h / 2) + ' L ' + (xs + 250) + ' ' + (ty + h / 2) + ' C ' + (xs + 140) + ' ' + (ty + h / 2) + ', ' + (xs + 120) + ' ' + (y + h) + ', ' + xs + ' ' + (y + h) + ' Z';
+      var p = e('path', { d: path, fill: o[2], opacity: .9 }); p.animate([{ opacity: 0 }, { opacity: .9 }], { duration: 500, delay: k * 200, fill: 'both' });
+      e('polygon', { points: '640,' + (ty - h / 2 - 6) + ' 640,' + (ty + h / 2 + 6) + ' ' + (660 + Math.min(20, h / 2)) + ',' + ty, fill: o[2] });
+      e('text', { x: 690, y: ty - 4, 'font-size': 19, 'font-weight': 900, fill: o[2] }, o[1] + ' J');
+      e('text', { x: 690, y: ty + 18, 'font-size': 17, 'font-weight': 700, fill: 'currentColor' }, o[0]);
+      y += h; });
+    document.querySelectorAll('[data-dev]').forEach(function (b) { b.className = 'btn' + (+b.dataset.dev === i ? '' : ' ghost'); });
+  }
+  svg.style.color = 'var(--ink)';
+  document.querySelectorAll('[data-dev]').forEach(function (b) { b.onclick = function () { draw(+b.dataset.dev); if (window.KIT) KIT.sfx.whoosh(); }; });
+  draw(0);
+})();
+</script>
+<script type="module">
+import { stage, THREE, label, pill, mat, atom, burst, reduce, ease, seg, lerp } from './assets/scene3d.js';
+import { E } from './assets/energy3d.js';
+const S = stage(document.getElementById('mStage'), { pos: [0, 4.6, 13], target: [0, 1.6, 0], minD: 7, maxD: 28, lockVertical: true });
+if (S) {
+  const { scene, camera } = S;
+  const wood = mat('#B07A45', { rough: .7, clear: .1 });
+  const table = new THREE.Mesh(new THREE.BoxGeometry(19, .3, 4), wood); table.position.y = -.15; scene.add(table);
+  // shelf + spring launcher (left)
+  const shelf = new THREE.Mesh(new THREE.BoxGeometry(3, .2, 1.6), wood); shelf.position.set(-7.6, 3.4, 0); scene.add(shelf);
+  const post = new THREE.Mesh(new THREE.BoxGeometry(.3, 3.4, .3), wood); post.position.set(-8.6, 1.7, 0); scene.add(post);
+  const wallB = new THREE.Mesh(new THREE.BoxGeometry(.2, .9, 1.2), wood); wallB.position.set(-9, 3.95, 0); scene.add(wallB);
+  const coils = new THREE.Group(); scene.add(coils);
+  for (let i = 0; i < 8; i++) { const c = new THREE.Mesh(new THREE.TorusGeometry(.22, .035, 8, 20), mat('#94A3B8', { clear: 1, rough: .2 })); c.rotation.y = Math.PI / 2; c.userData.i = i; coils.add(c); }
+  const plate = new THREE.Mesh(new THREE.BoxGeometry(.08, .5, .5), mat('#475569')); scene.add(plate);
+  // ramp from shelf edge down to table
+  const rA = new THREE.Vector3(-6.1, 3.5, 0), rB = new THREE.Vector3(-2.4, .05, 0);
+  const rd = new THREE.Vector3().subVectors(rB, rA), rl = rd.length();
+  const ramp = new THREE.Mesh(new THREE.BoxGeometry(rl, .12, 1.0), mat('#F59E0B', { clear: .5 })); ramp.position.copy(rA).addScaledVector(rd, .5).add(new THREE.Vector3(0, -.28, 0)); ramp.rotation.z = Math.atan2(rd.y, rd.x); scene.add(ramp);
+  const ball = atom('#DC2626', .25, { clear: 1, rough: .2 }); scene.add(ball);
+  // dominoes
+  const DX = [-1.3, -.55, .2, .95, 1.7, 2.45], doms = DX.map((x, i) => { const g = new THREE.Group(); g.position.set(x, 0, 0); const d = new THREE.Mesh(new THREE.BoxGeometry(.18, 1.2, .7), mat(['#1D4ED8', '#2563EB', '#3B82F6', '#1D4ED8', '#2563EB', '#3B82F6'][i], { clear: .6 })); d.position.set(-.09, .6, 0); g.add(d); scene.add(g); return g; });
+  // bell
+  const bellG = new THREE.Group(); bellG.position.set(4.0, 0, 0); scene.add(bellG);
+  const stand = new THREE.Mesh(new THREE.BoxGeometry(.12, 1.8, .12), mat('#334155')); stand.position.set(.5, .9, 0); bellG.add(stand);
+  const arm = new THREE.Mesh(new THREE.BoxGeometry(.7, .1, .1), mat('#334155')); arm.position.set(.2, 1.8, 0); bellG.add(arm);
+  const bell = new THREE.Mesh(new THREE.CylinderGeometry(.18, .5, .7, 24, 1, true), mat('#EAB308', { clear: 1, rough: .15, side: THREE.DoubleSide })); bell.position.set(0, 1.4, 0); bellG.add(bell);
+  const waves = []; for (let i = 0; i < 3; i++) { const w = new THREE.Mesh(new THREE.TorusGeometry(.6, .03, 8, 40), new THREE.MeshBasicMaterial({ color: E.sou, transparent: true, opacity: 0, toneMapped: false })); w.position.set(0, 1.4, 0); bellG.add(w); waves.push(w); }
+  // switch + battery + lamp (right)
+  const sw = new THREE.Group(); sw.position.set(3.2, 0, 1.2); scene.add(sw);
+  const swBase = new THREE.Mesh(new THREE.BoxGeometry(1.0, .12, .5), mat('#111827')); swBase.position.y = .06; sw.add(swBase);
+  const lever = new THREE.Mesh(new THREE.BoxGeometry(.9, .06, .12), mat('#B91C1C')); lever.position.set(0, .3, 0); lever.rotation.z = .35; sw.add(lever);
+  const battery = new THREE.Group(); battery.position.set(6.3, 0, 1.0); scene.add(battery);
+  const bb = new THREE.Mesh(new THREE.CylinderGeometry(.3, .3, 1, 24), mat('#15803D', { clear: .8 })); bb.position.y = .5; battery.add(bb);
+  const bt = new THREE.Mesh(new THREE.CylinderGeometry(.1, .1, .12, 16), mat('#CBD5E1')); bt.position.y = 1.06; battery.add(bt);
+  const lampG = new THREE.Group(); lampG.position.set(7.8, 0, 0); scene.add(lampG);
+  const lb = new THREE.Mesh(new THREE.CylinderGeometry(.35, .45, .25, 20), mat('#334155')); lb.position.y = .12; lampG.add(lb);
+  const bulb = new THREE.Mesh(new THREE.SphereGeometry(.42, 24, 16), new THREE.MeshStandardMaterial({ color: '#FEF9C3', emissive: '#FFD54A', emissiveIntensity: 0, transparent: true, opacity: .9 })); bulb.position.y = .7; lampG.add(bulb);
+  const halo = new THREE.Mesh(new THREE.SphereGeometry(1.0, 24, 16), new THREE.MeshBasicMaterial({ color: '#FFF3B0', transparent: true, opacity: 0, toneMapped: false, depthWrite: false })); halo.position.y = .7; lampG.add(halo);
+  const wireM = new THREE.LineBasicMaterial({ color: '#1F2937' });
+  scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(3.7, .1, 1.2), new THREE.Vector3(6.3, .1, 1.2)]), wireM));
+  scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(6.3, 1.1, 1.0), new THREE.Vector3(7.8, .9, .2)]), wireM));
+  const current = []; for (let i = 0; i < 6; i++) { const s = new THREE.Mesh(new THREE.SphereGeometry(.07, 10, 8), new THREE.MeshBasicMaterial({ color: '#38BDF8', toneMapped: false })); s.visible = false; scene.add(s); current.push(s); }
+  // energy pill that follows the action
+  const tag = new THREE.Group(); scene.add(tag); let tagSpr = null;
+  function setTag(text, color) { if (tagSpr) { tag.remove(tagSpr); tagSpr.material.map.dispose(); } tagSpr = pill(text, color, .5); tag.add(tagSpr); }
+  const banner = document.getElementById('mBanner'), steps = [...document.querySelectorAll('#mSteps li')];
+  const STEP = 3.6, N = 5; let t = 0, playing = !reduce, slow = false, lastPh = -1; const bursts = [];
+  const TXT = [['Elastic potential → kinetic', 'a force: the spring pushes', E.ela], ['Gravitational potential → kinetic', 'a force: gravity pulls the ball down', E.gpe], ['Kinetic → kinetic (dominoes fall)', 'a force: each domino pushes the next', E.kin], ['Kinetic → sound', 'vibration: the bell shakes the air', E.sou], ['Chemical → electrical → light + thermal', 'an electric current: the switch closes the circuit', E.ele]];
+  const ballStart = new THREE.Vector3(-7.4, 3.75, 0);
+  function domAngle(i, tt) { const t0 = STEP * 2 + i * .45; return -ease(seg(tt, t0, t0 + .5)) * 1.25; }
+  function draw() {
+    const ph = Math.min(N - 1, Math.floor(t / STEP));
+    if (ph !== lastPh) { steps.forEach((li, i) => li.classList.toggle('now', i === ph)); banner.innerHTML = (ph + 1) + ' · ' + TXT[ph][0] + '<br><span style="font-size:17px;font-weight:700;color:#FDE68A">Change-maker: ' + TXT[ph][1] + '</span>'; setTag(TXT[ph][0], TXT[ph][2]);
+      if (ph === 3) KIT.sfx.good(); else if (lastPh !== -1) KIT.sfx.whoosh(); lastPh = ph; }
+    // 1: spring releases (0 … STEP)
+    const k1 = ease(seg(t, .6, 1.1)); const springLen = lerp(.7, 1.5, k1);
+    coils.children.forEach(c => { c.position.set(-8.9 + c.userData.i / 7 * springLen, 3.75, 0); });
+    plate.position.set(-8.9 + springLen, 3.75, 0);
+    // ball path
+    let bp = ballStart.clone();
+    if (t < 1.1) bp.x = -8.9 + springLen + .3;
+    else if (t < STEP) { const k = ease(seg(t, 1.1, STEP)); bp.set(lerp(-7.3, -6.1, k), 3.75, 0); }
+    else if (t < STEP * 2) { const k = seg(t, STEP, STEP * 1.85) ** 1.6; bp.copy(rA).addScaledVector(rd, k).add(new THREE.Vector3(0, .25, 0)); if (k >= 1) bp.set(-2.4, .25, 0); const k2 = seg(t, STEP * 1.85, STEP * 2); bp.x = lerp(bp.x, -1.55, k2); }
+    else { bp.set(-1.55, .25, 0); }
+    ball.position.copy(bp); ball.rotation.z -= .05 * (t > 1.1 && t < STEP * 2 ? 1 : 0) * 6;
+    // 3: dominoes
+    doms.forEach((d, i) => { d.rotation.z = domAngle(i, t); });
+    // 4: bell ring
+    const ring = seg(t, STEP * 3 + .1, STEP * 3 + 2.4); bell.rotation.z = Math.sin(ring * 30) * .25 * (1 - ring) * (ring > 0 ? 1 : 0);
+    waves.forEach((w, i) => { const u = (ring * 3 + i / 3) % 1; w.scale.setScalar(1 + u * 2.4); w.material.opacity = ring > 0 && ring < 1 ? (1 - u) * .8 : 0; w.rotation.y = Math.PI / 2; });
+    // 5: lever pressed → lamp
+    const k5 = ease(seg(t, STEP * 4, STEP * 4 + .5)); lever.rotation.z = lerp(.35, 0, k5);
+    const on = t > STEP * 4 + .5; bulb.material.emissiveIntensity = on ? 1.6 : 0; halo.material.opacity = on ? .4 + .08 * Math.sin(t * 6) : 0;
+    current.forEach((s, i) => { s.visible = on; const u = (t * .7 + i / 6) % 1; const a = new THREE.Vector3(3.7, .1, 1.2), b = new THREE.Vector3(6.3, .1, 1.2), c = new THREE.Vector3(6.3, 1.1, 1.0), d = new THREE.Vector3(7.8, .9, .2);
+      if (u < .55) s.position.lerpVectors(a, b, u / .55); else s.position.lerpVectors(c, d, (u - .55) / .45); });
+    // tag position follows the action
+    const tp = [new THREE.Vector3(-8, 4.9, 0), ball.position.clone().add(new THREE.Vector3(0, 1.2, 0)), new THREE.Vector3(.6, 2.2, 0), new THREE.Vector3(4, 2.6, 0), new THREE.Vector3(6.8, 2.2, .4)][ph];
+    tag.position.lerp(tp, .15);
+  }
+  S.tick((dt) => {
+    for (let i = bursts.length - 1; i >= 0; i--) if (!bursts[i].update(dt, camera)) bursts.splice(i, 1);
+    if (playing) { const before = t; t += dt * (slow ? .5 : 1);
+      if (before < STEP * 4 + .5 && t >= STEP * 4 + .5) { bursts.push(burst(scene, new THREE.Vector3(7.8, .7, 0), '#FFD54A', 1.6)); KIT.sfx.coin(); }
+      if (t >= STEP * N + 2) { t = 0; lastPh = -1; } }
+    draw();
+  });
+  const pb = document.getElementById('mPlay'); const setPlay = v => { playing = v; pb.textContent = v ? '⏸ Pause' : '▶ Play'; };
+  pb.onclick = () => setPlay(!playing);
+  document.getElementById('mRestart').onclick = () => { t = 0; lastPh = -1; setPlay(true); };
+  document.getElementById('mNext').onclick = () => { setPlay(false); let ph = Math.floor(t / STEP) + 1; if (ph >= N) ph = 0; t = ph * STEP + STEP * .97; };
+  document.getElementById('mSlow').onchange = e => { slow = e.target.checked; };
+  if (reduce) { t = STEP * 4.9; setPlay(false); }
+}
+</script>
+</body>
+</html>

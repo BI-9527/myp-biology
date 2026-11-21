@@ -1,0 +1,95 @@
+% =====================================================================
+%  hisstyle.sty · shared look for Energy Quest printables
+%  Al-Hayat International School · MYP 1 Sciences
+%  XeLaTeX, Inter font, minimum 12 pt text. Needs his-logo.png.
+% =====================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{hisstyle}
+\RequirePackage[a4paper,top=1.5cm,bottom=1.6cm,left=1.6cm,right=1.6cm,headheight=32pt,headsep=10pt]{geometry}
+\RequirePackage{fontspec}
+\setmainfont{Inter}[BoldFont={Inter SemiBold}]
+\newfontfamily\display{Inter Display}[BoldFont={Inter Display Bold}]
+\RequirePackage{amsmath}
+\RequirePackage[table]{xcolor}
+\RequirePackage{graphicx,tikz,pgfplots,enumitem,array,tabularx,fancyhdr,lastpage,needspace,multicol}
+\RequirePackage[most]{tcolorbox}
+\usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric,decorations.pathmorphing}
+\pgfplotsset{compat=1.18}
+
+% ---------- colours: HIS logo + one colour per energy store ----------
+\definecolor{navy}{HTML}{0A4F8F}\definecolor{hisblue}{HTML}{0068B0}\definecolor{hissky}{HTML}{00B0E0}
+\definecolor{hisgold}{HTML}{F8D000}\definecolor{hisred}{HTML}{F2361C}\definecolor{muted}{HTML}{4E6176}
+\definecolor{good}{HTML}{1D8A4A}\definecolor{goodsoft}{HTML}{E3F3E7}
+\definecolor{rose}{HTML}{D8321A}\definecolor{rosesoft}{HTML}{FDEAE6}
+\definecolor{goldsoft}{HTML}{FFF6CF}\definecolor{golddark}{HTML}{8A6D00}\definecolor{panel}{HTML}{F1F5F9}
+\definecolor{ekin}{HTML}{EA580C}\definecolor{egpe}{HTML}{1D4ED8}\definecolor{eela}{HTML}{7C3AED}\definecolor{eche}{HTML}{15803D}
+\definecolor{ethe}{HTML}{DC2626}\definecolor{elig}{HTML}{B98900}\definecolor{esou}{HTML}{DB2777}\definecolor{eele}{HTML}{0284C7}
+\definecolor{eren}{HTML}{16A34A}\definecolor{enon}{HTML}{57534E}
+\definecolor{cA}{HTML}{0068B0}\definecolor{cB}{HTML}{15803D}\definecolor{cC}{HTML}{C2410C}\definecolor{cD}{HTML}{7C3AED}
+
+\setlength{\parindent}{0pt}\setlength{\parskip}{4pt}\linespread{1.08}
+\setlist{itemsep=1pt,topsep=2pt}
+\setlength{\columnsep}{18pt}
+
+% ---------- header / footer ----------
+\newcommand{\doctitle}{Energy Quest}
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{hisred}\leaders\hrule height 1.4pt\hskip0.25\headwidth\color{hisgold}\leaders\hrule height 1.4pt\hskip0.25\headwidth\color{hissky}\leaders\hrule height 1.4pt\hskip0.25\headwidth\color{hisblue}\leaders\hrule height 1.4pt\hfill}}
+\fancyhead[L]{\raisebox{-0.32\height}{\includegraphics[height=0.9cm]{his-logo.png}}\hspace{6pt}\color{navy}\textbf{Al-Hayat International School}}
+\fancyhead[R]{\color{muted}MYP 1 Sciences · \doctitle}
+\fancyfoot[C]{\color{muted}Page \thepage\ of \pageref{LastPage}}
+\fancypagestyle{first}{\fancyhf{}\renewcommand{\headrule}{}\fancyfoot[C]{\color{muted}Page \thepage\ of \pageref{LastPage}}}
+
+% ---------- title block ----------
+% \titleblock{Title}{Subtitle line}
+\newcommand{\titleblock}[2]{%
+\begin{tcolorbox}[enhanced,colback=navy,colframe=navy,arc=10pt,left=12pt,right=12pt,top=9pt,bottom=9pt,
+  interior style={left color=navy!90!black,right color=hissky}]
+\color{white}
+\begin{tabular}{@{}m{2.9cm}@{}m{13.6cm}@{}}
+\tikz\node[fill=white,rounded corners=8pt,inner sep=4pt]{\includegraphics[height=2.2cm]{his-logo.png}}; &
+{\bfseries\large Al-Hayat International School}\newline Aramoun, Mount Lebanon · MYP Year 1 · Sciences\par\vspace{5pt}
+{\display\bfseries\fontsize{23}{27}\selectfont #1}\par\vspace{1pt}
+#2\\
+\end{tabular}
+\end{tcolorbox}
+\vspace{-8pt}\noindent\tikz{\foreach \c [count=\i from 0] in {hisred,hisgold,hissky,hisblue}{\fill[\c] (\i*0.25*\linewidth,0) rectangle ++(0.25*\linewidth,0.14);}}\par}
+\newcommand{\namerow}{\begin{tabularx}{\linewidth}{@{}l X l p{2.4cm} l p{2.6cm}@{}}
+\textbf{Name:} & \hrulefill & \textbf{Class:} & \hrulefill & \textbf{Date:} & \hrulefill
+\end{tabularx}}
+
+% ---------- building blocks ----------
+\newcommand{\station}[3]{\par\vskip 0pt plus 7\baselineskip\penalty-300\vskip 0pt plus -7\baselineskip\vspace{3pt}\noindent\begin{tikzpicture}
+  \node[fill=#1,text=white,rounded corners=9pt,inner sep=6pt,font=\bfseries] (b) {#2};
+  \node[right=8pt of b,font=\display\bfseries\LARGE,text=navy] {#3};\end{tikzpicture}\par\vspace{-2pt}}
+\newcommand{\sect}[1]{\par\needspace{6\baselineskip}\vspace{2pt}{\display\bfseries\large\color{navy}#1}\par}
+\newcommand{\Q}[1]{\textbf{\color{hisblue}#1}\ }
+\newcommand{\mk}[1]{\hfill\textbf{\color{muted}[#1]}}
+\newcommand{\blank}[1][3cm]{\rule[-2pt]{#1}{0.6pt}}
+\newcommand{\lines}[1]{\par\vspace{-2pt}\begin{tikzpicture}
+  \foreach \i in {1,...,#1}{\draw[muted!45] (0,-\i*0.86) -- (\linewidth-0.4pt,-\i*0.86);}
+  \path (0,0) (0,-#1*0.86-0.1);\end{tikzpicture}\par}
+\newcommand{\cb}{\tikz[baseline=-3pt]\draw[muted,line width=0.8pt,rounded corners=1.5pt] (0,-0.17) rectangle (0.38,0.21);}
+\newcommand{\numbox}{\tikz[baseline=-4pt]\draw[muted,line width=0.9pt,rounded corners=2pt] (0,-0.25) rectangle (0.75,0.32);}
+\newcommand{\bx}[1][1.6cm]{\tikz[baseline=-4pt]\draw[muted,line width=0.9pt,rounded corners=2pt] (0,-0.28) rectangle (#1,0.36);}
+\newcommand{\crit}[1]{\tikz[baseline=-3.5pt]\node[fill=c#1,text=white,font=\bfseries,rounded corners=3pt,inner sep=3pt,minimum width=0.55cm]{#1};}
+\newcommand{\e}[2]{\textcolor{#1}{\textbf{#2}}}
+\newcommand{\move}{\textcolor{golddark}{\textbf{Move!}}\ }
+
+\tcbset{base/.style={enhanced,boxrule=0pt,leftrule=5pt,arc=6pt,left=9pt,right=9pt,top=4pt,bottom=4pt,
+        fonttitle=\bfseries,coltitle=#1,attach title to upper={\ }}}
+\newtcolorbox{hook}[1][]{base=golddark,colback=goldsoft,colframe=hisgold!90!black,title={#1}}
+\newtcolorbox{teaser}[1][]{base=rose,colback=rosesoft,colframe=rose,title={#1}}
+\newtcolorbox{real}[1][]{base=good,colback=goodsoft,colframe=good,title={#1}}
+\newtcolorbox{info}[1][]{base=hisblue,colback=panel,colframe=hisblue,title={#1}}
+
+\tikzset{tok/.style={rounded corners=7pt,text=white,font=\bfseries,inner xsep=6pt,inner ysep=3pt},
+  arr/.style={-{Latex[length=3mm]},line width=1.5pt},
+  ebox/.style={draw=muted,line width=0.9pt,rounded corners=6pt,minimum width=3.0cm,minimum height=1.1cm,align=center}}
+\renewcommand{\arraystretch}{1.25}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcommand{\gridgraph}[4]{% width height xlabel ylabel
+\begin{tikzpicture}\begin{axis}[width=#1,height=#2,xmin=0,xmax=10,ymin=0,ymax=10,xtick=\empty,ytick=\empty,
+  minor x tick num=0,grid=both,major grid style={muted!25},xtick={0,1,...,10},ytick={0,1,...,10},xticklabels={},yticklabels={},
+  xlabel={#3},ylabel={#4},label style={font=\normalsize\bfseries}]\addplot[draw=none] coordinates {(0,0)};\end{axis}\end{tikzpicture}}
+\endinput

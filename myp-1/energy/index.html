@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Energy Quest · MYP 1 Science</title>
+<meta name="description" content="Al-Hayat International School · MYP 1 Science. Kinetic and potential energy, energy transformations, renewable and non-renewable resources: six interactive 3D stations, a virtual lab, team points and IB MYP criteria A–D.">
+<link rel="icon" href="assets/his-logo.png">
+<link rel="stylesheet" href="assets/kit.css">
+<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
+<script src="assets/conf.js"></script>
+<script src="assets/kit.js" defer></script>
+</head>
+<body data-section="0">
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">MYP 1 · Sciences · Energy</p>
+    <h1>Energy Quest</h1>
+    <p class="lede">8 pm in Aramoun. The power cuts. The neighbour's generator roars to life. Your phone is on 10%. <b>Where does all this energy come from, and where does it go?</b></p>
+    <p>Six stations, one big question. Work in teams, earn <b>⚡ points</b>, and finish as the school's best energy engineers.</p>
+    <div class="row" style="margin-top:14px">
+      <a class="btn big" href="1-energy-everywhere.html">▶ Start Station 1</a>
+      <a class="btn ghost big" href="#unit">📘 Unit overview</a>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <a class="btn ghost" href="energy-student-sheet.pdf">📄 Student sheet</a>
+      <a class="btn ghost" href="energy-quiz.pdf">📝 Formative quiz</a>
+      <a class="btn ghost" href="energy-exam.pdf">🎓 Summative test</a>
+    </div>
+  </div>
+  <div>
+    <div class="stage" id="heroStage"><span class="hint">Drag to look around</span></div>
+    <p class="caption">Wind and sunlight become electrical energy, then light in the houses. You will build a town like this in Station 4.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="card">
+    <p class="sub">Class power level</p>
+    <div class="power" id="power"><i style="width:0"></i><span>0 of 6 stations complete</span></div>
+  </div>
+  <div class="missions">
+    <a class="mcard" href="1-energy-everywhere.html" style="--mc:var(--e-kin)" data-m="1">
+      <span class="num">Station 1</span><h3>Energy is everywhere</h3>
+      <p>What energy is, and the 8 energy stores. Hunt for them in a 3D neighbourhood.</p>
+      <p>🔎 3D energy hunt · 🃏 Flip cards · 🧍 Stand-up · ⚔️ Battle</p><div class="crit-row"><span class="crit A">A</span></div><span class="st">Not started</span></a>
+    <a class="mcard" href="2-kinetic-potential.html" style="--mc:var(--e-gpe)" data-m="2">
+      <span class="num">Station 2</span><h3>Kinetic &amp; potential</h3>
+      <p>Moving energy and stored energy. A 3D skate park with live energy bars, and a bouncing ball.</p>
+      <p>🛹 Skate park sim · 🏁 Flag challenge · 🏀 Bounce lab · ⚔️ Battle</p><div class="crit-row"><span class="crit A">A</span><span class="crit C">C</span></div><span class="st">Not started</span></a>
+    <a class="mcard" href="3-transformations.html" style="--mc:var(--e-ela)" data-m="3">
+      <span class="num">Station 3</span><h3>Energy transformations</h3>
+      <p>Energy changes form, but is never used up. What makes the change happen? Useful and wasted energy.</p>
+      <p>⚙️ 3D chain machine · 🧩 Change-makers · 💡 Bulb battle · ⚔️ Battle</p><div class="crit-row"><span class="crit A">A</span></div><span class="st">Not started</span></a>
+    <a class="mcard" href="4-renewable.html" style="--mc:var(--e-ren)" data-m="4">
+      <span class="num">Station 4</span><h3>Power the town</h3>
+      <p>Renewable and non-renewable energy. Build a power system for a 3D town and keep the lights on with the least pollution.</p>
+      <p>🏝️ 3D town builder · 🌞 Day–night sim · 🇱🇧 Lebanon cases · ⚔️ Battle</p><div class="crit-row"><span class="crit A">A</span><span class="crit D">D</span></div><span class="st">Not started</span></a>
+    <a class="mcard" href="5-lab.html" style="--mc:var(--e-sou)" data-m="5">
+      <span class="num">Station 5</span><h3>The lab: ramp racers</h3>
+      <p>A full scientific investigation: question, hypothesis, variables, 3D trials, data, graph, conclusion and evaluation.</p>
+      <p>🧪 Virtual lab · 📊 Live graph · 🔍 Spot the anomaly</p><div class="crit-row"><span class="crit B">B</span><span class="crit C">C</span></div><span class="st">Not started</span></a>
+    <a class="mcard" href="6-challenge.html" style="--mc:var(--blue)" data-m="6">
+      <span class="num">Station 6</span><h3>The challenge</h3>
+      <p>Your GRASPS task: an energy plan for our school. Plus the grand battle and the 3D winners' podium.</p>
+      <p>🎯 GRASPS · ⚔️ Grand battle · 🏆 Podium</p><div class="crit-row"><span class="crit A">A</span><span class="crit D">D</span></div><span class="st">Not started</span></a>
+  </div>
+</section>
+
+<section class="block" id="unit">
+  <div class="part-title"><span class="badge">MYP unit</span><h2 style="margin:0">Unit overview</h2></div>
+  <div class="grid2">
+    <div class="card" style="margin-top:0">
+      <p class="sub">Statement of inquiry</p>
+      <p style="font:600 1.2em/1.45 var(--serif)">Energy is never lost: it changes from one form to another, and the energy sources we choose change the world we live in.</p>
+      <table class="rubric" style="margin-top:12px">
+        <tr><th>Key concept</th><td><b>Change</b></td></tr>
+        <tr><th>Related concepts</th><td>Energy · Transformation · Consequences</td></tr>
+        <tr><th>Global context</th><td><b>Globalization and sustainability</b>: how we use and share natural resources</td></tr>
+        <tr><th>ATL skills</th><td>Thinking (critical thinking) · Social (collaboration) · Research (information literacy) · Communication</td></tr>
+      </table>
+    </div>
+    <div class="card" style="margin-top:0">
+      <p class="sub">Inquiry questions</p>
+      <p><b>Factual:</b> What are kinetic and potential energy? Which energy sources are renewable?</p>
+      <p><b>Conceptual:</b> What makes energy change from one form to another? Why is some energy always wasted?</p>
+      <p><b>Debatable:</b> Should Lebanon get all of its electricity from renewable sources?</p>
+      <p class="sub" style="margin-top:16px">Assessment in this unit</p>
+      <p>📝 <b>Formative quiz</b> after Station 3 · 🧪 <b>Lab report</b> in Station 5 · 🎯 <b>GRASPS task</b> in Station 6 · 🎓 <b>Summative test</b> at the end.</p>
+    </div>
+  </div>
+  <div class="card">
+    <p class="sub">IB MYP Sciences criteria (Year 1)</p>
+    <table class="rubric">
+      <tr><th style="width:24%">Criterion</th><th>What you will do</th><th style="width:22%">Where</th></tr>
+      <tr><td><span class="crit A">A</span> <b>Knowing and understanding</b></td><td>Outline scientific knowledge about energy; apply it to solve problems in familiar situations; use information to make judgements.</td><td>Stations 1–4, quiz, test Part A</td></tr>
+      <tr><td><span class="crit B">B</span> <b>Inquiring and designing</b></td><td>Outline a research question and a testable prediction; outline how to change, measure and control variables; design a safe method.</td><td>Station 5 lab, test Part B</td></tr>
+      <tr><td><span class="crit C">C</span> <b>Processing and evaluating</b></td><td>Present data in tables and graphs; interpret results; discuss whether the prediction was supported; discuss and improve the method.</td><td>Station 2, Station 5 lab, test Part C</td></tr>
+      <tr><td><span class="crit D">D</span> <b>Reflecting on the impacts of science</b></td><td>Summarize how science solves a real problem; describe its effects on people, money and the environment; use scientific language; list your sources.</td><td>Station 4, GRASPS task, test Part D</td></tr>
+    </table>
+    <p class="caption">Each criterion is marked out of 8 using the MYP Year 1 descriptors. Task-specific clarifications are in the GRASPS task and the summative test.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="grid2">
+    <div class="card" style="margin-top:0">
+      <p class="sub">Teams</p>
+      <p>Name the four teams. Points are kept on <b>this computer</b> across all six stations.</p>
+      <div class="teamsetup" id="teamsetup">
+        <label style="--tc:var(--t0)">Team 1<input data-t="0" maxlength="18"></label>
+        <label style="--tc:var(--t1)">Team 2<input data-t="1" maxlength="18"></label>
+        <label style="--tc:var(--t2)">Team 3<input data-t="2" maxlength="18"></label>
+        <label style="--tc:var(--t3)">Team 4<input data-t="3" maxlength="18"></label>
+      </div>
+      <div class="row" style="margin-top:14px">
+        <button class="btn" id="saveNames">Save names</button>
+        <button class="btn ghost" id="resetScores">Reset points</button>
+        <button class="btn ghost" id="resetProg">Reset progress</button>
+        <span class="fb" id="teamFb"></span>
+      </div>
+    </div>
+    <div class="card" style="margin-top:0">
+      <p class="sub">How to play</p>
+      <ul style="margin:0;padding-left:1.2em">
+        <li>Project the station page. Students write in their <b>student sheet</b>: question numbers match.</li>
+        <li><b>🧍 Stand-up:</b> stand for TRUE, sit for FALSE when the countdown ends.</li>
+        <li><b>⚔️ Battle:</b> each team agrees, then shows 1–4 fingers. Tap the teams that were right.</li>
+        <li><b>🔎 Hunts and challenges:</b> a team sends one player to the board.</li>
+        <li>Use <b>+ / −</b> on the scoreboard for great answers and teamwork.</li>
+        <li>Tools at the top: ⏱ timer, 🎲 random pick, <b>A+</b> bigger text, ⛶ full screen. <span class="kbd">Esc</span> closes activities.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="footer"><img src="assets/his-logo.png" alt=""><div><b>Al-Hayat International School</b> · Aramoun, Lebanon<br>MYP 1 Sciences · Energy Quest: kinetic and potential energy, transformations, renewable and non-renewable resources.</div></div>
+</main>
+
+<script type="module">
+import { stage, THREE, pill } from './assets/scene3d.js';
+import { ground, house, tree, sun, windTurbine, solarFarm, E } from './assets/energy3d.js';
+const S = stage(document.getElementById('heroStage'), { pos: [10, 7.5, 17], target: [0, 2.2, 0], autoRotate: true, autoRotateSpeed: .6, minD: 8, maxD: 26, lockVertical: true });
+if (S) {
+  const { scene } = S;
+  scene.add(ground(18, 12));
+  const turbines = [[-5, -2], [-3.2, -3.5]].map(([x, z]) => { const t = windTurbine(4.2); t.position.set(x, 0, z); scene.add(t); return t; });
+  const farm = solarFarm(); farm.position.set(-4, 0, 2.6); scene.add(farm);
+  const houses = [[2, -1.5, '#F5E6C8', '#C2410C'], [4.6, -1, '#E0F2FE', '#1D4ED8'], [2.6, 1.8, '#FCE7F3', '#9D174D'], [5.2, 2.2, '#ECFCCB', '#15803D']].map(([x, z, w, r]) => { const h = house(w, r); h.position.set(x, 0, z); h.rotation.y = -.3; scene.add(h); return h; });
+  [[0, -4.5], [7, -3.5], [-1, 4.5], [7.5, 4]].forEach(([x, z]) => { const t = tree(1); t.position.set(x, 0, z); scene.add(t); });
+  const s = sun(.9); s.position.set(-7, 7, -4); scene.add(s);
+  const tokens = [];
+  const path = (u, i) => { const a = new THREE.Vector3(i % 2 ? -4 : -4.6, i % 2 ? 1.2 : 3.4, i % 2 ? 2.6 : -2.6), b = new THREE.Vector3(3.4, 2.2, .2);
+    const m = a.clone().lerp(b, .5); m.y += 2; return new THREE.QuadraticBezierCurve3(a, m, b).getPoint(u); };
+  for (let i = 0; i < 6; i++) { const p = pill('electrical', E.ele, .6); p.userData.u = i / 6; p.userData.i = i; scene.add(p); tokens.push(p); }
+  S.tick((dt, t) => {
+    turbines.forEach((tb, i) => tb.userData.rotor.rotation.z -= dt * (2.2 + i * .4));
+    farm.userData.panels.forEach(m => m.emissiveIntensity = .25 + .1 * Math.sin(t * 2));
+    houses.forEach((h, i) => h.userData.win.emissiveIntensity = .8 + .2 * Math.sin(t * 3 + i));
+    tokens.forEach(p => { p.userData.u = (p.userData.u + dt * .18) % 1; p.position.copy(path(p.userData.u, p.userData.i)); p.material.opacity = Math.sin(p.userData.u * Math.PI); });
+  });
+}
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  function ready() {
+    if (!window.KIT) return setTimeout(ready, 30);
+    var done = KIT.done(), n = done.filter(function (x) { return x >= 1 && x <= 6 }).length;
+    var pw = document.querySelector('#power');
+    setTimeout(function () { pw.querySelector('i').style.width = (n / 6 * 100) + '%'; }, 200);
+    pw.querySelector('span').textContent = n + ' of 6 stations complete' + (n === 6 ? ' · quest complete! ⚡' : '');
+    document.querySelectorAll('.mcard').forEach(function (c) { var m = +c.dataset.m; if (done.indexOf(m) > -1) { c.classList.add('done'); c.querySelector('.st').textContent = '✓ Station complete'; } });
+    var ins = document.querySelectorAll('#teamsetup input');
+    var t = KIT.teams(); ins.forEach(function (i) { i.value = t[+i.dataset.t].name; });
+    var fb = document.getElementById('teamFb');
+    document.getElementById('saveNames').onclick = function () { KIT.setTeamNames([].map.call(ins, function (i) { return i.value.trim(); })); fb.textContent = 'Saved ✓'; fb.style.color = 'var(--good)'; KIT.sfx.good(); };
+    var armed = {};
+    function confirmBtn(btn, label, act) { btn.onclick = function () { if (armed[label]) { act(); armed[label] = 0; btn.textContent = label; fb.textContent = 'Done ✓'; fb.style.color = 'var(--good)'; return; } armed[label] = 1; btn.textContent = 'Click again to confirm'; setTimeout(function () { armed[label] = 0; btn.textContent = label; }, 3000); }; }
+    confirmBtn(document.getElementById('resetScores'), 'Reset points', function () { KIT.resetScores(); });
+    confirmBtn(document.getElementById('resetProg'), 'Reset progress', function () { KIT.resetProgress(); location.reload(); });
+  }
+  ready();
+});
+</script>
+</body>
+</html>

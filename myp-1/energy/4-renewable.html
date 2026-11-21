@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Station 4 · Power the town · Energy Quest</title>
+<meta name="description" content="MYP 1 Science, Energy Quest Station 4: renewable and non-renewable energy resources, with a 3D town power-system game.">
+<link rel="icon" href="assets/his-logo.png">
+<link rel="stylesheet" href="assets/kit.css">
+<script type="importmap">{"imports":{"three":"./assets/three.module.min.js"}}</script>
+<script src="assets/conf.js"></script>
+<script src="assets/kit.js" defer></script>
+<style>
+.meters{display:grid;gap:10px}
+.meters .lab{display:flex;justify-content:space-between;font-weight:800;margin-bottom:4px}
+#board td,#board th{text-align:left}
+.night{background:radial-gradient(120% 90% at 30% 20%,#1e2a4a 0%,#0f1a33 60%,#081022 100%)!important}
+</style>
+</head>
+<body data-section="4">
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">Station 4 · Renewable and non-renewable</p>
+    <h1>Power the town</h1>
+    <div class="crit-row"><span class="crit A">A</span> Knowing and understanding <span class="crit D">D</span> Reflecting on impacts</div>
+    <div class="grid2" style="gap:12px">
+      <div class="card" style="margin:0;border-left:8px solid var(--e-ren)"><b class="t-ren">Renewable</b><p style="margin:.3em 0 0">Will <b>not run out</b>: nature keeps replacing it. Sun, wind, moving water, heat from the Earth, plants (biomass).</p></div>
+      <div class="card" style="margin:0;border-left:8px solid var(--e-non)"><b class="t-non">Non-renewable</b><p style="margin:.3em 0 0">Will <b>run out</b>: took millions of years to form. Coal, oil (diesel, petrol), natural gas, uranium.</p></div>
+    </div>
+  </div>
+  <div class="launch standup" style="margin:0">
+    <span class="ico">🏃</span>
+    <div><h3>Everybody up: renewable or not?</h3><p>The teacher calls out an energy source. Run to the <b>window side</b> if it's renewable, the <b>door side</b> if it's non-renewable!</p></div>
+    <button class="btn gold" data-timer="60" data-timer-label="Window = renewable · Door = non-renewable 🏃">⏱ 1 min</button>
+  </div>
+</section>
+
+<section class="block">
+  <div class="card">
+    <div class="q" style="margin-top:0"><span class="qn">Q4.1</span> Sort the energy sources.</div>
+    <div class="io" data-src="io4"></div>
+    <script type="application/json" id="io4">{"core":"WILL IT<br>RUN OUT?","color":"#57534E","bins":[["ren","Renewable"],["non","Non-renewable"]],
+      "items":[["sunlight","f-ren","ren"],["wind","f-ren","ren"],["moving water (hydro)","f-ren","ren"],["heat from the Earth (geothermal)","f-ren","ren"],["olive-pit fuel (biomass)","f-ren","ren"],["coal","f-non","non"],["oil / diesel","f-non","non"],["natural gas","f-non","non"],["uranium","f-non","non"],["petrol","f-non","non"]]}</script>
+    <div class="q teaser"><span class="qn">Q4.2 Brain teaser:</span> Coal, oil and gas are called <b>fossil fuels</b>. They formed from plants and animals that lived millions of years ago. So where did the energy stored in them originally come from?
+      <div class="reveal"><button>Show answer</button><div class="ans">From the <b>Sun</b>! Ancient plants stored sunlight as chemical energy by photosynthesis; animals ate the plants. Buried for millions of years, their remains became coal, oil and gas. Burning them releases that ancient sunlight energy, plus carbon dioxide.</div></div></div>
+  </div>
+</section>
+
+<section class="block" id="game">
+  <div class="part-title"><span class="badge" style="background:var(--e-ren)">3D game</span><h2 style="margin:0">Power the town</h2></div>
+  <p class="lede"><b>Your mission:</b> keep the town's lights on for a whole day with <b>the least pollution</b>. You have <b>100 coins</b>. Build on the 6 plots, then run the day.</p>
+  <div class="labgrid">
+    <div class="card" style="margin-top:0">
+      <div class="stage" id="tStage"><span class="hint">Drag to look around</span><div class="banner" id="tBanner">Build your power system, then press Run the day</div>
+        <div class="hud"><span class="chip" id="clock">06:00 ☀️</span><span class="chip" id="windChip">Wind: calm</span></div></div>
+      <div class="plots" id="plots" style="margin-top:12px"></div>
+      <div class="ctrl">
+        <span class="readout" id="budget">💰 100 coins left</span>
+        <label><b>Team</b> <select id="team" class="readout"></select></label>
+        <button class="btn green big" id="run">▶ Run the day</button>
+        <button class="btn ghost" id="clear">🧹 Clear plots</button>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-top:0">
+        <p class="sub">Live meters</p>
+        <div class="meters">
+          <div><div class="lab"><span>⚡ Supply vs demand</span><span id="sdTxt">0 / 0</span></div><div class="meter"><i id="sdBar" style="background:var(--e-ele);width:0"></i><span id="sdPct"></span></div></div>
+          <div><div class="lab"><span>💡 Lights on (whole day)</span><span id="liTxt">–</span></div><div class="meter"><i id="liBar" style="background:var(--e-lig);width:0"></i></div></div>
+          <div><div class="lab"><span>🏭 Pollution (CO₂)</span><span id="coTxt">0</span></div><div class="meter"><i id="coBar" style="background:var(--e-non);width:0"></i></div></div>
+          <div><div class="lab"><span>🔋 Battery</span><span id="baTxt">–</span></div><div class="meter"><i id="baBar" style="background:var(--e-ren);width:0"></i></div></div>
+        </div>
+        <div class="infopanel" id="score">Score = lights on % − pollution. Highest score wins <b>+5 ⚡</b>.</div>
+      </div>
+      <div class="card">
+        <p class="sub">Price list</p>
+        <table class="data" style="font-size:.85em"><tr><th>Build</th><th>Cost</th><th>Power</th><th>CO₂</th></tr>
+          <tr><td>☀️ Solar farm</td><td>25</td><td>4, only in daylight</td><td>0</td></tr>
+          <tr><td>🌬️ Wind turbines</td><td>20</td><td>3 × wind (more on the hill)</td><td>0</td></tr>
+          <tr><td>💧 Hydro dam</td><td>30</td><td>3, river plot only</td><td>0</td></tr>
+          <tr><td>🔋 Battery</td><td>15</td><td>stores spare power</td><td>0</td></tr>
+          <tr><td>⛽ Gas plant</td><td>15</td><td>4 when needed</td><td>medium</td></tr>
+          <tr><td>🛢️ Diesel generators</td><td>10</td><td>2 when needed</td><td>high + noise</td></tr>
+          <tr><td>⚫ Coal plant</td><td>15</td><td>5 when needed</td><td>very high</td></tr></table>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <p class="sub">Leaderboard</p>
+    <table class="data" id="board"><thead><tr><th>Team</th><th>Design</th><th>Lights on</th><th>CO₂</th><th>Score</th></tr></thead><tbody></tbody></table>
+    <div class="row" style="margin-top:10px"><button class="btn gold" id="awardBest">🏆 Award +5 ⚡ to the best design</button><span class="fb"></span></div>
+  </div>
+  <div class="grid2">
+    <div class="q"><span class="qn">Q4.3</span> Record your team's design and score. Try a town with <b>only solar farms</b>: what happens at night? How can you fix it without fossil fuels?
+      <div class="reveal"><button>Show answer</button><div class="ans">With only solar, the lights go out at <b>night</b> (and the evening peak is the hardest time). Fixes: add <b>batteries</b> to store spare daytime energy, and <b>mix</b> sources such as wind (it can blow at night) and hydro (steady).</div></div></div>
+    <div class="q"><span class="qn">Q4.4</span> Why are fossil-fuel plants still useful, even though they pollute?
+      <div class="reveal"><button>Show answer</button><div class="ans">They give power <b>whenever it is needed</b>, day or night, whatever the weather, so they are reliable. But the fuel runs out, costs money, and burning it releases CO<sub>2</sub> (climate change) and air pollution.</div></div></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="part-title"><span class="badge" style="background:var(--cD)">Criterion D</span><h2 style="margin:0">Lebanon's energy story</h2></div>
+  <div class="card">
+    <p>For years, Lebanon's national electricity company has supplied only a few hours of power a day in many areas. Most buildings rely on <b>private diesel generators</b>, which are noisy, expensive and polluting. Since 2022, many thousands of homes, schools and businesses have installed <b>rooftop solar panels</b> with batteries.</p>
+    <div class="q" style="margin-top:0"><span class="qn">Q4.5</span> Sort each statement about solar panels and diesel generators in Lebanon.</div>
+    <div class="io" data-src="io4b"></div>
+    <script type="application/json" id="io4b">{"bins":[["sp","☀️ Solar: advantage"],["sm","☀️ Solar: disadvantage"],["dp","🛢️ Diesel: advantage"],["dm","🛢️ Diesel: disadvantage"]],
+      "items":[["no fuel to buy","f-ren","sp"],["quiet and clean","f-ren","sp"],["expensive to buy at first","f-ren","sm"],["no power at night without batteries","f-ren","sm"],["works day and night","f-non","dp"],["cheap to install","f-non","dp"],["loud noise and smoke","f-non","dm"],["fuel price keeps changing","f-non","dm"]]}</script>
+    <div class="grid2">
+      <div class="q realw"><span class="qn">Q4.6 Real world:</span> Give one way rooftop solar helps Lebanese families and one way it helps the environment. Then give one problem it does not solve.
+        <div class="reveal"><button>Show answer</button><div class="ans"><b>Families:</b> electricity during power cuts and lower generator bills. <b>Environment:</b> less diesel burned, so less CO<sub>2</sub>, smoke and noise. <b>Problem:</b> panels are costly to buy, need space, and give no power at night without batteries.</div></div></div>
+      <div class="q realw"><span class="qn">Q4.7 Real world:</span> The Qaraoun dam on the Litani river makes electricity. Write its energy chain.
+        <div class="reveal"><button>Show answer</button><div class="ans">Water held high behind the dam (<b>gravitational potential</b>) → falling water (<b>kinetic</b>) → spinning turbine (<b>kinetic</b>) → generator (<b>electrical</b>).</div></div></div>
+    </div>
+    <div class="launch standup"><span class="ico">🗳️</span><div><h3>Four corners debate</h3><p><b>"Lebanon should get ALL of its electricity from renewable sources."</b> Go to a corner: strongly agree · agree · disagree · strongly disagree. Each corner gives one reason.</p></div><button class="btn gold" data-timer="180" data-timer-label="Four corners debate 🗳️">⏱ 3 min</button></div>
+    <div class="q"><span class="qn">Q4.8 Debatable:</span> Write your own opinion on the statement above, with one reason <b>for</b> and one reason <b>against</b>.</div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="part-title"><span class="badge" style="background:var(--red)">Check</span><h2 style="margin:0">Game time</h2></div>
+  <div class="launch standup"><span class="ico">🧍</span><div><h3>Stand up · Sit down</h3><p>6 statements about energy resources.</p></div><button class="btn gold" data-standup="su4">▶ Play</button></div>
+  <div class="launch battle"><span class="ico">⚔️</span><div><h3>Quiz Battle: energy resources</h3><p>5 rounds · 2 ⚡ per correct team · last round doubles.</p></div><button class="btn red" data-battle="b4">▶ Battle</button></div>
+  <script type="application/json" id="su4">{"title":"Energy resources","items":[
+    ["Wind is a renewable energy resource.",true,"The wind will not run out."],
+    ["Natural gas is renewable because it is a gas.",false,"It is a fossil fuel: it took millions of years to form and will run out."],
+    ["Solar panels make electricity at night.",false,"They need light. At night we need batteries or other sources."],
+    ["Burning fossil fuels releases carbon dioxide.",true,"CO₂ adds to climate change."],
+    ["A hydroelectric dam uses the energy of moving water.",true,"Falling water spins turbines."],
+    ["Renewable energy sources never have any disadvantages.",false,"They can depend on the weather, cost a lot to build, or need lots of space."]]}</script>
+  <script type="application/json" id="b4">{"title":"Energy resources","points":2,"seconds":20,"qs":[
+    {"q":"Which energy resource is renewable?","o":["Sunlight","Coal","Diesel","Natural gas"],"a":0,"why":"The Sun keeps shining: it will not run out."},
+    {"q":"Why are fossil fuels non-renewable?","o":["They take millions of years to form","They are too heavy","They are made in factories","They only work at night"],"a":0,"why":"We use them much faster than nature makes them."},
+    {"q":"What is one disadvantage of wind turbines?","o":["They only work when the wind blows","They release lots of CO₂","They use coal","They never stop"],"a":0,"why":"No wind = no electricity."},
+    {"q":"What does a battery add to a solar-powered home?","o":["Stores daytime energy for the night","Makes the sun shine longer","Burns fuel","Makes the panels bigger"],"a":0,"why":"Batteries store electrical energy as chemical energy."},
+    {"q":"Which choice causes the LEAST pollution?","o":["Wind + solar + batteries","Coal plant","Diesel generators","Gas plant"],"a":0,"why":"Renewables release no CO₂ while running.","double":true}]}</script>
+</section>
+
+<div class="mission-end" data-section="4">
+  <h2>Station 4 complete?</h2>
+  <p>You know where energy comes from and the effects of our choices. Next: be a real scientist in the lab!</p>
+  <div class="row" style="justify-content:center"><button class="btn gold big" data-complete>✓ Station complete</button><a class="btn big" href="5-lab.html">Next: The lab ▶</a></div>
+  <div class="done-msg">⚡ Station 4 powered up!</div>
+</div>
+<div class="footer"><img src="assets/his-logo.png" alt=""><div><b>Al-Hayat International School</b> · MYP 1 Sciences · Energy Quest · Station 4 of 6</div></div>
+</main>
+
+<script type="module">
+import { stage, THREE, label, pill, mat, atom, burst, reduce } from './assets/scene3d.js';
+import { house, tree, sun as sunModel, solarFarm, windFarm, dam, powerPlant, generator, smoke } from './assets/energy3d.js';
+const TYPES = {
+  none: { n: '— empty —', cost: 0 },
+  solar: { n: '☀️ Solar farm', cost: 25 }, wind: { n: '🌬️ Wind turbines', cost: 20 }, hydro: { n: '💧 Hydro dam', cost: 30, river: true },
+  batt: { n: '🔋 Battery', cost: 15 }, gas: { n: '⛽ Gas plant', cost: 15, out: 4, co2: 2 }, diesel: { n: '🛢️ Diesel generators', cost: 10, out: 2, co2: 3 }, coal: { n: '⚫ Coal plant', cost: 15, out: 5, co2: 4 } };
+const PLOTS = [{ n: 'Plot 1 · windy hilltop', p: [-6.2, 2.6, -3.2], hill: true }, { n: 'Plot 2 · sunny slope', p: [-4.0, .9, -.4] }, { n: 'Plot 3 · river', p: [-.4, .02, -5.3], river: true },
+  { n: 'Plot 4 · west coast', p: [-7.6, .02, 3.2] }, { n: 'Plot 5 · farm field', p: [-2.6, .02, 4.4] }, { n: 'Plot 6 · near the town', p: [2.2, .02, 4.8] }];
+const choice = PLOTS.map(() => 'none');
+const plotsEl = document.getElementById('plots');
+plotsEl.innerHTML = PLOTS.map((p, i) => `<div class="plot"><b>${p.n}</b><select data-i="${i}">${Object.entries(TYPES).filter(([k, t]) => !t.river || p.river).map(([k, t]) => `<option value="${k}">${t.n}${t.cost ? ' (' + t.cost + ')' : ''}</option>`).join('')}</select></div>`).join('');
+const S = stage(document.getElementById('tStage'), { pos: [2, 15.5, 23], target: [0, 0, 0], minD: 8, maxD: 38, lockVertical: true });
+const stageEl = document.getElementById('tStage');
+let scene, camera;
+const builds = PLOTS.map(() => null), smokes = PLOTS.map(() => null);
+let houses = [], sunObj, hemi;
+if (S) {
+  ({ scene, camera } = S);
+  hemi = scene.children.find(c => c.isHemisphereLight);
+  const sea = new THREE.Mesh(new THREE.CylinderGeometry(22, 22, .3, 64), mat('#38BDF8', { opacity: .9, rough: .1, clear: 1 })); sea.position.y = -.5; scene.add(sea);
+  const sand = new THREE.Mesh(new THREE.CylinderGeometry(11.6, 12, .5, 64), mat('#F3D9A4', { rough: .9, clear: 0 })); sand.position.y = -.3; scene.add(sand);
+  const land = new THREE.Mesh(new THREE.CylinderGeometry(11, 11.3, .4, 64), mat('#9BCB7A', { rough: .9, clear: 0 })); land.position.y = -.15; scene.add(land);
+  const hill = new THREE.Mesh(new THREE.ConeGeometry(3.4, 2.6, 40), mat('#7FB069', { rough: .9, clear: 0 })); hill.position.set(-6.2, 1.25, -3.2); scene.add(hill);
+  const slope = new THREE.Mesh(new THREE.SphereGeometry(2.6, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2), mat('#8FC274', { rough: .9, clear: 0 })); slope.scale.set(1, .35, 1); slope.position.set(-4.0, 0, -.4); scene.add(slope);
+  const river = new THREE.Mesh(new THREE.BoxGeometry(1.2, .05, 12), mat('#38BDF8', { rough: .1, clear: 1 })); river.position.set(-.4, .06, -5); river.rotation.y = .15; scene.add(river);
+  // town
+  const cols = [['#F5E6C8', '#C2410C'], ['#E0F2FE', '#1D4ED8'], ['#FCE7F3', '#9D174D'], ['#ECFCCB', '#15803D'], ['#FEF3C7', '#B45309']];
+  for (let i = 0; i < 10; i++) { const c = cols[i % 5]; const h = house(c[0], c[1]); h.position.set(3.4 + (i % 4) * 1.9 + (Math.floor(i / 4) % 2) * .8, 0, -3.4 + Math.floor(i / 4) * 2.4); h.scale.setScalar(.75); h.rotation.y = -.2; scene.add(h); houses.push(h); }
+  const tl = label('TOWN', { bg: 'rgba(16,38,63,.85)', size: .8 }); tl.position.set(6.4, 3.4, -1.5); scene.add(tl);
+  [[8.5, 4], [-9, -1], [0, 8.6], [5, 7.6], [-8.8, 6.5]].forEach(([x, z]) => { const t = tree(1); t.position.set(x, 0, z); scene.add(t); });
+  PLOTS.forEach((p, i) => { const pad = new THREE.Mesh(new THREE.CylinderGeometry(1.35, 1.35, .06, 32), mat('#ffffff', { opacity: .55, clear: 0 })); pad.position.set(p.p[0], p.p[1] + .03, p.p[2]); scene.add(pad);
+    const nl = label(String(i + 1), { bg: '#0068B0', size: .6 }); nl.position.set(p.p[0], p.p[1] + 2.9, p.p[2]); scene.add(nl); p.lab = nl; });
+  sunObj = sunModel(1); scene.add(sunObj);
+}
+function build(i, type) {
+  if (!S) return; if (builds[i]) { scene.remove(builds[i]); builds[i] = null; } smokes[i] = null;
+  const p = PLOTS[i].p; let g = null;
+  if (type === 'solar') g = solarFarm(); else if (type === 'wind') g = windFarm(); else if (type === 'hydro') { g = dam(); g.rotation.y = Math.PI / 2 + .15; }
+  else if (type === 'batt') { g = new THREE.Group(); for (let k = 0; k < 3; k++) { const b = new THREE.Mesh(new THREE.BoxGeometry(.7, 1.1, .7), mat('#15803D', { clear: .8 })); b.position.set(k * .85 - .85, .55, 0); g.add(b); const t = new THREE.Mesh(new THREE.BoxGeometry(.3, .12, .3), mat('#CBD5E1')); t.position.set(k * .85 - .85, 1.16, 0); g.add(t); } }
+  else if (type === 'gas') g = powerPlant('#78716C'); else if (type === 'coal') { g = powerPlant('#1F2937'); g.children[0].material.color.set('#57534E'); } else if (type === 'diesel') { g = new THREE.Group(); [-0.8, .8].forEach(x => { const d = generator(); d.position.x = x; g.add(d); }); g.userData.chimneyTop = new THREE.Vector3(.45, 1.35, 0); }
+  if (g) { g.position.set(p[0], p[1], p[2]); g.userData.type = type; scene.add(g); builds[i] = g; g.scale.setScalar(.01); g.userData.grow = 0;
+    if (TYPES[type].co2) { const o = new THREE.Vector3(); smokes[i] = smoke(scene, () => o.copy(g.userData.chimneyTop).multiplyScalar(g.scale.x).add(g.position), 0, type === 'coal' ? '#374151' : '#6B7280'); } }
+}
+function spent() { return choice.reduce((s, c) => s + TYPES[c].cost, 0); }
+const budgetEl = document.getElementById('budget');
+function paintBudget() { const left = 100 - spent(); budgetEl.textContent = '💰 ' + left + ' coins left'; budgetEl.style.color = left < 0 ? 'var(--bad)' : ''; }
+plotsEl.querySelectorAll('select').forEach(s => s.onchange = () => { const i = +s.dataset.i, prev = choice[i]; choice[i] = s.value;
+  if (spent() > 100) { choice[i] = prev; s.value = prev; KIT.sfx.bad(); document.getElementById('tBanner').textContent = '💰 Not enough coins for that!'; return; }
+  build(i, s.value); paintBudget(); KIT.sfx.tick(); });
+document.getElementById('clear').onclick = () => { plotsEl.querySelectorAll('select').forEach((s, i) => { s.value = 'none'; choice[i] = 'none'; build(i, 'none'); }); paintBudget(); };
+// teams select
+setTimeout(() => { const t = KIT.teams(); document.getElementById('team').innerHTML = t.map((x, i) => `<option value="${i}">${x.name}</option>`).join(''); }, 300);
+// ---- simulation ----
+const DAY = 30; let simT = -1, wind = .5, windTarget = .5, battery = 0, lightsOk = 0, samples = 0, co2 = 0;
+const el = id => document.getElementById(id);
+const demandAt = h => (h < 6 ? 4 : h < 9 ? 7 : h < 17 ? 6 : h < 22 ? 10 : 5);
+const sunAt = h => Math.max(0, Math.sin(Math.PI * (h - 6) / 12));
+function hourFmt(h) { const hh = Math.floor(h) % 24, mm = Math.floor((h % 1) * 60 / 15) * 15; return ('0' + hh).slice(-2) + ':' + ('0' + mm).slice(-2); }
+el('run').onclick = () => { if (simT >= 0 && simT < DAY) return; simT = 0; battery = 0; lightsOk = 0; samples = 0; co2 = 0; el('tBanner').textContent = 'A day in the town…'; KIT.sfx.go(); el('run').disabled = true; };
+function frame(dt, t) {
+  builds.forEach(g => { if (g && g.userData.grow < 1) { g.userData.grow = Math.min(1, g.userData.grow + dt * 2.5); const k = g.userData.grow; g.scale.setScalar(.01 + (1 - Math.pow(1 - k, 3)) * .99 * (g.userData.type === 'wind' ? 1 : 1)); } });
+  const running = simT >= 0 && simT < DAY;
+  const hour = running ? 6 + simT / DAY * 24 : 12;
+  const sunF = sunAt(hour % 24);
+  if (Math.random() < dt * .7) windTarget = Math.random() < .25 ? Math.random() * .25 : .35 + Math.random() * .65;
+  wind += (windTarget - wind) * dt * .8;
+  // sun position + night look
+  if (sunObj) { const a = Math.PI * ((hour % 24) - 6) / 12; sunObj.position.set(Math.cos(a) * -14, Math.sin(a) * 10 + .5, -8); sunObj.visible = sunF > 0; }
+  const night = running && sunF <= 0.02; stageEl.classList.toggle('night', night); if (hemi) hemi.intensity = .35 + .6 * (running ? Math.max(sunF, .15) : 1);
+  // power
+  let renew = 0, battCap = 0, fossilCap = [], hasHydro = false;
+  builds.forEach((g, i) => { if (!g) return; const ty = g.userData.type;
+    if (ty === 'solar') { renew += 4 * sunF; g.userData.panels.forEach(m => m.emissiveIntensity = sunF * .5); }
+    if (ty === 'wind') { const k = PLOTS[i].hill ? 1.5 : 1; renew += 3 * wind * k; g.userData.rotors.forEach(r => r.rotation.z -= dt * wind * 6); }
+    if (ty === 'hydro') renew += 3;
+    if (ty === 'batt') battCap += 8;
+    if (TYPES[ty].co2) fossilCap.push([TYPES[ty].out, TYPES[ty].co2, i]); });
+  const demand = running ? demandAt(hour % 24) : 6;
+  let supply = renew;
+  if (battCap === 0) battery = 0; battery = Math.min(battery, battCap);
+  if (running) {
+    if (supply >= demand) { battery = Math.min(battCap, battery + (supply - demand) * dt * .9); supply = demand; }
+    else if (battery > 0) { const need = demand - supply, give = Math.min(need, 3, battery / Math.max(dt, 1e-3)); supply += give; battery = Math.max(0, battery - give * dt); }
+    // fossil plants fill the gap, cleanest first
+    fossilCap.sort((a, b) => a[1] - b[1]);
+    const used = PLOTS.map(() => 0);
+    for (const [out, c, i] of fossilCap) { if (supply >= demand - 1e-6) break; const u = Math.min(out, demand - supply); supply += u; used[i] = u / out; co2 += u * c * dt * .35; }
+    smokes.forEach((s, i) => { if (s) { s.rate = used[i] * 4; s.update(dt, 1); } });
+    samples += dt; if (supply >= demand - .05) lightsOk += dt;
+    simT += dt; if (simT >= DAY) finish();
+  } else { smokes.forEach(s => { if (s) { s.rate = 0; s.update(dt, 1); } }); }
+  const ratio = demand ? Math.min(1, supply / demand) : 1;
+  houses.forEach((h, i) => { h.userData.win.emissiveIntensity = running ? (i / houses.length < ratio ? (night ? 1.6 : .6) : 0) : .5; });
+  // meters
+  el('clock').textContent = hourFmt(hour % 24) + (sunF > 0 ? ' ☀️' : ' 🌙');
+  el('windChip').textContent = 'Wind: ' + (wind < .25 ? 'calm' : wind < .6 ? 'breezy' : 'strong') + ' 🌬️';
+  el('sdTxt').textContent = supply.toFixed(1) + ' / ' + demand; el('sdBar').style.width = (ratio * 100) + '%'; el('sdPct').textContent = Math.round(ratio * 100) + '%';
+  el('sdBar').style.background = ratio < .99 ? 'var(--bad)' : 'var(--e-ele)';
+  const lp = samples ? lightsOk / samples * 100 : 0; el('liTxt').textContent = samples ? Math.round(lp) + '%' : '–'; el('liBar').style.width = lp + '%';
+  el('coTxt').textContent = Math.round(co2); el('coBar').style.width = Math.min(100, co2 / 1.2) + '%';
+  el('baTxt').textContent = battCap ? Math.round(battery) + ' / ' + battCap : '–'; el('baBar').style.width = battCap ? (battery / battCap * 100) + '%' : '0';
+}
+function finish() {
+  simT = DAY; el('run').disabled = false; const lp = Math.round(lightsOk / samples * 100), c = Math.round(co2), score = Math.max(0, lp - Math.round(c / 2));
+  const ti = +el('team').value, tn = KIT.teams()[ti].name;
+  const design = choice.filter(c => c !== 'none').map(c => TYPES[c].n.split(' ')[0]).join(' ') || '(nothing!)';
+  el('score').innerHTML = `<b>${tn}</b>: lights on <b>${lp}%</b> · CO₂ <b>${c}</b> → score <b>${score}</b> ${score >= 85 ? '🌟🌟🌟' : score >= 65 ? '🌟🌟' : score >= 40 ? '🌟' : ''}`;
+  const row = document.createElement('tr'); row.dataset.team = ti; row.dataset.score = score; row.innerHTML = `<td style="color:${KIT.teams()[ti].color};font-weight:900">${tn}</td><td>${design}</td><td>${lp}%</td><td>${c}</td><td><b>${score}</b></td>`;
+  document.querySelector('#board tbody').appendChild(row);
+  el('tBanner').textContent = lp >= 95 ? '🌟 The lights stayed on all day!' : lp < 60 ? '🌑 Lots of blackouts: try a better mix!' : 'Day over: check your score';
+  KIT.sfx[lp >= 80 ? 'good' : 'bad']();
+}
+document.getElementById('awardBest').onclick = function () { const rows = [...document.querySelectorAll('#board tbody tr')]; if (!rows.length) { KIT.say(this, false, 'Run some designs first!'); return; }
+  const best = rows.reduce((a, r) => +r.dataset.score > +a.dataset.score ? r : a); KIT.award(+best.dataset.team, 5, best); KIT.confetti(); KIT.say(this, true, 'Awarded to ' + KIT.teams()[+best.dataset.team].name + '!'); };
+if (S) S.tick(frame);
+paintBudget();
+</script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+% Energy Quest · Summative Test (Criteria A–D) · MYP 1 Sciences · Al-Hayat International School
+% XeLaTeX twice. Contexts are new: none repeat the student sheet or the formative quiz.
+\documentclass[12pt,a4paper]{article}
+\usepackage{hisstyle}
+\renewcommand{\doctitle}{Summative Test}
+\newcommand{\opt}[1]{\cb\ #1\hspace{6mm}}
+\newcommand{\qs}{\par\vspace{10pt}\needspace{7\baselineskip}}
+\newcommand{\epart}[3]{\par\vspace{8pt}\needspace{8\baselineskip}\noindent\begin{tikzpicture}
+  \node[fill=c#1,text=white,rounded corners=9pt,inner sep=6pt,font=\bfseries] (b) {Criterion #1};
+  \node[right=8pt of b,font=\display\bfseries\Large,text=navy] (t) {#2};
+  \node[right=6pt of t,font=\bfseries,text=muted] {[#3 marks]};\end{tikzpicture}\par\vspace{-2pt}}
+\begin{document}
+\thispagestyle{first}
+\titleblock{Energy: Summative Test}{Criteria A, B, C and D · 60 minutes · 54 marks}
+\namerow
+
+\begin{info}[Instructions.]
+Answer \textbf{all} questions in the spaces given. Show your working for calculations. Use scientific words such as \textit{kinetic}, \textit{gravitational potential}, \textit{transformation}, \textit{renewable}. You may use a ruler and a calculator.
+\end{info}
+
+\begin{center}
+\begin{tabular}{|p{6.4cm}|C{1.6cm}|C{1.9cm}|C{1.9cm}|}
+\hline\rowcolor{panel}\textbf{Part} & \textbf{Marks} & \textbf{My score} & \textbf{Level}\\\hline
+\crit{A}\ Knowing and understanding & 16 & & \\\hline
+\crit{B}\ Inquiring and designing & 12 & & \\\hline
+\crit{C}\ Processing and evaluating & 14 & & \\\hline
+\crit{D}\ Reflecting on the impacts & 12 & & \\\hline
+\end{tabular}
+\end{center}
+
+% ===================================================================== A
+\epart{A}{Knowing and understanding}{16}
+
+\Q{A1} A catapult launches a small stone. The pictures show four moments.\mk{4}\par
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \draw[muted,line width=1pt] (-0.5,0) -- (15.5,0);
+  % 1 stretched
+  \draw[enon,line width=2pt] (0.6,0) -- (0.6,1.4) -- (0.2,2.1); \draw[enon,line width=2pt] (0.6,1.4) -- (1.0,2.1);
+  \draw[eela,line width=1.3pt] (0.2,2.1) -- (-0.3,1.5) -- (1.0,2.1); \fill[muted] (-0.3,1.5) circle (0.13);
+  \node[font=\bfseries] at (0.4,-0.45) {W}; \node[font=\small,align=center] at (0.4,-1.0) {band pulled back,\\stone still};
+  % 2 just released
+  \draw[enon,line width=2pt] (4.4,0) -- (4.4,1.4) -- (4.0,2.1); \draw[enon,line width=2pt] (4.4,1.4) -- (4.8,2.1);
+  \draw[eela,line width=1.3pt] (4.0,2.1) -- (4.8,2.1); \fill[muted] (5.3,2.2) circle (0.13); \draw[-{Latex},ekin,line width=1.2pt] (5.5,2.25) -- (6.2,2.6);
+  \node[font=\bfseries] at (4.6,-0.45) {X}; \node[font=\small,align=center] at (4.6,-1.0) {just leaving\\the band};
+  % 3 top
+  \draw[dashed,muted] (5.3,2.2) .. controls (8,5.2) and (10,5.2) .. (13.2,0.15);
+  \fill[muted] (9.2,4.45) circle (0.13); \draw[-{Latex},ekin,line width=1.2pt] (9.4,4.45) -- (10.0,4.45);
+  \node[font=\bfseries] at (9.2,-0.45) {Y}; \node[font=\small,align=center] at (9.2,-1.0) {highest point,\\still moving forward};
+  % 4 ground
+  \fill[muted] (13.3,0.13) circle (0.13);
+  \node[font=\bfseries] at (13.6,-0.45) {Z}; \node[font=\small,align=center] at (13.6,-1.0) {stone at rest\\on the ground};
+\end{tikzpicture}
+\end{center}
+\textbf{a)} When (W, X, Y or Z) is the most \textbf{elastic potential} energy stored? \bx[0.8cm]\par\vspace{4pt}
+\textbf{b)} At which moment does the stone have the most \textbf{gravitational potential} energy? \bx[0.8cm]\par\vspace{4pt}
+\textbf{c)} Name the energy change from W to X. \blank[7cm]\par\vspace{4pt}
+\textbf{d)} At Z the stone has no kinetic energy. Where has its energy gone?
+\lines{1}
+
+\qs\Q{A2} Complete each energy chain. Write one energy store or form in each box.\mk{4}\par\vspace{2pt}
+\textbf{a)} A hand-crank emergency radio:\par
+\begin{center}\begin{tikzpicture}[node distance=7mm]
+\node[ebox] (a) {chemical\\[-2pt]\small(food in your muscles)}; \node[ebox,right=of a] (b) {}; \node[ebox,right=of b] (c) {};
+\node[ebox,right=of c] (d) {sound};
+\draw[arr,muted] (a)--(b); \draw[arr,muted] (b)--(c); \draw[arr,muted] (c)--(d);
+\node[below=1pt of b,font=\small,muted] {you turn the handle}; \node[below=1pt of c,font=\small,muted] {in the wires};
+\end{tikzpicture}\end{center}
+\textbf{b)} An electric car going up a hill:\par
+\begin{center}\begin{tikzpicture}[node distance=7mm]
+\node[ebox] (a) {}; \node[ebox,right=of a] (b) {electrical}; \node[ebox,right=of b] (c) {};
+\node[ebox,right=of c] (d) {};
+\draw[arr,muted] (a)--(b); \draw[arr,muted] (b)--(c); \draw[arr,muted] (c)--(d);
+\node[below=1pt of a,font=\small,muted] {in the battery}; \node[below=1pt of c,font=\small,muted] {wheels turning}; \node[below=1pt of d,font=\small,muted] {car gets higher};
+\end{tikzpicture}\end{center}
+
+\qs\Q{A3} Two electric kettles each take in \textbf{2000 J} of electrical energy.\mk{4}\par\vspace{2pt}
+\begin{center}
+\begin{tabular}{|l|C{3.6cm}|C{3.6cm}|}
+\hline\rowcolor{panel} & \textbf{Kettle X} & \textbf{Kettle Y}\\\hline
+energy in (electrical) & 2000 J & 2000 J\\\hline
+useful energy (heats the water) & 1700 J & 1400 J\\\hline
+wasted energy & & \\\hline
+\end{tabular}
+\end{center}
+\textbf{a)} Fill in the wasted energy for each kettle in the table.\par\vspace{4pt}
+\textbf{b)} Which kettle is better? Explain using the numbers.
+\lines{2}
+\textbf{c)} Name \textbf{one} way the wasted energy could leave the kettle.\ \blank[5.6cm]
+
+\qs\Q{A4} Akkar, in the north of Lebanon, is a windy area. A town there must choose a new energy source.\mk{4}\par\vspace{2pt}
+\begin{center}
+\begin{tabular}{|l|C{4.6cm}|C{4.6cm}|}
+\hline\rowcolor{panel} & \textbf{Wind farm} & \textbf{Diesel generators}\\\hline
+energy source & wind (moving air) & diesel (from oil)\\\hline
+cost to build & high & low\\\hline
+fuel cost every month & none & high\\\hline
+works when there is no wind & no & yes\\\hline
+smoke and CO$_2$ & none while working & a lot\\\hline
+\end{tabular}
+\end{center}
+\textbf{a)} Which source is renewable? Explain why. \lines{1}
+\textbf{b)} Which would you choose for the town? Give \textbf{one} reason for, and \textbf{one} problem with, your choice.
+\lines{2}
+
+% ===================================================================== B
+\epart{B}{Inquiring and designing}{12}
+
+\begin{real}[Scenario.]
+Lina makes a launcher from a ruler, a rubber band and a ball of paper. She wonders: if she pulls the rubber band back further, will the paper ball fly further?
+\end{real}
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \fill[panel] (0,0) rectangle (13,0.25); \fill[golddark!60] (0.3,0.25) rectangle (4.3,0.55);
+  \draw[eela,line width=1.5pt] (0.6,0.4) .. controls (1.4,0.9) and (1.4,0.0) .. (2.0,0.4);
+  \fill[muted] (2.2,0.75) circle (0.18); \draw[dashed,muted] (2.2,0.75) .. controls (6,3) and (9,2.4) .. (11.8,0.4);
+  \fill[muted] (11.8,0.4) circle (0.12);
+  \draw[{Latex}-{Latex},hisblue,line width=1pt] (0.6,1.15) -- node[above,font=\small\bfseries,text=hisblue] {pull-back distance} (2.2,1.15);
+  \draw[{Latex}-{Latex},ekin,line width=1pt] (2.2,-0.35) -- node[below,font=\small\bfseries,text=ekin] {distance travelled} (11.8,-0.35);
+\end{tikzpicture}
+\end{center}
+\vspace{4pt}
+\Q{B1} Write a \textbf{testable question} for Lina's investigation.\mk{2}
+\lines{2}
+
+\qs\Q{B2} Write a \textbf{hypothesis} (a prediction with a reason).\mk{3}\par Use \textit{If … then … because …}
+\lines{3}
+
+\qs\Q{B3} Identify the variables.\mk{3}\par\vspace{2pt}
+\begin{tabular}{@{}p{6.6cm}p{10cm}@{}}
+\textbf{Independent} (I change): & \blank[9.6cm]\\[8pt]
+\textbf{Dependent} (I measure): & \blank[9.6cm]\\[8pt]
+\textbf{Two controlled} (I keep the same): & \blank[9.6cm]\\
+\end{tabular}
+
+\qs\Q{B4} Write a short \textbf{method} Lina could follow. Include how many pull-back distances she should test, how many times she should repeat each one, and \textbf{one safety rule}.\mk{4}
+\lines{6}
+
+% ===================================================================== C
+\epart{C}{Processing and evaluating}{14}
+
+\begin{real}[Scenario.]
+Karim tests how the \textbf{angle} of a small solar panel affects the \textbf{electric current} it makes. He uses one lamp at the same distance for every test and repeats each angle three times.
+\end{real}
+\begin{center}
+\begin{tabular}{|C{2.2cm}|C{2.2cm}|C{2.2cm}|C{2.2cm}|C{3.2cm}|}
+\hline\rowcolor{panel}\textbf{Angle (°)} & \multicolumn{3}{c|}{\textbf{Current (mA)}} & \textbf{Average (mA)}\\\hline
+\rowcolor{panel} & \textbf{Trial 1} & \textbf{Trial 2} & \textbf{Trial 3} & \\\hline
+0 & 52 & 55 & 53 & 53\\\hline
+15 & 74 & 71 & 73 & \\\hline
+30 & 88 & 91 & 90 & 90\\\hline
+45 & 97 & 95 & 61 & \\\hline
+60 & 89 & 86 & 88 & 88\\\hline
+75 & 70 & 72 & 69 & \\\hline
+90 & 48 & 51 & 50 & 50\\\hline
+\end{tabular}
+\end{center}
+
+\Q{C1} One result does not fit the pattern (an \textbf{anomaly}). Circle it in the table and suggest one reason it happened.\mk{2}
+\lines{1}
+
+\qs\Q{C2} Calculate the missing averages. For 45°, leave out the anomaly. Write them in the table and show one calculation here.\mk{3}
+\lines{2}
+
+\qs\Q{C3} Plot the averages on the grid and draw a smooth curve of best fit. Choose a scale and label both axes.\mk{3}\par
+\begin{center}
+\begin{tikzpicture}\begin{axis}[width=15cm,height=9.6cm,xmin=0,xmax=10,ymin=0,ymax=12,
+  grid=both,major grid style={muted!30},minor grid style={muted!12},minor tick num=1,
+  xtick={0,1,...,10},ytick={0,1,...,12},xticklabels={},yticklabels={},
+  xlabel={\rule{4.5cm}{0.5pt}},ylabel={\rule{4cm}{0.5pt}},label style={font=\normalsize}]
+  \addplot[draw=none] coordinates {(0,0)};\end{axis}\end{tikzpicture}
+\end{center}
+
+\qs\Q{C4} Describe the trend shown by your graph. Which angle gave the most current?\mk{2}
+\lines{2}
+
+\qs\Q{C5} Karim predicted: \textit{"The steeper the panel, the more current it makes."} Do the results support his prediction? Use data in your answer.\mk{2}
+\lines{2}
+
+\qs\Q{C6} Evaluate Karim's method. Give \textbf{one} strength and \textbf{one} improvement.\mk{2}\par
+\textbf{Strength:}\lines{1}
+\textbf{Improvement:}\lines{1}
+
+% ===================================================================== D
+\epart{D}{Reflecting on the impacts of science}{12}
+
+\begin{tcolorbox}[enhanced,colback=white,colframe=muted!60,arc=6pt,boxrule=0.8pt,left=10pt,right=10pt,top=6pt,bottom=6pt,
+  title={\bfseries Rooftop solar: a quiet change across Lebanon},coltitle=navy,colbacktitle=panel,fonttitle=\large\bfseries]
+{\small\color{muted}This article was written by your teacher for this test. It describes general trends; it does not give official statistics.}\par\vspace{3pt}
+For many years, families in Lebanon have had electricity from the national grid for only part of the day. To fill the gaps, many neighbourhoods buy electricity from private diesel generators. Generators are loud, they release smoke and carbon dioxide, and the price of diesel can rise quickly.
+
+In recent years, more and more families, schools and shops have put solar panels on their roofs. A solar panel transforms light energy from the Sun into electrical energy. Many people also add batteries, which store energy as chemical energy so lights can stay on at night.
+
+Solar panels cost a lot of money at the start, and not every family can afford them. People who live in flats may not have their own roof space. Panels do not work at night, and they make less electricity on cloudy days. Old panels and batteries must be recycled safely.
+
+Even so, many people say rooftop solar has given them quieter streets, cleaner air and lower monthly bills.
+\par\vspace{2pt}{\small\color{muted}Source: HIS Science Department (2026). \textit{Rooftop solar: a quiet change across Lebanon.} Written for the MYP 1 Energy test.}
+\end{tcolorbox}
+
+\qs\Q{D1} Summarise the article in your own words: what is changing, and why?\mk{3}
+\lines{3}
+
+\qs\Q{D2} Describe the \textbf{implications} (effects) of using rooftop solar instead of diesel generators. Write about \textbf{one} effect in each area.\mk{6}\par\vspace{2pt}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{|p{3.4cm}|p{6.2cm}|p{6.2cm}|}
+\hline\rowcolor{panel}\textbf{Area} & \textbf{Positive effect} & \textbf{Problem or limit}\\\hline
+\textbf{Environment} & & \\[10mm]\hline
+\textbf{Money} & & \\[10mm]\hline
+\textbf{People and daily life} & & \\[10mm]\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1.25}
+
+\qs\Q{D3} Use scientific words to explain how a rooftop solar system with a battery can light a room at night. Name at least \textbf{two} energy transformations.\mk{2}
+\lines{3}
+
+\qs\Q{D4} You used ideas from the article in your answers. Write the reference for the article.\mk{1}
+\lines{1}
+
+% ===================================================================== rubric
+\par\needspace{20\baselineskip}\sect{How this test is marked (for students)}
+Your teacher uses your marks and your answers to give you a level from 0 to 8 for each criterion. This table shows what the levels mean in simple words.\par\vspace{4pt}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabularx}{\linewidth}{|>{\bfseries\raggedright}p{2.9cm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+\hline\rowcolor{panel} & \textbf{Level 1–2} & \textbf{Level 3–4} & \textbf{Level 5–6 / 7–8}\\\hline
+\crit{A}\ Knowing &
+I can recall some facts about energy and name a few stores. &
+I can describe energy stores and transformations and apply them in familiar situations. &
+I can explain energy changes and conservation, solve problems in new situations (5–6), and make clear, well-supported judgements (7–8).\\\hline
+\crit{B}\ Inquiring &
+I can state a question and name a variable. &
+I can write a testable question, a hypothesis and list variables. &
+I can explain my hypothesis with science, control variables and plan a complete, safe method (7–8: fully explained).\\\hline
+\crit{C}\ Processing &
+I can collect or present some data. &
+I can present data in a table and graph and describe the trend. &
+I can find anomalies, interpret data correctly, judge a prediction with evidence and suggest improvements (7–8: explained in detail).\\\hline
+\crit{D}\ Reflecting &
+I can state one way science is used. &
+I can describe how science solves a problem and some effects. &
+I can discuss effects on people, money and the environment, use scientific words and reference my sources (7–8: in detail and balanced).\\\hline
+\end{tabularx}
+
+\vspace{10pt}
+\sect{From marks to levels (guide)}
+\begin{center}
+\begin{tabular}{|l|C{1.5cm}|C{1.5cm}|C{1.5cm}|C{1.5cm}|C{1.5cm}|}
+\hline\rowcolor{panel}\textbf{Level} & 0 & 1–2 & 3–4 & 5–6 & 7–8\\\hline
+\crit{A}\ marks out of 16 & 0 & 1–4 & 5–8 & 9–12 & 13–16\\\hline
+\crit{B}\ marks out of 12 & 0 & 1–3 & 4–6 & 7–9 & 10–12\\\hline
+\crit{C}\ marks out of 14 & 0 & 1–3 & 4–7 & 8–11 & 12–14\\\hline
+\crit{D}\ marks out of 12 & 0 & 1–3 & 4–6 & 7–9 & 10–12\\\hline
+\end{tabular}
+\end{center}
+{\small\color{muted}The final level is the teacher's best-fit judgement using the IB MYP Sciences Year 1 descriptors; the marks are a guide.}
+
+\vspace{10pt}
+\sect{My reflection}
+One thing I did well in this test: \lines{1}
+One thing I will improve next time: \lines{1}
+\end{document}

@@ -1,0 +1,96 @@
+% Energy Quest · Formative Quiz (Criterion A) · MYP 1 Sciences · Al-Hayat International School
+% XeLaTeX twice. All contexts are new (not used in the student sheet or the summative test).
+\documentclass[12pt,a4paper]{article}
+\usepackage{hisstyle}
+\renewcommand{\doctitle}{Formative Quiz}
+\newcommand{\opt}[1]{\cb\ #1\hspace{6mm}}
+\newcommand{\qs}{\par\vspace{10pt}\needspace{7\baselineskip}}
+\begin{document}
+\thispagestyle{first}
+\titleblock{Energy Quiz}{Formative quiz · Criterion A: Knowing and understanding · 30 minutes · 25 marks}
+\namerow
+
+\begin{info}[Before you start.]
+Read each question carefully. Show your working for calculations. This quiz is practice for the summative test: it helps you and your teacher see what you know so far.
+\end{info}
+
+\Q{1} Tick \textbf{one} box for each question. \mk{6}\par
+\textbf{a)} Which object has the \textbf{most} gravitational potential energy?\par
+\opt{a 1 kg bag on the floor}\opt{a 1 kg bag on a table}\par\opt{a 1 kg bag on a high cupboard}\opt{a 5 kg bag on a high cupboard}\par\vspace{4pt}
+\textbf{b)} A kite is flying high in the sky and moving fast. It has …\par
+\opt{kinetic energy only}\opt{gravitational potential energy only}\par\opt{both kinetic and gravitational potential energy}\opt{no energy}\par\vspace{4pt}
+\textbf{c)} Which one stores \textbf{elastic potential} energy?\par
+\opt{a guitar string pulled back}\opt{a candle}\opt{a sandwich}\opt{moonlight}\par\vspace{4pt}
+\textbf{d)} Which energy resource is \textbf{renewable}?\par
+\opt{tides}\opt{kerosene}\opt{gas for a cooking cylinder}\opt{jet fuel}\par\vspace{4pt}
+\textbf{e)} In a battery-powered fan, the \textbf{useful} energy output is …\par
+\opt{kinetic}\opt{chemical}\opt{thermal}\opt{sound}\par\vspace{4pt}
+\textbf{f)} Which statement is \textbf{always} true?\par
+\opt{energy is made in power stations}\opt{friction destroys energy}\par\opt{energy changes from one form to another}\opt{energy can be used up completely}
+
+\qs\Q{2} A pendulum swings from P to Q to R and back.\mk{3}\par
+\begin{minipage}[c]{0.4\linewidth}
+\begin{tikzpicture}[scale=0.9]
+  \fill[muted!50] (-2.4,3.2) rectangle (2.4,3.45);
+  \draw[muted,dashed] (0,3.2) -- (-2.0,0.9); \draw[muted,line width=1.2pt] (0,3.2) -- (0,0.2); \draw[muted,dashed] (0,3.2) -- (2.0,0.9);
+  \fill[egpe] (-2.0,0.9) circle (0.25) node[left=6pt,font=\bfseries,text=black] {P};
+  \fill[ekin] (0,0.2) circle (0.25) node[below=6pt,font=\bfseries,text=black] {Q};
+  \fill[egpe] (2.0,0.9) circle (0.25) node[right=6pt,font=\bfseries,text=black] {R};
+  \draw[-{Latex},muted,line width=1pt] (-1.5,0.25) arc (225:315:2.1);
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.57\linewidth}
+\textbf{a)} Where is its kinetic energy greatest? \bx[0.8cm]\par\vspace{4pt}
+\textbf{b)} Where is its gravitational potential\\ energy greatest? \bx[1.8cm]\par\vspace{4pt}
+\textbf{c)} After some time the pendulum stops. Explain why.
+\lines{2}
+\end{minipage}
+
+\qs\Q{3} Match each device to its energy transformation. Write the letter.\mk{4}\par\vspace{2pt}
+\begin{tabular}{@{}p{6.2cm}c@{\hspace{10mm}}p{8.2cm}@{}}
+electric kettle & \bx[0.8cm] & \textbf{A} elastic potential → kinetic\\
+fireworks & \bx[0.8cm] & \textbf{B} chemical → light + sound + thermal\\
+wind-up (clockwork) toy car & \bx[0.8cm] & \textbf{C} electrical → thermal\\
+bicycle dynamo lamp & \bx[0.8cm] & \textbf{D} kinetic → electrical → light\\
+\end{tabular}
+
+\qs\Q{4} A television takes in \textbf{200 J} of electrical energy. It gives out 60 J of light and 20 J of sound. The rest is thermal energy.\mk{4}\par
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+  \fill[eele] (0,0) rectangle (4,2); \node[white,font=\bfseries] at (2,1) {200 J electrical};
+  \fill[elig] (4,1.4) rectangle (8.5,2); \node[anchor=west,font=\bfseries] at (8.6,1.7) {60 J light};
+  \fill[esou] (4,1.2) rectangle (8.5,1.4); \node[anchor=west,font=\bfseries] at (8.6,1.15) {20 J sound};
+  \fill[ethe] (4,0) rectangle (8.5,1.2); \node[anchor=west,font=\bfseries] at (8.6,0.5) {? J thermal};
+\end{tikzpicture}
+\end{center}
+\textbf{a)} How much thermal energy is given out? Show your working.\lines{1}
+\textbf{b)} Which energy outputs are \textbf{useful} for a television? \blank[6.4cm]\par\vspace{4pt}
+\textbf{c)} Why does the back of a television feel warm?\lines{1}
+\textbf{d)} Complete: energy cannot be \blank[3cm] or \blank[3cm]; it can only change form.
+
+\qs\Q{5} \textbf{a)} Write \textbf{R} (renewable) or \textbf{N} (non-renewable).\mk{3}\par\vspace{2pt}
+\begin{tabular}{@{}l c @{\hspace{14mm}} l c@{}}
+tides & \bx[0.8cm] & solar water heater & \bx[0.8cm]\\
+kerosene & \bx[0.8cm] & wood from a replanted forest & \bx[0.8cm]\\
+cooking gas (cylinder) & \bx[0.8cm] & jet fuel & \bx[0.8cm]\\
+\end{tabular}\par
+\textbf{b)} Explain why the gas in a cooking cylinder is non-renewable.
+\lines{2}
+
+\qs\Q{6} What makes each energy change start? Name the change-maker.\mk{2}\par
+\textbf{a)} You strike a match and it bursts into flame: \blank[8.4cm]\par\vspace{4pt}
+\textbf{b)} A skydiver jumps out of a plane and speeds up: \blank[8cm]
+
+\qs\Q{7} When a car brakes hard, its brake discs become very hot.\mk{3}\par
+\textbf{a)} Describe the energy change and what causes it.
+\lines{3}
+\textbf{b)} A student says: "The car's kinetic energy has been destroyed." Explain why the student is wrong.
+\lines{3}
+
+\vspace{14pt}\needspace{6\baselineskip}
+\begin{tabular}{|p{5.4cm}|C{1.6cm}|C{1.6cm}|C{1.6cm}|C{1.6cm}|C{1.6cm}|}
+\hline\rowcolor{panel}\textbf{Marks (out of 25)} & 0 & 1–6 & 7–12 & 13–19 & 20–25\\\hline
+\textbf{Criterion A level (guide)} & 0 & 1–2 & 3–4 & 5–6 & 7–8\\\hline
+\end{tabular}\par\vspace{6pt}
+\textbf{How do I feel?}\quad \cb\ I understand this well\quad \cb\ I'm getting there\quad \cb\ I need more help\par\textbf{I need more practice with:} \blank[11cm]
+\end{document}
